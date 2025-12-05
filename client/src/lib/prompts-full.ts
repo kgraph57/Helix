@@ -219,6 +219,59 @@ export const fullPrompts: Prompt[] = [
 
   // 研究・学会
   {
+    id: "res-timeline-builder",
+    title: "Case Report Timeline Builder",
+    description: "カルテのバラバラな記録から、症例報告用の整理された時系列表（Timeline）を作成します。",
+    category: "research",
+    template: `以下のカルテ記録（メモ）を整理し、症例報告の「経過」セクションで使用できる時系列表（Timeline）を作成してください。
+日付（または入院第X病日）、出来事、検査結果、治療内容を明確に分けてください。
+
+# カルテ記録
+[日付ごとのメモや経過を入力]
+
+# 出力形式
+| 時期 | 出来事・症状 | 検査所見 | 治療・処置 |
+|---|---|---|---|
+| X月X日 | ... | ... | ... |`,
+    inputs: [
+      { key: 'notes', label: 'カルテ記録', placeholder: '例：X月X日 入院。発熱あり。抗菌薬開始...', type: 'textarea' }
+    ]
+  },
+  {
+    id: "com-mentor-email",
+    title: "Email to Mentor (Consultation)",
+    description: "指導医に症例報告の指導や添削を依頼するための、礼儀正しく要点を押さえたメールを作成します。",
+    category: "communication",
+    template: `指導医の先生に、症例報告の指導（または原稿の添削）をお願いするメールを作成してください。
+忙しい先生に対して、要件を簡潔に伝え、相手の都合に配慮した文面にしてください。
+
+# 依頼内容
+[例：抄録の確認をお願いしたい、学会発表の予演会をお願いしたい]
+# 期限や状況
+[例：来週の火曜日が締め切り、現在はドラフトが完成した段階]`,
+    inputs: [
+      { key: 'request', label: '依頼内容', placeholder: '例：作成した抄録の確認をお願いしたい', type: 'text' },
+      { key: 'deadline', label: '期限・状況', placeholder: '例：今週中に投稿が必要', type: 'text' }
+    ]
+  },
+  {
+    id: "res-journal-finder",
+    title: "Journal Selector",
+    description: "研究テーマや症例の内容に基づいて、投稿に適したターゲットジャーナル（投稿先候補）を提案します。",
+    category: "research",
+    template: `以下の研究（または症例報告）の内容に適した、投稿先の医学ジャーナルを3〜5つ提案してください。
+それぞれのジャーナルの特徴（Impact Factor、採択率の傾向、オープンアクセスかなど）と、なぜそのジャーナルが適しているかの理由も添えてください。
+
+# 研究タイトル/内容
+[タイトルや要旨を入力]
+# 希望条件
+[例：Impact Factor 3以上、査読が早い、オープンアクセス希望]`,
+    inputs: [
+      { key: 'content', label: '研究内容', placeholder: '例：稀な副作用の症例報告', type: 'textarea' },
+      { key: 'preferences', label: '希望条件', placeholder: '例：症例報告を受け付けている国際誌', type: 'text' }
+    ]
+  },
+  {
     id: "res-english-proofread",
     title: "Academic English Proofreading",
     description: "医学論文の英語を、学術的に自然で洗練された表現に校正します。",
