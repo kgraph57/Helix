@@ -557,3 +557,303 @@ const adminPrompts: Prompt[] = [
 ];
 
 fullPrompts.push(...educationPrompts, ...adminPrompts);
+
+// --- Research: Ideation & CQ (201-210) ---
+const researchIdeationPrompts: Prompt[] = [
+  {
+    id: 'res-cq-pico',
+    title: 'CQの構造化 (PICO/PECO)',
+    category: 'research',
+    description: '漠然とした臨床的疑問を、研究可能なPICO/PECO形式に構造化します。',
+    template: `以下の臨床的な疑問や興味のあるテーマを、研究可能なPICO（またはPECO）形式に整理してください。
+
+【臨床的疑問・テーマ】
+{{clinical_question}}
+
+【依頼内容】
+1. **P (Patient/Population)**: 対象となる患者群
+2. **I/E (Intervention/Exposure)**: 介入または曝露要因
+3. **C (Comparison)**: 比較対照
+4. **O (Outcome)**: アウトカム（主要評価項目・副次評価項目）
+5. **Study Design**: 適していると思われる研究デザインの提案`,
+    inputs: [
+      { key: 'clinical_question', label: '臨床的疑問・テーマ', placeholder: '例: 高齢者の心不全患者に対して、早期リハビリは予後を改善するか？', type: 'textarea' },
+    ]
+  },
+  {
+    id: 'res-finer-check',
+    title: 'FINER基準チェック',
+    category: 'research',
+    description: 'リサーチクエスチョンがFINER基準（実現可能性、興味深さ、新規性、倫理性、妥当性）を満たすか評価します。',
+    template: `以下のリサーチクエスチョンについて、FINER基準に基づいた批判的吟味を行ってください。
+
+【リサーチクエスチョン (PICO)】
+{{pico_question}}
+
+【依頼内容】
+以下の各項目について、強みと課題点（クリアすべきハードル）を指摘してください。
+1. **Feasible (実現可能性)**: 症例数、時間、費用、技術的課題
+2. **Interesting (興味深さ)**: 臨床医や研究者にとっての魅力
+3. **Novel (新規性)**: 既存の知見との違い、新しい点
+4. **Ethical (倫理性)**: 患者への不利益、プライバシー、同意取得
+5. **Relevant (妥当性・重要性)**: 臨床現場や医学知識への貢献度`,
+    inputs: [
+      { key: 'pico_question', label: 'リサーチクエスチョン (PICO)', placeholder: '例: P: 心不全患者, I: 遠隔モニタリング, C: 通常ケア, O: 再入院率', type: 'textarea' },
+    ]
+  },
+];
+
+// --- Research: Literature Review (211-220) ---
+const researchReviewPrompts: Prompt[] = [
+  {
+    id: 'res-pubmed-query',
+    title: 'PubMed検索クエリ作成',
+    category: 'research',
+    description: 'PICOに基づいて、PubMedで効率的に文献を検索するための検索式（MeSH Term含む）を作成します。',
+    template: `以下のPICOに基づいて、PubMedで使用する検索クエリを作成してください。
+
+【PICO】
+- P: {{patient}}
+- I: {{intervention}}
+- C: {{comparison}}
+- O: {{outcome}}
+
+【依頼内容】
+1. **Key Concepts**: 各要素に対応するキーワードとMeSH Termsのリストアップ
+2. **Search Strategy**: Boolean演算子（AND, OR）を用いた具体的な検索式
+3. **Filters**: 推奨されるフィルター設定（出版年、言語、研究デザインなど）`,
+    inputs: [
+      { key: 'patient', label: 'P (対象)', placeholder: '例: Heart failure', type: 'text' },
+      { key: 'intervention', label: 'I (介入)', placeholder: '例: Telemonitoring', type: 'text' },
+      { key: 'comparison', label: 'C (比較)', placeholder: '例: Standard care', type: 'text' },
+      { key: 'outcome', label: 'O (アウトカム)', placeholder: '例: Readmission', type: 'text' },
+    ]
+  },
+  {
+    id: 'res-gap-analysis',
+    title: '先行研究のギャップ特定',
+    category: 'research',
+    description: '既存の知見や先行研究の要約から、まだ解明されていない点（Research Gap）を特定します。',
+    template: `以下の先行研究の知見に基づいて、まだ解明されていない「Research Gap」を特定し、本研究の意義を言語化してください。
+
+【先行研究の知見・現状】
+{{background_knowledge}}
+
+【本研究のテーマ】
+{{my_research_topic}}
+
+【依頼内容】
+1. **何が分かっているか**: 既存のコンセンサス
+2. **何が分かっていないか**: データの不足、結果の不一致、未検討の集団など
+3. **本研究の独自性**: どのようにギャップを埋めるか（新規性のアピールポイント）`,
+    inputs: [
+      { key: 'background_knowledge', label: '先行研究の知見', placeholder: '例: 欧米の研究では有効性が示されているが、アジア人でのデータは乏しい...', type: 'textarea' },
+      { key: 'my_research_topic', label: '本研究のテーマ', placeholder: '例: 日本人高齢心不全患者における遠隔モニタリングの効果', type: 'text' },
+    ]
+  },
+];
+
+// --- Research: Study Design & Protocol (221-230) ---
+const researchProtocolPrompts: Prompt[] = [
+  {
+    id: 'res-variable-list',
+    title: '変数リストの作成支援',
+    category: 'research',
+    description: '研究目的に必要な主要評価項目、副次評価項目、交絡因子のリストアップを支援します。',
+    template: `以下の研究テーマにおいて、データ収集が必要な変数をリストアップしてください。
+
+【研究テーマ (PICO)】
+{{research_theme}}
+
+【依頼内容】
+以下のカテゴリーに分けて、具体的な変数を提案してください。
+1. **Outcome Variables (目的変数)**: 主要評価項目、副次評価項目
+2. **Exposure/Intervention Variables (説明変数)**: 介入の有無、用量、期間など
+3. **Confounding Factors (交絡因子)**: 結果に影響を与えうる患者背景（年齢、性別、併存疾患、重症度スコアなど）
+4. **Effect Modifiers (効果修飾因子)**: 効果の大きさを変えうる因子`,
+    inputs: [
+      { key: 'research_theme', label: '研究テーマ (PICO)', placeholder: '例: 敗血症患者における新規抗菌薬の腎保護効果', type: 'textarea' },
+    ]
+  },
+  {
+    id: 'res-ethics-draft',
+    title: '倫理委員会申請書のドラフト',
+    category: 'research',
+    description: '研究概要から、倫理的配慮（個人情報保護、インフォームドコンセント）に関する記述案を作成します。',
+    template: `以下の研究概要に基づいて、倫理委員会申請書の「倫理的配慮」および「個人情報の保護」のセクションのドラフトを作成してください。
+
+【研究デザイン】
+{{study_design}}
+
+【データ収集方法】
+{{data_collection}}
+
+【依頼内容】
+以下の点を含めて、倫理指針に準拠した表現で記述してください。
+1. **ヘルシンキ宣言・倫理指針の遵守**
+2. **個人情報の匿名化・管理方法**（連結可能匿名化など）
+3. **インフォームド・コンセント**（オプトアウトの適用可否とその理由、または同意取得の方法）
+4. **対象者への不利益・利益**`,
+    inputs: [
+      { key: 'study_design', label: '研究デザイン', placeholder: '例: 後方視的カルテ調査（観察研究）', type: 'text' },
+      { key: 'data_collection', label: 'データ収集方法', placeholder: '例: 電子カルテより診療情報を抽出', type: 'textarea' },
+    ]
+  },
+];
+
+fullPrompts.push(...researchIdeationPrompts, ...researchReviewPrompts, ...researchProtocolPrompts);
+
+// --- Research: Data Analysis (231-240) ---
+const researchAnalysisPrompts: Prompt[] = [
+  {
+    id: 'res-stat-plan',
+    title: '統計解析計画の立案',
+    category: 'research',
+    description: '変数の種類と研究デザインに基づいて、適切な統計検定方法を提案します。',
+    template: `以下の研究データに対して、適切な統計解析手法を提案してください。
+
+【比較したい群】
+{{groups}}
+
+【比較したい変数（アウトカム）】
+{{outcome_variable}}
+
+【変数の種類】
+{{variable_type}}
+
+【依頼内容】
+1. **単変量解析**: 2群間比較（パラメトリック/ノンパラメトリック）、3群以上の場合
+2. **多変量解析**: 調整すべき因子を考慮した解析手法（回帰分析の種類など）
+3. **必要な前提条件**: 正規性の確認、等分散性など`,
+    inputs: [
+      { key: 'groups', label: '比較したい群', placeholder: '例: 薬剤A投与群 vs 薬剤B投与群（独立2群）', type: 'text' },
+      { key: 'outcome_variable', label: '比較したい変数', placeholder: '例: 入院期間（日数）', type: 'text' },
+      { key: 'variable_type', label: '変数の種類', placeholder: '例: 連続変数（正規分布しない可能性あり）', type: 'text' },
+    ]
+  },
+  {
+    id: 'res-result-interpretation',
+    title: '統計結果の解釈と言語化',
+    category: 'research',
+    description: '統計解析の結果（p値、信頼区間、オッズ比など）を入力し、論文の結果セクションで使える表現を作成します。',
+    template: `以下の統計解析結果を、医学論文の「Results」セクションに適した英語（または日本語）の文章に変換し、臨床的な解釈を加えてください。
+
+【解析内容】
+{{analysis_method}}
+
+【結果データ】
+{{result_data}}
+
+【依頼内容】
+1. **結果の記述**: 数値を正確に引用した客観的な記述
+2. **統計学的解釈**: 有意差の有無、信頼区間の幅についての言及
+3. **臨床的解釈**: この結果が臨床的に何を意味するか（Discussionのヒント）`,
+    inputs: [
+      { key: 'analysis_method', label: '解析内容', placeholder: '例: 多変量ロジスティック回帰分析', type: 'text' },
+      { key: 'result_data', label: '結果データ', placeholder: '例: Odds Ratio 0.65 (95% CI: 0.45-0.92), p=0.015', type: 'textarea' },
+    ]
+  },
+];
+
+// --- Research: Writing & Submission (241-250) ---
+const researchWritingPrompts: Prompt[] = [
+  {
+    id: 'res-intro-flow',
+    title: 'Introductionの構成案',
+    category: 'research',
+    description: '「既知の事実」から「本研究の目的」に至るロジックフローを構築します。',
+    template: `以下の要素をつなげて、論理的で説得力のあるIntroductionの構成案（パラグラフごとのトピック）を作成してください。
+
+【背景（Known）】
+{{background}}
+
+【未解決の問題（Unknown/Gap）】
+{{gap}}
+
+【本研究の目的・仮説（Purpose/Hypothesis）】
+{{purpose}}
+
+【依頼内容】
+3〜4つのパラグラフ構成で、各パラグラフの主題とつなぎのロジック（Flow）を説明してください。`,
+    inputs: [
+      { key: 'background', label: '背景（既知の事実）', placeholder: '例: 心不全の再入院は大きな問題である...', type: 'textarea' },
+      { key: 'gap', label: '未解決の問題', placeholder: '例: しかし、高齢者における遠隔モニタリングの効果は定まっていない...', type: 'textarea' },
+      { key: 'purpose', label: '本研究の目的', placeholder: '例: 日本人高齢心不全患者における有効性を検証する', type: 'textarea' },
+    ]
+  },
+  {
+    id: 'res-cover-letter',
+    title: '投稿用カバーレター作成',
+    category: 'research',
+    description: 'ジャーナルエディターに対して、研究の新規性と重要性をアピールするカバーレターを作成します。',
+    template: `以下の論文を投稿するためのカバーレター（英語）を作成してください。
+
+【投稿先ジャーナル】
+{{journal_name}}
+
+【論文タイトル】
+{{paper_title}}
+
+【研究のハイライト・新規性】
+{{highlights}}
+
+【依頼内容】
+エディター（Editor-in-Chief）宛の標準的なフォーマットで、以下の点を含めてください。
+1. 投稿の意思表示
+2. 研究の重要性とジャーナルの読者層への適合性（Why this journal?）
+3. 利益相反、二重投稿がないことの宣誓
+4. 著者全員の同意`,
+    inputs: [
+      { key: 'journal_name', label: '投稿先ジャーナル', placeholder: '例: The New England Journal of Medicine', type: 'text' },
+      { key: 'paper_title', label: '論文タイトル', placeholder: '例: Efficacy of...', type: 'text' },
+      { key: 'highlights', label: '研究のハイライト', placeholder: '例: 世界初の大規模RCTであること、ガイドラインを変える可能性があること', type: 'textarea' },
+    ]
+  },
+];
+
+// --- Research: Peer Review Response (251-260) ---
+const researchReviewResponsePrompts: Prompt[] = [
+  {
+    id: 'res-review-todo',
+    title: '査読コメントのToDoリスト化',
+    category: 'research',
+    description: '査読者からの長いコメントを分解し、具体的な修正タスクのリストに変換します。',
+    template: `以下の査読者からのコメント（Reviewer Comments）を読み解き、対応が必要な具体的なアクション（ToDoリスト）に分解してください。
+
+【査読コメント】
+{{reviewer_comments}}
+
+【依頼内容】
+各指摘について、以下の形式で整理してください。
+1. **指摘の要約**: 何を問題視しているか
+2. **必要なアクション**: 追加解析、本文修正、図表修正、反論のみ、など
+3. **難易度/所要時間**: 推定（高/中/低）`,
+    inputs: [
+      { key: 'reviewer_comments', label: '査読コメント', placeholder: 'Paste reviewer comments here...', type: 'textarea' },
+    ]
+  },
+  {
+    id: 'res-rebuttal-draft',
+    title: '回答レター（Rebuttal）のドラフト',
+    category: 'research',
+    description: '査読者の指摘に対する、礼儀正しく論理的な回答案（英語）を作成します。',
+    template: `査読者の以下の指摘に対して、回答レター（Response to Reviewers）のドラフト（英語）を作成してください。
+
+【査読者の指摘】
+{{comment}}
+
+【こちらの対応・回答内容】
+{{response_content}}
+
+【依頼内容】
+1. **感謝の言葉**: 指摘に対する感謝（"We thank the reviewer for this insightful comment..."）
+2. **対応の明示**: 修正した場合はその箇所（"We have revised the manuscript..."）、修正しなかった場合はその理由
+3. **トーン**: 礼儀正しく、かつ科学的に主張するトーン`,
+    inputs: [
+      { key: 'comment', label: '査読者の指摘', placeholder: '例: The sample size is too small to draw this conclusion.', type: 'textarea' },
+      { key: 'response_content', label: 'こちらの対応・回答', placeholder: '例: 確かにサンプルサイズは小さいが、探索的研究としては十分である。Limitationに追記した。', type: 'textarea' },
+    ]
+  },
+];
+
+fullPrompts.push(...researchAnalysisPrompts, ...researchWritingPrompts, ...researchReviewResponsePrompts);
