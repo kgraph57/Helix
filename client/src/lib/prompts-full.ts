@@ -831,5 +831,174 @@ A1. [回答案]（まずは感謝を述べ、簡潔に回答する。データ�
       { key: 'research_summary', label: '研究の要旨', placeholder: '抄録や要旨を貼り付けてください', type: 'textarea' },
       { key: 'limitations', label: '研究の限界', placeholder: '例：単施設研究であること、サンプルサイズが小さいこと、後ろ向き研究であることなど', type: 'textarea' }
     ]
+  },
+
+  // 論文抄読会 (Journal Club)
+  {
+    id: "jc-quick-summary",
+    title: "3-Minute Paper Summary",
+    description: "複雑な医学論文を「背景・方法・結果・結論」の4点に絞って簡潔に要約します。",
+    category: "literature",
+    template: `以下の論文のAbstract（または本文の一部）を読み、忙しい医師が3分で内容を把握できるように要約してください。
+以下の4点に絞って箇条書きで出力してください。
+
+1. **背景 (Background)**: 何が臨床的な課題で、この研究は何を解決しようとしたのか？
+2. **方法 (Methods)**: どのような患者を対象に、何を比較したのか？（PICO形式で）
+3. **結果 (Results)**: 主要評価項目（Primary Endpoint）の結果はどうだったか？（具体的な数値とp値/信頼区間を含めて）
+4. **結論 (Conclusion)**: 著者らの結論は何か？臨床現場を変えるインパクトがあるか？
+
+# 論文テキスト
+[Abstractまたは本文を入力]`,
+    inputs: [
+      { key: 'text', label: '論文テキスト', placeholder: 'Abstractや本文を貼り付け...', type: 'textarea' }
+    ]
+  },
+  {
+    id: "jc-critical-appraisal",
+    title: "Critical Appraisal (CASP)",
+    description: "CASPチェックリストに基づき、論文の質とバイアスを批判的に吟味します。",
+    category: "literature",
+    template: `以下の論文について、批判的吟味（Critical Appraisal）を行ってください。
+CASPチェックリストの視点を取り入れ、以下の点について指摘してください。
+
+1. **妥当性 (Validity)**:
+   - ランダム化は適切か？盲検化はされているか？
+   - 解析はITT解析か？脱落率は？
+2. **結果の重要性 (Importance)**:
+   - 効果の大きさ（RR, OR, NNTなど）は臨床的に意味があるか？
+   - 信頼区間の幅は適切か？
+3. **適用可能性 (Applicability)**:
+   - 対象患者は日本の臨床現場（または自分の患者層）と似ているか？
+   - 費用対効果や害（副作用）のバランスはどうか？
+
+# 論文テキスト
+[MethodsとResultsを中心に貼り付け]`,
+    inputs: [
+      { key: 'text', label: '論文テキスト', placeholder: 'MethodsとResultsを中心に貼り付け...', type: 'textarea' }
+    ]
+  },
+  {
+    id: "jc-clinical-application",
+    title: "Clinical Application Discussion",
+    description: "論文の結果を自施設の患者に適用できるか、議論のためのポイントを整理します。",
+    category: "literature",
+    template: `この論文の結果を、実際の臨床現場（自施設）に適用する際の議論ポイントを整理してください。
+抄読会でディスカッションを盛り上げるための「問い」を3つ作成してください。
+
+例：
+- 「当院の患者層（高齢者が多いなど）にも、この結果は当てはまるだろうか？」
+- 「この新薬のコストは、得られるベネフィットに見合うだろうか？」
+- 「既存の治療フローチャートをどう変更すべきだろうか？」
+
+# 論文の要約
+[論文の要約や結論を入力]`,
+    inputs: [
+      { key: 'summary', label: '論文の要約', placeholder: '論文の結論や要約を入力...', type: 'textarea' }
+    ]
+  },
+  {
+    id: "jc-slide-outline",
+    title: "Journal Club Slide Outline",
+    description: "10分間の抄読会発表用スライド構成案を作成します。",
+    category: "presentation",
+    template: `以下の論文を紹介するための、10分間のプレゼンテーション用スライド構成案を作成してください。
+スライド枚数は8〜10枚程度とし、各スライドのタイトルと箇条書きの内容を提示してください。
+
+構成案：
+1. タイトルスライド
+2. 背景（Clinical Question）
+3. 方法（PICO）
+4. ...
+...
+10. Take Home Message
+
+# 論文情報
+[論文のタイトル、要約などを入力]`,
+    inputs: [
+      { key: 'info', label: '論文情報', placeholder: '論文の情報を入力...', type: 'textarea' }
+    ]
+  },
+
+  // 患者説明 (Patient Explanation)
+  {
+    id: "pat-term-translation",
+    title: "Medical Term Translator",
+    description: "専門用語を、小学生でも分かるような日常的な言葉や比喩に変換します。",
+    category: "communication",
+    template: `以下の医学専門用語を、医学知識のない患者さん（または小学生）にも分かるように、日常的な言葉や比喩を使って説明してください。
+正確さよりも「イメージしやすさ」を優先してください。
+
+例：
+- 「心不全」→「心臓というポンプの力が弱まって、血液を全身に送り出せなくなり、息切れやむくみが出る状態」
+- 「CKD（慢性腎臓病）」→「腎臓というフィルターが目詰まりして、体のゴミを捨てられなくなっている状態」
+
+# 専門用語
+[説明したい用語を入力]`,
+    inputs: [
+      { key: 'term', label: '専門用語', placeholder: '例：心房細動、HbA1c、ステント留置術', type: 'text' }
+    ]
+  },
+  {
+    id: "pat-treatment-comparison",
+    title: "Treatment Option Comparison",
+    description: "複数の治療選択肢（薬物療法 vs 手術など）のメリット・デメリットを比較表形式で整理します。",
+    category: "communication",
+    template: `以下の疾患に対する治療選択肢（AとB）について、患者さんが意思決定しやすいようにメリット・デメリットを比較整理してください。
+専門用語は避け、患者さんの生活への影響（痛み、入院期間、費用、通院頻度など）に焦点を当ててください。
+
+# 疾患と治療選択肢
+疾患：[疾患名]
+選択肢A：[治療法A]
+選択肢B：[治療法B]
+
+# 出力形式
+| | [治療法A] | [治療法B] |
+|---|---|---|
+| 期待できる効果 | ... | ... |
+| 体への負担（副作用） | ... | ... |
+| 生活への影響 | ... | ... |
+| おすすめする人 | ... | ... |`,
+    inputs: [
+      { key: 'condition', label: '疾患と選択肢', placeholder: '例：早期胃癌に対する「内視鏡治療」と「外科手術」', type: 'textarea' }
+    ]
+  },
+  {
+    id: "pat-faq-response",
+    title: "Empathic FAQ Response",
+    description: "患者さんが抱きがちな不安や質問に対して、共感的かつ医学的に正しい回答を作成します。",
+    category: "communication",
+    template: `以下の治療や病気に関して、患者さんからよくある質問（FAQ）と、それに対する回答を作成してください。
+回答は「共感（Empathy）」を第一にし、その上で正しい情報を伝えてください。
+「大丈夫ですよ」と安易に保証するのではなく、「不安ですよね」と寄り添いつつ、確率や事実を伝えてください。
+
+# トピック
+[病気や治療の内容]
+# 患者さんの主な不安
+[例：痛み、費用、再発など]`,
+    inputs: [
+      { key: 'topic', label: 'トピック', placeholder: '例：抗がん剤治療の開始', type: 'text' },
+      { key: 'concern', label: '主な不安', placeholder: '例：副作用で髪が抜けること、吐き気', type: 'text' }
+    ]
+  },
+  {
+    id: "pat-handout-generator",
+    title: "Patient Handout Generator",
+    description: "そのまま印刷して患者さんに渡せる、分かりやすい説明文書のドラフトを作成します。",
+    category: "communication",
+    template: `以下の内容について、患者さんに渡す説明用紙（ハンドアウト）の原稿を作成してください。
+親しみやすいトーンで、箇条書きや太字を活用して読みやすくしてください。
+
+構成：
+1. [病気/治療]とは？（一言で）
+2. なぜこの治療が必要なの？
+3. 具体的に何をするの？
+4. 気をつけてほしいこと（副作用や生活の注意点）
+5. こんな時はすぐに連絡を！
+
+# 説明内容
+[病気や治療の詳細]`,
+    inputs: [
+      { key: 'content', label: '説明内容', placeholder: '例：インフルエンザと診断された方へ（自宅療養の注意点）', type: 'textarea' }
+    ]
   }
 ];

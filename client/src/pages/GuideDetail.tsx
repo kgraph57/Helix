@@ -302,6 +302,128 @@ const guides = [
         )
       }
     ]
+  },
+  {
+    id: "journal-club-guide",
+    title: "【時短】論文抄読会（Journal Club）効率化ガイド",
+    description: "毎週の抄読会準備を30分で完了。論文の要約から批判的吟味、スライド作成までをAIがサポートします。",
+    category: "Research",
+    readTime: "10 min read",
+    steps: [
+      {
+        title: "Step 1: 3分で論文要約 (Quick Summary)",
+        icon: FileText,
+        content: (
+          <div className="space-y-4">
+            <p>
+              まずは論文の全体像を把握します。Abstractを読み込み、「背景・方法・結果・結論」の4点に絞って要約させます。
+              これだけで、その論文を読む価値があるかどうかを判断できます。
+            </p>
+            <PromptCard promptId="jc-quick-summary" />
+          </div>
+        )
+      },
+      {
+        title: "Step 2: 批判的吟味 (Critical Appraisal)",
+        icon: CheckCircle2,
+        content: (
+          <div className="space-y-4">
+            <p>
+              論文の結果を鵜呑みにしてはいけません。CASPチェックリストなどの基準に基づいて、
+              バイアスがないか、解析は適切か、結果は信頼できるかをAIと一緒にチェックします。
+            </p>
+            <PromptCard promptId="jc-critical-appraisal" />
+          </div>
+        )
+      },
+      {
+        title: "Step 3: 臨床適用とディスカッション (Clinical Application)",
+        icon: Lightbulb,
+        content: (
+          <div className="space-y-4">
+            <p>
+              抄読会の目的は「論文を読むこと」ではなく「明日の診療に活かすこと」です。
+              自施設の患者層に適用できるか、コストに見合うかなど、議論を盛り上げるためのポイントを整理します。
+            </p>
+            <PromptCard promptId="jc-clinical-application" />
+          </div>
+        )
+      },
+      {
+        title: "Step 4: スライド構成案の作成 (Slide Creation)",
+        icon: BarChart3,
+        content: (
+          <div className="space-y-4">
+            <p>
+              最後に、発表用のスライド構成を作成します。
+              10分程度の発表を想定し、要点を絞ったスライド構成案をAIに出力させます。
+            </p>
+            <PromptCard promptId="jc-slide-outline" />
+          </div>
+        )
+      }
+    ]
+  },
+  {
+    id: "patient-explanation-guide",
+    title: "【臨床】患者説明・インフォームドコンセント（SDM）ガイド",
+    description: "「専門用語が伝わらない」を解決。難しい病状や治療法を、患者さんが納得できる言葉で伝えるための翻訳ガイド。",
+    category: "Clinical",
+    readTime: "10 min read",
+    steps: [
+      {
+        title: "Step 1: 専門用語の翻訳 (Term Translation)",
+        icon: Lightbulb,
+        content: (
+          <div className="space-y-4">
+            <p>
+              医師が当たり前に使う「心不全」や「CKD」といった言葉も、患者さんには伝わりません。
+              小学生でも分かるような日常的な言葉や比喩に「翻訳」しましょう。
+            </p>
+            <PromptCard promptId="pat-term-translation" />
+          </div>
+        )
+      },
+      {
+        title: "Step 2: 治療選択肢の比較 (Treatment Comparison)",
+        icon: CheckSquare,
+        content: (
+          <div className="space-y-4">
+            <p>
+              複数の治療法（例：薬物療法 vs 手術）がある場合、それぞれのメリット・デメリットを整理して提示することが重要です。
+              患者さんが自分の価値観に合わせて選択できるよう、比較表を作成します。
+            </p>
+            <PromptCard promptId="pat-treatment-comparison" />
+          </div>
+        )
+      },
+      {
+        title: "Step 3: 不安への共感と回答 (Empathic Response)",
+        icon: Mail,
+        content: (
+          <div className="space-y-4">
+            <p>
+              患者さんの質問の裏には「不安」があります。
+              単に医学的な正解を答えるだけでなく、その不安に寄り添う（Empathy）言葉かけをAIと考えます。
+            </p>
+            <PromptCard promptId="pat-faq-response" />
+          </div>
+        )
+      },
+      {
+        title: "Step 4: 説明文書の作成 (Handout Creation)",
+        icon: FileText,
+        content: (
+          <div className="space-y-4">
+            <p>
+              口頭での説明は忘れてしまいがちです。
+              家に帰ってから家族と相談できるように、要点をまとめた分かりやすい説明文書（ハンドアウト）を作成して渡しましょう。
+            </p>
+            <PromptCard promptId="pat-handout-generator" />
+          </div>
+        )
+      }
+    ]
   }
 ];
 
