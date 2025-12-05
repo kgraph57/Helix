@@ -1,112 +1,180 @@
-import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { ArrowLeft, Copy, Check, ExternalLink } from "lucide-react";
-import { Link, useRoute } from "wouter";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { ArrowLeft, BookOpen, CheckCircle2, Copy, ExternalLink, FileText, Lightbulb, ListTodo, Mail, Search, Send } from "lucide-react";
 import { useState } from "react";
-import { fullPrompts } from "@/lib/prompts-full";
-import { cn } from "@/lib/utils";
+import { Link, useRoute } from "wouter";
+import { fullPrompts } from "../lib/prompts-full";
 
-// 記事データの型定義
-type GuideSection = {
-  title: string;
-  content: React.ReactNode;
-  relatedPromptId?: string;
-};
-
-type GuideData = {
-  id: string;
-  title: string;
-  subtitle: string;
-  sections: GuideSection[];
-};
-
-// 記事データ（本来は別ファイルやCMSから取得するが、今回はここにハードコード）
-const guidesData: Record<string, GuideData> = {
-  "case-report-workflow": {
+// ガイドデータの定義
+const guides = [
+  {
     id: "case-report-workflow",
-    title: "症例報告作成ワークフロー",
-    subtitle: "AIを活用して「400m走」のように最短距離で完走する",
-    sections: [
+    title: "【完全版】初めての症例報告：準備から投稿までの10ステップ",
+    description: "「何から始めればいいかわからない」を解決。カルテ整理、英語化、指導医への相談、投稿までをシェルパのように案内します。",
+    category: "Research",
+    readTime: "15 min read",
+    steps: [
       {
-        title: "はじめに：症例報告は「400m走」である",
+        title: "Step 0: マインドセットと準備 (Before You Start)",
+        icon: Lightbulb,
         content: (
-          <div className="space-y-4 text-gray-700 dark:text-gray-300">
+          <div className="space-y-4">
             <p>
-              多くの若手医師にとって、初めての症例報告は「終わりの見えないマラソン」のように感じられるかもしれません。
-              しかし、適切な手順とツールがあれば、それは「400m走」のような、短期間で集中して走り切れる競技に変わります。
+              症例報告は、あなたの経験した貴重な症例を医学界の共有財産にする重要な活動です。
+              初めて書くときは「完璧な論文」を目指す必要はありません。まずは「形にする」ことを目標にしましょう。
             </p>
-            <p>
-              このガイドでは、Medical Prompt Hubのプロンプトを実際の執筆フローのどのタイミングで使うか、
-              具体的なステップバイステップで解説します。
+            <div className="bg-muted p-4 rounded-lg">
+              <h4 className="font-semibold mb-2">準備するものリスト</h4>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li>カルテID（個人情報は厳重に管理）</li>
+                <li>画像データ（CT/MRI/病理など、匿名化必須）</li>
+                <li>患者さんの同意書（病院の書式を確認し、必ず取得する）</li>
+                <li>投稿規定（Target JournalのAuthor Guidelines）</li>
+              </ul>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              AIはあなたの「秘書」であり「翻訳家」ですが、最終的な責任者はあなた自身です。
+              患者さんのプライバシー保護と、事実の正確性には常に注意を払いましょう。
             </p>
           </div>
         )
       },
       {
-        title: "Phase 1: 素材の準備とCAREチェック (Start Dash)",
+        title: "Step 1: 素材集めとタイムライン作成 (Gathering Info)",
+        icon: ListTodo,
         content: (
-          <div className="space-y-4 text-gray-700 dark:text-gray-300">
+          <div className="space-y-4">
             <p>
-              まずは手元にあるカルテ情報を整理します。いきなり書き始めるのではなく、
-              「何が足りないか」を最初に把握することが重要です。
+              まずはカルテから情報を抜き出し、時系列に並べることから始めます。
+              「何を書けばいいかわからない」という悩みは、情報が整理されていないことが原因です。
             </p>
             <p>
-              ここで使うのが <strong>CAREチェックリスト</strong> です。
-              AIに現状の情報を投げると、ガイドライン上不足している視点（例：患者の主観的体験、タイムラインの明記など）を指摘してくれます。
+              以下のプロンプトを使って、バラバラのメモを整理されたタイムライン表に変換しましょう。
             </p>
+            <PromptCard promptId="res-timeline-builder" />
           </div>
-        ),
-        relatedPromptId: "res-check-care"
+        )
       },
       {
-        title: "Phase 2: 症例提示の執筆 (Case Presentation)",
+        title: "Step 2: 英語化の壁を越える (English Translation)",
+        icon: FileText,
         content: (
-          <div className="space-y-4 text-gray-700 dark:text-gray-300">
+          <div className="space-y-4">
             <p>
-              不足情報を補ったら、英語でのCase Presentationセクションを作成します。
-              日本語の経過要約を入力するだけで、医学英語として自然な表現に変換されます。
+              日本語で整理した経過を、英語の医学論文調に変換します。
+              DeepLなどの一般的な翻訳ツールでは直訳すぎて不自然になることがありますが、
+              専用のプロンプトを使えば、"The patient presented with..." のような医学特有の言い回しを適用できます。
             </p>
-            <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-md border border-yellow-200 dark:border-yellow-800 text-sm">
-              <strong>Point:</strong> 数値データ（検査値）や固有名詞（薬剤名）は、AIが誤変換する可能性があるため、必ず人間がダブルチェックしてください。
+            <PromptCard promptId="case-presentation" />
+          </div>
+        )
+      },
+      {
+        title: "Step 3: 文献検索と管理 (Literature Search)",
+        icon: Search,
+        content: (
+          <div className="space-y-4">
+            <p>
+              あなたの症例の「新規性」や「教育的価値」を主張するためには、過去の類似症例との比較が不可欠です。
+              PubMedで効率的に検索し、文献管理ツール（ZoteroやEndNote）で管理しましょう。
+            </p>
+            <div className="grid gap-4 md:grid-cols-2">
+              <PromptCard promptId="res-pubmed-query" />
+              <PromptCard promptId="res-bibtex-gen" />
             </div>
           </div>
-        ),
-        relatedPromptId: "case-presentation"
+        )
       },
       {
-        title: "Phase 3 & 4: 考察の構成と執筆 (Discussion)",
+        title: "Step 4: 考察の構成 (Discussion Structure)",
+        icon: BookOpen,
         content: (
-          <div className="space-y-4 text-gray-700 dark:text-gray-300">
+          <div className="space-y-4">
             <p>
-              考察（Discussion）は論文の心臓部です。「なぜこの症例が重要なのか？」を論理的に説明する必要があります。
+              Discussionは感想文ではありません。「なぜこの症例が重要か」を論理的に説明する場所です。
+              以下のテンプレートを使って、論理の骨組み（構成案）を作成しましょう。
             </p>
-            <p>
-              まずは <strong>PubMed検索クエリ</strong> で類似症例を探し、
-              <strong>Introduction構成案</strong> プロンプトを応用して、Discussionのパラグラフ構成（要約→比較→機序→結論）を作ります。
+            <PromptCard promptId="res-intro-flow" />
+            <p className="text-sm text-muted-foreground mt-2">
+              ※このプロンプトはIntroduction用ですが、Discussionの構成（要約→既知の事実→今回の知見→意義→限界→結論）にも応用できます。
             </p>
           </div>
-        ),
-        relatedPromptId: "res-intro-flow"
+        )
       },
       {
-        title: "Phase 5: 投稿準備 (Submission)",
+        title: "Step 5: 指導医への相談 (Consulting Mentor)",
+        icon: Mail,
         content: (
-          <div className="space-y-4 text-gray-700 dark:text-gray-300">
+          <div className="space-y-4">
             <p>
-              最後に、エディターへの「ラブレター」であるカバーレターを作成します。
-              あなたの症例がいかにユニークで、そのジャーナルの読者にとって有益かをアピールしましょう。
+              ドラフトができたら、必ず指導医に見てもらいましょう。
+              「忙しそうで声をかけづらい」という場合は、要点をまとめたメールで依頼するのがスムーズです。
             </p>
+            <PromptCard promptId="com-mentor-email" />
           </div>
-        ),
-        relatedPromptId: "res-cover-letter"
+        )
+      },
+      {
+        title: "Step 6: ジャーナル選定 (Journal Selection)",
+        icon: ExternalLink,
+        content: (
+          <div className="space-y-4">
+            <p>
+              どの雑誌に投稿するかで、採択率や読者層が変わります。
+              症例報告専門誌（Case Reports誌）や、各領域の専門誌から、適切な投稿先を選びましょう。
+            </p>
+            <PromptCard promptId="res-journal-finder" />
+          </div>
+        )
+      },
+      {
+        title: "Step 7: 投稿規定チェックとフォーマット (Formatting)",
+        icon: CheckCircle2,
+        content: (
+          <div className="space-y-4">
+            <p>
+              ジャーナルの規定（Author Guidelines）を守ることは、査読を受けるための最低条件です。
+              CAREガイドラインに準拠しているかどうかもチェックしましょう。
+            </p>
+            <div className="grid gap-4 md:grid-cols-2">
+              <PromptCard promptId="res-check-care" />
+              <PromptCard promptId="res-ref-format-convert" />
+            </div>
+          </div>
+        )
+      },
+      {
+        title: "Step 8: カバーレター作成 (Cover Letter)",
+        icon: FileText,
+        content: (
+          <div className="space-y-4">
+            <p>
+              エディターへの手紙（Cover Letter）は、あなたの論文の「セールスレター」です。
+              なぜこの症例を掲載すべきなのか、熱意を持って伝えましょう。
+            </p>
+            <PromptCard promptId="res-cover-letter" />
+          </div>
+        )
+      },
+      {
+        title: "Step 9: 投稿と査読対応 (Submission & Review)",
+        icon: Send,
+        content: (
+          <div className="space-y-4">
+            <p>
+              投稿後、査読者からコメント（Revision）が返ってくることがあります。
+              これは「不合格」ではなく「より良くするための提案」です。感情的にならず、論理的かつ礼儀正しく対応しましょう。
+            </p>
+            <PromptCard promptId="res-reviewer-response" />
+          </div>
+        )
       }
     ]
   }
-};
+];
 
-// プロンプト埋め込み用コンポーネント
-function EmbeddedPrompt({ promptId }: { promptId: string }) {
+function PromptCard({ promptId }: { promptId: string }) {
   const prompt = fullPrompts.find(p => p.id === promptId);
   const [copied, setCopied] = useState(false);
 
@@ -119,97 +187,99 @@ function EmbeddedPrompt({ promptId }: { promptId: string }) {
   };
 
   return (
-    <Card className="my-6 border-blue-100 dark:border-blue-900 bg-blue-50/50 dark:bg-blue-900/10">
-      <CardContent className="p-4">
-        <div className="flex items-center justify-between mb-2">
-          <div className="font-semibold text-blue-700 dark:text-blue-300 flex items-center gap-2">
-            <ExternalLink className="h-4 w-4" />
-            使用プロンプト: {prompt.title}
-          </div>
-          <div className="flex gap-2">
-            <Button size="sm" variant="outline" className="h-8 text-xs" onClick={handleCopy}>
-              {copied ? <Check className="h-3 w-3 mr-1" /> : <Copy className="h-3 w-3 mr-1" />}
-              {copied ? "Copied" : "Copy Template"}
-            </Button>
-            <Link href={`/prompts/${prompt.id}`}>
-              <Button size="sm" className="h-8 text-xs bg-blue-600 hover:bg-blue-700 text-white">
-                Try it Now
-              </Button>
-            </Link>
-          </div>
+    <Card className="bg-muted/50 border-dashed">
+      <CardHeader className="pb-2">
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-sm font-medium flex items-center gap-2">
+            <Search className="h-4 w-4 text-primary" />
+            {prompt.title}
+          </CardTitle>
+          <Button variant="ghost" size="icon" className="h-6 w-6" onClick={handleCopy}>
+            {copied ? <CheckCircle2 className="h-3 w-3 text-green-500" /> : <Copy className="h-3 w-3" />}
+          </Button>
         </div>
-        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+        <CardDescription className="text-xs line-clamp-1">
           {prompt.description}
-        </p>
-        <div className="bg-white dark:bg-gray-950 p-3 rounded border text-xs font-mono text-gray-500 overflow-hidden h-20 relative">
-          {prompt.template}
-          <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white dark:from-gray-950 to-transparent" />
-        </div>
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="pb-2">
+        <Link href={`/prompt/${prompt.id}`}>
+          <Button variant="outline" size="sm" className="w-full text-xs h-7">
+            Try this prompt
+          </Button>
+        </Link>
       </CardContent>
     </Card>
   );
 }
 
 export default function GuideDetail() {
-  const [match, params] = useRoute("/guides/:id");
-  const guideId = params?.id;
-  const guide = guideId ? guidesData[guideId] : null;
+  const [match, params] = useRoute("/guide/:id");
+  const guide = guides.find(g => g.id === params?.id);
 
-  if (!guide) {
-    return (
-      <Layout>
-        <div className="text-center py-20">
-          <h2 className="text-2xl font-bold text-gray-900">Guide Not Found</h2>
-          <Link href="/guides">
-            <Button className="mt-4" variant="outline">Back to Guides</Button>
-          </Link>
-        </div>
-      </Layout>
-    );
+  if (!match || !guide) {
+    return <div>Guide not found</div>;
   }
 
   return (
-    <Layout>
-      <div className="max-w-3xl mx-auto">
-        <Link href="/guides" className="inline-flex items-center text-sm text-gray-500 hover:text-gray-900 mb-6 transition-colors">
-          <ArrowLeft className="h-4 w-4 mr-1" /> Back to Guides
+    <div className="container max-w-4xl py-8 space-y-8">
+      {/* Header */}
+      <div className="space-y-4">
+        <Link href="/guides">
+          <Button variant="ghost" size="sm" className="gap-2 pl-0 hover:bg-transparent hover:text-primary">
+            <ArrowLeft className="h-4 w-4" />
+            Back to Guides
+          </Button>
         </Link>
-
-        <article className="prose prose-slate dark:prose-invert max-w-none">
-          <div className="mb-8 border-b pb-8">
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 mb-2">
-              {guide.title}
-            </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-400 font-light">
-              {guide.subtitle}
-            </p>
+        <div className="space-y-2">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <span className="bg-primary/10 text-primary px-2 py-0.5 rounded text-xs font-medium">
+              {guide.category}
+            </span>
+            <span>•</span>
+            <span>{guide.readTime}</span>
           </div>
-
-          <div className="space-y-12">
-            {guide.sections.map((section, index) => (
-              <section key={index} className="relative">
-                <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4 flex items-center">
-                  {section.title}
-                </h2>
-                <div className="text-lg leading-relaxed">
-                  {section.content}
-                </div>
-                {section.relatedPromptId && (
-                  <EmbeddedPrompt promptId={section.relatedPromptId} />
-                )}
-              </section>
-            ))}
-          </div>
-
-          <div className="mt-12 pt-8 border-t">
-            <h3 className="text-xl font-bold mb-4">おわりに：AIは「共著者」</h3>
-            <p className="text-gray-700 dark:text-gray-300">
-              AIは執筆を代行するだけでなく、思考の整理や品質管理（ガイドラインチェック）のパートナーとなります。
-              このフローを一度体験すれば、次からはもっと速く、自信を持って「完走」できるはずです。
-            </p>
-          </div>
-        </article>
+          <h1 className="text-3xl font-bold tracking-tight">{guide.title}</h1>
+          <p className="text-lg text-muted-foreground">{guide.description}</p>
+        </div>
       </div>
-    </Layout>
+
+      <Separator />
+
+      {/* Content */}
+      <div className="space-y-12">
+        {guide.steps.map((step, index) => (
+          <div key={index} className="relative pl-8 md:pl-12 border-l border-border/50 pb-12 last:pb-0">
+            {/* Timeline Icon */}
+            <div className="absolute -left-3 top-0 bg-background p-1 rounded-full border border-border">
+              <step.icon className="h-4 w-4 text-primary" />
+            </div>
+            
+            <div className="space-y-4">
+              <h2 className="text-xl font-semibold flex items-center gap-2">
+                {step.title}
+              </h2>
+              <div className="text-muted-foreground leading-relaxed">
+                {step.content}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Footer */}
+      <div className="bg-muted/30 p-8 rounded-xl text-center space-y-4 mt-12">
+        <h3 className="text-xl font-semibold">Ready to start your research?</h3>
+        <p className="text-muted-foreground">
+          このガイドで紹介したプロンプトを使って、最初のステップ「素材集め」から始めましょう。
+        </p>
+        <Link href="/prompt/res-timeline-builder">
+          <Button size="lg" className="gap-2">
+            Start Step 1
+            <ArrowLeft className="h-4 w-4 rotate-180" />
+          </Button>
+        </Link>
+      </div>
+    </div>
   );
 }
