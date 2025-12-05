@@ -3,7 +3,9 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Category from "@/pages/Category";
 import Home from "@/pages/Home";
 import NotFound from "@/pages/NotFound";
-import PromptDetail from "@/pages/PromptDetail";
+import PromptDetail from "./pages/PromptDetail";
+import Guides from "./pages/Guides";
+import GuideDetail from "./pages/GuideDetail";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -13,8 +15,9 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/category/:id" component={Category} />
-      <Route path="/prompt/:id" component={PromptDetail} />
-      <Route path="/404" component={NotFound} />
+     <Route path={"/prompts/:id"} component={PromptDetail} />
+      <Route path={"/guides"} component={Guides} />
+      <Route path={"/guides/:id"} component={GuideDetail} />     <Route path="/404" component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
     </Switch>

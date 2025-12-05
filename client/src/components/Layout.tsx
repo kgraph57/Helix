@@ -45,6 +45,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <span className="mr-2">🏠</span> ホーム
             </Button>
           </Link>
+          <Link href="/guides">
+            <Button
+              variant={location.startsWith("/guides") ? "secondary" : "ghost"}
+              className={cn("w-full justify-start font-medium", location.startsWith("/guides") && "bg-secondary text-secondary-foreground")}
+              onClick={() => setIsMobileOpen(false)}
+            >
+              <span className="mr-2">📚</span> ガイド・記事
+            </Button>
+          </Link>
         </div>
 
         <div className="mt-6 mb-2 px-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
