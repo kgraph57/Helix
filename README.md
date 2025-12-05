@@ -30,3 +30,4 @@ Medical Prompt Hubは、医師や研究者がAI（ChatGPT, Claudeなど）を臨
 
 ## 📄 License
 MIT License
+
