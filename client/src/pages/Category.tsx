@@ -2,7 +2,8 @@ import { Layout } from "@/components/Layout";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { categories, prompts } from "@/lib/prompts";
+import { categories } from "@/lib/prompts";
+import { fullPrompts as prompts } from "@/lib/prompts-full";
 import { ArrowLeft, ArrowRight, Copy } from "lucide-react";
 import { Link, useRoute } from "wouter";
 
