@@ -1,6 +1,5 @@
 import { Prompt } from "./prompts";
 
-// 既存のプロンプト定義（prompts.tsの内容を含む）
 export const fullPrompts: Prompt[] = [
   // 診断支援
   {
@@ -495,183 +494,126 @@ export const fullPrompts: Prompt[] = [
       { key: 'info', label: '論文情報', placeholder: '例: "Deep learning for..." by Smith et al., Nature Medicine 2024', type: 'textarea' }
     ]
   },
-
-  // ガイドラインチェック
+  // Research - Paper Writing Guide Prompts
   {
-    id: "res-check-consort",
-    title: "CONSORT Checklist (RCT)",
-    description: "ランダム化比較試験（RCT）の報告がCONSORT声明に準拠しているかチェックします。",
+    id: "research-finer-check",
+    title: "FINER基準による研究テーマ評価",
+    description: "研究テーマをFINER基準（Feasible, Interesting, Novel, Ethical, Relevant）に基づいて多角的に評価し、改善点を提案します。",
     category: "research",
-    template: `以下のRCT論文のドラフトを、CONSORT 2010声明に基づいてチェックしてください。
-特に以下の必須項目が記述されているか確認し、不足を指摘してください。
+    template: `あなたは経験豊富な臨床研究者です。以下の研究テーマ案をFINER基準に基づいて厳密に評価し、各項目について具体的なフィードバックと改善案を提示してください。
 
-1. **Randomisation**: ランダム化の方法と割り付けの隠蔽
-2. **Blinding**: 盲検化の対象と方法
-3. **Sample size**: サンプルサイズ計算の根拠
-4. **Outcomes**: 主要評価項目と副次評価項目の定義
-5. **Flow diagram**: 患者フロー（除外理由など）の記述
+研究テーマ案: {{theme}}
+対象患者: {{population}}
+介入/要因: {{intervention}}
+アウトカム: {{outcome}}
 
-# 論文ドラフト
-[ドラフトを入力]`,
+# FINER基準による評価
+1. Feasible (実行可能性): 時間、資金、症例数、技術的ハードルについて
+2. Interesting (興味深さ): 臨床医や読者にとっての魅力
+3. Novel (新規性): 既存の研究との違い、独自性
+4. Ethical (倫理的配慮): 患者への侵襲、個人情報、倫理的課題
+5. Relevant (妥当性・意義): 臨床現場への貢献度、将来性
+
+# 総合評価と改善アドバイス
+- 研究の強み:
+- 懸念点・弱点:
+- 具体的な改善案（切り口の変更、対象の絞り込みなど）:`,
     inputs: [
-      { key: 'draft', label: 'ドラフト', placeholder: 'Paste RCT draft here...', type: 'textarea' }
+      { key: 'theme', label: '研究テーマ案', placeholder: '例：高齢者心不全患者における遠隔モニタリングの再入院予防効果', type: 'textarea' },
+      { key: 'population', label: '対象患者 (P)', placeholder: '例：75歳以上の慢性心不全患者', type: 'text' },
+      { key: 'intervention', label: '介入/要因 (I/E)', placeholder: '例：スマホアプリを用いた体重・血圧の連日記録', type: 'text' },
+      { key: 'outcome', label: 'アウトカム (O)', placeholder: '例：6ヶ月以内の心不全増悪による再入院率', type: 'text' }
     ]
   },
   {
-    id: "res-check-strobe",
-    title: "STROBE Checklist (Observational)",
-    description: "観察研究（コホート、症例対照、横断研究）の報告がSTROBE声明に準拠しているかチェックします。",
+    id: "research-data-collection-list",
+    title: "データ収集項目リスト作成",
+    description: "研究テーマに基づいて、データ収集シート（CRF）に含めるべき必須項目をリストアップし、入力形式のアドバイスを提供します。",
     category: "research",
-    template: `以下の観察研究のドラフトを、STROBE声明に基づいてチェックしてください。
-特に以下の項目について、記述が十分か確認してください。
+    template: `以下の研究テーマについて、データ収集シート（Case Report Form）に含めるべき項目をリストアップしてください。
+先行研究で一般的に調整変数として用いられる項目や、解析に必要な項目を網羅してください。また、各項目の推奨入力形式（数値、カテゴリ、二値変数など）も併せて記載してください。
 
-1. **Study Design**: 研究デザインの明確な記述
-2. **Setting**: 研究の場所と期間
-3. **Participants**: 適格基準と除外基準
-4. **Variables**: 変数の定義と測定方法
-5. **Bias**: バイアスの対処方法
-6. **Study Size**: サンプルサイズの決定方法
+研究テーマ: {{theme}}
+主要評価項目: {{primary_endpoint}}
 
-# 論文ドラフト
-[ドラフトを入力]`,
+# データ収集項目リスト
+## 1. 患者背景 (Patient Characteristics)
+- 項目名 (入力形式の推奨): 理由/備考
+
+## 2. 治療・介入内容 (Treatment/Intervention)
+- 項目名 (入力形式の推奨): 理由/備考
+
+## 3. 検査データ・測定値 (Laboratory Data/Measurements)
+- 項目名 (入力形式の推奨): 理由/備考
+
+## 4. アウトカム・イベント (Outcomes/Events)
+- 項目名 (入力形式の推奨): 理由/備考
+
+## データ入力時の注意点
+- 欠損値の扱い:
+- 単位の統一:
+- カテゴリ化の基準:`,
     inputs: [
-      { key: 'draft', label: 'ドラフト', placeholder: 'Paste observational study draft here...', type: 'textarea' }
+      { key: 'theme', label: '研究テーマ', placeholder: '例：心房細動患者におけるDOACのアドヒアランスと脳卒中発症リスク', type: 'textarea' },
+      { key: 'primary_endpoint', label: '主要評価項目', placeholder: '例：脳卒中または全身性塞栓症の発症', type: 'text' }
     ]
   },
   {
-    id: "res-workflow-planner",
-    title: "Research Project Planner",
-    description: "研究プロジェクトの全体計画（タスク分解とスケジュール）を立案し、ガントチャート用のコードを生成します。",
+    id: "research-methods-draft",
+    title: "Methodsセクションドラフト作成",
+    description: "研究デザイン情報を入力すると、医学論文のMethodsセクションのドラフト（英語）を作成します。再現性を重視した記述を行います。",
     category: "research",
-    template: `以下の研究テーマについて、プロジェクトの全体計画を立案してください。
-開始日から目標期限までの間に必要なタスクを洗い出し、現実的なスケジュールを提案してください。
+    template: `以下の情報を基に、医学論文のMethodsセクションのドラフトを英語で作成してください。
+再現性を担保するため、具体的かつ詳細に記述し、標準的な医学論文の構成（Study Design, Participants, Interventions, Outcomes, Statistical Analysis）に従ってください。
 
-# 研究テーマ
-[研究テーマを入力]
-# 開始日
-[開始日]
-# 目標期限
-[目標期限]
+Study Design: {{study_design}}
+Setting/Location: {{setting}}
+Participants (Inclusion/Exclusion): {{participants}}
+Interventions/Exposures: {{interventions}}
+Outcomes (Primary/Secondary): {{outcomes}}
+Statistical Analysis: {{statistics}}
 
-# 出力形式
-1. **タスク分解**: 倫理申請、データ収集、解析、執筆、投稿などの主要フェーズ
-2. **スケジュール表**: 各タスクの開始・終了時期の目安
-3. **Mermaid Code**: これをガントチャートとして可視化するためのMermaid記法のコード`,
+# Methods
+
+## Study Design and Setting
+
+## Participants
+
+## Data Collection and Definitions
+
+## Statistical Analysis`,
     inputs: [
-      { key: 'research_topic', label: '研究テーマ', placeholder: '例: 新規抗がん剤の第II相試験', type: 'text' },
-      { key: 'start_date', label: '開始日', placeholder: '例: 2025/04/01', type: 'text' },
-      { key: 'target_deadline', label: '目標期限', placeholder: '例: 2026/03の学会で発表', type: 'text' },
-    ]
-  },
-  // 新規追加: 初心者向け症例報告支援プロンプト
-  {
-    id: "res-timeline-builder",
-    title: "Clinical Timeline Builder",
-    description: "バラバラのカルテ情報から、症例報告に必要な時系列表（Timeline）を作成します。",
-    category: "research",
-    template: `あなたは医学論文の執筆支援を行うAIアシスタントです。
-以下の【カルテ情報】を基に、症例報告（Case Report）で使用できる整理された時系列表（Timeline）を作成してください。
-
-# 作成ルール
-1. **時系列の整理**: 入院日や発症日を「Day 0」または「X日前」として、出来事を時系列順に並べてください。
-2. **重要事項の抽出**: 症状の変化、検査結果の異常値、治療介入（薬剤開始・変更）、転帰などの重要なイベントを抽出してください。
-3. **英語化の準備**: 各イベントについて、医学的に適切な英語表現の候補も併記してください。
-4. **フォーマット**: 以下のMarkdownテーブル形式で出力してください。
-
-| Timepoint | Event (Japanese) | Event (English Draft) | Key Data/Findings |
-|-----------|------------------|-----------------------|-------------------|
-| Day -X    | ...              | ...                   | ...               |
-| Day 0     | ...              | ...                   | ...               |
-
-【カルテ情報】:
-[ここにカルテの経過記録、検査結果、処方歴などを貼り付けてください]
-`,
-    inputs: [
-      { key: 'chart_info', label: 'カルテ情報', placeholder: 'カルテの経過記録、検査結果、処方歴などを貼り付けてください', type: 'textarea' }
+      { key: 'study_design', label: 'Study Design', placeholder: 'e.g., Retrospective cohort study', type: 'text' },
+      { key: 'setting', label: 'Setting/Location', placeholder: 'e.g., Single-center, tertiary care hospital in Japan, from Jan 2020 to Dec 2022', type: 'text' },
+      { key: 'participants', label: 'Participants', placeholder: 'e.g., Patients aged >18 with type 2 diabetes. Excluded: dialysis patients.', type: 'textarea' },
+      { key: 'interventions', label: 'Interventions', placeholder: 'e.g., SGLT2 inhibitors vs DPP-4 inhibitors', type: 'text' },
+      { key: 'outcomes', label: 'Outcomes', placeholder: 'e.g., Primary: MACE. Secondary: All-cause mortality.', type: 'textarea' },
+      { key: 'statistics', label: 'Statistical Analysis', placeholder: 'e.g., Cox proportional hazards model, Propensity score matching, p<0.05 significance.', type: 'textarea' }
     ]
   },
   {
-    id: "com-mentor-email",
-    title: "Email to Mentor for Review",
-    description: "指導医に論文ドラフトの添削を依頼するための、失礼がなく効率的なメール文面を作成します。",
-    category: "communication",
-    template: `あなたは若手医師の指導医への連絡を支援するAIアシスタントです。
-以下の【状況】を基に、指導医に論文（症例報告）のドラフト添削を依頼するメール文面を作成してください。
-
-# 要件
-1. **件名**: 一目で用件と緊急度がわかる件名にしてください。
-2. **構成**:
-    - 挨拶と日頃の感謝
-    - 依頼の概要（何を、いつまでに見てほしいか）
-    - **特に見てほしいポイント**（論理構成、英語表現、図表など）を箇条書きで明記
-    - 添付ファイルの説明
-    - 締めの挨拶
-3. **トーン**: 礼儀正しく、かつ多忙な指導医の時間を尊重した簡潔な表現にしてください。
-
-【状況】:
-- 論文の種類: [例: 〇〇症例のCase Report]
-- 投稿予定ジャーナル: [例: Internal Medicine]
-- 特に相談したい点: [例: Discussionの論理構成、図2の適切さ]
-- 希望期限: [例: 来週の水曜日まで]
-- その他: [例: 英語はDeepLで翻訳した段階です]
-`,
-    inputs: [
-      { key: 'situation', label: '状況', placeholder: '論文の種類、投稿予定ジャーナル、相談点、期限などを入力', type: 'textarea' }
-    ]
-  },
-  {
-    id: "res-journal-finder",
-    title: "Journal Finder for Case Reports",
-    description: "症例の内容から、投稿に適したジャーナル（Case Reports誌など）の候補を提案します。",
+    id: "research-rebuttal-letter",
+    title: "査読コメントへの回答 (Rebuttal) 作成",
+    description: "査読者からの厳しい指摘に対して、礼儀正しく、かつ論理的に反論または同意するための回答案（英語）を作成します。",
     category: "research",
-    template: `あなたは医学研究の投稿支援を行うAIアシスタントです。
-以下の【症例概要】を分析し、投稿に適したジャーナル（特にCase Reportを受け付けているもの）を3〜5つ提案してください。
+    template: `あなたは医学論文の著者です。査読者から以下の指摘を受けました。これに対する回答（Response to Reviewers）を作成してください。
+回答のトーンは非常に礼儀正しく（Polite）、かつ科学的に論理的（Logical）である必要があります。
+指摘内容が正当であれば素直に認め修正箇所を示し、誤解であれば丁寧に説明してください。
 
-# 提案項目
-各ジャーナルについて、以下の情報を含めてください（あなたの知識ベースにある範囲で）：
-1. **Journal Name**: ジャーナル名
-2. **Focus/Scope**: そのジャーナルが好む領域やトピック
-3. **Impact Factor / CiteScore**: およその指標（わかれば）
-4. **Open Access Fee (APC)**: 費用の目安（High/Medium/Low）
-5. **Recommendation Reason**: なぜこの症例がこのジャーナルに適しているかの理由
+論文タイトル: {{paper_title}}
+査読者の指摘: {{reviewer_comment}}
+こちらの主張/対応: {{author_response}}
 
-# 考慮事項
-- 一般的な総合誌（General Medicine）と、専門誌（Specialty Journal）の両方を検討してください。
-- 症例の希少性や教育的価値を考慮して選定してください。
+# Response to Reviewer
 
-【症例概要】:
-- 領域: [例: 循環器内科]
-- 診断名: [例: タコツボ心筋症の再発例]
-- 新規性・教育的価値: [例: 若年男性での発症、特定の薬剤との関連が疑われる]
-`,
+**Reviewer's Comment:**
+"{{reviewer_comment}}"
+
+**Author's Response:**`,
     inputs: [
-      { key: 'case_summary', label: '症例概要', placeholder: '領域、診断名、新規性・教育的価値などを入力', type: 'textarea' }
-    ]
-  },
-  {
-    id: "res-fact-check",
-    title: "Logical Consistency Check",
-    description: "論文ドラフト内の論理矛盾や、数値の不整合（ファクトチェック）を洗い出します。",
-    category: "research",
-    template: `あなたは医学論文の査読者（Reviewer）です。
-以下の【論文ドラフト】を読み、論理的な矛盾や数値の不整合がないか厳しくチェックしてください。
-
-# チェック項目
-1. **数値の整合性**: 本文中の数値と、表（Table）や図（Figure）の説明に矛盾はないか？
-2. **時系列の矛盾**: 経過の記述で、時間の前後関係がおかしい箇所はないか？
-3. **診断の論理**: 検査結果からその診断を導く論理に飛躍や矛盾はないか？
-4. **用語の統一**: 同じ現象に対して異なる用語が混在していないか？
-
-# 出力形式
-- **指摘事項**: 矛盾が疑われる箇所を具体的に引用し、なぜ矛盾しているかを説明してください。
-- **修正案**: どのように修正すべきかの提案。
-- 問題がなければ「論理的な矛盾は見当たりませんでした」と出力してください。
-
-【論文ドラフト】:
-[ここに論文の本文（Case Presentation, Discussionなど）を貼り付けてください]
-`,
-    inputs: [
-      { key: 'draft', label: '論文ドラフト', placeholder: '論文の本文（Case Presentation, Discussionなど）を貼り付けてください', type: 'textarea' }
+      { key: 'paper_title', label: '論文タイトル', placeholder: '論文のタイトルを入力', type: 'text' },
+      { key: 'reviewer_comment', label: '査読者の指摘', placeholder: '例：The sample size is too small to draw definitive conclusions.', type: 'textarea' },
+      { key: 'author_response', label: 'こちらの主張/対応', placeholder: '例：ご指摘に同意します。Limitationセクションにサンプルサイズの限界について追記しました。しかし、希少疾患であるため、この規模でも貴重なデータであると考えています。', type: 'textarea' }
     ]
   }
 ];
