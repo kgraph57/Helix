@@ -16,6 +16,44 @@ const guides = [
     readTime: "15 min read",
     steps: [
       {
+        title: "Introduction: なぜ症例報告を書くのか？ (Why Case Reports Matter)",
+        icon: Lightbulb,
+        content: (
+          <div className="space-y-4">
+            <p>
+              「忙しい臨床の合間を縫って、なぜわざわざ論文を書くのか？」
+              そう思うかもしれません。しかし、症例報告には医学的にも、あなた自身のキャリアにとっても、計り知れない価値があります。
+            </p>
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-800">
+                <h4 className="font-semibold text-blue-800 dark:text-blue-300 mb-2 flex items-center gap-2">
+                  <span className="text-lg">🌍</span> 医学への貢献
+                </h4>
+                <p className="text-sm text-muted-foreground">
+                  未知の副作用、新しい治療効果、稀な病態...。
+                  医学の進歩は常に「たった1人の症例」の報告から始まります。
+                  あなたの報告が、地球の裏側の患者さんを救うヒントになるかもしれません。
+                </p>
+              </div>
+              <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-100 dark:border-green-800">
+                <h4 className="font-semibold text-green-800 dark:text-green-300 mb-2 flex items-center gap-2">
+                  <span className="text-lg">📈</span> 医師としての成長
+                </h4>
+                <p className="text-sm text-muted-foreground">
+                  1つの症例を徹底的に調べ上げ、論理的に考察することで、
+                  病態生理の理解が深まり、臨床能力が飛躍的に向上します。
+                  「書くこと」は「深く考えること」そのものです。
+                </p>
+              </div>
+            </div>
+            <p className="text-sm text-muted-foreground mt-2">
+              そして何より、症例報告はあなたの医師としての「生きた証（業績）」となり、キャリアの第一歩となります。
+              このガイドは、その第一歩を全力でサポートするために作られました。
+            </p>
+          </div>
+        )
+      },
+      {
         title: "Step 0: マインドセットと準備 (Before You Start)",
         icon: Lightbulb,
         content: (
