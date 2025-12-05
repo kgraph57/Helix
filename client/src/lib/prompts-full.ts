@@ -616,4 +616,105 @@ Statistical Analysis: {{statistics}}
       { key: 'author_response', label: 'こちらの主張/対応', placeholder: '例：ご指摘に同意します。Limitationセクションにサンプルサイズの限界について追記しました。しかし、希少疾患であるため、この規模でも貴重なデータであると考えています。', type: 'textarea' }
     ]
   }
+
+,
+  {
+    id: 'res-stat-interpretation',
+    title: 'Statistical Result Interpretation',
+    description: '統計解析の結果（P値、信頼区間、オッズ比など）を解釈し、論文のResultsセクションに記載する文章を作成します。',
+    category: 'research',
+    template: `あなたは医学統計の専門家です。以下の統計解析結果を解釈し、医学論文のResultsセクションに適した形式で記述してください。
+
+解析手法: {{analysis_method}}
+結果データ: {{result_data}}
+比較対象: {{comparison_groups}}
+
+# 出力形式
+1. **結果の要約**: 統計的に有意な差があったか、どのような傾向が見られたか。
+2. **論文記述案（英語）**: Resultsセクションにそのまま使える英文。
+3. **論文記述案（日本語）**: 上記の和訳。
+4. **解釈の注意点**: 交絡因子の可能性や、臨床的な意義（Clinical Significance）についてのコメント。`,
+    inputs: [
+      { key: 'analysis_method', label: '解析手法', placeholder: '例：多変量ロジスティック回帰分析', type: 'text' },
+      { key: 'result_data', label: '結果データ', placeholder: '例：OR 2.5 (95% CI 1.2-5.3), p=0.015', type: 'textarea' },
+      { key: 'comparison_groups', label: '比較対象', placeholder: '例：治療群 vs 対照群', type: 'text' }
+    ]
+  },
+  {
+    id: 'res-slide-structure',
+    title: 'Presentation Slide Structure',
+    description: '学会発表の抄録や論文要旨から、スライド全体の構成案（アウトライン）を作成します。',
+    category: 'research',
+    template: `あなたは学会発表の指導医です。以下の研究内容に基づいて、{{slide_count}}枚程度のスライド構成案を作成してください。聴衆に伝わりやすいストーリー構成（Introduction -> Method -> Result -> Discussion -> Conclusion）にしてください。
+
+研究タイトル: {{research_title}}
+研究の要旨: {{research_summary}}
+発表時間: {{presentation_time}}分
+
+# 出力形式
+スライド番号: タイトル
+- 含めるべき主な内容（箇条書き）
+- 視覚的要素の提案（グラフ、表、写真など）`,
+    inputs: [
+      { key: 'research_title', label: '研究タイトル', placeholder: '研究のタイトルを入力', type: 'text' },
+      { key: 'research_summary', label: '研究の要旨', placeholder: '抄録や要旨を貼り付けてください', type: 'textarea' },
+      { key: 'slide_count', label: 'スライド枚数', placeholder: '例：10', type: 'text' },
+      { key: 'presentation_time', label: '発表時間（分）', placeholder: '例：7', type: 'text' }
+    ]
+  },
+  {
+    id: 'res-slide-content',
+    title: 'Slide Content Generator',
+    description: '各スライドの具体的な掲載テキスト（箇条書き）と、口頭発表のポイントを生成します。',
+    category: 'research',
+    template: `特定のスライドについて、掲載するテキストと発表のポイントを作成してください。スライドは文字数を減らし、視覚的にわかりやすくすることが重要です。
+
+スライドのテーマ: {{slide_theme}}
+伝えたい内容: {{key_message}}
+
+# 出力形式
+1. **スライド掲載テキスト**: 箇条書きで、簡潔に（1行20文字以内推奨）。
+2. **図表のイメージ**: どのようなグラフや図を入れるべきか。
+3. **強調ポイント**: 聴衆に必ず伝えるべき核心部分。`,
+    inputs: [
+      { key: 'slide_theme', label: 'スライドのテーマ', placeholder: '例：Methods（患者背景）', type: 'text' },
+      { key: 'key_message', label: '伝えたい内容', placeholder: '例：平均年齢は75歳で、男性が60%を占めた。併存疾患として高血圧が最も多かった。', type: 'textarea' }
+    ]
+  },
+  {
+    id: 'res-presentation-script',
+    title: 'Presentation Script Writer',
+    description: 'スライドの内容に合わせて、制限時間内に収まる自然な口頭発表原稿を作成します。',
+    category: 'research',
+    template: `以下のスライド内容に合わせて、口頭発表用の原稿（スクリプト）を作成してください。話し言葉で、自然な日本語にしてください。
+
+スライドの内容: {{slide_content}}
+このスライドの配分時間: {{time_allocation}}秒
+
+# 出力形式
+- **発表原稿**: 読み上げた時に指定された時間内に収まる長さで。
+- **ト書き**: （ここでスライドを指す）（強調して読む）などの指示。`,
+    inputs: [
+      { key: 'slide_content', label: 'スライドの内容', placeholder: 'スライドに書かれている箇条書きや図表の説明を入力', type: 'textarea' },
+      { key: 'time_allocation', label: '配分時間（秒）', placeholder: '例：45', type: 'text' }
+    ]
+  },
+  {
+    id: 'res-qa-prep',
+    title: 'Q&A Preparation',
+    description: '発表内容に対して想定される質問をリストアップし、それに対する回答案を作成します。',
+    category: 'research',
+    template: `私の研究発表に対して、座長やフロアから来そうな質問を5つ予想し、それぞれの回答案を作成してください。
+
+研究の要旨: {{research_summary}}
+研究の限界（Limitation）: {{limitations}}
+
+# 出力形式
+Q1. [想定質問]
+A1. [回答案]（まずは感謝を述べ、簡潔に回答する。データがない場合は正直に答える）`,
+    inputs: [
+      { key: 'research_summary', label: '研究の要旨', placeholder: '抄録や要旨を貼り付けてください', type: 'textarea' },
+      { key: 'limitations', label: '研究の限界', placeholder: '例：単施設研究であること、サンプルサイズが小さいこと、後ろ向き研究であることなど', type: 'textarea' }
+    ]
+  }
 ];
