@@ -43,7 +43,7 @@ export default function Guides() {
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {guides.map((guide) => (
-            <Link key={guide.id} href={`/guides/${guide.id}`}>
+            <Link key={guide.id} href={`/guide/${guide.id}`}>
               <Card className="h-full transition-all hover:shadow-md cursor-pointer border-l-4 border-l-blue-500">
                 <CardHeader>
                   <div className="flex items-center justify-between mb-2">
