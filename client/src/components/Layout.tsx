@@ -1,6 +1,6 @@
 import { categories } from "@/lib/prompts";
 import { cn } from "@/lib/utils";
-import { Activity, BookOpen, FileText, Menu, MessageSquare, Stethoscope, X } from "lucide-react";
+import { Activity, BookOpen, FileText, Menu, MessageSquare, Microscope, Pill, Stethoscope, X } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "./ui/button";
@@ -10,8 +10,11 @@ import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 const categoryIcons: Record<string, React.ReactNode> = {
   diagnosis: <Stethoscope className="w-4 h-4" />,
   treatment: <Activity className="w-4 h-4" />,
+  documentation: <FileText className="w-4 h-4" />,
+  medication: <Pill className="w-4 h-4" />,
   communication: <MessageSquare className="w-4 h-4" />,
   literature: <BookOpen className="w-4 h-4" />,
+  research: <Microscope className="w-4 h-4" />,
   "case-analysis": <FileText className="w-4 h-4" />,
 };
 

@@ -1,4 +1,4 @@
-export type PromptCategory = 'diagnosis' | 'treatment' | 'communication' | 'literature' | 'case-analysis';
+export type PromptCategory = 'diagnosis' | 'treatment' | 'documentation' | 'medication' | 'communication' | 'literature' | 'research' | 'case-analysis';
 
 export interface Prompt {
   id: string;
@@ -19,12 +19,224 @@ export interface Prompt {
 export const categories: { id: PromptCategory; label: string; description: string }[] = [
   { id: 'diagnosis', label: '診断支援', description: '症状や検査結果からの鑑別診断・分析' },
   { id: 'treatment', label: '治療計画', description: 'エビデンスに基づいた治療方針の立案' },
+  { id: 'documentation', label: '書類作成', description: '紹介状・サマリー・診断書の作成支援' },
+  { id: 'medication', label: '薬剤・処方', description: '投与量調整・相互作用チェック' },
   { id: 'communication', label: '患者対話', description: '患者説明・教育・同意取得の支援' },
   { id: 'literature', label: '医学文献', description: '論文要約・エビデンス評価' },
+  { id: 'research', label: '研究・学会', description: '論文校正・抄録作成・統計解釈' },
   { id: 'case-analysis', label: '症例分析', description: '症例報告・カンファレンス資料作成' },
 ];
 
 export const prompts: Prompt[] = [
+  // --- Documentation ---
+  {
+    id: 'referral-letter',
+    title: '紹介状（診療情報提供書）',
+    category: 'documentation',
+    description: '他院への紹介状（診療情報提供書）のドラフトを作成します。',
+    template: `あなたは医療事務作業に精通した医師です。以下の情報に基づいて、適切な敬語を用いた診療情報提供書（紹介状）のドラフトを作成してください。
+
+【宛先】
+- 医療機関名: {{destination_hospital}}
+- 科・医師名: {{destination_doctor}}
+
+【患者情報】
+- 氏名: {{patient_name}}
+- 年齢・性別: {{age}}歳 {{gender}}
+- 生年月日: {{dob}}
+
+【紹介内容】
+- 傷病名: {{diagnosis}}
+- 紹介目的: {{purpose}}
+- 既往歴: {{past_history}}
+- 処方内容: {{medications}}
+
+【経過・所見】
+{{clinical_course}}
+
+【依頼内容】
+丁寧な医療用語と敬語を使用し、拝啓/敬具を含む標準的な書式で作成してください。`,
+    inputs: [
+      { key: 'destination_hospital', label: '紹介先医療機関', placeholder: '例: 〇〇大学病院', type: 'text' },
+      { key: 'destination_doctor', label: '紹介先医師（科）', placeholder: '例: 循環器内科 御机下', type: 'text' },
+      { key: 'patient_name', label: '患者氏名', placeholder: '例: 医療 太郎', type: 'text' },
+      { key: 'age', label: '年齢', placeholder: '例: 72', type: 'text' },
+      { key: 'gender', label: '性別', placeholder: '例: 男性', type: 'select', options: ['男性', '女性'] },
+      { key: 'dob', label: '生年月日', placeholder: '例: 昭和28年5月10日', type: 'text' },
+      { key: 'diagnosis', label: '傷病名', placeholder: '例: 狭心症の疑い', type: 'text' },
+      { key: 'purpose', label: '紹介目的', placeholder: '例: 精査加療のお願い', type: 'text' },
+      { key: 'past_history', label: '既往歴', placeholder: '例: 高血圧、脂質異常症', type: 'textarea' },
+      { key: 'medications', label: '処方内容', placeholder: '例: アムロジピン5mg 1T1x', type: 'textarea' },
+      { key: 'clinical_course', label: '経過・所見', placeholder: '例: 労作時の胸痛を主訴に来院され...', type: 'textarea' },
+    ]
+  },
+  {
+    id: 'discharge-summary',
+    title: '退院サマリー',
+    category: 'documentation',
+    description: '入院経過をまとめた退院サマリーのドラフトを作成します。',
+    template: `あなたは病棟担当医です。以下の入院経過に基づいて、退院サマリーを作成してください。
+
+【患者情報】
+- 患者: {{patient_info}}
+- 入院期間: {{admission_period}}
+- 入院時診断: {{admission_diagnosis}}
+- 退院時診断: {{discharge_diagnosis}}
+
+【入院経過】
+{{hospital_course}}
+
+【退院時処方・指示】
+{{discharge_plan}}
+
+【依頼内容】
+SOAP形式または時系列形式で、医学的に簡潔かつ正確なサマリーを作成してください。`,
+    inputs: [
+      { key: 'patient_info', label: '患者情報', placeholder: '例: 80歳女性', type: 'text' },
+      { key: 'admission_period', label: '入院期間', placeholder: '例: 2024/12/01 - 2024/12/15', type: 'text' },
+      { key: 'admission_diagnosis', label: '入院時診断', placeholder: '例: 誤嚥性肺炎', type: 'text' },
+      { key: 'discharge_diagnosis', label: '退院時診断', placeholder: '例: 誤嚥性肺炎（治癒）', type: 'text' },
+      { key: 'hospital_course', label: '入院経過', placeholder: '例: 入院後、抗菌薬ABPC/SBTを開始し...', type: 'textarea' },
+      { key: 'discharge_plan', label: '退院時処方・指示', placeholder: '例: 処方継続、1週間後に外来受診', type: 'textarea' },
+    ]
+  },
+
+  // --- Medication ---
+  {
+    id: 'renal-dosing',
+    title: '腎機能別投与量計算',
+    category: 'medication',
+    description: '患者の腎機能（eGFR/CCr）に基づいた適切な薬剤投与量を提案します。',
+    template: `あなたは薬剤師または腎臓内科医です。以下の患者情報と薬剤について、腎機能を考慮した適切な投与設計を行ってください。
+
+【患者情報】
+- 年齢・性別: {{age}}歳 {{gender}}
+- 体重: {{weight}}kg
+- 血清クレアチニン: {{scr}} mg/dL
+- 推定eGFRまたはCCr: {{renal_function}}
+
+【対象薬剤】
+- 薬剤名: {{drug_name}}
+- 通常用量: {{standard_dose}}
+
+【依頼内容】
+1. **腎機能評価**（CKDステージ分類）
+2. **添付文書またはガイドラインに基づく推奨投与量**
+3. **投与時の注意点**（副作用モニタリングなど）`,
+    inputs: [
+      { key: 'age', label: '年齢', placeholder: '例: 75', type: 'text' },
+      { key: 'gender', label: '性別', placeholder: '例: 男性', type: 'select', options: ['男性', '女性'] },
+      { key: 'weight', label: '体重', placeholder: '例: 50', type: 'text' },
+      { key: 'scr', label: '血清クレアチニン', placeholder: '例: 1.8', type: 'text' },
+      { key: 'renal_function', label: 'eGFR/CCr', placeholder: '例: eGFR 30', type: 'text' },
+      { key: 'drug_name', label: '薬剤名', placeholder: '例: レボフロキサシン', type: 'text' },
+      { key: 'standard_dose', label: '通常用量', placeholder: '例: 500mg 1日1回', type: 'text' },
+    ]
+  },
+  {
+    id: 'drug-interaction',
+    title: '薬剤相互作用チェック',
+    category: 'medication',
+    description: '複数の薬剤間の相互作用と注意点をチェックします。',
+    template: `あなたは医薬品情報に精通した薬剤師です。以下の処方薬について、相互作用のチェックを行ってください。
+
+【処方薬リスト】
+{{medication_list}}
+
+【患者背景】
+{{patient_background}}
+
+【依頼内容】
+1. **併用禁忌・併用注意の組み合わせ**
+2. **相互作用の機序**（CYP代謝、薬力学的相互作用など）
+3. **臨床的な対処法**（用量調節、代替薬提案、モニタリング項目）`,
+    inputs: [
+      { key: 'medication_list', label: '処方薬リスト', placeholder: '例:\nワーファリン\nロキソプロフェン\nクラリスロマイシン', type: 'textarea' },
+      { key: 'patient_background', label: '患者背景', placeholder: '例: 高齢、腎機能低下あり', type: 'text' },
+    ]
+  },
+
+  // --- Advanced Communication ---
+  {
+    id: 'bad-news',
+    title: '悪い知らせ（Bad News）の伝達',
+    category: 'communication',
+    description: 'SPIKESプロトコルなどを参考に、患者に悪い知らせを伝えるための対話スクリプトを作成します。',
+    template: `あなたはコミュニケーションスキルの高い緩和ケア医です。以下の状況において、患者（または家族）に悪い知らせを伝えるための対話スクリプトと準備事項を作成してください。
+
+【患者・家族情報】
+- 相手: {{recipient}}
+- 理解度・精神状態: {{mental_state}}
+
+【伝えるべき悪い知らせ】
+{{bad_news_content}}
+
+【依頼内容】
+SPIKESプロトコル（Setting, Perception, Invitation, Knowledge, Emotion, Strategy）を意識して、以下の構成で出力してください。
+
+1. **事前準備（Setting）**: 環境設定や同席者の確認
+2. **導入の言葉**: 相手の認識を確認する質問
+3. **告知のフレーズ**: 明確かつ共感的に伝える言葉
+4. **感情への対応（Emotion）**: 予想される反応とそれに対する共感的応答（NURSEプロトコル）
+5. **今後の計画（Strategy）**: 希望を持てる具体的な次のステップ`,
+    inputs: [
+      { key: 'recipient', label: '伝える相手', placeholder: '例: 本人（60代男性）と妻', type: 'text' },
+      { key: 'mental_state', label: '理解度・精神状態', placeholder: '例: 検査結果に不安を感じている', type: 'text' },
+      { key: 'bad_news_content', label: '伝える内容', placeholder: '例: 膵臓癌の再発、肝転移あり。抗がん剤の効果が乏しいこと。', type: 'textarea' },
+    ]
+  },
+
+  // --- Research ---
+  {
+    id: 'english-proofreading',
+    title: '医学英語論文の校正',
+    category: 'research',
+    description: '医学英語論文のドラフトを、学術的に自然で正確な英語に校正します。',
+    template: `あなたは医学英語論文の編集者（ネイティブスピーカー）です。以下の英文ドラフトを、一流医学ジャーナル（NEJM, Lancetなど）への投稿に適した学術的な英語に校正してください。
+
+【セクション】
+{{section}}
+
+【英文ドラフト】
+{{draft}}
+
+【依頼内容】
+1. **校正後の英文**: 文法、語彙、フローを改善したもの
+2. **主な修正点と理由**: なぜその表現に変更したかの解説
+3. **別案（Optional）**: より洗練された表現があれば提示`,
+    inputs: [
+      { key: 'section', label: 'セクション', placeholder: '例: Abstract, Introduction', type: 'text' },
+      { key: 'draft', label: '英文ドラフト', placeholder: 'Paste your draft here...', type: 'textarea' },
+    ]
+  },
+  {
+    id: 'conference-abstract',
+    title: '学会抄録作成',
+    category: 'research',
+    description: '研究結果や症例報告から、学会発表用の抄録（Abstract）を作成します。',
+    template: `あなたはアカデミックなライティングに長けた研究者です。以下の情報に基づいて、学会発表用の抄録（Abstract）を作成してください。
+
+【学会・規定】
+- 学会名: {{conference_name}}
+- 文字数制限: {{word_limit}}
+
+【研究・症例の内容】
+- 背景・目的: {{background}}
+- 方法・症例: {{methods}}
+- 結果・経過: {{results}}
+- 結論・考察: {{conclusion}}
+
+【依頼内容】
+規定の文字数以内で、論理的かつインパクトのある抄録を作成してください。タイトル案も3つ提案してください。`,
+    inputs: [
+      { key: 'conference_name', label: '学会名', placeholder: '例: 日本内科学会総会', type: 'text' },
+      { key: 'word_limit', label: '文字数制限', placeholder: '例: 日本語800文字', type: 'text' },
+      { key: 'background', label: '背景・目的', placeholder: '例: ...について検討した', type: 'textarea' },
+      { key: 'methods', label: '方法・症例', placeholder: '例: 2023年の入院患者50例を対象に...', type: 'textarea' },
+      { key: 'results', label: '結果・経過', placeholder: '例: A群で有意に改善が見られた...', type: 'textarea' },
+      { key: 'conclusion', label: '結論・考察', placeholder: '例: 本治療法は有効である可能性が示唆された', type: 'textarea' },
+    ]
+  },
   {
     id: 'differential-diagnosis',
     title: '鑑別診断',
