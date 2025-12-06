@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Sparkles, Lightbulb, TrendingUp, Zap, Stethoscope, MessageSquare, BookOpen, ArrowRight } from "lucide-react";
 import { tips } from "@/lib/tips";
 
+// Force rebuild for GitHub Pages deployment
 export default function Tips() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
