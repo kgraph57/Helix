@@ -43,76 +43,93 @@ export function JournalFinder() {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-        <Select value={filterCategory} onValueChange={setFilterCategory}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Category" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Categories</SelectItem>
-            {categories.map(cat => (
-              <SelectItem key={cat} value={cat}>{cat}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <Select value={sortBy} onValueChange={(v: any) => setSortBy(v)}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Sort by" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="impactFactor">Impact Factor</SelectItem>
-            <SelectItem value="title">Title (A-Z)</SelectItem>
-          </SelectContent>
-        </Select>
+        <div className="flex gap-2">
+          <Select value={filterCategory} onValueChange={setFilterCategory}>
+            <SelectTrigger className="w-[160px]">
+              <SelectValue placeholder="Category" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Categories</SelectItem>
+              {categories.map(cat => (
+                <SelectItem key={cat} value={cat}>{cat}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Select value={sortBy} onValueChange={(v: any) => setSortBy(v)}>
+            <SelectTrigger className="w-[160px]">
+              <SelectValue placeholder="Sort by" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="impactFactor">Impact Factor</SelectItem>
+              <SelectItem value="title">Title (A-Z)</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
 
       <div className="grid gap-4">
         {filteredJournals.map((journal) => (
-          <Card key={journal.id} className="hover:shadow-md transition-shadow">
-            <CardHeader className="pb-2">
-              <div className="flex justify-between items-start">
-                <div>
-                  <CardTitle className="text-lg flex items-center gap-2">
-                    {journal.title}
+          <Card key={journal.id} className="hover:shadow-md transition-shadow overflow-hidden">
+            <CardHeader className="pb-3 bg-muted/20">
+              <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <CardTitle className="text-lg">{journal.title}</CardTitle>
                     {journal.openAccess && (
-                      <Badge variant="secondary" className="text-xs font-normal bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300">
+                      <Badge variant="secondary" className="text-xs font-normal bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 border-0">
                         <Globe className="w-3 h-3 mr-1" /> Open Access
                       </Badge>
                     )}
-                  </CardTitle>
+                  </div>
                   <CardDescription>{journal.publisher}</CardDescription>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Badge variant="outline" className="flex items-center gap-1">
-                    <BarChart3 className="w-3 h-3" /> IF: {journal.impactFactor}
-                  </Badge>
-                </div>
+                <Badge variant="outline" className="self-start md:self-center flex items-center gap-1 shrink-0 bg-background">
+                  <BarChart3 className="w-3 h-3" /> IF: {journal.impactFactor}
+                </Badge>
               </div>
             </CardHeader>
-            <CardContent>
-              <div className="grid md:grid-cols-2 gap-4 mb-4 text-sm">
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-muted-foreground">
-                    <Clock className="w-4 h-4" />
-                    <span>Review Speed: {journal.reviewSpeed || "N/A"}</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-muted-foreground">
-                    <BookOpen className="w-4 h-4" />
-                    <span>Acceptance Rate: {journal.acceptanceRate || "N/A"}</span>
+            <CardContent className="pt-4">
+              <div className="grid md:grid-cols-2 gap-6 mb-6">
+                <div className="space-y-3">
+                  <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Metrics</h4>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="flex items-center gap-2 text-sm">
+                      <Clock className="w-4 h-4 text-muted-foreground" />
+                      <span className="font-medium">{journal.reviewSpeed || "N/A"}</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <BookOpen className="w-4 h-4 text-muted-foreground" />
+                      <span className="font-medium">Acceptance: {journal.acceptanceRate || "N/A"}</span>
+                    </div>
                   </div>
                 </div>
-                <div className="bg-muted/50 p-3 rounded text-xs space-y-1">
-                  <p><strong>Word Count:</strong> {journal.requirements.wordCount}</p>
-                  <p><strong>Abstract:</strong> {journal.requirements.abstract}</p>
-                  <p><strong>Figures/Refs:</strong> {journal.requirements.figures} / {journal.requirements.references}</p>
+                
+                <div className="space-y-3">
+                  <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Requirements</h4>
+                  <div className="bg-muted/30 p-3 rounded-lg text-sm space-y-1.5 border border-border/50">
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Word Count:</span>
+                      <span className="font-medium">{journal.requirements.wordCount}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Abstract:</span>
+                      <span className="font-medium">{journal.requirements.abstract}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Figures/Refs:</span>
+                      <span className="font-medium">{journal.requirements.figures} / {journal.requirements.references}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="flex gap-2">
-                <Button variant="outline" size="sm" className="w-full" asChild>
+              
+              <div className="flex flex-col sm:flex-row gap-3 pt-2 border-t border-border/50">
+                <Button variant="outline" size="sm" className="flex-1" asChild>
                   <a href={journal.url} target="_blank" rel="noopener noreferrer">
                     Visit Journal <ExternalLink className="w-3 h-3 ml-2" />
                   </a>
                 </Button>
-                <Button variant="outline" size="sm" className="w-full" asChild>
+                <Button variant="outline" size="sm" className="flex-1" asChild>
                   <a href={journal.guidelinesUrl} target="_blank" rel="noopener noreferrer">
                     Author Guidelines <ExternalLink className="w-3 h-3 ml-2" />
                   </a>
@@ -122,8 +139,12 @@ export function JournalFinder() {
           </Card>
         ))}
         {filteredJournals.length === 0 && (
-          <div className="text-center py-8 text-muted-foreground">
-            No journals found matching your criteria.
+          <div className="text-center py-12 border-2 border-dashed rounded-lg">
+            <Search className="w-10 h-10 mx-auto text-muted-foreground mb-4" />
+            <h3 className="text-lg font-medium">No journals found</h3>
+            <p className="text-muted-foreground mt-1">
+              Try adjusting your search or filters to find what you're looking for.
+            </p>
           </div>
         )}
       </div>
