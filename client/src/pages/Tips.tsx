@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Sparkles, Lightbulb, TrendingUp, Zap, Stethoscope, MessageSquare, BookOpen, ArrowRight } from "lucide-react";
-import { fullTips } from "@/lib/tips";
+import { tips } from "@/lib/tips";
 
 export default function Tips() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -31,7 +31,7 @@ export default function Tips() {
   };
 
   // フィルタリング
-  const filteredTips = fullTips
+  const filteredTips = tips
     .filter((tip) => {
       const matchesSearch =
         tip.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
