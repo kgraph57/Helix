@@ -11,7 +11,6 @@ export default function Guides() {
       title: "症例報告作成ワークフロー：AIを活用した効率化ガイド",
       description: "症例報告は「マラソン」ではなく「400m走」です。CAREガイドラインチェックから投稿用カバーレター作成まで、AIプロンプトを活用して最短距離で完走するためのステップバイステップガイド。",
       category: "Research",
-      icon: <FileText className="h-6 w-6 text-blue-500" />,
       readTime: "5 min read",
       tags: ["Case Report", "Writing", "Beginner"]
     },
