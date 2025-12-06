@@ -20,6 +20,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: "pnpm"  # ✨ 追加: キャッシュを有効化
       - name: Setup pnpm
         uses: pnpm/action-setup@v3
         with:
