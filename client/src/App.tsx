@@ -21,6 +21,7 @@ function Router() {
     <WouterRouter hook={useHashLocation}>
       <Switch>
       <Route path="/" component={Home} />
+      <Route path="" component={Home} />
       <Route path="/category/:id" component={Category} />
      <Route path={"/prompts/:id"} component={PromptDetail} />
       <Route path={"/guides"} component={Guides} />
