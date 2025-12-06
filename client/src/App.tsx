@@ -6,6 +6,7 @@ import NotFound from "@/pages/NotFound";
 import PromptDetail from "./pages/PromptDetail";
 import Guides from "./pages/Guides";
 import GuideDetail from "./pages/GuideDetail";
+import Legal from "./pages/Legal";
 import { Route, Switch, Router as WouterRouter } from "wouter";
 import { useHashLocation } from "wouter/use-hash-location";
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -19,7 +20,8 @@ function Router() {
       <Route path="/category/:id" component={Category} />
      <Route path={"/prompts/:id"} component={PromptDetail} />
       <Route path={"/guides"} component={Guides} />
-      <Route path={"/guides/:id"} component={GuideDetail} />     <Route path="/404" component={NotFound} />
+      <Route path={"/guides/:id"} component={GuideDetail} />
+      <Route path="/legal" component={Legal} />     <Route path="/404" component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
       </Switch>

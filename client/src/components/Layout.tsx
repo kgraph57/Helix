@@ -81,6 +81,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <div className="px-6 mt-auto pt-4 border-t border-border">
         <div className="text-xs text-muted-foreground">
           <p>© 2025 Medical Prompt Hub</p>
+          <Link href="/legal" className="hover:underline cursor-pointer">
+            法的表記・利用規約
+          </Link>
           <p className="mt-1">v1.0.0</p>
         </div>
       </div>
