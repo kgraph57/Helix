@@ -1,5 +1,6 @@
 {
   "name": "medical-prompt-hub-web",
+  "homepage": "https://kgraph57.github.io/medicalprompthub/",
   "version": "1.0.1",
   "type": "module",
   "license": "MIT",

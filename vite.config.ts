@@ -52,7 +52,7 @@ export default defineConfig({
     },
   },
   envDir: path.resolve(import.meta.dirname),
-  base: process.env.VITE_BASE_PATH || "/",
+  base: process.env.NODE_ENV === "production" ? "/medicalprompthub/" : "/",
   root: path.resolve(import.meta.dirname, "client"),
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
