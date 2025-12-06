@@ -18,7 +18,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 
 function Router() {
   return (
-    <WouterRouter base={import.meta.env.BASE_URL !== "/" ? import.meta.env.BASE_URL : undefined}>
+    <WouterRouter hook={useHashLocation} base={import.meta.env.BASE_URL !== "/" ? import.meta.env.BASE_URL : undefined}>
       <Switch>
       <Route path="/" component={Home} />
       <Route path="/category/:id" component={Category} />
