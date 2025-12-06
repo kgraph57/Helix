@@ -6,7 +6,11 @@ import { Link } from "wouter";
 
 // Updated: 2025-12-06
 export default function Guides() {
-  const guides = [
+  console.log('[Guides] Component rendering started');
+  
+  let guides;
+  try {
+    guides = [
     {
       id: "case-report-workflow",
       title: "症例報告作成ワークフロー：AIを活用した効率化ガイド",
@@ -28,6 +32,12 @@ export default function Guides() {
     }
     */
   ];
+  } catch (error) {
+    console.error('[Guides] Error creating guides array:', error);
+    throw error;
+  }
+  
+  console.log('[Guides] Guides array created successfully:', guides);
 
   return (
     <Layout>
