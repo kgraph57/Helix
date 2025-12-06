@@ -149,7 +149,7 @@ export default function Home() {
 
           <motion.div
             layout
-            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
           >
             <AnimatePresence mode="popLayout">
               {filteredPrompts.map((prompt, index) => (
@@ -167,18 +167,18 @@ export default function Home() {
                       whileTap={{ scale: 0.98 }}
                       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                     >
-                      <Card className="h-full cursor-pointer border-2 border-border/50 hover:border-primary/30 bg-gradient-apple-card group overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 rounded-2xl">
-                        <CardHeader className="p-6 space-y-4">
+                      <Card className="h-full min-h-[180px] flex flex-col cursor-pointer border-2 border-border/50 hover:border-primary/30 bg-gradient-apple-card group overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 rounded-xl">
+                        <CardHeader className="p-4 space-y-2 flex-1">
                           <div className="flex justify-between items-start">
                             <Badge variant="secondary" className="capitalize text-xs font-medium px-3 py-1 rounded-full">
                               {prompt.category}
                             </Badge>
-                            <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-all duration-300 opacity-0 group-hover:opacity-100 transform translate-x-[-4px] group-hover:translate-x-0" />
+                            <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-all duration-300 opacity-0 group-hover:opacity-100 transform translate-x-[-4px] group-hover:translate-x-0" />
                           </div>
-                          <CardTitle className="text-xl font-bold group-hover:text-primary transition-colors duration-300 leading-tight">
+                          <CardTitle className="text-lg font-bold group-hover:text-primary transition-colors duration-300 leading-tight">
                             {prompt.title}
                           </CardTitle>
-                          <CardDescription className="text-base leading-relaxed line-clamp-2">
+                          <CardDescription className="text-sm leading-relaxed line-clamp-2">
                             {prompt.description}
                           </CardDescription>
                         </CardHeader>

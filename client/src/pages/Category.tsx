@@ -43,26 +43,26 @@ export default function Category() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {categoryPrompts.map((prompt) => (
             <Link key={prompt.id} href={`/prompts/${prompt.id}`}>
-              <Card className="group hover:shadow-md transition-all cursor-pointer border-transparent hover:border-primary/20 bg-card/50 backdrop-blur-sm">
-                <CardHeader>
-                  <div className="flex items-start justify-between">
-                    <div className="space-y-1">
-                      <CardTitle className="text-xl group-hover:text-primary transition-colors">
+              <Card className="group hover:shadow-md transition-all cursor-pointer border-transparent hover:border-primary/20 bg-card/50 backdrop-blur-sm h-full min-h-[180px] flex flex-col">
+                <CardHeader className="p-4 flex-1">
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="space-y-1 flex-1 min-w-0">
+                      <CardTitle className="text-lg group-hover:text-primary transition-colors leading-tight">
                         {prompt.title}
                       </CardTitle>
-                      <CardDescription className="line-clamp-2">
+                      <CardDescription className="line-clamp-2 text-sm">
                         {prompt.description}
                       </CardDescription>
                     </div>
-                    <Badge variant="secondary" className="group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+                    <Badge variant="secondary" className="group-hover:bg-primary/10 group-hover:text-primary transition-colors shrink-0">
                       {prompt.inputs.length} inputs
                     </Badge>
                   </div>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-4 pt-0 mt-auto">
                   <div className="flex items-center text-sm text-muted-foreground group-hover:text-primary font-medium transition-colors">
                     View Template <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
                   </div>
