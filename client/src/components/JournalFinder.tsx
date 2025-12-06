@@ -3,16 +3,25 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Search, ExternalLink, BookOpen, BarChart3, Clock, Globe } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Search, ExternalLink, BookOpen, BarChart3, Clock, Globe, ArrowRightLeft } from "lucide-react";
 import { journals, Journal } from "@/lib/journals";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Link } from "wouter";
 
 export function JournalFinder() {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<"impactFactor" | "title">("impactFactor");
   const [filterCategory, setFilterCategory] = useState<string>("all");
+  const [selectedForCompare, setSelectedForCompare] = useState<string[]>([]);
 
   const categories = Array.from(new Set(journals.flatMap(j => j.category)));
+
+  const toggleCompare = (id: string) => {
+    setSelectedForCompare(prev => 
+      prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
+    );
+  };
 
   const filteredJournals = useMemo(() => {
     return journals
@@ -33,6 +42,28 @@ export function JournalFinder() {
 
   return (
     <div className="space-y-6">
+      {selectedForCompare.length > 0 && (
+        <div className="fixed bottom-6 right-6 z-50 animate-in slide-in-from-bottom-4 fade-in duration-300">
+          <Card className="shadow-xl border-primary/20 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <CardContent className="p-4 flex items-center gap-4">
+              <div className="text-sm font-medium">
+                {selectedForCompare.length} journal{selectedForCompare.length !== 1 && "s"} selected
+              </div>
+              <div className="flex gap-2">
+                <Button variant="outline" size="sm" onClick={() => setSelectedForCompare([])}>
+                  Clear
+                </Button>
+                <Link href={`/journal-compare?ids=${selectedForCompare.join(",")}`}>
+                  <Button size="sm" className="gap-2">
+                    Compare <ArrowRightLeft className="w-3 h-3" />
+                  </Button>
+                </Link>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
       <div className="flex flex-col md:flex-row gap-4">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
@@ -73,8 +104,17 @@ export function JournalFinder() {
             <CardHeader className="pb-3 bg-muted/20">
               <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
                 <div className="space-y-1">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <CardTitle className="text-lg">{journal.title}</CardTitle>
+                  <div className="flex items-center gap-3 flex-wrap">
+                    <div className="flex items-center gap-2">
+                      <Checkbox 
+                        id={`compare-${journal.id}`}
+                        checked={selectedForCompare.includes(journal.id)}
+                        onCheckedChange={() => toggleCompare(journal.id)}
+                      />
+                      <Link href={`/journal/${journal.id}`}>
+                        <CardTitle className="text-lg hover:underline cursor-pointer text-primary">{journal.title}</CardTitle>
+                      </Link>
+                    </div>
                     {journal.openAccess && (
                       <Badge variant="secondary" className="text-xs font-normal bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 border-0">
                         <Globe className="w-3 h-3 mr-1" /> Open Access

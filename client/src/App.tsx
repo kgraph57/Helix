@@ -8,6 +8,9 @@ import Guides from "./pages/Guides";
 import GuideDetail from "./pages/GuideDetail";
 import Legal from "./pages/Legal";
 import Favorites from "./pages/Favorites";
+import JournalFinderPage from "@/pages/JournalFinderPage";
+import JournalDetail from "@/pages/JournalDetail";
+import JournalCompare from "@/pages/JournalCompare";
 import { Route, Switch, Router as WouterRouter } from "wouter";
 import { useHashLocation } from "wouter/use-hash-location";
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -23,7 +26,11 @@ function Router() {
       <Route path={"/guides"} component={Guides} />
       <Route path={"/guides/:id"} component={GuideDetail} />
       <Route path="/legal" component={Legal} />
-      <Route path="/favorites" component={Favorites} />     <Route path="/404" component={NotFound} />
+      <Route path="/favorites" component={Favorites} />
+      <Route path="/journal-finder" component={JournalFinderPage} />
+      <Route path="/journal/:id" component={JournalDetail} />
+      <Route path="/journal-compare" component={JournalCompare} />
+      <Route path="/404" component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
       </Switch>

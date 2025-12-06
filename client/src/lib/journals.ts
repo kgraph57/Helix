@@ -9,6 +9,9 @@ export interface Journal {
   openAccess: boolean;
   url: string;
   guidelinesUrl: string;
+  description?: string;
+  features?: string[];
+  apc?: string; // Article Processing Charge
   requirements: {
     wordCount: string;
     abstract: string;
@@ -29,6 +32,9 @@ export const journals: Journal[] = [
     openAccess: false,
     url: "https://www.nejm.org/",
     guidelinesUrl: "https://www.nejm.org/author-center/new-manuscripts",
+    description: "The New England Journal of Medicine (NEJM) is recognized as the world's leading medical journal and website. Published continuously for over 200 years, NEJM delivers high-quality, peer-reviewed research and interactive clinical content to physicians, educators, researchers, and the global medical community.",
+    features: ["High Impact", "Global Reach", "Rigorous Peer Review", "Clinical Practice Changing"],
+    apc: "None for subscription model; Open Access options available",
     requirements: {
       wordCount: "2,700 words (Original Article)",
       abstract: "250 words",
@@ -47,6 +53,9 @@ export const journals: Journal[] = [
     openAccess: false,
     url: "https://www.thelancet.com/",
     guidelinesUrl: "https://www.thelancet.com/lancet/information-for-authors",
+    description: "The Lancet is an independent, international weekly general medical journal founded in 1823. It publishes high-quality peer-reviewed research and reviews that have the potential to change medical practice and improve global health.",
+    features: ["International Focus", "Global Health", "Fast Track Review Available"],
+    apc: "$6,830 (for Open Access)",
     requirements: {
       wordCount: "3,000 words",
       abstract: "Structured, 300 words",
@@ -65,6 +74,9 @@ export const journals: Journal[] = [
     openAccess: true,
     url: "https://casereports.bmj.com/",
     guidelinesUrl: "https://casereports.bmj.com/pages/authors/",
+    description: "BMJ Case Reports is an award-winning journal that delivers a focused, peer-reviewed, valuable collection of cases in all disciplines so that healthcare professionals, researchers and others can easily find clinically important information on common and rare conditions.",
+    features: ["Educational Value", "Global Audience", "Fellowship Model Available"],
+    apc: "£550 (or Fellowship membership)",
     requirements: {
       wordCount: "1,500 words",
       abstract: "Unstructured, 150 words",
@@ -83,6 +95,9 @@ export const journals: Journal[] = [
     openAccess: true,
     url: "https://jmedicalcasereports.biomedcentral.com/",
     guidelinesUrl: "https://jmedicalcasereports.biomedcentral.com/submission-guidelines",
+    description: "Journal of Medical Case Reports is an open access, peer-reviewed online journal that will consider any original case report that expands the field of general medical knowledge.",
+    features: ["Open Access", "Broad Scope", "High Visibility"],
+    apc: "£1,590 / $2,290 / €1,890",
     requirements: {
       wordCount: "No strict limit",
       abstract: "350 words",
@@ -101,6 +116,9 @@ export const journals: Journal[] = [
     openAccess: true,
     url: "https://www.cureus.com/",
     guidelinesUrl: "https://www.cureus.com/author_guide",
+    description: "Cureus is a web-based medical journal that leverages the power of crowdsourcing to share and promote medical knowledge. It offers a unique peer review process and post-publication scoring.",
+    features: ["Fast Publication", "SIQ Scoring", "Crowdsourced Peer Review"],
+    apc: "Free (if formatting perfect) or paid editing services",
     requirements: {
       wordCount: "No strict limit",
       abstract: "Structured",
@@ -119,6 +137,9 @@ export const journals: Journal[] = [
     openAccess: true,
     url: "https://www.naika.or.jp/imonline/",
     guidelinesUrl: "https://www.naika.or.jp/imonline/submit/",
+    description: "Internal Medicine is the official English language journal of the Japanese Society of Internal Medicine. It publishes original articles, case reports, and reviews in the field of internal medicine.",
+    features: ["Japan Based", "Clinical Focus", "Wide Readership in Asia"],
+    apc: "Free for members; Non-members pay publication fees",
     requirements: {
       wordCount: "2,500 words (Case Report)",
       abstract: "200 words",
