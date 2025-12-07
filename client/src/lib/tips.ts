@@ -131,9 +131,7 @@ export const tips: PromptTip[] = [
     ],
     relatedTips: ["depth-method", "calibrated-confidence-prompting"],
     tags: ["多角的視点", "意思決定", "倫理"]
-  }
-]
-export const newTipsPhase2 = [
+  },
   {
     id: "recursive-self-improvement",
     title: "Recursive Self-Improvement: 反復的自己改善",
