@@ -2,7 +2,6 @@ import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { lazy, Suspense } from "react";
 import { Route, Switch, Router as WouterRouter } from "wouter";
-import { useHashLocation } from "wouter/use-hash-location";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 
@@ -33,17 +32,16 @@ const PageLoader = () => (
 
 function Router() {
   return (
-    <WouterRouter hook={useHashLocation}>
+    <WouterRouter>
       <Suspense fallback={<PageLoader />}>
         <Switch>
           <Route path="/" component={Home} />
-          <Route path="" component={Home} />
           <Route path="/category/:id" component={Category} />
-          <Route path={"/prompts/:id"} component={PromptDetail} />
-          <Route path={"/guides"} component={Guides} />
-          <Route path={"/guides/:id"} component={GuideDetail} />
-          <Route path={"/tips"} component={Tips} />
-          <Route path={"/tips/:id"} component={TipDetail} />
+          <Route path="/prompts/:id" component={PromptDetail} />
+          <Route path="/guides" component={Guides} />
+          <Route path="/guides/:id" component={GuideDetail} />
+          <Route path="/tips" component={Tips} />
+          <Route path="/tips/:id" component={TipDetail} />
           <Route path="/legal" component={Legal} />
           <Route path="/favorites" component={Favorites} />
           <Route path="/journal-finder" component={JournalFinderPage} />
