@@ -67,8 +67,8 @@ export default function Home() {
             transition={{ delay: 0.4, duration: 0.8 }}
             className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed"
           >
-            A curated collection of high-quality AI prompts designed for healthcare professionals.
-            Enhance your clinical workflow, documentation, and research with precision.
+            医療従事者のために厳選された、高品質なAIプロンプトのコレクションです。
+            臨床業務、文書作成、研究活動を精度高く支援します。
           </motion.p>
           
           <motion.div
