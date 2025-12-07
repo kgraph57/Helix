@@ -5,7 +5,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import rehypeSanitize from 'rehype-sanitize';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Circle, CheckCircle2, Clock } from 'lucide-react';
+import { ArrowLeft, Circle, CheckCircle2, Clock, Menu, X } from 'lucide-react';
 import { caseReportGuideData } from '@/lib/case-report-guide-data';
 
 // Markdownファイルを直接インポート
@@ -32,6 +32,7 @@ export default function CaseReportGuide() {
   const [completedSteps, setCompletedSteps] = useState<Set<string>>(new Set());
   const [currentStepId, setCurrentStepId] = useState<string>(stepId || 'intro');
   const [markdown, setMarkdown] = useState<string>('');
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 
   // LocalStorageから進捗を読み込み
   useEffect(() => {
@@ -85,28 +86,62 @@ export default function CaseReportGuide() {
       {/* Header */}
       <header className="sticky top-0 z-10 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            {/* Hamburger Menu Button - Mobile Only */}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsSidebarOpen(true)}
+              className="lg:hidden flex-shrink-0"
+            >
+              <Menu className="h-5 w-5" />
+            </Button>
+            
             <Button
               variant="ghost"
               onClick={() => navigate('/guides')}
-              className="flex items-center"
+              className="flex items-center flex-shrink-0"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
-              ガイド一覧に戻る
+              <span className="hidden sm:inline">ガイド一覧に戻る</span>
             </Button>
-            <h1 className="text-xl font-bold text-gray-900 dark:text-white absolute left-1/2 transform -translate-x-1/2">
+            <h1 className="text-sm sm:text-base lg:text-xl font-bold text-gray-900 dark:text-white truncate">
               {caseReportGuideData.title}
             </h1>
           </div>
         </div>
       </header>
 
+      {/* Mobile Sidebar Overlay */}
+      {isSidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex gap-8">
+        <div className="flex flex-col lg:flex-row gap-8">
           {/* Left Sidebar - Fixed Navigation */}
-          <aside className="w-80 flex-shrink-0">
-            <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto">
+          <aside className={`
+            fixed lg:static inset-y-0 left-0 z-50 lg:z-0
+            w-80 lg:w-80 flex-shrink-0
+            transform transition-transform duration-300 ease-in-out
+            ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+            bg-gray-50 dark:bg-gray-900 lg:bg-transparent
+          `}>
+            <div className="h-full lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] overflow-y-auto p-4 lg:p-0">
+              {/* Close Button - Mobile Only */}
+              <div className="lg:hidden flex justify-end mb-4">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setIsSidebarOpen(false)}
+                >
+                  <X className="h-5 w-5" />
+                </Button>
+              </div>
               {/* Progress Card */}
               <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-6">
                 <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
@@ -156,6 +191,7 @@ export default function CaseReportGuide() {
                             <button
                               onClick={() => {
                                 setCurrentStepId(step.id);
+                                setIsSidebarOpen(false);
                               }}
                               className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors break-words ${
                                 isCurrent
