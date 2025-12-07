@@ -2,8 +2,7 @@ export interface Step {
   id: string;
   number: number;
   title: string;
-
-  estimatedTime: string;
+  duration: string;
 }
 
 export interface Phase {
@@ -25,164 +24,44 @@ export interface CaseReportGuide {
 export const caseReportGuideData: CaseReportGuide = {
   id: "case-report-complete",
   title: "【完全版】症例報告執筆ガイド：構想から投稿まで",
-  description: "読むだけで症例報告が実際にできるレベルの完全版ガイド。18ステップで、準備から投稿まで完全サポート。",
-  totalSteps: 18,
+  description: "2025年最新のAI活用により、従来の90%の時間を削減する革新的ワークフロー。Claude 3.5 Sonnet、Elicit、NotebookLMを駆使した5ステップで、世界水準の症例報告を完成させます。",
+  totalSteps: 5,
   phases: [
     {
-      id: "preparation",
+      id: "workflow",
       number: 1,
-      title: "準備",
-      titleEn: "Preparation",
+      title: "AACR Method - AI加速症例報告執筆法",
+      titleEn: "AI-Accelerated Case Report Method",
       steps: [
         {
           id: "step-01",
           number: 1,
-          title: "症例の選定",
-
-          estimatedTime: "30分"
+          title: "ステップ1: 症例情報の収集と構造化",
+          duration: "1.5時間"
         },
         {
           id: "step-02",
           number: 2,
-          title: "症例の新規性確認",
-
-          estimatedTime: "1時間"
+          title: "ステップ2: AI駆動型文献レビューと新規性の特定",
+          duration: "3時間"
         },
         {
           id: "step-03",
           number: 3,
-          title: "患者同意の取得",
-
-          estimatedTime: "30分"
+          title: "ステップ3: 執筆戦略の立案とプロンプト設計",
+          duration: "2時間"
         },
         {
           id: "step-04",
           number: 4,
-          title: "文献レビュー",
-
-          estimatedTime: "2〜3時間"
+          title: "ステップ4: AIによる執筆とファクトチェック",
+          duration: "3時間"
         },
         {
           id: "step-05",
           number: 5,
-          title: "症例データの整理",
-
-          estimatedTime: "1時間"
-        }
-      ]
-    },
-    {
-      id: "writing",
-      number: 2,
-      title: "執筆",
-      titleEn: "Writing",
-      steps: [
-        {
-          id: "step-06",
-          number: 6,
-          title: "投稿先の選定",
-
-          estimatedTime: "30分"
-        },
-        {
-          id: "step-07",
-          number: 7,
-          title: "図表の作成",
-
-          estimatedTime: "2〜3時間"
-        },
-        {
-          id: "step-08",
-          number: 8,
-          title: "タイトル・抄録作成",
-
-          estimatedTime: "1〜2時間"
-        },
-        {
-          id: "step-09",
-          number: 9,
-          title: "緒言(Introduction)",
-
-          estimatedTime: "1〜2時間"
-        },
-        {
-          id: "step-10",
-          number: 10,
-          title: "症例提示(Case Presentation)",
-
-          estimatedTime: "2〜3時間"
-        },
-        {
-          id: "step-11",
-          number: 11,
-          title: "考察(Discussion)",
-
-          estimatedTime: "3〜4時間"
-        },
-        {
-          id: "step-12",
-          number: 12,
-          title: "結論(Conclusion)",
-
-          estimatedTime: "30分"
-        }
-      ]
-    },
-    {
-      id: "finishing",
-      number: 3,
-      title: "仕上げ",
-      titleEn: "Finishing",
-      steps: [
-        {
-          id: "step-13",
-          number: 13,
-          title: "謝辞・利益相反・研究助成",
-
-          estimatedTime: "30分"
-        },
-        {
-          id: "step-14",
-          number: 14,
-          title: "参考文献リストの作成",
-
-          estimatedTime: "1〜2時間"
-        },
-        {
-          id: "step-15",
-          number: 15,
-          title: "英文校正",
-
-          estimatedTime: "2〜3時間"
-        },
-        {
-          id: "step-16",
-          number: 16,
-          title: "投稿規定の最終確認",
-
-          estimatedTime: "1〜2時間"
-        },
-        {
-          id: "step-17",
-          number: 17,
-          title: "カバーレターの作成",
-
-          estimatedTime: "1時間"
-        }
-      ]
-    },
-    {
-      id: "submission",
-      number: 4,
-      title: "投稿",
-      titleEn: "Submission",
-      steps: [
-        {
-          id: "step-18",
-          number: 18,
-          title: "オンライン投稿",
-
-          estimatedTime: "1〜2時間"
+          title: "ステップ5: 最終化と投稿準備",
+          duration: "1時間"
         }
       ]
     }

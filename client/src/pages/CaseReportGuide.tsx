@@ -10,24 +10,11 @@ import { caseReportGuideData } from '@/lib/case-report-guide-data';
 
 // Markdownファイルを直接インポート
 import introMd from '@/assets/guides/case-report/00-introduction.md?raw';
-import step01Md from '@/assets/guides/case-report/01-preparation/step-01.md?raw';
-import step02Md from '@/assets/guides/case-report/01-preparation/step-02.md?raw';
-import step03Md from '@/assets/guides/case-report/01-preparation/step-03.md?raw';
-import step04Md from '@/assets/guides/case-report/01-preparation/step-04.md?raw';
-import step05Md from '@/assets/guides/case-report/01-preparation/step-05.md?raw';
-import step06Md from '@/assets/guides/case-report/02-writing/step-06.md?raw';
-import step07Md from '@/assets/guides/case-report/02-writing/step-07.md?raw';
-import step08Md from '@/assets/guides/case-report/02-writing/step-08.md?raw';
-import step09Md from '@/assets/guides/case-report/02-writing/step-09.md?raw';
-import step10Md from '@/assets/guides/case-report/02-writing/step-10.md?raw';
-import step11Md from '@/assets/guides/case-report/02-writing/step-11.md?raw';
-import step12Md from '@/assets/guides/case-report/02-writing/step-12.md?raw';
-import step13Md from '@/assets/guides/case-report/03-finishing/step-13.md?raw';
-import step14Md from '@/assets/guides/case-report/03-finishing/step-14.md?raw';
-import step15Md from '@/assets/guides/case-report/03-finishing/step-15.md?raw';
-import step16Md from '@/assets/guides/case-report/03-finishing/step-16.md?raw';
-import step17Md from '@/assets/guides/case-report/03-finishing/step-17.md?raw';
-import step18Md from '@/assets/guides/case-report/04-submission/step-18.md?raw';
+import step01Md from '@/assets/guides/case-report/01-workflow/01-data-collection.md?raw';
+import step02Md from '@/assets/guides/case-report/01-workflow/02-literature-review.md?raw';
+import step03Md from '@/assets/guides/case-report/01-workflow/03-strategy-design.md?raw';
+import step04Md from '@/assets/guides/case-report/01-workflow/04-ai-writing.md?raw';
+import step05Md from '@/assets/guides/case-report/01-workflow/05-finalization.md?raw';
 
 const markdownContent: Record<string, string> = {
   'intro': introMd,
@@ -36,19 +23,6 @@ const markdownContent: Record<string, string> = {
   'step-03': step03Md,
   'step-04': step04Md,
   'step-05': step05Md,
-  'step-06': step06Md,
-  'step-07': step07Md,
-  'step-08': step08Md,
-  'step-09': step09Md,
-  'step-10': step10Md,
-  'step-11': step11Md,
-  'step-12': step12Md,
-  'step-13': step13Md,
-  'step-14': step14Md,
-  'step-15': step15Md,
-  'step-16': step16Md,
-  'step-17': step17Md,
-  'step-18': step18Md,
 };
 
 export default function CaseReportGuide() {
