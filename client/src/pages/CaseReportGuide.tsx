@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useLocation } from 'wouter';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
@@ -53,7 +53,8 @@ const markdownContent: Record<string, string> = {
 
 export default function CaseReportGuide() {
   const { stepId } = useParams<{ stepId: string }>();
-  const navigate = useNavigate();
+  const [, setLocation] = useLocation();
+  const navigate = (path: string) => setLocation(path);
   const [completedSteps, setCompletedSteps] = useState<Set<string>>(new Set());
   const [currentStepId, setCurrentStepId] = useState<string>(stepId || 'intro');
   const [markdown, setMarkdown] = useState<string>('');
