@@ -1,8 +1,6 @@
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { tips, PromptTip } from "@/lib/tips";
 import { ArrowLeft, Copy, Check } from "lucide-react";
 import { useState } from "react";
@@ -24,11 +22,35 @@ const levelLabels: Record<PromptTip['level'], string> = {
   advanced: '上級'
 };
 
+// contentからメリット・デメリットを抽出
+function extractKeyPoints(content: string) {
+  const meritsMatch = content.match(/## メリット\n([\s\S]*?)(?=\n##|$)/);
+  const demeritsMatch = content.match(/## デメリット\n([\s\S]*?)(?=\n##|$)/);
+  
+  const merits = meritsMatch 
+    ? meritsMatch[1].trim().split('\n').filter(line => line.startsWith('-')).map(line => line.replace(/^- /, ''))
+    : [];
+  
+  const demerits = demeritsMatch
+    ? demeritsMatch[1].trim().split('\n').filter(line => line.startsWith('-')).map(line => line.replace(/^- /, ''))
+    : [];
+  
+  return { merits, demerits };
+}
+
+// contentから基本的な使い方を抽出
+function extractBasicUsage(content: string) {
+  const usageMatch = content.match(/## 基本的な使い方\n([\s\S]*?)(?=\n##|$)/);
+  if (!usageMatch) return null;
+  
+  return usageMatch[1].trim();
+}
+
 export default function TipDetail() {
   const [match, params] = useRoute("/tips/:id");
   const tipId = match && params ? params.id : null;
   const tip = tips.find((t) => t.id === tipId);
-  const [copied, setCopied] = useState(false);
+  const [copiedTemplate, setCopiedTemplate] = useState(false);
 
   if (!tip) {
     return (
@@ -45,198 +67,186 @@ export default function TipDetail() {
     );
   }
 
-  const handleCopy = async () => {
+  const handleCopyTemplate = async () => {
     try {
-      await navigator.clipboard.writeText(tip.content);
-      setCopied(true);
-      toast.success("クリップボードにコピーしました");
-      setTimeout(() => setCopied(false), 2000);
+      await navigator.clipboard.writeText(tip.promptTemplate!);
+      setCopiedTemplate(true);
+      toast.success("プロンプトをコピーしました");
+      setTimeout(() => setCopiedTemplate(false), 2000);
     } catch (err) {
       toast.error("コピーに失敗しました");
     }
   };
 
+  const { merits, demerits } = extractKeyPoints(tip.content);
+  const basicUsage = extractBasicUsage(tip.content);
+
   return (
     <Layout>
-      <div className="space-y-6 pb-24">
-        {/* Header */}
+      <div className="max-w-4xl mx-auto pb-24 px-4">
+        {/* Back Button */}
         <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+          className="mb-8"
+        >
+          <Link href="/tips">
+            <Button variant="ghost" size="sm" className="-ml-2 text-muted-foreground hover:text-foreground">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Tipsに戻る
+            </Button>
+          </Link>
+        </motion.div>
+
+        {/* Header */}
+        <motion.header
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex items-center gap-4 flex-none"
+          className="mb-16"
         >
-          <Link href="/tips">
-            <Button variant="ghost" size="icon" className="rounded-full">
-              <ArrowLeft className="w-5 h-5" />
-            </Button>
-          </Link>
-          <div className="flex-1">
-            <div className="flex items-center gap-3 mb-2">
-              <Badge variant="secondary" className="capitalize">
-                {categoryLabels[tip.category]}
-              </Badge>
-              <Badge variant="outline">
-                {levelLabels[tip.level]}
-              </Badge>
-            </div>
-            <h1 className="text-3xl font-bold tracking-tight">{tip.title}</h1>
-            <p className="text-lg text-muted-foreground mt-2">{tip.description}</p>
+          <div className="flex items-center gap-3 mb-4">
+            <Badge variant="secondary" className="text-sm">
+              {categoryLabels[tip.category]}
+            </Badge>
+            <Badge variant="outline" className="text-sm">
+              {levelLabels[tip.level]}
+            </Badge>
           </div>
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={handleCopy}
-            className="shrink-0"
-          >
-            {copied ? (
-              <Check className="w-5 h-5 text-green-500" />
-            ) : (
-              <Copy className="w-5 h-5" />
-            )}
-          </Button>
-        </motion.div>
+          
+          <h1 className="text-5xl font-bold tracking-tight mb-6 leading-tight">
+            {tip.title}
+          </h1>
+          
+          <p className="text-xl text-muted-foreground leading-relaxed">
+            {tip.description}
+          </p>
+        </motion.header>
 
-        <Separator />
-
-        {/* Content */}
+        {/* Main Content */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.5 }}
+          className="space-y-16"
         >
-          <Card className="border-transparent shadow-sm bg-card/50 backdrop-blur-sm">
-            <CardHeader>
-              <CardTitle>詳細説明</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="prose prose-sm max-w-none dark:prose-invert">
-                <div className="whitespace-pre-wrap text-foreground leading-relaxed">
-                  {tip.content}
+          {/* When to Use - 使用シーン */}
+          {tip.scenario && (
+            <section>
+              <h2 className="text-2xl font-bold mb-6">いつ使うのか</h2>
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 border-l-4 border-blue-500 p-8 rounded-r-xl">
+                <p className="text-lg leading-relaxed text-foreground">
+                  {tip.scenario}
+                </p>
+              </div>
+            </section>
+          )}
+
+          {/* How to Use - 使い方 */}
+          <section>
+            <h2 className="text-2xl font-bold mb-6">どう使うのか</h2>
+            
+            {/* 基本的な使い方 */}
+            {basicUsage && (
+              <div className="mb-8">
+                <h3 className="text-lg font-semibold mb-4 text-muted-foreground">このテクニックとは</h3>
+                <div className="prose prose-lg max-w-none dark:prose-invert">
+                  <p className="text-base leading-relaxed whitespace-pre-line">
+                    {basicUsage}
+                  </p>
                 </div>
               </div>
-            </CardContent>
-          </Card>
-        </motion.div>
+            )}
 
-        {/* Scenario */}
-        {tip.scenario && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-          >
-            <Card className="border-blue-500/20 bg-blue-50 dark:bg-blue-950/20">
-              <CardHeader>
-                <CardTitle className="text-lg flex items-center gap-2">
-                  <span className="text-blue-600 dark:text-blue-400">📍</span>
-                  こんな場面で使えます
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-foreground leading-relaxed">{tip.scenario}</p>
-              </CardContent>
-            </Card>
-          </motion.div>
-        )}
-
-        {/* Use Case */}
-        {tip.useCase && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.25, duration: 0.5 }}
-          >
-            <Card className="border-primary/20 bg-primary/5">
-              <CardHeader>
-                <CardTitle className="text-lg">適用場面</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-foreground">{tip.useCase}</p>
-              </CardContent>
-            </Card>
-          </motion.div>
-        )}
-
-        {/* Prompt Template */}
-        {tip.promptTemplate && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-          >
-            <Card className="border-green-500/20 bg-green-50 dark:bg-green-950/20">
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg flex items-center gap-2">
-                    <span className="text-green-600 dark:text-green-400">✨</span>
-                    プロンプトテンプレート
-                  </CardTitle>
+            {/* プロンプトテンプレート */}
+            {tip.promptTemplate && (
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-semibold text-muted-foreground">プロンプトテンプレート</h3>
                   <Button
-                    variant="outline"
+                    onClick={handleCopyTemplate}
                     size="sm"
-                    onClick={async () => {
-                      try {
-                        await navigator.clipboard.writeText(tip.promptTemplate!);
-                        toast.success("プロンプトをコピーしました");
-                      } catch (err) {
-                        toast.error("コピーに失敗しました");
-                      }
-                    }}
                     className="gap-2"
                   >
-                    <Copy className="w-4 h-4" />
-                    コピー
+                    {copiedTemplate ? (
+                      <>
+                        <Check className="w-4 h-4" />
+                        コピー済み
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-4 h-4" />
+                        コピー
+                      </>
+                    )}
                   </Button>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <div className="bg-white dark:bg-gray-900 p-4 rounded-lg border border-green-200 dark:border-green-800">
-                  <pre className="text-sm text-foreground whitespace-pre-wrap font-mono">{tip.promptTemplate}</pre>
-                </div>
-                <p className="text-sm text-muted-foreground mt-3">
-                  💡 ヒント：[　]の部分に実際の情報を入力してください
-                </p>
-              </CardContent>
-            </Card>
-          </motion.div>
-        )}
-
-        {/* Example */}
-        {tip.example && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35, duration: 0.5 }}
-          >
-            <Card className="border-transparent shadow-sm bg-card/50 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-lg">使用例</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="prose prose-sm max-w-none dark:prose-invert">
-                  <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
-                    <code className="text-sm">{tip.example}</code>
+                <div className="bg-gray-900 dark:bg-gray-950 rounded-xl p-8 border border-gray-800">
+                  <pre className="text-sm leading-relaxed whitespace-pre-wrap font-mono text-gray-100 overflow-x-auto">
+                    {tip.promptTemplate}
                   </pre>
                 </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        )}
+                <p className="text-sm text-muted-foreground mt-4">
+                  このテンプレートをコピーして、ChatGPTやClaude AIなどに貼り付けて使用できます
+                </p>
+              </div>
+            )}
 
-        {/* Navigation */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-          className="flex justify-center pt-8"
-        >
-          <Link href="/tips">
-            <Button variant="outline" size="lg">
-              <ArrowLeft className="mr-2 w-4 h-4" />
-              Tips一覧に戻る
-            </Button>
-          </Link>
+            {/* 実践例 */}
+            {tip.example && (
+              <div className="mt-8">
+                <h3 className="text-lg font-semibold mb-4 text-muted-foreground">実践例</h3>
+                <div className="bg-gray-50 dark:bg-gray-900 rounded-xl p-6 border border-gray-200 dark:border-gray-800">
+                  <pre className="text-sm leading-relaxed whitespace-pre-wrap text-foreground">
+                    {tip.example}
+                  </pre>
+                </div>
+              </div>
+            )}
+          </section>
+
+          {/* Key Points - ポイント */}
+          {(merits.length > 0 || demerits.length > 0) && (
+            <section>
+              <h2 className="text-2xl font-bold mb-6">押さえておくポイント</h2>
+              <div className="grid md:grid-cols-2 gap-8">
+                {/* メリット */}
+                {merits.length > 0 && (
+                  <div>
+                    <h3 className="text-lg font-semibold mb-4 text-green-600 dark:text-green-400">
+                      メリット
+                    </h3>
+                    <ul className="space-y-3">
+                      {merits.map((merit, index) => (
+                        <li key={index} className="flex items-start gap-3">
+                          <span className="text-green-500 mt-1 flex-shrink-0">✓</span>
+                          <span className="text-base leading-relaxed">{merit}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                
+                {/* デメリット */}
+                {demerits.length > 0 && (
+                  <div>
+                    <h3 className="text-lg font-semibold mb-4 text-orange-600 dark:text-orange-400">
+                      デメリット・注意点
+                    </h3>
+                    <ul className="space-y-3">
+                      {demerits.map((demerit, index) => (
+                        <li key={index} className="flex items-start gap-3">
+                          <span className="text-orange-500 mt-1 flex-shrink-0">!</span>
+                          <span className="text-base leading-relaxed">{demerit}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </section>
+          )}
         </motion.div>
       </div>
     </Layout>
