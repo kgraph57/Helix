@@ -322,6 +322,144 @@
 }
 
 /* Zenn-like article styling */
+.zenn-article {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 48px 40px;
+  background: white;
+  border-radius: 8px;
+  font-size: 16px;
+  line-height: 1.9;
+  color: #333;
+}
+
+.dark .zenn-article {
+  background: oklch(0.16 0.015 260);
+  color: oklch(0.98 0.002 260);
+}
+
+.zenn-article * {
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.zenn-article p {
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.zenn-article h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-top: 48px;
+  margin-bottom: 24px;
+  line-height: 1.4;
+}
+
+.zenn-article h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-top: 32px;
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+.zenn-article h4 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 24px;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.zenn-article ul,
+.zenn-article ol {
+  margin-top: 24px;
+  margin-bottom: 24px;
+  padding-left: 24px;
+}
+
+.zenn-article li {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.zenn-article code {
+  background: #f6f6f6;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+
+.dark .zenn-article code {
+  background: oklch(0.22 0.015 260);
+}
+
+.zenn-article pre {
+  background: #f6f6f6;
+  padding: 20px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.dark .zenn-article pre {
+  background: oklch(0.22 0.015 260);
+}
+
+.zenn-article blockquote {
+  border-left: 4px solid #ddd;
+  padding-left: 16px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  color: #666;
+}
+
+.dark .zenn-article blockquote {
+  border-left-color: oklch(0.4 0.01 260);
+  color: oklch(0.7 0.003 260);
+}
+
+.zenn-article table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.zenn-article th,
+.zenn-article td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.dark .zenn-article th,
+.dark .zenn-article td {
+  border-color: oklch(0.3 0.01 260);
+}
+
+.zenn-article th {
+  background: #f6f6f6;
+  font-weight: 600;
+}
+
+.dark .zenn-article th {
+  background: oklch(0.22 0.015 260);
+}
+
+.zenn-article img {
+  max-width: 100%;
+  height: auto;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  border-radius: 8px;
+}
+
+/* Legacy prose styling for backward compatibility */
 .prose {
   @apply text-base;
   word-break: break-word;

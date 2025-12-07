@@ -1,95 +1,97 @@
-import { useState, useEffect } from "react";
-import { Link } from "wouter";
-import { ArrowLeft, CheckCircle2, Circle, Clock } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
-import { cn } from "@/lib/utils";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import rehypeRaw from "rehype-raw";
-import rehypeSanitize from "rehype-sanitize";
-import { caseReportGuideData, type Step, type Phase } from "@/lib/case-report-guide-data";
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
+import rehypeSanitize from 'rehype-sanitize';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft, Circle, CheckCircle2, Clock } from 'lucide-react';
+import { caseReportGuideData } from '@/lib/case-report-guide-data';
 
 // Markdownファイルを直接インポート
-import step01 from "@/../../guides/case-report/01-preparation/step-01.md?raw";
-import step02 from "@/../../guides/case-report/01-preparation/step-02.md?raw";
-import step03 from "@/../../guides/case-report/01-preparation/step-03.md?raw";
-import step04 from "@/../../guides/case-report/01-preparation/step-04.md?raw";
-import step05 from "@/../../guides/case-report/01-preparation/step-05.md?raw";
-import step06 from "@/../../guides/case-report/02-writing/step-06.md?raw";
-import step07 from "@/../../guides/case-report/02-writing/step-07.md?raw";
-import step08 from "@/../../guides/case-report/02-writing/step-08.md?raw";
-import step09 from "@/../../guides/case-report/02-writing/step-09.md?raw";
-import step10 from "@/../../guides/case-report/02-writing/step-10.md?raw";
-import step11 from "@/../../guides/case-report/02-writing/step-11.md?raw";
-import step12 from "@/../../guides/case-report/02-writing/step-12.md?raw";
-import step13 from "@/../../guides/case-report/03-finishing/step-13.md?raw";
-import step14 from "@/../../guides/case-report/03-finishing/step-14.md?raw";
-import step15 from "@/../../guides/case-report/03-finishing/step-15.md?raw";
-import step16 from "@/../../guides/case-report/03-finishing/step-16.md?raw";
-import step17 from "@/../../guides/case-report/03-finishing/step-17.md?raw";
-import step18 from "@/../../guides/case-report/04-submission/step-18.md?raw";
+import introMd from '../../guides/case-report/00-introduction.md?raw';
+import step01Md from '../../guides/case-report/01-preparation/step-01.md?raw';
+import step02Md from '../../guides/case-report/01-preparation/step-02.md?raw';
+import step03Md from '../../guides/case-report/01-preparation/step-03.md?raw';
+import step04Md from '../../guides/case-report/01-preparation/step-04.md?raw';
+import step05Md from '../../guides/case-report/01-preparation/step-05.md?raw';
+import step06Md from '../../guides/case-report/02-writing/step-06.md?raw';
+import step07Md from '../../guides/case-report/02-writing/step-07.md?raw';
+import step08Md from '../../guides/case-report/02-writing/step-08.md?raw';
+import step09Md from '../../guides/case-report/02-writing/step-09.md?raw';
+import step10Md from '../../guides/case-report/02-writing/step-10.md?raw';
+import step11Md from '../../guides/case-report/02-writing/step-11.md?raw';
+import step12Md from '../../guides/case-report/02-writing/step-12.md?raw';
+import step13Md from '../../guides/case-report/03-finishing/step-13.md?raw';
+import step14Md from '../../guides/case-report/03-finishing/step-14.md?raw';
+import step15Md from '../../guides/case-report/03-finishing/step-15.md?raw';
+import step16Md from '../../guides/case-report/03-finishing/step-16.md?raw';
+import step17Md from '../../guides/case-report/03-finishing/step-17.md?raw';
+import step18Md from '../../guides/case-report/04-submission/step-18.md?raw';
 
-const markdownMap: Record<string, string> = {
-  "step-01": step01,
-  "step-02": step02,
-  "step-03": step03,
-  "step-04": step04,
-  "step-05": step05,
-  "step-06": step06,
-  "step-07": step07,
-  "step-08": step08,
-  "step-09": step09,
-  "step-10": step10,
-  "step-11": step11,
-  "step-12": step12,
-  "step-13": step13,
-  "step-14": step14,
-  "step-15": step15,
-  "step-16": step16,
-  "step-17": step17,
-  "step-18": step18,
+const markdownContent: Record<string, string> = {
+  'intro': introMd,
+  'step-01': step01Md,
+  'step-02': step02Md,
+  'step-03': step03Md,
+  'step-04': step04Md,
+  'step-05': step05Md,
+  'step-06': step06Md,
+  'step-07': step07Md,
+  'step-08': step08Md,
+  'step-09': step09Md,
+  'step-10': step10Md,
+  'step-11': step11Md,
+  'step-12': step12Md,
+  'step-13': step13Md,
+  'step-14': step14Md,
+  'step-15': step15Md,
+  'step-16': step16Md,
+  'step-17': step17Md,
+  'step-18': step18Md,
 };
 
 export default function CaseReportGuide() {
-  const [currentStepId, setCurrentStepId] = useState<string>("step-01");
+  const { stepId } = useParams<{ stepId: string }>();
+  const navigate = useNavigate();
   const [completedSteps, setCompletedSteps] = useState<Set<string>>(new Set());
+  const [currentStepId, setCurrentStepId] = useState<string>(stepId || 'intro');
+  const [markdown, setMarkdown] = useState<string>('');
 
   // LocalStorageから進捗を読み込み
   useEffect(() => {
-    const saved = localStorage.getItem("case-report-progress");
+    const saved = localStorage.getItem('case-report-progress');
     if (saved) {
       try {
-        const data = JSON.parse(saved);
-        setCompletedSteps(new Set(data.completedSteps || []));
-        setCurrentStepId(data.currentStepId || "step-01");
+        const parsed = JSON.parse(saved);
+        setCompletedSteps(new Set(parsed));
       } catch (e) {
-        console.error("Failed to load progress", e);
+        console.error('Failed to parse progress:', e);
       }
     }
   }, []);
 
   // 進捗をLocalStorageに保存
   useEffect(() => {
-    const data = {
-      completedSteps: Array.from(completedSteps),
-      currentStepId
-    };
-    localStorage.setItem("case-report-progress", JSON.stringify(data));
-  }, [completedSteps, currentStepId]);
+    localStorage.setItem('case-report-progress', JSON.stringify(Array.from(completedSteps)));
+  }, [completedSteps]);
 
-  // ページトップにスクロール
+  // stepIdが変更されたら更新
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [currentStepId]);
-
-  const findStepById = (stepId: string): Step | undefined => {
-    for (const phase of caseReportGuideData.phases) {
-      const step = phase.steps.find(s => s.id === stepId);
-      if (step) return step;
+    if (stepId) {
+      setCurrentStepId(stepId);
     }
-    return undefined;
-  };
+  }, [stepId]);
+
+  // Markdownコンテンツを読み込み
+  useEffect(() => {
+    const content = markdownContent[currentStepId];
+    if (content) {
+      setMarkdown(content);
+    } else {
+      setMarkdown('# コンテンツが見つかりません\n\nこのステップのコンテンツはまだ作成されていません。');
+    }
+  }, [currentStepId]);
 
   const toggleStepCompletion = (stepId: string) => {
     setCompletedSteps(prev => {
@@ -103,106 +105,134 @@ export default function CaseReportGuide() {
     });
   };
 
-  const progress = (completedSteps.size / caseReportGuideData.totalSteps) * 100;
-
-  const currentStep = findStepById(currentStepId);
-  const markdownContent = markdownMap[currentStepId] || "# コンテンツが見つかりません";
+  const currentStep = caseReportGuideData.steps.find(s => s.id === currentStepId);
+  const completedCount = Array.from(completedSteps).filter(id => id !== 'intro').length;
+  const totalSteps = caseReportGuideData.steps.filter(s => s.id !== 'intro').length;
+  const progressPercentage = totalSteps > 0 ? Math.round((completedCount / totalSteps) * 100) : 0;
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
+      {/* ヘッダー */}
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-14 items-center">
-          <Link href="/guides">
-            <Button variant="ghost" size="sm">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              ガイド一覧に戻る
-            </Button>
-          </Link>
-          <div className="flex-1 text-center font-bold truncate">
-            {caseReportGuideData.title}
-          </div>
-          <div className="w-24"></div>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => navigate('/medicalprompthub/guides')}
+            className="mr-4"
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            ガイド一覧に戻る
+          </Button>
+          <h1 className="text-lg font-semibold">【完全版】症例報告執筆ガイド：構想から投稿まで</h1>
         </div>
       </header>
 
-      <div className="container mx-auto py-8">
+      {/* メインコンテンツ */}
+      <div className="container max-w-[1280px] mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Sidebar - 固定 */}
+          {/* 左サイドバー（固定） */}
           <aside className="lg:col-span-1">
-            <div className="lg:sticky lg:top-20">
-              <div className="p-4 border rounded-lg bg-card mb-4">
-                <h3 className="font-bold mb-2">進捗状況</h3>
-                <Progress value={progress} className="mb-2" />
-                <p className="text-sm text-muted-foreground">{completedSteps.size} / {caseReportGuideData.totalSteps} 完了</p>
+            <div className="sticky top-24 space-y-6">
+              {/* 進捗状況 */}
+              <div className="rounded-lg border bg-card p-4">
+                <h3 className="font-semibold mb-2">進捗状況</h3>
+                <div className="w-full bg-gray-200 rounded-full h-2 mb-2">
+                  <div
+                    className="bg-primary h-2 rounded-full transition-all duration-300"
+                    style={{ width: `${progressPercentage}%` }}
+                  />
+                </div>
+                <p className="text-sm text-muted-foreground">{completedCount} / {totalSteps} 完了</p>
+                <p className="text-xs text-muted-foreground mt-1">{progressPercentage}% 完了</p>
               </div>
 
-              <nav className="space-y-4">
-                {caseReportGuideData.phases.map((phase: Phase) => (
-                  <div key={phase.id}>
-                    <h4 className="flex items-center font-bold text-lg mb-2">
-                      <span className="flex items-center justify-center w-6 h-6 mr-2 text-sm font-bold text-white bg-primary rounded-full">{phase.number}</span>
-                      Phase {phase.number}: {phase.title}
-                    </h4>
-                    <ul className="space-y-1">
-                      {phase.steps.map((step: Step) => (
-                        <li key={step.id}>
-                          <Button
-                            variant={currentStepId === step.id ? "secondary" : "ghost"}
-                            className="w-full justify-start items-center text-left h-auto py-2"
-                            onClick={() => setCurrentStepId(step.id)}
+              {/* 目次 */}
+              <nav className="space-y-1">
+                {caseReportGuideData.phases.map((phase) => (
+                  <div key={phase.id} className="mb-4">
+                    <div className="flex items-center gap-2 mb-2 font-semibold text-sm">
+                      <div className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs">
+                        {phase.id}
+                      </div>
+                      <span>{phase.title}</span>
+                    </div>
+                    <div className="ml-2 space-y-1">
+                      {caseReportGuideData.steps
+                        .filter(step => step.phase === phase.id)
+                        .map((step) => (
+                          <button
+                            key={step.id}
+                            onClick={() => {
+                              setCurrentStepId(step.id);
+                              navigate(`/medicalprompthub/guides/case-report-complete/${step.id}`);
+                            }}
+                            className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
+                              currentStepId === step.id
+                                ? 'bg-primary/10 text-primary font-medium'
+                                : 'hover:bg-muted'
+                            }`}
                           >
-                            <div onClick={(e) => { e.stopPropagation(); toggleStepCompletion(step.id); }}>
+                            <div className="flex items-center gap-2">
                               {completedSteps.has(step.id) ? (
-                                <CheckCircle2 className="h-5 w-5 mr-3 text-green-500" />
+                                <CheckCircle2 className="h-4 w-4 text-green-600 flex-shrink-0" />
                               ) : (
-                                <Circle className="h-5 w-5 mr-3 text-muted-foreground" />
+                                <Circle className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                               )}
+                              <span className="flex-1">{step.title}</span>
                             </div>
-                            <div>
-                              <p className={cn("font-semibold", currentStepId === step.id && "text-primary")}>
-                                Step {step.number}: {step.title}
-                              </p>
-                              <p className="text-xs text-muted-foreground flex items-center mt-1">
-                                <Clock className="h-3 w-3 mr-1" />
-                                {step.estimatedTime}
-                              </p>
-                            </div>
-                          </Button>
-                        </li>
-                      ))}
-                    </ul>
+                            {step.duration && (
+                              <div className="flex items-center gap-1 ml-6 mt-1 text-xs text-muted-foreground">
+                                <Clock className="h-3 w-3" />
+                                <span>{step.duration}</span>
+                              </div>
+                            )}
+                          </button>
+                        ))}
+                    </div>
                   </div>
                 ))}
               </nav>
             </div>
           </aside>
 
-          {/* Main Content - 通常のページスクロール */}
+          {/* メインコンテンツエリア（Zennスタイル） */}
           <main className="lg:col-span-3">
-            <div className="prose prose-lg max-w-[680px] mx-auto p-8 border rounded-lg bg-card" style={{
-              lineHeight: '1.9',
-              fontSize: '16px',
-              wordBreak: 'break-word',
-              overflowWrap: 'break-word'
-            }}>
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-3xl font-bold m-0">Step {currentStep?.number}: {currentStep?.title}</h2>
-                <Button variant="outline" size="sm" onClick={() => toggleStepCompletion(currentStepId)}>
-                  {completedSteps.has(currentStepId) ? (
-                    <><CheckCircle2 className="h-4 w-4 mr-2" />完了！</>
-                  ) : (
-                    <><Circle className="h-4 w-4 mr-2" />完了にする</>
-                  )}
-                </Button>
-              </div>
+            <article className="zenn-article">
+              {/* ステップヘッダー */}
+              {currentStep && currentStep.id !== 'intro' && (
+                <div className="flex items-center justify-between mb-8 pb-4 border-b">
+                  <div>
+                    <h2 className="text-3xl font-bold m-0">Step {currentStep.number}: {currentStep.title}</h2>
+                    {currentStep.duration && (
+                      <div className="flex items-center gap-2 mt-2 text-sm text-muted-foreground">
+                        <Clock className="h-4 w-4" />
+                        <span>所要時間: {currentStep.duration}</span>
+                      </div>
+                    )}
+                  </div>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={() => toggleStepCompletion(currentStepId)}
+                  >
+                    {completedSteps.has(currentStepId) ? (
+                      <><CheckCircle2 className="h-4 w-4 mr-2" />完了！</>
+                    ) : (
+                      <><Circle className="h-4 w-4 mr-2" />完了にする</>
+                    )}
+                  </Button>
+                </div>
+              )}
+
+              {/* Markdownコンテンツ */}
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 rehypePlugins={[rehypeRaw, rehypeSanitize]}
               >
-                {markdownContent}
+                {markdown}
               </ReactMarkdown>
-            </div>
+            </article>
           </main>
         </div>
       </div>
