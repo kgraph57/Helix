@@ -40,7 +40,7 @@ function Router() {
           <Route path="/category/:id" component={Category} />
           <Route path="/prompts/:id" component={PromptDetail} />
           <Route path="/guides" component={Guides} />
-          <Route path="/guides/case-report-complete" component={CaseReportGuide} />
+          <Route path="/guides/case-report-complete/:stepId?" component={CaseReportGuide} />
           <Route path="/guides/:id" component={GuideDetail} />
           <Route path="/tips" component={Tips} />
           <Route path="/tips/:id" component={TipDetail} />
