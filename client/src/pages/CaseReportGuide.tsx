@@ -109,19 +109,18 @@ export default function CaseReportGuide() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-sm">
+      <header className="sticky top-0 z-10 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <Button
               variant="ghost"
-              size="sm"
-              onClick={() => navigate('/medicalprompthub/guides')}
-              className="mr-4"
+              onClick={() => navigate('/guides')}
+              className="flex items-center"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
               ガイド一覧に戻る
             </Button>
-            <h1 className="text-xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-xl font-bold text-gray-900 dark:text-white absolute left-1/2 transform -translate-x-1/2">
               {caseReportGuideData.title}
             </h1>
           </div>
