@@ -44,7 +44,8 @@ const plugins = [
   react(),
   tailwindcss(),
   jsxLocPlugin(),
-  vitePluginManusRuntime(),
+  // Only enable Manus runtime in development
+  ...(process.env.NODE_ENV !== 'production' ? [vitePluginManusRuntime()] : []),
   analyticsPlugin(),
   VitePWA({
     registerType: "autoUpdate",
