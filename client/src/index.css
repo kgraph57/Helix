@@ -324,10 +324,20 @@
 /* Zenn-like article styling */
 .prose {
   @apply text-base;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+.prose * {
+  max-width: 100%;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .prose p {
-  @apply mb-6 leading-relaxed;
+  @apply mb-8 leading-loose;
+  margin-top: 1.5rem;
 }
 
 .prose h2 {
