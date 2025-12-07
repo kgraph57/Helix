@@ -98,9 +98,9 @@ export default defineConfig({
     emptyOutDir: true,
     rollupOptions: {
       output: {
-        entryFileNames: `assets/[name]-[hash]-v7.js`,
-        chunkFileNames: `assets/[name]-[hash]-v7.js`,
-        assetFileNames: `assets/[name]-[hash]-v7.[ext]`,
+        entryFileNames: `assets/[name]-[hash]-v11.js`,
+        chunkFileNames: `assets/[name]-[hash]-v11.js`,
+        assetFileNames: `assets/[name]-[hash]-v11.[ext]`,
         manualChunks: {
           // Vendor chunks
           'react-vendor': ['react', 'react-dom'],
