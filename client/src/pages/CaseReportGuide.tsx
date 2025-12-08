@@ -218,7 +218,7 @@ export default function CaseReportGuide() {
 
           {/* Right Content - Scrollable Article */}
           <main className="flex-1 min-w-0">
-            <article className="zenn-article bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-12">
+            <article className="zenn-article bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 rehypePlugins={[rehypeRaw, rehypeSanitize]}

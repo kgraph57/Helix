@@ -403,8 +403,8 @@ export default function GuideDetail() {
               <span>•</span>
               <span>{guide.readTime}</span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">{guide.title}</h1>
-            <p className="text-xl text-muted-foreground max-w-3xl">
+            <h1 className="text-2xl md:text-3xl font-bold tracking-tight">{guide.title}</h1>
+            <p className="text-base text-muted-foreground max-w-3xl">
               {guide.description}
             </p>
           </div>
@@ -448,7 +448,7 @@ export default function GuideDetail() {
 
         {/* Timeline Overview */}
         <div className="mb-12">
-          <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+          <h2 className="text-xl font-bold mb-3 flex items-center gap-2">
             <Map className="w-6 h-6" />
             Roadmap
           </h2>
@@ -471,7 +471,7 @@ export default function GuideDetail() {
 
         {/* Detailed Steps */}
         <div className="space-y-12">
-          <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+          <h2 className="text-xl font-bold mb-3 flex items-center gap-2">
             <ListTodo className="w-6 h-6" />
             Step-by-Step Guide
           </h2>
@@ -487,8 +487,8 @@ export default function GuideDetail() {
                         <span>•</span>
                         <span>{step.when}</span>
                       </div>
-                      <CardTitle className="text-xl">{step.title}</CardTitle>
-                      <CardDescription className="text-base">{step.subtitle}</CardDescription>
+                      <CardTitle className="text-lg">{step.title}</CardTitle>
+                      <CardDescription className="text-sm">{step.subtitle}</CardDescription>
                     </div>
                     <div className="p-2 bg-primary/10 rounded-lg">
                       <step.icon className="w-6 h-6 text-primary" />

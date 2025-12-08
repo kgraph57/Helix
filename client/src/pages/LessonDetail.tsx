@@ -240,10 +240,10 @@ export default function LessonDetail() {
                     </div>
                   ),
                   th: ({ node, ...props }) => (
-                    <th className="border border-border px-3 py-2 bg-muted font-semibold text-left" {...props} />
+                    <th className="border border-border px-2 py-1.5 bg-muted font-semibold text-left text-xs" {...props} />
                   ),
                   td: ({ node, ...props }) => (
-                    <td className="border border-border px-3 py-2" {...props} />
+                    <td className="border border-border px-2 py-1.5 text-xs" {...props} />
                   ),
                   img: ({ node, ...props }) => (
                     <img className="max-w-full h-auto my-6 rounded-lg" {...props} />
