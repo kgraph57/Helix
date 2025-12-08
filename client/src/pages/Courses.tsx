@@ -163,7 +163,7 @@ export default function Courses() {
           <GamificationStats
             totalXP={stats.totalXP}
             currentLevel={stats.currentLevel}
-            totalLessonsCompleted={stats.totalLessonsCompleted}
+            totalLessonsCompleted={Object.values(courseProgress).reduce((sum, p) => sum + (p.completedLessons?.length || 0), 0)}
             totalBadges={0}
           />
         </motion.section>

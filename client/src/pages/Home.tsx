@@ -11,6 +11,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { GamificationStats } from "@/components/GamificationStats";
 import { useGamification } from "@/hooks/useGamification";
 import { updateSEO, addHomeStructuredData } from "@/lib/seo";
+import { trackSearch, trackCategorySelect } from "@/lib/analytics";
 
 export default function Home() {
   useEffect(() => {
@@ -26,6 +27,21 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const { stats } = useGamification();
+
+  // 検索イベントを追跡
+  useEffect(() => {
+    if (searchQuery.trim()) {
+      trackSearch(searchQuery, filteredPrompts.length);
+    }
+  }, [searchQuery]);
+
+  // カテゴリ選択イベントを追跡
+  useEffect(() => {
+    if (selectedCategory) {
+      const category = categories.find((c) => c === selectedCategory);
+      trackCategorySelect(selectedCategory, category);
+    }
+  }, [selectedCategory]);
 
   const filteredPrompts = useMemo(() => {
     const filtered = fullPrompts.filter((prompt) => {
