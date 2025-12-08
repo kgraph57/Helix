@@ -1,11 +1,16 @@
 /**
  * ゲーミフィケーション統計表示コンポーネント
- * Duolingo風の魅力的なデザイン
+ * 世界最高水準のWebデザイン基準に基づいた最適化版
+ * 
+ * 設計原則:
+ * - 8pxグリッドシステム
+ * - 適切な情報密度
+ * - 明確な視覚的階層
+ * - スキャン可能なデザイン
  */
 
 import { Card, CardContent } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { Star, TrendingUp, Award, Sparkles, Zap, Target } from "lucide-react";
+import { Star, Award, Zap, Target, TrendingUp } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -76,118 +81,116 @@ export function GamificationStats({
     5: "エキスパート",
   };
 
-  const levelColors: Record<number, { bg: string; text: string; border: string }> = {
-    1: { bg: "from-blue-500/20 to-blue-600/10", text: "text-blue-600", border: "border-blue-500/30" },
-    2: { bg: "from-purple-500/20 to-purple-600/10", text: "text-purple-600", border: "border-purple-500/30" },
-    3: { bg: "from-green-500/20 to-green-600/10", text: "text-green-600", border: "border-green-500/30" },
-    4: { bg: "from-orange-500/20 to-orange-600/10", text: "text-orange-600", border: "border-orange-500/30" },
-    5: { bg: "from-yellow-500/20 to-yellow-600/10", text: "text-yellow-600", border: "border-yellow-500/30" },
+  const levelColors: Record<number, { 
+    bg: string; 
+    text: string; 
+    border: string;
+    progress: string;
+  }> = {
+    1: { 
+      bg: "from-blue-500/10 to-blue-600/5", 
+      text: "text-blue-600", 
+      border: "border-blue-500/20",
+      progress: "from-blue-500 to-blue-600"
+    },
+    2: { 
+      bg: "from-purple-500/10 to-purple-600/5", 
+      text: "text-purple-600", 
+      border: "border-purple-500/20",
+      progress: "from-purple-500 to-purple-600"
+    },
+    3: { 
+      bg: "from-green-500/10 to-green-600/5", 
+      text: "text-green-600", 
+      border: "border-green-500/20",
+      progress: "from-green-500 to-green-600"
+    },
+    4: { 
+      bg: "from-orange-500/10 to-orange-600/5", 
+      text: "text-orange-600", 
+      border: "border-orange-500/20",
+      progress: "from-orange-500 to-orange-600"
+    },
+    5: { 
+      bg: "from-yellow-500/10 to-yellow-600/5", 
+      text: "text-yellow-600", 
+      border: "border-yellow-500/20",
+      progress: "from-yellow-500 to-yellow-600"
+    },
   };
 
   const colors = levelColors[currentLevel] || levelColors[1];
 
   return (
-    <div className="space-y-4">
-      {/* メインのレベル表示カード - コンパクト版 */}
+    <div className="space-y-3">
+      {/* メインカード: レベル・XP・進捗（高さ約120px） */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
       >
         <Card className={cn(
-          "relative overflow-hidden border-2",
+          "relative overflow-hidden border",
           `bg-gradient-to-br ${colors.bg} ${colors.border}`
         )}>
           <CardContent className="p-4">
             <div className="flex items-center justify-between gap-4">
               {/* 左側: レベル表示 */}
-              <div className="flex items-center gap-4">
-                <div className="relative">
-                  {/* 円形のレベル表示 - 小さく */}
+              <div className="flex items-center gap-3">
+                <div className="relative flex-shrink-0">
                   <div className={cn(
-                    "w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold border-3 shadow-md",
+                    "w-14 h-14 rounded-full flex items-center justify-center text-xl font-bold border-2 shadow-sm",
                     `bg-gradient-to-br ${colors.bg} ${colors.border} ${colors.text}`
                   )}>
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-                    >
-                      {currentLevel}
-                    </motion.div>
+                    {currentLevel}
                   </div>
-                  {/* レベルバッジ - 小さく */}
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 }}
-                    className="absolute -top-1 -right-1 bg-primary text-primary-foreground rounded-full p-1 shadow-sm"
-                  >
-                    <Star className="w-3 h-3 fill-current" />
-                  </motion.div>
+                  <div className="absolute -top-0.5 -right-0.5 bg-primary text-primary-foreground rounded-full p-0.5">
+                    <Star className="w-2.5 h-2.5 fill-current" />
+                  </div>
                 </div>
 
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2">
-                    <h3 className={cn("text-lg font-bold", colors.text)}>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-1.5 mb-0.5">
+                    <h3 className={cn("text-base font-semibold truncate", colors.text)}>
                       {levelNames[currentLevel]}
                     </h3>
-                    {currentLevel >= 3 && (
-                      <Sparkles className={cn("w-4 h-4", colors.text)} />
-                    )}
                   </div>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-2xl font-bold">{totalXP}</span>
-                    <span className="text-sm text-muted-foreground">XP</span>
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-2xl font-bold leading-none">{totalXP}</span>
+                    <span className="text-xs text-muted-foreground">XP</span>
                   </div>
                 </div>
               </div>
 
-              {/* 右側: 次のレベルへの進捗 */}
-              <div className="text-right">
-                <div className="text-xs text-muted-foreground mb-1">次のレベルまで</div>
-                <div className={cn("text-xl font-bold", colors.text)}>
+              {/* 右側: 次のレベルまでの進捗 */}
+              <div className="text-right flex-shrink-0">
+                <div className="text-[10px] text-muted-foreground mb-0.5">次のレベルまで</div>
+                <div className={cn("text-lg font-bold leading-none", colors.text)}>
                   {remainingXP > 0 ? remainingXP : "MAX"}
                 </div>
-                <div className="text-xs text-muted-foreground">XP必要</div>
+                <div className="text-[10px] text-muted-foreground">XP必要</div>
               </div>
             </div>
 
-            {/* 進捗バー - コンパクト */}
-            <div className="mt-3 space-y-1">
-              <div className="flex justify-between text-xs">
-                <span className="text-muted-foreground">
-                  {currentLevelXP} / {nextLevelXP === Infinity ? "∞" : nextLevelXP} XP
+            {/* 進捗バー（コンパクト） */}
+            <div className="mt-3">
+              <div className="flex justify-between items-center mb-1">
+                <span className="text-[10px] text-muted-foreground">
+                  {currentLevelXP} / {nextLevelXP === Infinity ? "∞" : nextLevelXP}
                 </span>
-                <span className={cn("font-semibold", colors.text)}>
-                  {Math.round(progress * 100)}% 完了
+                <span className={cn("text-[10px] font-semibold", colors.text)}>
+                  {Math.round(progress * 100)}%
                 </span>
               </div>
-              <div className="relative h-2.5 bg-muted rounded-full overflow-hidden">
+              <div className="relative h-2 bg-muted/50 rounded-full overflow-hidden">
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${progress * 100}%` }}
-                  transition={{ delay: 0.3, duration: 1, ease: "easeOut" }}
+                  transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
                   className={cn(
                     "h-full rounded-full bg-gradient-to-r",
-                    currentLevel === 1 && "from-blue-500 to-blue-600",
-                    currentLevel === 2 && "from-purple-500 to-purple-600",
-                    currentLevel === 3 && "from-green-500 to-green-600",
-                    currentLevel === 4 && "from-orange-500 to-orange-600",
-                    currentLevel === 5 && "from-yellow-500 to-yellow-600"
+                    colors.progress
                   )}
-                />
-                {/* 光るエフェクト */}
-                <motion.div
-                  animate={{
-                    x: ["-100%", "200%"],
-                  }}
-                  transition={{
-                    repeat: Infinity,
-                    duration: 2,
-                    ease: "linear",
-                  }}
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent w-1/3"
                 />
               </div>
             </div>
@@ -195,28 +198,28 @@ export function GamificationStats({
         </Card>
       </motion.div>
 
-      {/* 統計カード（3列） - コンパクト版 */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+      {/* 統計カード（3列、高さ約80px） */}
+      <div className="grid grid-cols-3 gap-2">
         {/* 完了レッスン数 */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
+          transition={{ delay: 0.1 }}
         >
-          <Card className="hover:shadow-md transition-all duration-300 border hover:border-primary/20">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
+          <Card className="hover:shadow-sm transition-all duration-200 border h-full">
+            <CardContent className="p-3">
+              <div className="flex flex-col items-center text-center space-y-1.5">
                 <div className={cn(
-                  "w-10 h-10 rounded-lg flex items-center justify-center",
-                  "bg-gradient-to-br from-green-500/20 to-green-600/10 border border-green-500/30"
+                  "w-8 h-8 rounded-lg flex items-center justify-center",
+                  "bg-gradient-to-br from-green-500/15 to-green-600/10 border border-green-500/20"
                 )}>
-                  <Target className="w-5 h-5 text-green-600" />
+                  <Target className="w-4 h-4 text-green-600" />
                 </div>
-                <div className="text-right">
-                  <div className="text-2xl font-bold text-green-600">
-                    {totalLessonsCompleted}
-                  </div>
-                  <div className="text-xs text-muted-foreground">レッスン完了</div>
+                <div className="text-xl font-bold text-green-600 leading-none">
+                  {totalLessonsCompleted}
+                </div>
+                <div className="text-[10px] text-muted-foreground leading-tight">
+                  レッスン完了
                 </div>
               </div>
             </CardContent>
@@ -225,24 +228,24 @@ export function GamificationStats({
 
         {/* 獲得バッジ */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
+          transition={{ delay: 0.15 }}
         >
-          <Card className="hover:shadow-md transition-all duration-300 border hover:border-yellow-500/20">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
+          <Card className="hover:shadow-sm transition-all duration-200 border h-full">
+            <CardContent className="p-3">
+              <div className="flex flex-col items-center text-center space-y-1.5">
                 <div className={cn(
-                  "w-10 h-10 rounded-lg flex items-center justify-center",
-                  "bg-gradient-to-br from-yellow-500/20 to-yellow-600/10 border border-yellow-500/30"
+                  "w-8 h-8 rounded-lg flex items-center justify-center",
+                  "bg-gradient-to-br from-yellow-500/15 to-yellow-600/10 border border-yellow-500/20"
                 )}>
-                  <Award className="w-5 h-5 text-yellow-600" />
+                  <Award className="w-4 h-4 text-yellow-600" />
                 </div>
-                <div className="text-right">
-                  <div className="text-2xl font-bold text-yellow-600">
-                    {totalBadges}
-                  </div>
-                  <div className="text-xs text-muted-foreground">バッジ獲得</div>
+                <div className="text-xl font-bold text-yellow-600 leading-none">
+                  {totalBadges}
+                </div>
+                <div className="text-[10px] text-muted-foreground leading-tight">
+                  バッジ獲得
                 </div>
               </div>
             </CardContent>
@@ -251,24 +254,24 @@ export function GamificationStats({
 
         {/* 学習速度 */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
+          transition={{ delay: 0.2 }}
         >
-          <Card className="hover:shadow-md transition-all duration-300 border hover:border-purple-500/20">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
+          <Card className="hover:shadow-sm transition-all duration-200 border h-full">
+            <CardContent className="p-3">
+              <div className="flex flex-col items-center text-center space-y-1.5">
                 <div className={cn(
-                  "w-10 h-10 rounded-lg flex items-center justify-center",
-                  "bg-gradient-to-br from-purple-500/20 to-purple-600/10 border border-purple-500/30"
+                  "w-8 h-8 rounded-lg flex items-center justify-center",
+                  "bg-gradient-to-br from-purple-500/15 to-purple-600/10 border border-purple-500/20"
                 )}>
-                  <Zap className="w-5 h-5 text-purple-600" />
+                  <TrendingUp className="w-4 h-4 text-purple-600" />
                 </div>
-                <div className="text-right">
-                  <div className="text-2xl font-bold text-purple-600">
-                    {totalLessonsCompleted > 0 ? Math.round(totalXP / totalLessonsCompleted) : 0}
-                  </div>
-                  <div className="text-xs text-muted-foreground">平均XP/レッスン</div>
+                <div className="text-xl font-bold text-purple-600 leading-none">
+                  {totalLessonsCompleted > 0 ? Math.round(totalXP / totalLessonsCompleted) : 0}
+                </div>
+                <div className="text-[10px] text-muted-foreground leading-tight">
+                  平均XP
                 </div>
               </div>
             </CardContent>
