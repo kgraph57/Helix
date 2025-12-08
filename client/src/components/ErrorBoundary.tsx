@@ -75,6 +75,15 @@ function ErrorFallback({
   const [, setLocation] = useLocation();
   const isDevelopment = import.meta.env.DEV;
 
+  const handleGoHome = () => {
+    // エラー状態をリセットしてからホームに戻る
+    onReset();
+    // 少し遅延を入れてからホームに移動（エラー状態のクリアを確実にする）
+    setTimeout(() => {
+      setLocation("/");
+    }, 0);
+  };
+
   return (
     <div 
       className="flex items-center justify-center min-h-screen p-8 bg-background"
@@ -142,7 +151,7 @@ function ErrorFallback({
             </Button>
             <Button
               variant="outline"
-              onClick={() => setLocation("/")}
+              onClick={handleGoHome}
               className="flex items-center gap-2"
               aria-label="ホームページに戻る"
             >
