@@ -3,7 +3,12 @@ import App from "./App";
 import "./index.css";
 import { setupGlobalErrorHandlers } from "./lib/errorTracking";
 import { startPerformanceMonitoring } from "./lib/performance";
-import { initGA4 } from "./lib/analytics";
+import { initSentry } from "./lib/sentry";
+
+// Sentryを初期化（非同期、エラーが発生しても続行）
+initSentry().catch((error) => {
+  console.warn("Sentry initialization failed:", error);
+});
 
 // グローバルエラーハンドラーを設定
 setupGlobalErrorHandlers();
@@ -11,8 +16,7 @@ setupGlobalErrorHandlers();
 // パフォーマンス監視を開始
 startPerformanceMonitoring();
 
-// Google Analytics 4を初期化
-initGA4();
+// Google Analytics 4はCookie同意後に初期化される（CookieConsentBannerで処理）
 
 // Error handling for root element
 const rootElement = document.getElementById("root");

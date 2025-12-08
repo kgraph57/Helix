@@ -1,6 +1,11 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import ErrorBoundary from "./ErrorBoundary";
+
+// Mock Sentry to avoid import errors
+vi.mock("@/lib/sentry", () => ({
+  captureError: vi.fn().mockResolvedValue(undefined),
+}));
 
 // Mock console.error to avoid noise in test output
 const originalError = console.error;

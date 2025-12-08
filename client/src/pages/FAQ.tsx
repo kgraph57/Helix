@@ -285,18 +285,18 @@ export default function FAQ() {
                 <AccordionItem value="suggest-feature">
                   <AccordionTrigger>機能の提案や改善要望はできますか？</AccordionTrigger>
                   <AccordionContent>
-                    <p className="text-sm leading-relaxed">
-                      はい、機能の提案や改善要望を歓迎します。お問い合わせフォーム（準備中）からご連絡いただくか、GitHubのIssuesから提案してください。皆様のフィードバックを元に、サービスを継続的に改善していきます。
-                    </p>
+                      <p className="text-sm leading-relaxed">
+                      はい、機能の提案や改善要望を歓迎します。<a href="/contact" className="text-primary underline">お問い合わせフォーム</a>からご連絡いただくか、GitHubのIssuesから提案してください。皆様のフィードバックを元に、サービスを継続的に改善していきます。
+                      </p>
                   </AccordionContent>
                 </AccordionItem>
 
                 <AccordionItem value="report-bug">
                   <AccordionTrigger>バグを報告したい</AccordionTrigger>
                   <AccordionContent>
-                    <p className="text-sm leading-relaxed">
-                      バグを発見した場合は、お問い合わせフォーム（準備中）またはGitHubのIssuesから報告してください。再現手順やスクリーンショットがあると、より迅速に対応できます。
-                    </p>
+                      <p className="text-sm leading-relaxed">
+                      バグを発見した場合は、<a href="/contact" className="text-primary underline">お問い合わせフォーム</a>またはGitHubのIssuesから報告してください。再現手順やスクリーンショットがあると、より迅速に対応できます。
+                      </p>
                   </AccordionContent>
                 </AccordionItem>
 
@@ -315,7 +315,7 @@ export default function FAQ() {
                     <div className="text-sm leading-relaxed space-y-3">
                       <p>お問い合わせは以下の方法で受け付けています：</p>
                       <ul className="list-disc pl-5 space-y-2">
-                        <li>お問い合わせフォーム（準備中）</li>
+                        <li><a href="/contact" className="text-primary underline">お問い合わせフォーム</a></li>
                         <li>GitHubのIssues</li>
                         <li>プライバシーやセキュリティに関する重要な問題の場合は、できるだけ早く対応いたします</li>
                       </ul>

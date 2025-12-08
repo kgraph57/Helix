@@ -2,16 +2,15 @@ import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { fullPrompts } from "@/lib/prompts-full";
-import { Search, Activity, ArrowRight, ShieldCheck, Sparkles, BookOpen } from "lucide-react";
+import { Search, ArrowRight, Sparkles, BookOpen, FileText, TrendingUp } from "lucide-react";
 import { useState, useMemo, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Link, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { GamificationStats } from "@/components/GamificationStats";
-import { useGamification } from "@/hooks/useGamification";
 import { updateSEO, addHomeStructuredData } from "@/lib/seo";
 import { trackSearch, trackCategorySelect } from "@/lib/analytics";
+import { getRecommendedPrompts } from "@/lib/recommendedPrompts";
 
 export default function Home() {
   useEffect(() => {
@@ -26,7 +25,6 @@ export default function Home() {
   const [, setLocation] = useLocation();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const { stats } = useGamification();
 
   // 検索イベントを追跡
   useEffect(() => {
@@ -44,7 +42,14 @@ export default function Home() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory]);
 
+  // おすすめプロンプト
+  const recommendedPrompts = useMemo(() => getRecommendedPrompts(fullPrompts), []);
+
+  // 検索・フィルタリングされたプロンプト
   const filteredPrompts = useMemo(() => {
+    if (!searchQuery.trim() && !selectedCategory) {
+      return []; // 検索・フィルタがない場合は空配列（おすすめプロンプトセクションを表示）
+    }
     const filtered = fullPrompts.filter((prompt) => {
       const matchesSearch = 
         prompt.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -56,6 +61,31 @@ export default function Home() {
   }, [searchQuery, selectedCategory]);
 
   const categories = Array.from(new Set(fullPrompts.map((p) => p.category)));
+
+  // おすすめガイド（3個）
+  const recommendedGuides = [
+    {
+      id: "case-report-complete",
+      title: "【完全版】症例報告執筆ガイド",
+      description: "構想から投稿まで完全サポート。AI加速型の5ステップで、準備から投稿まで完全サポート。",
+      category: "Research",
+      icon: <FileText className="h-5 w-5" />,
+    },
+    {
+      id: "statistical-analysis-guide",
+      title: "【初心者向け】医療統計解析",
+      description: "データの準備から結果の解釈まで。Python/Rコードの生成までをサポートします。",
+      category: "Research",
+      icon: <BookOpen className="h-5 w-5" />,
+    },
+    {
+      id: "conference-presentation-guide",
+      title: "【完全版】学会発表ガイド",
+      description: "抄録からスライド、質疑応答まで。初めての学会発表でも安心。",
+      category: "Presentation",
+      icon: <FileText className="h-5 w-5" />,
+    },
+  ];
 
   return (
     <Layout>
@@ -140,117 +170,63 @@ export default function Home() {
           </motion.div>
         </motion.section>
 
-        {/* Gamification Stats Section */}
+        {/* Search Section */}
         <motion.section
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.8 }}
-          className="max-w-6xl mx-auto px-4"
+          className="max-w-4xl mx-auto"
         >
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold text-center mb-2">学習進捗</h2>
-            <p className="text-muted-foreground text-center text-sm">
-              あなたの学習状況を確認しましょう
-            </p>
+          <div className="relative">
+            <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5 z-10" />
+            <Input
+              placeholder="プロンプトを検索 (例: '診断', '紹介状', '研究')..."
+              className="pl-14 pr-12 h-14 text-lg bg-background/60 backdrop-blur-xl border-2 focus:border-primary/50 transition-all duration-300 rounded-2xl shadow-sm hover:shadow-md"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
           </div>
-          <GamificationStats
-            totalXP={stats.totalXP}
-            currentLevel={stats.currentLevel}
-            totalLessonsCompleted={stats.totalLessonsCompleted}
-            totalBadges={0}
-          />
         </motion.section>
 
-        {/* Search & Filter Section - Latest Apple Style */}
-        <motion.section
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.8 }}
-          className="max-w-6xl mx-auto"
-        >
-          <div className="mb-12 space-y-6">
-            <div className="relative max-w-2xl mx-auto">
-              <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5 z-10" />
-              <Input
-                placeholder="Search prompts (e.g., 'diagnosis', 'referral', 'research')..."
-                className="pl-14 pr-12 h-14 text-lg bg-background/60 backdrop-blur-xl border-2 focus:border-primary/50 transition-all duration-300 rounded-2xl shadow-sm hover:shadow-md"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
-            <div className="flex flex-wrap gap-3 justify-center" role="tablist" aria-label="カテゴリフィルタ">
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Badge 
-                  variant={selectedCategory === null ? "default" : "outline"}
-                  className="cursor-pointer px-5 py-2 text-sm font-medium rounded-full hover:bg-primary/90 transition-all duration-200 shadow-sm hover:shadow-md"
-                  onClick={() => {
-                    setSelectedCategory(null);
-                  }}
-                  role="tab"
-                  aria-pressed={selectedCategory === null}
-                  aria-selected={selectedCategory === null}
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      setSelectedCategory(null);
-                    }
-                  }}
-                >
-                  All
-                </Badge>
-              </motion.div>
-              {categories.map((cat, index) => (
-                <motion.div
-                  key={cat}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.7 + index * 0.05 }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Badge
-                    variant={selectedCategory === cat ? "default" : "outline"}
-                    className="cursor-pointer capitalize px-5 py-2 text-sm font-medium rounded-full hover:bg-primary/90 transition-all duration-200 shadow-sm hover:shadow-md"
-                    onClick={() => {
-                      setSelectedCategory(cat);
-                    }}
-                    role="tab"
-                    aria-pressed={selectedCategory === cat}
-                    aria-selected={selectedCategory === cat}
-                    tabIndex={0}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        setSelectedCategory(cat);
-                      }
-                    }}
-                  >
-                    {cat}
-                  </Badge>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          <motion.div
-            layout
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+        {/* Recommended Prompts Section */}
+        {!searchQuery.trim() && !selectedCategory && (
+          <motion.section
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.8 }}
+            className="max-w-6xl mx-auto"
           >
-            <AnimatePresence mode="popLayout">
-              {filteredPrompts.map((prompt, index) => (
+            <div className="mb-8 flex items-center justify-between">
+              <div>
+                <h2 className="text-3xl font-bold tracking-tight flex items-center gap-3">
+                  <TrendingUp className="w-8 h-8 text-primary" />
+                  おすすめプロンプト
+                </h2>
+                <p className="text-muted-foreground mt-2">
+                  よく使われる人気のプロンプトを厳選しました
+                </p>
+              </div>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setLocation("/category/diagnosis");
+                }}
+              >
+                すべて見る <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {recommendedPrompts.map((prompt, index) => (
                 <motion.div
                   key={prompt.id}
-                  layout
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ delay: index * 0.03, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ delay: 0.8 + index * 0.05, duration: 0.5 }}
                 >
                   <motion.div
                     whileHover={{ y: -8, scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 0.3 }}
                     onClick={() => {
                       setLocation(`/prompts/${prompt.id}`);
                     }}
@@ -275,146 +251,162 @@ export default function Home() {
                   </motion.div>
                 </motion.div>
               ))}
-            </AnimatePresence>
-          </motion.div>
-          
-          <AnimatePresence>
-            {filteredPrompts.length === 0 && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                className="text-center py-20 text-muted-foreground"
-              >
-                <Search className="h-16 w-16 mx-auto mb-6 opacity-40" />
-                <p className="text-xl font-semibold mb-2 text-foreground">No prompts found</p>
-                <p className="text-base">Try adjusting your search criteria</p>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </motion.section>
+            </div>
+          </motion.section>
+        )}
 
-        {/* Guides Section - Latest Apple Style */}
-        <motion.section
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-          className="py-16 border-t border-border/40"
-        >
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-center mb-12 space-y-4"
+        {/* Search Results Section */}
+        {(searchQuery.trim() || selectedCategory) && (
+          <motion.section
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.8 }}
+            className="max-w-6xl mx-auto"
           >
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">Guides & Workflows</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              実際の臨床・研究プロセスでAIプロンプトをどう組み合わせるか、実践的なワークフローを解説します。
-            </p>
-          </motion.div>
-          <div className="max-w-4xl mx-auto">
-            <motion.div
-              whileHover={{ y: -8, scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ duration: 0.3 }}
-              onClick={() => {
-                setLocation("/guides");
-              }}
-              className="relative z-10"
-            >
-              <Card className="cursor-pointer border-2 border-dashed border-primary/30 hover:border-primary/50 bg-gradient-apple-card rounded-2xl shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden">
-                <CardHeader className="text-center py-12 px-8">
+            <div className="mb-6 flex items-center justify-between">
+              <div>
+                <h2 className="text-2xl font-bold tracking-tight">
+                  検索結果 {filteredPrompts.length > 0 && `(${filteredPrompts.length}件)`}
+                </h2>
+              </div>
+              {selectedCategory && (
+                <Badge
+                  variant="default"
+                  className="cursor-pointer"
+                  onClick={() => setSelectedCategory(null)}
+                >
+                  {selectedCategory} ×
+                </Badge>
+              )}
+            </div>
+            {filteredPrompts.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {filteredPrompts.map((prompt, index) => (
                   <motion.div
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    className="w-20 h-20 bg-gradient-to-br from-primary/20 to-primary/10 rounded-3xl flex items-center justify-center mx-auto mb-6"
+                    key={prompt.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.03, duration: 0.5 }}
                   >
-                    <BookOpen className="w-10 h-10 text-primary" />
+                    <motion.div
+                      whileHover={{ y: -8, scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      transition={{ duration: 0.3 }}
+                      onClick={() => {
+                        setLocation(`/prompts/${prompt.id}`);
+                      }}
+                      className="relative z-10"
+                    >
+                      <Card className="h-full min-h-[180px] flex flex-col cursor-pointer border-2 border-border/50 hover:border-primary/30 bg-gradient-apple-card group overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 rounded-xl">
+                        <CardHeader className="p-4 space-y-2 flex-1">
+                          <div className="flex justify-between items-start">
+                            <Badge variant="secondary" className="capitalize text-xs font-medium px-3 py-1 rounded-full">
+                              {prompt.category}
+                            </Badge>
+                            <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-all duration-300 opacity-0 group-hover:opacity-100 transform translate-x-[-4px] group-hover:translate-x-0" />
+                          </div>
+                          <CardTitle className="text-lg font-bold group-hover:text-primary transition-colors duration-300 leading-tight">
+                            {prompt.title}
+                          </CardTitle>
+                          <CardDescription className="text-sm leading-relaxed line-clamp-2">
+                            {prompt.description}
+                          </CardDescription>
+                        </CardHeader>
+                      </Card>
+                    </motion.div>
                   </motion.div>
-                  <CardTitle className="text-3xl font-bold mb-4">5つの実践ガイド</CardTitle>
-                  <CardDescription className="text-lg leading-relaxed max-w-2xl mx-auto">
-                    症例報告、統計解析、学会発表、抄読会、患者説明まで。ステップバイステップで学べる完全ガイド。
-                  </CardDescription>
-                  <div className="mt-8">
-                    <Button size="lg" className="rounded-full px-8 h-12 text-base font-semibold shadow-md hover:shadow-lg transition-all">
-                      すべてのガイドを見る <ArrowRight className="ml-2 h-5 w-5" />
-                    </Button>
-                  </div>
-                </CardHeader>
-              </Card>
-            </motion.div>
-          </div>
-        </motion.section>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-20 text-muted-foreground">
+                <Search className="h-16 w-16 mx-auto mb-6 opacity-40" />
+                <p className="text-xl font-semibold mb-2 text-foreground">プロンプトが見つかりませんでした</p>
+                <p className="text-base">検索条件を変更してお試しください</p>
+                <Button
+                  variant="outline"
+                  className="mt-4"
+                  onClick={() => {
+                    setSearchQuery("");
+                    setSelectedCategory(null);
+                  }}
+                >
+                  検索をクリア
+                </Button>
+              </div>
+            )}
+          </motion.section>
+        )}
 
-        {/* Features Section - Latest Apple Style */}
-        <motion.section
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-          className="grid md:grid-cols-3 gap-8 py-16 border-t border-border/40"
-        >
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
+        {/* Recommended Guides Section */}
+        {!searchQuery.trim() && !selectedCategory && (
+          <motion.section
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0 }}
-            whileHover={{ y: -8 }}
-            className="text-center space-y-6 p-8 rounded-2xl bg-gradient-apple-card border border-border/50 hover:border-primary/30 shadow-sm hover:shadow-lg transition-all duration-500"
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+            className="py-16 border-t border-border/40 max-w-6xl mx-auto"
           >
-            <motion.div
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              className="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center mx-auto"
-            >
-              <ShieldCheck className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-            </motion.div>
-            <h3 className="font-bold text-2xl text-foreground">Clinically Verified</h3>
-            <p className="text-base text-muted-foreground leading-relaxed">
-              Prompts structured to follow standard medical guidelines and documentation formats.
-            </p>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            whileHover={{ y: -8 }}
-            className="text-center space-y-6 p-8 rounded-2xl bg-gradient-apple-card border border-border/50 hover:border-primary/30 shadow-sm hover:shadow-lg transition-all duration-500"
-          >
-            <motion.div
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              className="w-16 h-16 bg-emerald-100 dark:bg-emerald-900/30 rounded-2xl flex items-center justify-center mx-auto"
-            >
-              <Activity className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />
-            </motion.div>
-            <h3 className="font-bold text-2xl text-foreground">Efficiency Boost</h3>
-            <p className="text-base text-muted-foreground leading-relaxed">
-              Reduce documentation time by up to 50% with ready-to-use templates.
-            </p>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            whileHover={{ y: -8 }}
-            className="text-center space-y-6 p-8 rounded-2xl bg-gradient-apple-card border border-border/50 hover:border-primary/30 shadow-sm hover:shadow-lg transition-all duration-500"
-          >
-            <motion.div
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              className="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-2xl flex items-center justify-center mx-auto"
-            >
-              <Sparkles className="w-8 h-8 text-purple-600 dark:text-purple-400" />
-            </motion.div>
-            <h3 className="font-bold text-2xl text-foreground">Research Ready</h3>
-            <p className="text-base text-muted-foreground leading-relaxed">
-              Advanced prompts for literature review, statistical analysis, and academic writing.
-            </p>
-          </motion.div>
-        </motion.section>
+            <div className="mb-8 flex items-center justify-between">
+              <div>
+                <h2 className="text-3xl font-bold tracking-tight flex items-center gap-3">
+                  <BookOpen className="w-8 h-8 text-primary" />
+                  おすすめガイド
+                </h2>
+                <p className="text-muted-foreground mt-2">
+                  実践的なワークフローガイドで、AIプロンプトの使い方を学びましょう
+                </p>
+              </div>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setLocation("/guides");
+                }}
+              >
+                すべて見る <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {recommendedGuides.map((guide, index) => (
+                <motion.div
+                  key={guide.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ y: -8, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => {
+                    if (guide.id === "case-report-complete") {
+                      setLocation("/guides/case-report-complete");
+                    } else {
+                      setLocation("/guides");
+                    }
+                  }}
+                  className="cursor-pointer"
+                >
+                  <Card className="h-full border-2 border-border/50 hover:border-primary/30 bg-gradient-apple-card group overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 rounded-xl">
+                    <CardHeader className="p-6 space-y-3">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center text-primary">
+                          {guide.icon}
+                        </div>
+                        <Badge variant="secondary" className="text-xs">
+                          {guide.category}
+                        </Badge>
+                      </div>
+                      <CardTitle className="text-lg font-bold group-hover:text-primary transition-colors duration-300 leading-tight">
+                        {guide.title}
+                      </CardTitle>
+                      <CardDescription className="text-sm leading-relaxed line-clamp-2">
+                        {guide.description}
+                      </CardDescription>
+                    </CardHeader>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          </motion.section>
+        )}
       </div>
     </Layout>
   );

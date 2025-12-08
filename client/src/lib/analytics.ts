@@ -18,10 +18,16 @@ const GA4_MEASUREMENT_ID = import.meta.env.VITE_GA4_MEASUREMENT_ID;
 
 /**
  * Google Analytics 4を初期化
+ * Cookie同意後に呼び出す
  */
 export function initGA4(): void {
-  // 本番環境で、かつMEASUREMENT_IDが設定されている場合のみ初期化
-  if (!GA4_MEASUREMENT_ID || import.meta.env.DEV) {
+  // MEASUREMENT_IDが設定されている場合のみ初期化
+  if (!GA4_MEASUREMENT_ID) {
+    return;
+  }
+
+  // 既に初期化されている場合はスキップ
+  if (window.gtag && window.dataLayer) {
     return;
   }
 

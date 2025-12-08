@@ -1,10 +1,14 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Route, Switch, Router as WouterRouter } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { PageViewTracker } from "./components/PageViewTracker";
+import { CookieConsentBanner } from "./components/CookieConsentBanner";
+import { OnboardingModal } from "./components/OnboardingModal";
+import { hasAnalyticsConsent } from "./lib/cookieConsent";
+import { initGA4 } from "./lib/analytics";
 
 // Lazy load pages for better performance
 const Home = lazy(() => import("@/pages/Home"));
@@ -17,6 +21,7 @@ const Tips = lazy(() => import("./pages/Tips"));
 const TipDetail = lazy(() => import("./pages/TipDetail"));
 const Legal = lazy(() => import("./pages/Legal"));
 const FAQ = lazy(() => import("./pages/FAQ"));
+const Contact = lazy(() => import("./pages/Contact"));
 const Favorites = lazy(() => import("./pages/Favorites"));
 const Courses = lazy(() => import("./pages/Courses"));
 const CourseDetail = lazy(() => import("./pages/CourseDetail"));
@@ -25,6 +30,7 @@ const JournalFinderPage = lazy(() => import("@/pages/JournalFinderPage"));
 const JournalDetail = lazy(() => import("@/pages/JournalDetail"));
 const JournalCompare = lazy(() => import("@/pages/JournalCompare"));
 const CaseReportGuide = lazy(() => import("@/pages/CaseReportGuide"));
+const PaperReadingGuide = lazy(() => import("@/pages/PaperReadingGuide"));
 
 // Loading component
 const PageLoader = () => (
@@ -50,11 +56,13 @@ function Router() {
           <Route path="/courses/:courseId/lessons/:lessonId" component={LessonDetail} />
           <Route path="/guides" component={Guides} />
           <Route path="/guides/case-report-complete/:stepId?" component={CaseReportGuide} />
+          <Route path="/guides/paper-reading-efficiency/:stepId?" component={PaperReadingGuide} />
           <Route path="/guides/:id" component={GuideDetail} />
           <Route path="/tips" component={Tips} />
           <Route path="/tips/:id" component={TipDetail} />
           <Route path="/legal" component={Legal} />
           <Route path="/faq" component={FAQ} />
+          <Route path="/contact" component={Contact} />
           <Route path="/favorites" component={Favorites} />
           <Route path="/journal-finder" component={JournalFinderPage} />
           <Route path="/journal/:id" component={JournalDetail} />
@@ -69,12 +77,21 @@ function Router() {
 }
 
 function App() {
+  // 既に同意されている場合はGoogle Analyticsを初期化
+  useEffect(() => {
+    if (hasAnalyticsConsent()) {
+      initGA4();
+    }
+  }, []);
+
   return (
     <ErrorBoundary>
       <ThemeProvider defaultTheme="light" switchable>
         <TooltipProvider>
           <Toaster position="top-center" />
           <Router />
+          <CookieConsentBanner />
+          <OnboardingModal />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>

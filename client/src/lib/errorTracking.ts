@@ -1,8 +1,10 @@
 /**
  * エラー追跡ユーティリティ
  * フロントエンドのエラーを収集・記録
- * 将来的にSentry等のサービスに置き換え可能な設計
+ * Sentryが利用可能な場合はSentryに送信、そうでない場合はフォールバック
  */
+
+import { captureError as sentryCaptureError } from "./sentry";
 
 interface ErrorContext {
   url?: string;
@@ -69,18 +71,18 @@ class ErrorTracker {
   }
 
   /**
-   * エラーを送信（将来的にSentry等に置き換え）
+   * エラーを送信（Sentryに送信、利用できない場合はフォールバック）
    */
-  private sendError(errorData: {
+  private async sendError(errorData: {
     error: Error;
     context: ErrorContext;
     timestamp: string;
-  }): void {
-    // 現在はコンソールに出力
-    // 将来的にSentry等のサービスに送信
-    if (import.meta.env.PROD) {
-      // 本番環境ではAPIエンドポイントに送信するか、Sentryに送信
-      // 例: fetch('/api/errors', { method: 'POST', body: JSON.stringify(errorData) })
+  }): Promise<void> {
+    // Sentryに送信を試みる
+    await sentryCaptureError(errorData.error, errorData.context);
+
+    // 開発環境ではコンソールにも出力
+    if (import.meta.env.DEV) {
       console.error("[Error Tracking]", errorData);
     }
   }
@@ -88,16 +90,14 @@ class ErrorTracker {
   /**
    * エラーキューをフラッシュ
    */
-  private flush(): void {
+  private async flush(): Promise<void> {
     if (this.errorQueue.length === 0) return;
 
     const errors = [...this.errorQueue];
     this.errorQueue = [];
 
     // エラーを一括送信
-    errors.forEach((errorData) => {
-      this.sendError(errorData);
-    });
+    await Promise.all(errors.map((errorData) => this.sendError(errorData)));
   }
 
   /**

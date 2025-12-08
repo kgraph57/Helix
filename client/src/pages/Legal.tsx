@@ -1,6 +1,7 @@
 import { Layout } from "@/components/Layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { CookieSettingsButton } from "@/components/CookieSettingsButton";
 
 export default function Legal() {
   return (
@@ -82,9 +83,15 @@ export default function Legal() {
             </CardHeader>
             <CardContent className="space-y-4 text-sm leading-relaxed">
               <section>
-                <h3 className="font-semibold mb-2">1. 個人情報の収集</h3>
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="font-semibold">1. 個人情報の収集</h3>
+                  <CookieSettingsButton />
+                </div>
                 <p>
                   本サービスでは、Google Analytics等のアクセス解析ツールを使用し、トラフィックデータを収集するためにCookieを使用する場合があります。このデータは匿名で収集されており、個人を特定するものではありません。
+                </p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Cookieの設定は、ページ上部の「Cookie設定」ボタンからいつでも変更できます。
                 </p>
               </section>
               <Separator />

@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { useLocation } from "wouter";
 import { errorTracker } from "@/lib/errorTracking";
+import { captureError as sentryCaptureError } from "@/lib/sentry";
 
 interface Props {
   children: ReactNode;
@@ -35,6 +36,12 @@ class ErrorBoundary extends Component<Props, State> {
 
     // エラーを追跡サービスに送信
     errorTracker.captureError(error, {
+      componentStack: errorInfo.componentStack,
+      type: "react_error_boundary",
+    });
+
+    // Sentryにも送信
+    sentryCaptureError(error, {
       componentStack: errorInfo.componentStack,
       type: "react_error_boundary",
     });

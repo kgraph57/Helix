@@ -95,6 +95,14 @@ export default defineConfig({
   },
   envDir: path.resolve(import.meta.dirname),
   root: path.resolve(import.meta.dirname, "client"),
+  test: {
+    globals: true,
+    environment: "jsdom",
+    setupFiles: ["./client/src/test/setup.ts"],
+  },
+  optimizeDeps: {
+    exclude: ["@sentry/react"], // Sentryを最適化から除外（インストールされていない場合でもエラーにならないように）
+  },
   build: {
     outDir: path.resolve(import.meta.dirname, "dist"),
     emptyOutDir: true,

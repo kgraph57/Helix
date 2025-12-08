@@ -1,6 +1,6 @@
 import { categories } from "@/lib/prompts";
 import { cn } from "@/lib/utils";
-import { Activity, ArrowRight, BookOpen, Bookmark, Briefcase, ClipboardList, FileText, GraduationCap, HelpCircle, Home, Lightbulb, Menu, MessageSquare, Microscope, Moon, Pill, Stethoscope, Sun, X } from "lucide-react";
+import { Activity, ArrowRight, BookOpen, Bookmark, Briefcase, ClipboardList, FileText, GraduationCap, HelpCircle, Home, Lightbulb, Mail, Menu, MessageSquare, Microscope, Moon, Pill, Stethoscope, Sun, X } from "lucide-react";
 import { useState } from "react";
 import { useTheme } from "@/contexts/ThemeContext";
 import { Link, useLocation } from "wouter";
@@ -148,6 +148,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <span className="hover:text-foreground transition-colors cursor-pointer flex items-center gap-1">
                 <HelpCircle className="w-3 h-3" />
                 FAQ
+              </span>
+            </Link>
+            <Link href="/contact">
+              <span className="hover:text-foreground transition-colors cursor-pointer flex items-center gap-1">
+                <Mail className="w-3 h-3" />
+                お問い合わせ
               </span>
             </Link>
             <Link href="/legal">
