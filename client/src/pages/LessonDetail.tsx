@@ -7,11 +7,16 @@ import { Layout } from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, BookOpen, Target } from "lucide-react";
 import { useRoute, useLocation } from "wouter";
 import { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { Quiz } from "@/components/Quiz";
+import { PracticeExercise, ExerciseResult } from "@/components/PracticeExercise";
+import { lesson1Quizzes, lesson2Quizzes, lesson3Quizzes } from "@/data/courses/ai-basics/quizzes";
+import { lesson1Exercises } from "@/data/courses/ai-basics/exercises";
+import { useGamification } from "@/hooks/useGamification";
 
 // レッスンコンテンツ（Markdownファイルから読み込み）
 import lesson1Md from "@/data/courses/ai-basics/lesson-1.md?raw";
@@ -24,6 +29,20 @@ const lessonContent: Record<string, string> = {
   "ai-basics-3": lesson3Md,
 };
 
+// クイズデータ
+const quizzesData: Record<string, typeof lesson1Quizzes> = {
+  "ai-basics-1": lesson1Quizzes,
+  "ai-basics-2": lesson2Quizzes,
+  "ai-basics-3": lesson3Quizzes,
+};
+
+// 演習データ
+const exercisesData: Record<string, typeof lesson1Exercises> = {
+  "ai-basics-1": lesson1Exercises,
+  "ai-basics-2": [],
+  "ai-basics-3": [],
+};
+
 export default function LessonDetail() {
   const [match, params] = useRoute("/courses/:courseId/lessons/:lessonId");
   const [, setLocation] = useLocation();
@@ -32,6 +51,14 @@ export default function LessonDetail() {
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [completed, setCompleted] = useState(false);
+  const [showQuiz, setShowQuiz] = useState(false);
+  const [showExercise, setShowExercise] = useState(false);
+  const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
+  const { addXP } = useGamification();
+
+  // クイズと演習データを取得
+  const quizzes = lessonId ? quizzesData[lessonId] || [] : [];
+  const exercises = lessonId ? exercisesData[lessonId] || [] : [];
 
   // レッスンコンテンツを取得
   const content = lessonId ? lessonContent[lessonId] || "" : "";
@@ -60,9 +87,55 @@ export default function LessonDetail() {
     }
   };
 
+  const handleQuizComplete = (score: number, totalPoints: number) => {
+    const percentage = Math.round((score / totalPoints) * 100);
+    if (percentage >= 80) {
+      addXP(5, "クイズ80%以上正解");
+    }
+    setShowQuiz(false);
+  };
+
+  const handleExerciseComplete = (result: ExerciseResult) => {
+    addXP(3, "実践演習完了");
+    if (currentExerciseIndex < exercises.length - 1) {
+      setCurrentExerciseIndex(currentExerciseIndex + 1);
+    } else {
+      setShowExercise(false);
+    }
+  };
+
   const handleComplete = () => {
-    // TODO: レッスン完了を記録、XPを追加
+    // レッスン完了を記録
+    addXP(10, "レッスン完了");
+    // ローカルストレージに進捗を保存
+    const progressKey = `lesson-progress-${lessonId}`;
+    localStorage.setItem(progressKey, JSON.stringify({ completed: true, completedAt: new Date().toISOString() }));
+    
+    // コースの進捗も更新
+    const courseProgressKey = `course-progress-${courseId}`;
+    const courseProgress = JSON.parse(localStorage.getItem(courseProgressKey) || "{}");
+    const completedLessons = courseProgress.completedLessons || [];
+    if (!completedLessons.includes(lessonId)) {
+      completedLessons.push(lessonId);
+      localStorage.setItem(courseProgressKey, JSON.stringify({
+        ...courseProgress,
+        completedLessons,
+        lastUpdated: new Date().toISOString(),
+      }));
+    }
+    
     setLocation(`/courses/${courseId}`);
+  };
+
+  // スライドにクイズや演習のマーカーがあるかチェック
+  const checkForInteractiveElements = (slideContent: string) => {
+    if (slideContent.includes("[QUIZ]") && quizzes.length > 0) {
+      return "quiz";
+    }
+    if (slideContent.includes("[EXERCISE]") && exercises.length > 0) {
+      return "exercise";
+    }
+    return null;
   };
 
   if (!courseId || !lessonId || !content) {
@@ -126,46 +199,106 @@ export default function LessonDetail() {
               </CardContent>
             </Card>
           ) : (
-            <Card className="min-h-[60vh]">
-              <CardContent className="p-8">
-                <div className="prose prose-lg max-w-none dark:prose-invert">
-                  <ReactMarkdown
-                    remarkPlugins={[remarkGfm]}
-                    components={{
-                      h1: ({ node, ...props }) => (
-                        <h1 className="text-3xl font-bold mb-4 text-foreground" {...props} />
-                      ),
-                      h2: ({ node, ...props }) => (
-                        <h2 className="text-2xl font-bold mt-8 mb-4 text-foreground border-b pb-2" {...props} />
-                      ),
-                      h3: ({ node, ...props }) => (
-                        <h3 className="text-xl font-semibold mt-6 mb-3 text-foreground" {...props} />
-                      ),
-                      p: ({ node, ...props }) => (
-                        <p className="mb-4 text-foreground leading-relaxed" {...props} />
-                      ),
-                      ul: ({ node, ...props }) => (
-                        <ul className="list-disc pl-6 mb-4 space-y-2" {...props} />
-                      ),
-                      ol: ({ node, ...props }) => (
-                        <ol className="list-decimal pl-6 mb-4 space-y-2" {...props} />
-                      ),
-                      li: ({ node, ...props }) => (
-                        <li className="text-foreground" {...props} />
-                      ),
-                      strong: ({ node, ...props }) => (
-                        <strong className="font-bold text-foreground" {...props} />
-                      ),
-                      code: ({ node, ...props }) => (
-                        <code className="bg-muted px-2 py-1 rounded text-sm font-mono" {...props} />
-                      ),
+            <>
+              {/* クイズ表示 */}
+              {showQuiz && quizzes.length > 0 ? (
+                <Quiz
+                  questions={quizzes}
+                  onComplete={handleQuizComplete}
+                  showResults={true}
+                  allowRetry={true}
+                />
+              ) : showExercise && exercises.length > 0 ? (
+                <PracticeExercise
+                  exercise={exercises[currentExerciseIndex]}
+                  onComplete={handleExerciseComplete}
+                />
+              ) : (
+                <Card className="min-h-[60vh]">
+                  <CardContent className="p-8">
+                    <div className="prose prose-lg max-w-none dark:prose-invert">
+                      <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
+                        components={{
+                          h1: ({ node, ...props }) => (
+                            <h1 className="text-3xl font-bold mb-4 text-foreground" {...props} />
+                          ),
+                          h2: ({ node, ...props }) => (
+                            <h2 className="text-2xl font-bold mt-8 mb-4 text-foreground border-b pb-2" {...props} />
+                          ),
+                          h3: ({ node, ...props }) => (
+                            <h3 className="text-xl font-semibold mt-6 mb-3 text-foreground" {...props} />
+                          ),
+                          p: ({ node, ...props }) => (
+                            <p className="mb-4 text-foreground leading-relaxed" {...props} />
+                          ),
+                          ul: ({ node, ...props }) => (
+                            <ul className="list-disc pl-6 mb-4 space-y-2" {...props} />
+                          ),
+                          ol: ({ node, ...props }) => (
+                            <ol className="list-decimal pl-6 mb-4 space-y-2" {...props} />
+                          ),
+                          li: ({ node, ...props }) => (
+                            <li className="text-foreground" {...props} />
+                          ),
+                          strong: ({ node, ...props }) => (
+                            <strong className="font-bold text-foreground" {...props} />
+                          ),
+                          code: ({ node, ...props }) => (
+                            <code className="bg-muted px-2 py-1 rounded text-sm font-mono" {...props} />
+                          ),
+                        }}
+                      >
+                        {slides[currentSlide]?.replace(/\[QUIZ\]/g, "").replace(/\[EXERCISE\]/g, "") || ""}
+                      </ReactMarkdown>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* インタラクティブ要素へのアクセスボタン */}
+              {!showQuiz && !showExercise && (
+                <div className="mt-6 space-y-3">
+                  {quizzes.length > 0 && (
+                    <Button
+                      variant="outline"
+                      className="w-full"
+                      onClick={() => setShowQuiz(true)}
+                    >
+                      <BookOpen className="mr-2 h-4 w-4" />
+                      理解度チェック（クイズ）
+                    </Button>
+                  )}
+                  {exercises.length > 0 && (
+                    <Button
+                      variant="outline"
+                      className="w-full"
+                      onClick={() => setShowExercise(true)}
+                    >
+                      <Target className="mr-2 h-4 w-4" />
+                      実践演習
+                    </Button>
+                  )}
+                </div>
+              )}
+
+              {/* クイズ/演習から戻るボタン */}
+              {(showQuiz || showExercise) && (
+                <div className="mt-4">
+                  <Button
+                    variant="ghost"
+                    onClick={() => {
+                      setShowQuiz(false);
+                      setShowExercise(false);
+                      setCurrentExerciseIndex(0);
                     }}
                   >
-                    {slides[currentSlide] || ""}
-                  </ReactMarkdown>
+                    <ArrowLeft className="mr-2 h-4 w-4" />
+                    レッスンに戻る
+                  </Button>
                 </div>
-              </CardContent>
-            </Card>
+              )}
+            </>
           )}
 
           {/* ナビゲーションボタン */}

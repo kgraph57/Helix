@@ -11,6 +11,7 @@ import { Progress } from "@/components/ui/progress";
 import { ArrowLeft, BookOpen, CheckCircle2, Lock, Star, Award, Clock, FileText } from "lucide-react";
 import { useRoute, useLocation } from "wouter";
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 // コースデータ（Courses.tsxから共有）
 const courses = [
   {
@@ -57,6 +58,34 @@ export default function CourseDetail() {
   const courseId = match ? params.id : null;
   const course = courses.find((c) => c.id === courseId);
 
+  // ローカルストレージから進捗を読み込む
+  const [courseProgress, setCourseProgress] = useState<{ completedLessons: string[] }>(() => {
+    if (!courseId) return { completedLessons: [] };
+    const saved = localStorage.getItem(`course-progress-${courseId}`);
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {
+        return { completedLessons: [] };
+      }
+    }
+    return { completedLessons: [] };
+  });
+
+  useEffect(() => {
+    // 進捗を定期的に更新
+    if (courseId) {
+      const saved = localStorage.getItem(`course-progress-${courseId}`);
+      if (saved) {
+        try {
+          setCourseProgress(JSON.parse(saved));
+        } catch (e) {
+          // ignore
+        }
+      }
+    }
+  }, [courseId]);
+
   if (!course) {
     return (
       <Layout>
@@ -75,7 +104,7 @@ export default function CourseDetail() {
   const lessons = getLessonsForCourse(courseId || "");
 
   const totalLessons = lessons.length;
-  const completedLessons = lessons.filter((l) => l.completed).length;
+  const completedLessons = lessons.filter((l) => courseProgress.completedLessons?.includes(l.id)).length;
   const progress = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
 
   return (
@@ -144,7 +173,8 @@ export default function CourseDetail() {
           <h2 className="text-2xl font-bold">Lessons</h2>
           <div className="space-y-3">
             {lessons.map((lesson, index) => {
-              const isLocked = index > 0 && !lessons[index - 1].completed;
+              const isCompleted = courseProgress.completedLessons?.includes(lesson.id) || false;
+              const isLocked = index > 0 && !courseProgress.completedLessons?.includes(lessons[index - 1].id);
 
               return (
                 <motion.div
@@ -162,7 +192,7 @@ export default function CourseDetail() {
                               {index + 1}
                             </div>
                             <CardTitle className="text-xl">{lesson.title}</CardTitle>
-                            {lesson.completed && (
+                            {isCompleted && (
                               <Badge variant="default" className="bg-green-500">
                                 <CheckCircle2 className="w-3 h-3 mr-1" />
                                 Completed
@@ -194,7 +224,7 @@ export default function CourseDetail() {
                           )}
                         </div>
                         <Button
-                          variant={lesson.completed ? "outline" : "default"}
+                          variant={isCompleted ? "outline" : "default"}
                           disabled={isLocked}
                           onClick={() => {
                             if (!isLocked) {
@@ -202,7 +232,7 @@ export default function CourseDetail() {
                             }
                           }}
                         >
-                          {lesson.completed ? "Review" : isLocked ? "Locked" : "Start"}
+                          {isCompleted ? "Review" : isLocked ? "Locked" : "Start"}
                         </Button>
                       </div>
                     </CardContent>

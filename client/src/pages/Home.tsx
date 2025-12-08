@@ -3,15 +3,25 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { fullPrompts } from "@/lib/prompts-full";
 import { Search, Activity, ArrowRight, ShieldCheck, Sparkles, BookOpen } from "lucide-react";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Link, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { GamificationStats } from "@/components/GamificationStats";
 import { useGamification } from "@/hooks/useGamification";
+import { updateSEO, addHomeStructuredData } from "@/lib/seo";
 
 export default function Home() {
+  useEffect(() => {
+    updateSEO({
+      title: "医療従事者のためのAIプロンプトライブラリ",
+      description: "医師や研究者がAI（ChatGPT, Claudeなど）を臨床、研究、教育に効果的に活用するためのプロンプト集。症例報告の作成、統計解析のコード生成、学会発表の準備など、具体的なタスクに特化した「使える」プロンプトを提供します。",
+      path: "/",
+      keywords: "医療,AI,プロンプト,症例報告,統計解析,学会発表,医学研究,医療従事者,医師,看護師,薬剤師"
+    });
+    addHomeStructuredData();
+  }, []);
   const [, setLocation] = useLocation();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);

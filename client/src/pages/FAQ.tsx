@@ -3,8 +3,34 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { HelpCircle, AlertCircle, BookOpen, Settings, Shield, MessageSquare } from "lucide-react";
+import { useEffect } from "react";
+import { updateSEO, addFAQStructuredData } from "@/lib/seo";
 
 export default function FAQ() {
+  useEffect(() => {
+    updateSEO({
+      title: "よくある質問（FAQ）",
+      description: "Medical Prompt Hubのよくある質問とトラブルシューティングガイド。プロンプトの使い方、トラブル解決、プライバシー・セキュリティに関する情報を提供します。",
+      path: "/faq",
+      keywords: "FAQ,よくある質問,トラブルシューティング,ヘルプ,サポート"
+    });
+
+    // FAQ構造化データを追加
+    addFAQStructuredData([
+      {
+        question: "Medical Prompt Hubとは何ですか？",
+        answer: "Medical Prompt Hubは、医療従事者がAI（ChatGPT、Claude、Geminiなど）を臨床、研究、教育に効果的に活用するための実践的なプロンプト集です。100以上の専門プロンプト、ワークフローガイド、AI活用Tipsを提供しています。"
+      },
+      {
+        question: "誰が利用できますか？",
+        answer: "主に医療従事者（医師、看護師、薬剤師、研究者など）を対象としていますが、医療に関心のある方であればどなたでも利用できます。利用資格を限定するものではありません。"
+      },
+      {
+        question: "無料で利用できますか？",
+        answer: "はい、Medical Prompt Hubは無料で利用できます。ただし、プロンプトを使用する際に必要なAIサービス（ChatGPT、Claude等）の利用には、それぞれのサービスの利用規約と料金が適用されます。"
+      }
+    ]);
+  }, []);
   return (
     <Layout>
       <div className="space-y-8 pb-12">
