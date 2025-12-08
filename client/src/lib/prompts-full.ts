@@ -1654,6 +1654,7 @@ ABC（気道・呼吸・循環）の評価から始めてください。
     inputs: [
       { key: 'patient_info', label: '患者情報', placeholder: '例：80歳女性、高血圧、糖尿病、不眠', type: 'text' },
       { key: 'current_medications', label: '現在の処方', placeholder: '例：降圧薬3剤、血糖降下薬2剤、睡眠薬、胃薬など計10剤', type: 'textarea' }
+    ]
   },
   // ========================================
   // 追加: 業務効率化・文書作成プロンプト

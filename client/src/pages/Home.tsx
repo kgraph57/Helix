@@ -8,11 +8,14 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Link, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
+import { GamificationStats } from "@/components/GamificationStats";
+import { useGamification } from "@/hooks/useGamification";
 
 export default function Home() {
   const [, setLocation] = useLocation();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const { stats } = useGamification();
 
   const filteredPrompts = useMemo(() => {
     const filtered = fullPrompts.filter((prompt) => {
@@ -108,6 +111,28 @@ export default function Home() {
               </Button>
             </motion.div>
           </motion.div>
+        </motion.section>
+
+        {/* Gamification Stats Section */}
+        <motion.section
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.8 }}
+          className="max-w-6xl mx-auto px-4"
+        >
+          <div className="mb-6">
+            <h2 className="text-2xl font-bold text-center mb-2">学習進捗</h2>
+            <p className="text-muted-foreground text-center text-sm">
+              あなたの学習状況を確認しましょう
+            </p>
+          </div>
+          <GamificationStats
+            totalXP={stats.totalXP}
+            currentLevel={stats.currentLevel}
+            currentStreak={stats.currentStreak}
+            longestStreak={stats.longestStreak}
+            totalLessonsCompleted={stats.totalLessonsCompleted}
+          />
         </motion.section>
 
         {/* Search & Filter Section - Latest Apple Style */}

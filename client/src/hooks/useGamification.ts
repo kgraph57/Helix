@@ -2,7 +2,6 @@
  * ゲーミフィケーション機能用のカスタムフック
  */
 
-import { useEffect } from "react";
 // import { trpc } from "@/lib/trpc";
 
 /**
