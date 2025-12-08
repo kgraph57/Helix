@@ -33,14 +33,15 @@ export default function Home() {
     if (searchQuery.trim()) {
       trackSearch(searchQuery, filteredPrompts.length);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery]);
 
   // カテゴリ選択イベントを追跡
   useEffect(() => {
     if (selectedCategory) {
-      const category = categories.find((c) => c === selectedCategory);
-      trackCategorySelect(selectedCategory, category);
+      trackCategorySelect(selectedCategory);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory]);
 
   const filteredPrompts = useMemo(() => {
