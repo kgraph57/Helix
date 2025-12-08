@@ -87,8 +87,8 @@ export function GamificationStats({
   const colors = levelColors[currentLevel] || levelColors[1];
 
   return (
-    <div className="space-y-6">
-      {/* メインのレベル表示カード */}
+    <div className="space-y-4">
+      {/* メインのレベル表示カード - コンパクト版 */}
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -98,14 +98,14 @@ export function GamificationStats({
           "relative overflow-hidden border-2",
           `bg-gradient-to-br ${colors.bg} ${colors.border}`
         )}>
-          <CardContent className="p-8">
-            <div className="flex items-center justify-between">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between gap-4">
               {/* 左側: レベル表示 */}
-              <div className="flex items-center gap-6">
+              <div className="flex items-center gap-4">
                 <div className="relative">
-                  {/* 円形のレベル表示 */}
+                  {/* 円形のレベル表示 - 小さく */}
                   <div className={cn(
-                    "w-24 h-24 rounded-full flex items-center justify-center text-4xl font-bold border-4 shadow-lg",
+                    "w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold border-3 shadow-md",
                     `bg-gradient-to-br ${colors.bg} ${colors.border} ${colors.text}`
                   )}>
                     <motion.div
@@ -116,46 +116,46 @@ export function GamificationStats({
                       {currentLevel}
                     </motion.div>
                   </div>
-                  {/* レベルバッジ */}
+                  {/* レベルバッジ - 小さく */}
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 }}
-                    className="absolute -top-2 -right-2 bg-primary text-primary-foreground rounded-full p-1.5 shadow-md"
+                    className="absolute -top-1 -right-1 bg-primary text-primary-foreground rounded-full p-1 shadow-sm"
                   >
-                    <Star className="w-4 h-4 fill-current" />
+                    <Star className="w-3 h-3 fill-current" />
                   </motion.div>
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-1">
                   <div className="flex items-center gap-2">
-                    <h3 className={cn("text-2xl font-bold", colors.text)}>
+                    <h3 className={cn("text-lg font-bold", colors.text)}>
                       {levelNames[currentLevel]}
                     </h3>
                     {currentLevel >= 3 && (
-                      <Sparkles className={cn("w-5 h-5", colors.text)} />
+                      <Sparkles className={cn("w-4 h-4", colors.text)} />
                     )}
                   </div>
                   <div className="flex items-baseline gap-2">
-                    <span className="text-3xl font-bold">{totalXP}</span>
-                    <span className="text-lg text-muted-foreground">XP</span>
+                    <span className="text-2xl font-bold">{totalXP}</span>
+                    <span className="text-sm text-muted-foreground">XP</span>
                   </div>
                 </div>
               </div>
 
               {/* 右側: 次のレベルへの進捗 */}
-              <div className="text-right space-y-2">
-                <div className="text-sm text-muted-foreground">次のレベルまで</div>
-                <div className={cn("text-2xl font-bold", colors.text)}>
+              <div className="text-right">
+                <div className="text-xs text-muted-foreground mb-1">次のレベルまで</div>
+                <div className={cn("text-xl font-bold", colors.text)}>
                   {remainingXP > 0 ? remainingXP : "MAX"}
                 </div>
                 <div className="text-xs text-muted-foreground">XP必要</div>
               </div>
             </div>
 
-            {/* 進捗バー */}
-            <div className="mt-6 space-y-2">
-              <div className="flex justify-between text-sm">
+            {/* 進捗バー - コンパクト */}
+            <div className="mt-3 space-y-1">
+              <div className="flex justify-between text-xs">
                 <span className="text-muted-foreground">
                   {currentLevelXP} / {nextLevelXP === Infinity ? "∞" : nextLevelXP} XP
                 </span>
@@ -163,7 +163,7 @@ export function GamificationStats({
                   {Math.round(progress * 100)}% 完了
                 </span>
               </div>
-              <div className="relative h-4 bg-muted rounded-full overflow-hidden">
+              <div className="relative h-2.5 bg-muted rounded-full overflow-hidden">
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${progress * 100}%` }}
@@ -195,32 +195,29 @@ export function GamificationStats({
         </Card>
       </motion.div>
 
-      {/* 統計カード（3列） */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {/* 統計カード（3列） - コンパクト版 */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         {/* 完了レッスン数 */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <Card className="hover:shadow-lg transition-all duration-300 border-2 hover:border-primary/30">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-4">
+          <Card className="hover:shadow-md transition-all duration-300 border hover:border-primary/20">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
                 <div className={cn(
-                  "w-12 h-12 rounded-xl flex items-center justify-center",
+                  "w-10 h-10 rounded-lg flex items-center justify-center",
                   "bg-gradient-to-br from-green-500/20 to-green-600/10 border border-green-500/30"
                 )}>
-                  <Target className="w-6 h-6 text-green-600" />
+                  <Target className="w-5 h-5 text-green-600" />
                 </div>
                 <div className="text-right">
-                  <div className="text-3xl font-bold text-green-600">
+                  <div className="text-2xl font-bold text-green-600">
                     {totalLessonsCompleted}
                   </div>
                   <div className="text-xs text-muted-foreground">レッスン完了</div>
                 </div>
-              </div>
-              <div className="text-sm text-muted-foreground">
-                継続的に学習を続けています
               </div>
             </CardContent>
           </Card>
@@ -232,24 +229,21 @@ export function GamificationStats({
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
         >
-          <Card className="hover:shadow-lg transition-all duration-300 border-2 hover:border-yellow-500/30">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-4">
+          <Card className="hover:shadow-md transition-all duration-300 border hover:border-yellow-500/20">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
                 <div className={cn(
-                  "w-12 h-12 rounded-xl flex items-center justify-center",
+                  "w-10 h-10 rounded-lg flex items-center justify-center",
                   "bg-gradient-to-br from-yellow-500/20 to-yellow-600/10 border border-yellow-500/30"
                 )}>
-                  <Award className="w-6 h-6 text-yellow-600" />
+                  <Award className="w-5 h-5 text-yellow-600" />
                 </div>
                 <div className="text-right">
-                  <div className="text-3xl font-bold text-yellow-600">
+                  <div className="text-2xl font-bold text-yellow-600">
                     {totalBadges}
                   </div>
                   <div className="text-xs text-muted-foreground">バッジ獲得</div>
                 </div>
-              </div>
-              <div className="text-sm text-muted-foreground">
-                コース完了でバッジを獲得
               </div>
             </CardContent>
           </Card>
@@ -261,24 +255,21 @@ export function GamificationStats({
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          <Card className="hover:shadow-lg transition-all duration-300 border-2 hover:border-purple-500/30">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-4">
+          <Card className="hover:shadow-md transition-all duration-300 border hover:border-purple-500/20">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
                 <div className={cn(
-                  "w-12 h-12 rounded-xl flex items-center justify-center",
+                  "w-10 h-10 rounded-lg flex items-center justify-center",
                   "bg-gradient-to-br from-purple-500/20 to-purple-600/10 border border-purple-500/30"
                 )}>
-                  <Zap className="w-6 h-6 text-purple-600" />
+                  <Zap className="w-5 h-5 text-purple-600" />
                 </div>
                 <div className="text-right">
-                  <div className="text-3xl font-bold text-purple-600">
+                  <div className="text-2xl font-bold text-purple-600">
                     {totalLessonsCompleted > 0 ? Math.round(totalXP / totalLessonsCompleted) : 0}
                   </div>
                   <div className="text-xs text-muted-foreground">平均XP/レッスン</div>
                 </div>
-              </div>
-              <div className="text-sm text-muted-foreground">
-                学習効率を確認
               </div>
             </CardContent>
           </Card>
