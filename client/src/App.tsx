@@ -22,6 +22,8 @@ const TipDetail = lazy(() => import("./pages/TipDetail"));
 const Legal = lazy(() => import("./pages/Legal"));
 const FAQ = lazy(() => import("./pages/FAQ"));
 const Contact = lazy(() => import("./pages/Contact"));
+const About = lazy(() => import("./pages/About"));
+const Changelog = lazy(() => import("./pages/Changelog"));
 const Favorites = lazy(() => import("./pages/Favorites"));
 const Courses = lazy(() => import("./pages/Courses"));
 const CourseDetail = lazy(() => import("./pages/CourseDetail"));
@@ -63,6 +65,8 @@ function Router() {
           <Route path="/legal" component={Legal} />
           <Route path="/faq" component={FAQ} />
           <Route path="/contact" component={Contact} />
+          <Route path="/about" component={About} />
+          <Route path="/changelog" component={Changelog} />
           <Route path="/favorites" component={Favorites} />
           <Route path="/journal-finder" component={JournalFinderPage} />
           <Route path="/journal/:id" component={JournalDetail} />

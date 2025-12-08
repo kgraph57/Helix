@@ -1,11 +1,13 @@
 /**
  * ゲーミフィケーション統計表示コンポーネント
- * XP、レベル、ストリークを表示
+ * Duolingo風の魅力的なデザイン
  */
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Star, TrendingUp, Award } from "lucide-react";
+import { Star, TrendingUp, Award, Sparkles, Zap, Target } from "lucide-react";
+import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 interface GamificationStatsProps {
   totalXP: number;
@@ -55,6 +57,7 @@ function getXPProgress(totalXP: number) {
     currentLevelXP,
     nextLevelXP,
     progress: Math.min(1, Math.max(0, progress)),
+    remainingXP: levelRange === Infinity ? 0 : levelRange - currentLevelXP,
   };
 }
 
@@ -64,7 +67,7 @@ export function GamificationStats({
   totalLessonsCompleted,
   totalBadges = 0,
 }: GamificationStatsProps) {
-  const { currentLevelXP, nextLevelXP, progress } = getXPProgress(totalXP);
+  const { currentLevelXP, nextLevelXP, progress, remainingXP } = getXPProgress(totalXP);
   const levelNames: Record<number, string> = {
     1: "初心者",
     2: "初級者",
@@ -73,68 +76,214 @@ export function GamificationStats({
     5: "エキスパート",
   };
 
+  const levelColors: Record<number, { bg: string; text: string; border: string }> = {
+    1: { bg: "from-blue-500/20 to-blue-600/10", text: "text-blue-600", border: "border-blue-500/30" },
+    2: { bg: "from-purple-500/20 to-purple-600/10", text: "text-purple-600", border: "border-purple-500/30" },
+    3: { bg: "from-green-500/20 to-green-600/10", text: "text-green-600", border: "border-green-500/30" },
+    4: { bg: "from-orange-500/20 to-orange-600/10", text: "text-orange-600", border: "border-orange-500/30" },
+    5: { bg: "from-yellow-500/20 to-yellow-600/10", text: "text-yellow-600", border: "border-yellow-500/30" },
+  };
+
+  const colors = levelColors[currentLevel] || levelColors[1];
+
   return (
-    <div className="grid gap-4 md:grid-cols-3">
-      {/* XP & レベル */}
-      <Card>
-        <CardHeader className="pb-3">
-          <CardTitle className="text-sm font-medium flex items-center gap-2">
-            <Star className="h-4 w-4 text-yellow-500" />
-            レベル {currentLevel}
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-2">
-          <div className="flex items-baseline justify-between">
-            <span className="text-2xl font-bold">{totalXP}</span>
-            <span className="text-sm text-muted-foreground">XP</span>
-          </div>
-          <div className="space-y-1">
-            <div className="flex justify-between text-xs text-muted-foreground">
-              <span>{currentLevelXP} / {nextLevelXP === Infinity ? "∞" : nextLevelXP}</span>
-              <span>{levelNames[currentLevel]}</span>
+    <div className="space-y-6">
+      {/* メインのレベル表示カード */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <Card className={cn(
+          "relative overflow-hidden border-2",
+          `bg-gradient-to-br ${colors.bg} ${colors.border}`
+        )}>
+          <CardContent className="p-8">
+            <div className="flex items-center justify-between">
+              {/* 左側: レベル表示 */}
+              <div className="flex items-center gap-6">
+                <div className="relative">
+                  {/* 円形のレベル表示 */}
+                  <div className={cn(
+                    "w-24 h-24 rounded-full flex items-center justify-center text-4xl font-bold border-4 shadow-lg",
+                    `bg-gradient-to-br ${colors.bg} ${colors.border} ${colors.text}`
+                  )}>
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+                    >
+                      {currentLevel}
+                    </motion.div>
+                  </div>
+                  {/* レベルバッジ */}
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                    className="absolute -top-2 -right-2 bg-primary text-primary-foreground rounded-full p-1.5 shadow-md"
+                  >
+                    <Star className="w-4 h-4 fill-current" />
+                  </motion.div>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <h3 className={cn("text-2xl font-bold", colors.text)}>
+                      {levelNames[currentLevel]}
+                    </h3>
+                    {currentLevel >= 3 && (
+                      <Sparkles className={cn("w-5 h-5", colors.text)} />
+                    )}
+                  </div>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-3xl font-bold">{totalXP}</span>
+                    <span className="text-lg text-muted-foreground">XP</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* 右側: 次のレベルへの進捗 */}
+              <div className="text-right space-y-2">
+                <div className="text-sm text-muted-foreground">次のレベルまで</div>
+                <div className={cn("text-2xl font-bold", colors.text)}>
+                  {remainingXP > 0 ? remainingXP : "MAX"}
+                </div>
+                <div className="text-xs text-muted-foreground">XP必要</div>
+              </div>
             </div>
-            <Progress value={progress * 100} className="h-2" />
-          </div>
-        </CardContent>
-      </Card>
 
-      {/* バッジ数 */}
-      <Card>
-        <CardHeader className="pb-3">
-          <CardTitle className="text-sm font-medium flex items-center gap-2">
-            <Award className="h-4 w-4 text-yellow-500" />
-            獲得バッジ
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-2">
-          <div className="flex items-baseline justify-between">
-            <span className="text-2xl font-bold">{totalBadges}</span>
-            <span className="text-sm text-muted-foreground">個</span>
-          </div>
-          <div className="text-xs text-muted-foreground">
-            コース完了でバッジを獲得
-          </div>
-        </CardContent>
-      </Card>
+            {/* 進捗バー */}
+            <div className="mt-6 space-y-2">
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">
+                  {currentLevelXP} / {nextLevelXP === Infinity ? "∞" : nextLevelXP} XP
+                </span>
+                <span className={cn("font-semibold", colors.text)}>
+                  {Math.round(progress * 100)}% 完了
+                </span>
+              </div>
+              <div className="relative h-4 bg-muted rounded-full overflow-hidden">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: `${progress * 100}%` }}
+                  transition={{ delay: 0.3, duration: 1, ease: "easeOut" }}
+                  className={cn(
+                    "h-full rounded-full bg-gradient-to-r",
+                    currentLevel === 1 && "from-blue-500 to-blue-600",
+                    currentLevel === 2 && "from-purple-500 to-purple-600",
+                    currentLevel === 3 && "from-green-500 to-green-600",
+                    currentLevel === 4 && "from-orange-500 to-orange-600",
+                    currentLevel === 5 && "from-yellow-500 to-yellow-600"
+                  )}
+                />
+                {/* 光るエフェクト */}
+                <motion.div
+                  animate={{
+                    x: ["-100%", "200%"],
+                  }}
+                  transition={{
+                    repeat: Infinity,
+                    duration: 2,
+                    ease: "linear",
+                  }}
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent w-1/3"
+                />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </motion.div>
 
-      {/* 完了レッスン数 */}
-      <Card>
-        <CardHeader className="pb-3">
-          <CardTitle className="text-sm font-medium flex items-center gap-2">
-            <TrendingUp className="h-4 w-4 text-green-500" />
-            学習進捗
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-2">
-          <div className="flex items-baseline justify-between">
-            <span className="text-2xl font-bold">{totalLessonsCompleted}</span>
-            <span className="text-sm text-muted-foreground">レッスン完了</span>
-          </div>
-          <div className="text-xs text-muted-foreground">
-            継続的に学習を続けています
-          </div>
-        </CardContent>
-      </Card>
+      {/* 統計カード（3列） */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {/* 完了レッスン数 */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          <Card className="hover:shadow-lg transition-all duration-300 border-2 hover:border-primary/30">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className={cn(
+                  "w-12 h-12 rounded-xl flex items-center justify-center",
+                  "bg-gradient-to-br from-green-500/20 to-green-600/10 border border-green-500/30"
+                )}>
+                  <Target className="w-6 h-6 text-green-600" />
+                </div>
+                <div className="text-right">
+                  <div className="text-3xl font-bold text-green-600">
+                    {totalLessonsCompleted}
+                  </div>
+                  <div className="text-xs text-muted-foreground">レッスン完了</div>
+                </div>
+              </div>
+              <div className="text-sm text-muted-foreground">
+                継続的に学習を続けています
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        {/* 獲得バッジ */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          <Card className="hover:shadow-lg transition-all duration-300 border-2 hover:border-yellow-500/30">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className={cn(
+                  "w-12 h-12 rounded-xl flex items-center justify-center",
+                  "bg-gradient-to-br from-yellow-500/20 to-yellow-600/10 border border-yellow-500/30"
+                )}>
+                  <Award className="w-6 h-6 text-yellow-600" />
+                </div>
+                <div className="text-right">
+                  <div className="text-3xl font-bold text-yellow-600">
+                    {totalBadges}
+                  </div>
+                  <div className="text-xs text-muted-foreground">バッジ獲得</div>
+                </div>
+              </div>
+              <div className="text-sm text-muted-foreground">
+                コース完了でバッジを獲得
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        {/* 学習速度 */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+        >
+          <Card className="hover:shadow-lg transition-all duration-300 border-2 hover:border-purple-500/30">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className={cn(
+                  "w-12 h-12 rounded-xl flex items-center justify-center",
+                  "bg-gradient-to-br from-purple-500/20 to-purple-600/10 border border-purple-500/30"
+                )}>
+                  <Zap className="w-6 h-6 text-purple-600" />
+                </div>
+                <div className="text-right">
+                  <div className="text-3xl font-bold text-purple-600">
+                    {totalLessonsCompleted > 0 ? Math.round(totalXP / totalLessonsCompleted) : 0}
+                  </div>
+                  <div className="text-xs text-muted-foreground">平均XP/レッスン</div>
+                </div>
+              </div>
+              <div className="text-sm text-muted-foreground">
+                学習効率を確認
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </div>
     </div>
   );
 }

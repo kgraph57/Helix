@@ -141,6 +141,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <Mail className="mr-2 w-4 h-4" aria-hidden="true" /> お問い合わせ
             </Button>
           </div>
+          <div role="listitem">
+            <Button
+              variant={location === "/about" ? "secondary" : "ghost"}
+              className={cn("w-full justify-start font-medium", location === "/about" && "bg-secondary text-secondary-foreground")}
+              onClick={() => {
+                setLocation("/about");
+                setIsMobileOpen(false);
+              }}
+            >
+              <FileText className="mr-2 w-4 h-4" aria-hidden="true" /> About
+            </Button>
+          </div>
         </div>
 
         <div className="mt-6 mb-2 px-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider" id="categories-heading">
@@ -188,6 +200,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
             </Link>
             <Link href="/legal">
               <span className="hover:text-foreground transition-colors cursor-pointer">法的表記・利用規約</span>
+            </Link>
+            <Link href="/about">
+              <span className="hover:text-foreground transition-colors cursor-pointer">About</span>
+            </Link>
+            <Link href="/changelog">
+              <span className="hover:text-foreground transition-colors cursor-pointer">更新履歴</span>
             </Link>
           </div>
         </div>
