@@ -4,6 +4,7 @@ import { lazy, Suspense } from "react";
 import { Route, Switch, Router as WouterRouter } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { PageViewTracker } from "./components/PageViewTracker";
 
 // Lazy load pages for better performance
 const Home = lazy(() => import("@/pages/Home"));
@@ -38,6 +39,7 @@ const PageLoader = () => (
 function Router() {
   return (
     <WouterRouter base="/medicalprompthub">
+      <PageViewTracker />
       <Suspense fallback={<PageLoader />}>
         <Switch>
           <Route path="/" component={Home} />

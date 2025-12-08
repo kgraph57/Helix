@@ -13,6 +13,7 @@ import { useGamification } from "@/hooks/useGamification";
 import { BookOpen, Award, Star, CheckCircle2, Lock } from "lucide-react";
 import { useLocation } from "wouter";
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
 // コース一覧（AI初心者から上級者まで）
 const courses = [
@@ -23,7 +24,6 @@ const courses = [
     description: "AIの基本概念と歴史を理解し、AIの全体像を把握します",
     level: 1,
     lessons: 3,
-    completedLessons: 0,
     xpReward: 30,
     badge: "🎓",
     category: "基礎",
@@ -35,7 +35,6 @@ const courses = [
     description: "生成AIの仕組みと特徴を理解し、主要なツールを知ります",
     level: 1,
     lessons: 3,
-    completedLessons: 0,
     xpReward: 30,
     badge: "🤖",
     category: "基礎",
@@ -47,7 +46,6 @@ const courses = [
     description: "実際にAIを使い始めるための基本操作と対話のコツを学びます",
     level: 1,
     lessons: 3,
-    completedLessons: 0,
     xpReward: 40,
     badge: "💬",
     category: "基礎",
@@ -60,7 +58,6 @@ const courses = [
     description: "APIの基本概念とAI APIの仕組み、実用例を学びます",
     level: 2,
     lessons: 3,
-    completedLessons: 0,
     xpReward: 40,
     badge: "🔌",
     category: "技術",
@@ -72,7 +69,6 @@ const courses = [
     description: "MCP（Model Context Protocol）の仕組みと活用方法を理解します",
     level: 2,
     lessons: 3,
-    completedLessons: 0,
     xpReward: 40,
     badge: "🔗",
     category: "技術",
@@ -85,7 +81,6 @@ const courses = [
     description: "効果的なプロンプトを書くためのテクニックと実践例を学びます",
     level: 3,
     lessons: 3,
-    completedLessons: 0,
     xpReward: 50,
     badge: "✍️",
     category: "実践",
@@ -97,7 +92,6 @@ const courses = [
     description: "医療現場でAIを効果的に活用する方法と注意点を学びます",
     level: 3,
     lessons: 3,
-    completedLessons: 0,
     xpReward: 50,
     badge: "🏥",
     category: "実践",
@@ -108,9 +102,40 @@ const courses = [
 export default function Courses() {
   const [, setLocation] = useLocation();
   const { stats } = useGamification();
+  const [courseProgress, setCourseProgress] = useState<Record<string, { completedLessons: string[] }>>({});
+
+  // ローカルストレージから進捗を読み込む
+  useEffect(() => {
+    const progress: Record<string, { completedLessons: string[] }> = {};
+    courses.forEach((course) => {
+      const saved = localStorage.getItem(`course-progress-${course.id}`);
+      if (saved) {
+        try {
+          progress[course.id] = JSON.parse(saved);
+        } catch (e) {
+          progress[course.id] = { completedLessons: [] };
+        }
+      } else {
+        progress[course.id] = { completedLessons: [] };
+      }
+    });
+    setCourseProgress(progress);
+  }, []);
 
   const getProgressPercentage = (completed: number, total: number) => {
     return total > 0 ? Math.round((completed / total) * 100) : 0;
+  };
+
+  const getCourseProgress = (courseId: string) => {
+    const progress = courseProgress[courseId];
+    if (!progress) return { completed: 0, total: 0 };
+    
+    // レッスン数を取得（暫定: コースデータから）
+    const course = courses.find((c) => c.id === courseId);
+    const total = course?.lessons || 0;
+    const completed = progress.completedLessons?.length || 0;
+    
+    return { completed, total };
   };
 
   return (
@@ -162,8 +187,9 @@ export default function Courses() {
             <h3 className="text-lg font-semibold text-muted-foreground">レベル1: 基礎編（初心者向け）</h3>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {courses.filter(c => c.level === 1).map((course, index) => {
-                const progress = getProgressPercentage(course.completedLessons, course.lessons);
-                const isCompleted = course.completedLessons === course.lessons;
+                const { completed, total } = getCourseProgress(course.id);
+                const progress = getProgressPercentage(completed, total);
+                const isCompleted = completed === total;
 
                 return (
                   <motion.div
@@ -254,8 +280,9 @@ export default function Courses() {
             <h3 className="text-lg font-semibold text-muted-foreground">レベル2: 技術理解編（中級者向け）</h3>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {courses.filter(c => c.level === 2).map((course, index) => {
-                const progress = getProgressPercentage(course.completedLessons, course.lessons);
-                const isCompleted = course.completedLessons === course.lessons;
+                const { completed, total } = getCourseProgress(course.id);
+                const progress = getProgressPercentage(completed, total);
+                const isCompleted = completed === total;
 
                 return (
                   <motion.div
@@ -346,8 +373,9 @@ export default function Courses() {
             <h3 className="text-lg font-semibold text-muted-foreground">レベル3: 実践編（上級者向け）</h3>
             <div className="grid gap-6 md:grid-cols-2">
               {courses.filter(c => c.level === 3).map((course, index) => {
-                const progress = getProgressPercentage(course.completedLessons, course.lessons);
-                const isCompleted = course.completedLessons === course.lessons;
+                const { completed, total } = getCourseProgress(course.id);
+                const progress = getProgressPercentage(completed, total);
+                const isCompleted = completed === total;
 
                 return (
                   <motion.div

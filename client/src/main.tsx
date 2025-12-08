@@ -3,12 +3,16 @@ import App from "./App";
 import "./index.css";
 import { setupGlobalErrorHandlers } from "./lib/errorTracking";
 import { startPerformanceMonitoring } from "./lib/performance";
+import { initGA4 } from "./lib/analytics";
 
 // グローバルエラーハンドラーを設定
 setupGlobalErrorHandlers();
 
 // パフォーマンス監視を開始
 startPerformanceMonitoring();
+
+// Google Analytics 4を初期化
+initGA4();
 
 // Error handling for root element
 const rootElement = document.getElementById("root");
