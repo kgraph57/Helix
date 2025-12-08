@@ -15,8 +15,11 @@ const GuideDetail = lazy(() => import("./pages/GuideDetail"));
 const Tips = lazy(() => import("./pages/Tips"));
 const TipDetail = lazy(() => import("./pages/TipDetail"));
 const Legal = lazy(() => import("./pages/Legal"));
+const FAQ = lazy(() => import("./pages/FAQ"));
 const Favorites = lazy(() => import("./pages/Favorites"));
 const Courses = lazy(() => import("./pages/Courses"));
+const CourseDetail = lazy(() => import("./pages/CourseDetail"));
+const LessonDetail = lazy(() => import("./pages/LessonDetail"));
 const JournalFinderPage = lazy(() => import("@/pages/JournalFinderPage"));
 const JournalDetail = lazy(() => import("@/pages/JournalDetail"));
 const JournalCompare = lazy(() => import("@/pages/JournalCompare"));
@@ -41,12 +44,15 @@ function Router() {
           <Route path="/category/:id" component={Category} />
           <Route path="/prompts/:id" component={PromptDetail} />
           <Route path="/courses" component={Courses} />
+          <Route path="/courses/:courseId" component={CourseDetail} />
+          <Route path="/courses/:courseId/lessons/:lessonId" component={LessonDetail} />
           <Route path="/guides" component={Guides} />
           <Route path="/guides/case-report-complete/:stepId?" component={CaseReportGuide} />
           <Route path="/guides/:id" component={GuideDetail} />
           <Route path="/tips" component={Tips} />
           <Route path="/tips/:id" component={TipDetail} />
           <Route path="/legal" component={Legal} />
+          <Route path="/faq" component={FAQ} />
           <Route path="/favorites" component={Favorites} />
           <Route path="/journal-finder" component={JournalFinderPage} />
           <Route path="/journal/:id" component={JournalDetail} />

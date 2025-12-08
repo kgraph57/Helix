@@ -1,6 +1,6 @@
 import { categories } from "@/lib/prompts";
 import { cn } from "@/lib/utils";
-import { Activity, ArrowRight, BookOpen, Bookmark, Briefcase, ClipboardList, FileText, GraduationCap, Home, Lightbulb, Menu, MessageSquare, Microscope, Moon, Pill, Stethoscope, Sun, X } from "lucide-react";
+import { Activity, ArrowRight, BookOpen, Bookmark, Briefcase, ClipboardList, FileText, GraduationCap, HelpCircle, Home, Lightbulb, Menu, MessageSquare, Microscope, Moon, Pill, Stethoscope, Sun, X } from "lucide-react";
 import { useState } from "react";
 import { useTheme } from "@/contexts/ThemeContext";
 import { Link, useLocation } from "wouter";
@@ -143,7 +143,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <div className="mt-auto px-6 pt-6 border-t border-border/50">
         <div className="text-xs text-muted-foreground space-y-2">
           <p>© 2024 Medical Prompt Hub</p>
-          <div className="flex gap-3">
+          <div className="flex flex-col gap-2">
+            <Link href="/faq">
+              <span className="hover:text-foreground transition-colors cursor-pointer flex items-center gap-1">
+                <HelpCircle className="w-3 h-3" />
+                FAQ
+              </span>
+            </Link>
             <Link href="/legal">
               <span className="hover:text-foreground transition-colors cursor-pointer">法的表記・利用規約</span>
             </Link>
