@@ -25,7 +25,7 @@ export default function Guides() {
     {
       id: "case-report-complete",
       title: "【完全版】症例報告執筆ガイド:構想から投稿まで",
-      description: "読むだけで症例報告が実際にできるレベルの完全版ガイド。18ステップで、準備から投稿まで完全サポート。各ステップに具体的なプロンプト、AIツール活用法、チェックリストを完備。",
+      description: "読むだけで症例報告が実際にできるレベルの完全版ガイド。AI加速型の5ステップで、準備から投稿まで完全サポート。各ステップに具体的なプロンプト、AIツール活用法、チェックリストを完備。",
       category: "Research",
       icon: <FileText className="h-6 w-6 text-blue-600" />,
       readTime: "60 min read",

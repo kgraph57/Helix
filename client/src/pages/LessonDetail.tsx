@@ -1,15 +1,16 @@
 /**
  * レッスン詳細ページ
- * スライド形式でレッスンコンテンツを表示
+ * スクロール形式でレッスンコンテンツを表示
  */
 
 import { Layout } from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { ArrowLeft, ArrowRight, CheckCircle2, BookOpen, Target } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Menu, X } from "lucide-react";
 import { useRoute, useLocation } from "wouter";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Quiz } from "@/components/Quiz";
@@ -43,17 +44,40 @@ const exercisesData: Record<string, typeof lesson1Exercises> = {
   "ai-basics-3": [],
 };
 
+// セクションを抽出（## で区切る）
+function extractSections(content: string): Array<{ id: string; title: string; level: number }> {
+  const sections: Array<{ id: string; title: string; level: number }> = [];
+  const lines = content.split("\n");
+  let sectionIndex = 0;
+  
+  lines.forEach((line) => {
+    if (line.startsWith("## ")) {
+      const title = line.replace(/^##\s+/, "").trim();
+      const id = `section-${sectionIndex}`;
+      sections.push({ id, title, level: 2 });
+      sectionIndex++;
+    } else if (line.startsWith("### ")) {
+      const title = line.replace(/^###\s+/, "").trim();
+      const id = `section-${sectionIndex}`;
+      sections.push({ id, title, level: 3 });
+      sectionIndex++;
+    }
+  });
+  
+  return sections;
+}
+
 export default function LessonDetail() {
   const [match, params] = useRoute("/courses/:courseId/lessons/:lessonId");
   const [, setLocation] = useLocation();
   const courseId = match ? params.courseId : null;
   const lessonId = match ? params.lessonId : null;
 
-  const [currentSlide, setCurrentSlide] = useState(0);
   const [completed, setCompleted] = useState(false);
-  const [showQuiz, setShowQuiz] = useState(false);
-  const [showExercise, setShowExercise] = useState(false);
-  const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("");
+  const contentRef = useRef<HTMLDivElement>(null);
   const { addXP } = useGamification();
 
   // クイズと演習データを取得
@@ -62,46 +86,159 @@ export default function LessonDetail() {
 
   // レッスンコンテンツを取得
   const content = lessonId ? lessonContent[lessonId] || "" : "";
-  
-  // Markdownをスライドに分割（## で区切る）
-  const slides = content
-    ? content.split(/\n(?=## )/).filter(slide => slide.trim())
-    : [];
+  const sections = content ? extractSections(content) : [];
 
-  const totalSlides = slides.length;
-  const progress = totalSlides > 0 ? Math.round(((currentSlide + 1) / totalSlides) * 100) : 0;
+  // スクロール位置に応じて進捗を更新
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!contentRef.current) return;
+      
+      const element = contentRef.current;
+      const scrollTop = element.scrollTop;
+      const scrollHeight = element.scrollHeight - element.clientHeight;
+      const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      setScrollProgress(progress);
 
-  const handleNext = () => {
-    if (currentSlide < totalSlides - 1) {
-      setCurrentSlide(currentSlide + 1);
-    } else {
-      // 最後のスライドで完了
-      setCompleted(true);
-      // TODO: 進捗を保存、XPを追加
+      // アクティブなセクションを検出
+      const sectionElements = element.querySelectorAll("h2[id], h3[id]");
+      let currentSection = "";
+      
+      sectionElements.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 150) {
+          currentSection = section.id;
+        }
+      });
+      
+      if (currentSection) {
+        setActiveSection(currentSection);
+      }
+    };
+
+    const element = contentRef.current;
+    if (element) {
+      element.addEventListener("scroll", handleScroll);
+      handleScroll(); // 初期化
+      return () => element.removeEventListener("scroll", handleScroll);
     }
+  }, [content]);
+
+  // セクションへのジャンプ
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element && contentRef.current) {
+      const offset = 100; // ヘッダーの高さ分
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + contentRef.current.scrollTop - offset;
+      
+      contentRef.current.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+    setIsSidebarOpen(false);
   };
 
-  const handlePrev = () => {
-    if (currentSlide > 0) {
-      setCurrentSlide(currentSlide - 1);
-    }
-  };
+  // マークダウンコンテンツを処理（クイズと演習をインラインで配置）
+  const renderContent = () => {
+    if (!content) return null;
 
-  const handleQuizComplete = (score: number, totalPoints: number) => {
-    const percentage = Math.round((score / totalPoints) * 100);
-    if (percentage >= 80) {
-      addXP(5, "クイズ80%以上正解");
-    }
-    setShowQuiz(false);
-  };
+    // コンテンツを[QUIZ]と[EXERCISE]で分割
+    const parts = content.split(/(\[QUIZ\]|\[EXERCISE\])/);
+    const elements: React.ReactNode[] = [];
+    let quizIndex = 0;
+    let exerciseIndex = 0;
+    let sectionIndex = 0;
 
-  const handleExerciseComplete = (result: ExerciseResult) => {
-    addXP(3, "実践演習完了");
-    if (currentExerciseIndex < exercises.length - 1) {
-      setCurrentExerciseIndex(currentExerciseIndex + 1);
-    } else {
-      setShowExercise(false);
-    }
+    parts.forEach((part, index) => {
+      if (part === "[QUIZ]" && quizzes.length > 0) {
+        elements.push(
+          <div key={`quiz-${quizIndex}`} className="my-8">
+            <Quiz
+              questions={quizzes}
+              onComplete={(score, totalPoints) => {
+                const percentage = Math.round((score / totalPoints) * 100);
+                if (percentage >= 80) {
+                  addXP(5, "クイズ80%以上正解");
+                }
+              }}
+              showResults={true}
+              allowRetry={true}
+            />
+          </div>
+        );
+        quizIndex++;
+      } else if (part === "[EXERCISE]" && exercises.length > 0 && exerciseIndex < exercises.length) {
+        elements.push(
+          <div key={`exercise-${exerciseIndex}`} className="my-8">
+            <PracticeExercise
+              exercise={exercises[exerciseIndex]}
+              onComplete={(result) => {
+                addXP(3, "実践演習完了");
+              }}
+            />
+          </div>
+        );
+        exerciseIndex++;
+      } else if (part.trim()) {
+        // Markdownコンテンツをレンダリング
+        const markdownContent = part.trim();
+        if (markdownContent) {
+          elements.push(
+            <div key={`content-${index}`} className="prose prose-lg max-w-none dark:prose-invert">
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  h1: ({ node, ...props }) => (
+                    <h1 className="text-3xl font-bold mb-6 mt-8 text-foreground scroll-mt-20" {...props} />
+                  ),
+                  h2: ({ node, ...props }) => {
+                    const title = props.children?.toString() || "";
+                    const id = `section-${sectionIndex}`;
+                    sectionIndex++;
+                    return (
+                      <h2
+                        id={id}
+                        className="text-2xl font-bold mt-12 mb-6 text-foreground border-b pb-3 scroll-mt-20"
+                        {...props}
+                      />
+                    );
+                  },
+                  h3: ({ node, ...props }) => (
+                    <h3 className="text-xl font-semibold mt-8 mb-4 text-foreground scroll-mt-20" {...props} />
+                  ),
+                  p: ({ node, ...props }) => (
+                    <p className="mb-4 text-foreground leading-relaxed" {...props} />
+                  ),
+                  ul: ({ node, ...props }) => (
+                    <ul className="list-disc pl-6 mb-4 space-y-2" {...props} />
+                  ),
+                  ol: ({ node, ...props }) => (
+                    <ol className="list-decimal pl-6 mb-4 space-y-2" {...props} />
+                  ),
+                  li: ({ node, ...props }) => (
+                    <li className="text-foreground" {...props} />
+                  ),
+                  strong: ({ node, ...props }) => (
+                    <strong className="font-bold text-foreground" {...props} />
+                  ),
+                  code: ({ node, ...props }) => (
+                    <code className="bg-muted px-2 py-1 rounded text-sm font-mono" {...props} />
+                  ),
+                  blockquote: ({ node, ...props }) => (
+                    <blockquote className="border-l-4 border-primary pl-4 italic my-4 text-muted-foreground" {...props} />
+                  ),
+                }}
+              >
+                {markdownContent}
+              </ReactMarkdown>
+            </div>
+          );
+        }
+      }
+    });
+
+    return elements;
   };
 
   const handleComplete = () => {
@@ -124,18 +261,7 @@ export default function LessonDetail() {
       }));
     }
     
-    setLocation(`/courses/${courseId}`);
-  };
-
-  // スライドにクイズや演習のマーカーがあるかチェック
-  const checkForInteractiveElements = (slideContent: string) => {
-    if (slideContent.includes("[QUIZ]") && quizzes.length > 0) {
-      return "quiz";
-    }
-    if (slideContent.includes("[EXERCISE]") && exercises.length > 0) {
-      return "exercise";
-    }
-    return null;
+    setCompleted(true);
   };
 
   if (!courseId || !lessonId || !content) {
@@ -154,173 +280,146 @@ export default function LessonDetail() {
 
   return (
     <Layout>
-      <div className="min-h-screen pb-24">
-        {/* ヘッダー */}
-        <div className="sticky top-0 z-10 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
-          <div className="max-w-4xl mx-auto px-4 py-4">
-            <div className="flex items-center justify-between mb-4">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setLocation(`/courses/${courseId}`)}
+      <div className="min-h-screen flex">
+        {/* サイドバー（目次）- デスクトップ */}
+        <aside className="hidden lg:block w-64 border-r bg-muted/30 p-6 sticky top-0 h-screen overflow-y-auto">
+          <div className="space-y-4">
+            <h3 className="font-semibold text-sm uppercase text-muted-foreground mb-4">目次</h3>
+            {sections.map((section, index) => (
+              <button
+                key={`${section.id}-${index}`}
+                onClick={() => scrollToSection(section.id)}
+                className={`block w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
+                  activeSection === section.id
+                    ? "bg-primary text-primary-foreground font-semibold"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                }`}
+                style={{ paddingLeft: `${(section.level - 2) * 1 + 0.75}rem` }}
               >
-                <ArrowLeft className="mr-2 h-4 w-4" /> Back to Course
-              </Button>
-              <div className="text-sm text-muted-foreground">
-                Slide {currentSlide + 1} / {totalSlides}
-              </div>
-            </div>
-            <Progress value={progress} className="h-2" />
+                {section.title}
+              </button>
+            ))}
           </div>
-        </div>
+        </aside>
 
-        {/* スライドコンテンツ */}
-        <div className="max-w-4xl mx-auto px-4 py-8">
-          {completed ? (
-            <Card className="text-center py-12">
-              <CardContent className="space-y-6">
-                <div className="text-6xl mb-4">🎉</div>
-                <h2 className="text-3xl font-bold">レッスン完了！</h2>
-                <p className="text-muted-foreground">
-                  おめでとうございます！このレッスンを完了しました。
-                </p>
-                <div className="flex items-center justify-center gap-2 text-primary">
-                  <CheckCircle2 className="w-5 h-5" />
-                  <span className="font-semibold">+10 XP 獲得</span>
-                </div>
-                <div className="flex gap-4 justify-center pt-4">
-                  <Button variant="outline" onClick={() => setLocation(`/courses/${courseId}`)}>
-                    Course Overview
+        {/* メインコンテンツ */}
+        <div className="flex-1 flex flex-col">
+          {/* ヘッダー */}
+          <header className="sticky top-0 z-10 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
+            <div className="max-w-4xl mx-auto px-4 py-4">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-4">
+                  {/* モバイル: サイドバートグル */}
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setIsSidebarOpen(true)}
+                    className="lg:hidden"
+                  >
+                    <Menu className="h-5 w-5" />
                   </Button>
-                  <Button onClick={handleComplete}>
-                    Continue Learning
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setLocation(`/courses/${courseId}`)}
+                  >
+                    <ArrowLeft className="mr-2 h-4 w-4" /> Back to Course
                   </Button>
                 </div>
-              </CardContent>
-            </Card>
-          ) : (
-            <>
-              {/* クイズ表示 */}
-              {showQuiz && quizzes.length > 0 ? (
-                <Quiz
-                  questions={quizzes}
-                  onComplete={handleQuizComplete}
-                  showResults={true}
-                  allowRetry={true}
-                />
-              ) : showExercise && exercises.length > 0 ? (
-                <PracticeExercise
-                  exercise={exercises[currentExerciseIndex]}
-                  onComplete={handleExerciseComplete}
-                />
-              ) : (
-                <Card className="min-h-[60vh]">
-                  <CardContent className="p-8">
-                    <div className="prose prose-lg max-w-none dark:prose-invert">
-                      <ReactMarkdown
-                        remarkPlugins={[remarkGfm]}
-                        components={{
-                          h1: ({ node, ...props }) => (
-                            <h1 className="text-3xl font-bold mb-4 text-foreground" {...props} />
-                          ),
-                          h2: ({ node, ...props }) => (
-                            <h2 className="text-2xl font-bold mt-8 mb-4 text-foreground border-b pb-2" {...props} />
-                          ),
-                          h3: ({ node, ...props }) => (
-                            <h3 className="text-xl font-semibold mt-6 mb-3 text-foreground" {...props} />
-                          ),
-                          p: ({ node, ...props }) => (
-                            <p className="mb-4 text-foreground leading-relaxed" {...props} />
-                          ),
-                          ul: ({ node, ...props }) => (
-                            <ul className="list-disc pl-6 mb-4 space-y-2" {...props} />
-                          ),
-                          ol: ({ node, ...props }) => (
-                            <ol className="list-decimal pl-6 mb-4 space-y-2" {...props} />
-                          ),
-                          li: ({ node, ...props }) => (
-                            <li className="text-foreground" {...props} />
-                          ),
-                          strong: ({ node, ...props }) => (
-                            <strong className="font-bold text-foreground" {...props} />
-                          ),
-                          code: ({ node, ...props }) => (
-                            <code className="bg-muted px-2 py-1 rounded text-sm font-mono" {...props} />
-                          ),
-                        }}
-                      >
-                        {slides[currentSlide]?.replace(/\[QUIZ\]/g, "").replace(/\[EXERCISE\]/g, "") || ""}
-                      </ReactMarkdown>
+                {completed && (
+                  <div className="flex items-center gap-2 text-primary">
+                    <CheckCircle2 className="w-5 h-5" />
+                    <span className="font-semibold">完了</span>
+                  </div>
+                )}
+              </div>
+              <Progress value={scrollProgress} className="h-2" />
+            </div>
+          </header>
+
+          {/* コンテンツエリア */}
+          <div className="flex-1 overflow-y-auto" ref={contentRef}>
+            <div className="max-w-4xl mx-auto px-4 py-8">
+              {completed ? (
+                <Card className="text-center py-12">
+                  <CardContent className="space-y-6">
+                    <div className="text-6xl mb-4">🎉</div>
+                    <h2 className="text-3xl font-bold">レッスン完了！</h2>
+                    <p className="text-muted-foreground">
+                      おめでとうございます！このレッスンを完了しました。
+                    </p>
+                    <div className="flex items-center justify-center gap-2 text-primary">
+                      <CheckCircle2 className="w-5 h-5" />
+                      <span className="font-semibold">+10 XP 獲得</span>
+                    </div>
+                    <div className="flex gap-4 justify-center pt-4">
+                      <Button variant="outline" onClick={() => setLocation(`/courses/${courseId}`)}>
+                        Course Overview
+                      </Button>
+                      <Button onClick={() => setLocation(`/courses/${courseId}`)}>
+                        Continue Learning
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>
-              )}
-
-              {/* インタラクティブ要素へのアクセスボタン */}
-              {!showQuiz && !showExercise && (
-                <div className="mt-6 space-y-3">
-                  {quizzes.length > 0 && (
-                    <Button
-                      variant="outline"
-                      className="w-full"
-                      onClick={() => setShowQuiz(true)}
-                    >
-                      <BookOpen className="mr-2 h-4 w-4" />
-                      理解度チェック（クイズ）
+              ) : (
+                <>
+                  {renderContent()}
+                  
+                  {/* 完了ボタン */}
+                  <div className="mt-12 pt-8 border-t">
+                    <Button onClick={handleComplete} size="lg" className="w-full">
+                      <CheckCircle2 className="mr-2 h-5 w-5" />
+                      レッスンを完了する
                     </Button>
-                  )}
-                  {exercises.length > 0 && (
-                    <Button
-                      variant="outline"
-                      className="w-full"
-                      onClick={() => setShowExercise(true)}
-                    >
-                      <Target className="mr-2 h-4 w-4" />
-                      実践演習
-                    </Button>
-                  )}
-                </div>
+                  </div>
+                </>
               )}
-
-              {/* クイズ/演習から戻るボタン */}
-              {(showQuiz || showExercise) && (
-                <div className="mt-4">
-                  <Button
-                    variant="ghost"
-                    onClick={() => {
-                      setShowQuiz(false);
-                      setShowExercise(false);
-                      setCurrentExerciseIndex(0);
-                    }}
-                  >
-                    <ArrowLeft className="mr-2 h-4 w-4" />
-                    レッスンに戻る
-                  </Button>
-                </div>
-              )}
-            </>
-          )}
-
-          {/* ナビゲーションボタン */}
-          {!completed && (
-            <div className="flex items-center justify-between mt-8">
-              <Button
-                variant="outline"
-                onClick={handlePrev}
-                disabled={currentSlide === 0}
-              >
-                <ArrowLeft className="mr-2 h-4 w-4" /> Previous
-              </Button>
-              <Button
-                onClick={handleNext}
-                disabled={currentSlide >= totalSlides - 1}
-              >
-                {currentSlide >= totalSlides - 1 ? "Complete" : "Next"}
-                {currentSlide < totalSlides - 1 && <ArrowRight className="ml-2 h-4 w-4" />}
-              </Button>
             </div>
-          )}
+          </div>
         </div>
+
+        {/* モバイルサイドバー */}
+        {isSidebarOpen && (
+          <div className="fixed inset-0 z-50 lg:hidden">
+            <div className="absolute inset-0 bg-black/50" onClick={() => setIsSidebarOpen(false)} />
+            <motion.div
+              initial={{ x: -300 }}
+              animate={{ x: 0 }}
+              exit={{ x: -300 }}
+              className="absolute left-0 top-0 h-full w-64 bg-background border-r shadow-lg"
+            >
+              <div className="p-4 border-b flex items-center justify-between">
+                <h3 className="font-semibold">目次</h3>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setIsSidebarOpen(false)}
+                >
+                  <X className="h-5 w-5" />
+                </Button>
+              </div>
+              <div className="overflow-y-auto h-[calc(100vh-4rem)]">
+                <div className="p-4 space-y-2">
+                  {sections.map((section, index) => (
+                    <button
+                      key={`${section.id}-${index}`}
+                      onClick={() => scrollToSection(section.id)}
+                      className={`block w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
+                        activeSection === section.id
+                          ? "bg-primary text-primary-foreground font-semibold"
+                          : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                      }`}
+                      style={{ paddingLeft: `${(section.level - 2) * 1 + 0.75}rem` }}
+                    >
+                      {section.title}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
       </div>
     </Layout>
   );
