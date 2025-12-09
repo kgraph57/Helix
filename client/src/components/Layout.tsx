@@ -1,12 +1,10 @@
 import { categories } from "@/lib/prompts";
 import { cn } from "@/lib/utils";
-import { Activity, ArrowRight, BookOpen, Bookmark, Briefcase, ClipboardList, FileText, GraduationCap, HelpCircle, Home, Lightbulb, Mail, Menu, MessageSquare, Microscope, Moon, Pill, Stethoscope, Sun, X } from "lucide-react";
+import { Activity, ArrowRight, BookOpen, Bookmark, Briefcase, ClipboardList, FileText, GraduationCap, HelpCircle, Home, Lightbulb, Mail, Menu, MessageSquare, Microscope, Pill, Stethoscope, X } from "lucide-react";
 import { useState } from "react";
-import { useTheme } from "@/contexts/ThemeContext";
 import { Link, useLocation } from "wouter";
 import { Button } from "./ui/button";
 import { ScrollArea } from "./ui/scroll-area";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 
 const categoryIcons: Record<string, React.ReactNode> = {
   "diagnosis": <Stethoscope className="w-4 h-4" />,
@@ -24,7 +22,6 @@ const categoryIcons: Record<string, React.ReactNode> = {
 export function Layout({ children }: { children: React.ReactNode }) {
   const [location, setLocation] = useLocation();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const { theme, toggleTheme } = useTheme();
 
   const NavContent = () => (
     <nav className="flex flex-col h-full" aria-label="メインナビゲーション">
@@ -38,15 +35,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </Link>
           <p className="text-xs text-muted-foreground mt-1">For Healthcare Professionals</p>
         </div>
-        <Button 
-          variant="ghost" 
-          size="icon" 
-          onClick={toggleTheme} 
-          className="hidden md:flex"
-          aria-label={theme === "light" ? "ダークモードに切り替え" : "ライトモードに切り替え"}
-        >
-          {theme === "light" ? <Moon className="w-5 h-5" aria-hidden="true" /> : <Sun className="w-5 h-5" aria-hidden="true" />}
-        </Button>
       </div>
 
       <ScrollArea className="flex-1 overflow-y-auto px-4 py-4">
@@ -153,17 +141,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <Link href="/contact">
               <span className="hover:text-foreground transition-colors cursor-pointer flex items-center gap-1">
                 <Mail className="w-3 h-3" />
-                お問い合わせ
+                Contact
               </span>
-            </Link>
-            <Link href="/legal">
-              <span className="hover:text-foreground transition-colors cursor-pointer">法的表記・利用規約</span>
-            </Link>
-            <Link href="/about">
-              <span className="hover:text-foreground transition-colors cursor-pointer">About</span>
-            </Link>
-            <Link href="/changelog">
-              <span className="hover:text-foreground transition-colors cursor-pointer">更新履歴</span>
             </Link>
           </div>
         </div>
@@ -172,65 +151,72 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 
   return (
-    <div className="min-h-screen bg-background font-sans antialiased selection:bg-primary/10 selection:text-primary">
-      {/* Desktop Sidebar */}
-      <aside 
-        className="hidden md:flex flex-col w-72 border-r border-border/50 bg-sidebar/80 backdrop-blur-xl fixed inset-y-0 z-30 overflow-hidden"
-        aria-label="メインナビゲーション"
-      >
+    <div className="flex h-screen bg-background">
+      {/* Desktop Sidebar - Hidden on Mobile/Tablet */}
+      <aside className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0 bg-card border-r border-border/50">
         <NavContent />
       </aside>
 
-      {/* Mobile Header & Content */}
-      <div className="flex-1 flex flex-col md:ml-72 min-w-0">
-        <header 
-          className="md:hidden h-16 border-b border-border/50 bg-background/70 backdrop-blur-xl sticky top-0 z-40 flex items-center px-5 justify-between glass"
-          role="banner"
-        >
-          <div className="flex items-center gap-3">
-            <Sheet open={isMobileOpen} onOpenChange={setIsMobileOpen}>
-              <SheetTrigger asChild>
-                <Button 
-                  variant="ghost" 
-                  size="icon"
-                  aria-label="メニューを開く"
-                  aria-expanded={isMobileOpen}
-                >
-                  <Menu className="w-5 h-5" aria-hidden="true" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="left" className="p-0 w-80" aria-label="ナビゲーションメニュー">
-                <NavContent />
-              </SheetContent>
-            </Sheet>
-            <Link href="/" aria-label="ホームページに戻る">
-              <div className="flex items-center gap-2 font-bold text-primary cursor-pointer hover:opacity-80 transition-opacity">
-                <Activity className="w-5 h-5" aria-hidden="true" />
-                <h1 className="sr-only">Medical Prompt Hub</h1>
-                <span aria-hidden="true">Medical Prompt Hub</span>
-              </div>
-            </Link>
-          </div>
-          <nav className="flex items-center gap-2" aria-label="ユーティリティメニュー">
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              onClick={toggleTheme} 
-              aria-label={theme === "light" ? "ダークモードに切り替え" : "ライトモードに切り替え"}
-            >
-              {theme === "light" ? <Moon className="w-5 h-5" aria-hidden="true" /> : <Sun className="w-5 h-5" aria-hidden="true" />}
-            </Button>
-          </nav>
-        </header>
+      {/* Mobile/Tablet Header */}
+      <header className="lg:hidden fixed top-0 left-0 right-0 z-40 bg-background border-b border-border/50 h-16">
+        <div className="flex items-center justify-between h-full px-4">
+          <button
+            onClick={() => setIsMobileOpen(true)}
+            className="p-2 hover:bg-accent rounded-md transition-colors"
+            aria-label="メニューを開く"
+          >
+            <Menu className="w-6 h-6" />
+          </button>
+          <Link href="/" aria-label="ホームページに戻る">
+            <h1 className="text-lg font-bold tracking-tight text-primary flex items-center gap-2">
+              <Activity className="w-5 h-5" aria-hidden="true" />
+              Medical Prompt Hub
+            </h1>
+          </Link>
+          <div className="w-10" /> {/* Spacer for centering */}
+        </div>
+      </header>
 
-        <main 
-          className="flex-1 p-6 md:p-10 max-w-6xl mx-auto w-full animate-in fade-in duration-500"
-          role="main"
-          id="main-content"
-        >
-          {children}
-        </main>
-      </div>
+      {/* Mobile/Tablet Sidebar Overlay */}
+      {isMobileOpen && (
+        <>
+          {/* Backdrop */}
+          <div
+            className="lg:hidden fixed inset-0 bg-black/50 z-50 transition-opacity"
+            onClick={() => setIsMobileOpen(false)}
+            aria-hidden="true"
+          />
+          {/* Sidebar */}
+          <aside className="lg:hidden fixed inset-y-0 left-0 w-64 bg-card border-r border-border/50 z-50 transform transition-transform">
+            <div className="flex flex-col h-full">
+              <div className="px-6 py-6 flex-shrink-0 flex items-center justify-between border-b border-border/50">
+                <div>
+                  <Link href="/" aria-label="ホームページに戻る">
+                    <h1 className="text-xl font-bold tracking-tight text-primary flex items-center gap-2">
+                      <Activity className="w-6 h-6" aria-hidden="true" />
+                      Medical Prompt Hub
+                    </h1>
+                  </Link>
+                  <p className="text-xs text-muted-foreground mt-1">For Healthcare Professionals</p>
+                </div>
+                <button
+                  onClick={() => setIsMobileOpen(false)}
+                  className="p-2 hover:bg-accent rounded-md transition-colors"
+                  aria-label="メニューを閉じる"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              <NavContent />
+            </div>
+          </aside>
+        </>
+      )}
+
+      {/* Main Content */}
+      <main className="flex-1 lg:ml-64 overflow-y-auto pt-16 lg:pt-0">
+        {children}
+      </main>
     </div>
   );
 }

@@ -533,7 +533,7 @@ export default function LessonDetail() {
                 remarkPlugins={[remarkGfm]}
                 components={{
                   h1: ({ node, ...props }) => (
-                    <h1 className="text-3xl font-bold mb-6 mt-12 text-foreground scroll-mt-20" {...props} />
+                    <h1 className="text-2xl md:text-3xl font-bold mb-6 mt-12 text-foreground scroll-mt-20" {...props} />
                   ),
                   h2: ({ node, ...props }) => {
                     const title = props.children?.toString() || "";
@@ -542,19 +542,19 @@ export default function LessonDetail() {
                     return (
                       <h2
                         id={id}
-                        className="text-2xl font-bold mt-12 mb-6 text-foreground border-b border-border pb-3 scroll-mt-20"
+                        className="text-xl md:text-2xl font-bold mt-12 mb-6 text-foreground border-b border-border pb-3 scroll-mt-20"
                         {...props}
                       />
                     );
                   },
                   h3: ({ node, ...props }) => (
-                    <h3 className="text-xl font-semibold mt-10 mb-4 text-foreground scroll-mt-20" {...props} />
+                    <h3 className="text-lg md:text-xl font-semibold mt-10 mb-4 text-foreground scroll-mt-20" {...props} />
                   ),
                   h4: ({ node, ...props }) => (
-                    <h4 className="text-lg font-semibold mt-8 mb-3 text-foreground scroll-mt-20" {...props} />
+                    <h4 className="text-base md:text-lg font-semibold mt-8 mb-3 text-foreground scroll-mt-20" {...props} />
                   ),
                   p: ({ node, ...props }) => (
-                    <p className="mb-6 text-foreground leading-[1.9]" {...props} />
+                    <p className="mb-6 text-base text-foreground leading-[1.9] max-w-none md:max-w-[65ch]" {...props} />
                   ),
                   ul: ({ node, ...props }) => (
                     <ul className="list-disc pl-6 mb-6 space-y-2" {...props} />
@@ -563,7 +563,7 @@ export default function LessonDetail() {
                     <ol className="list-decimal pl-6 mb-6 space-y-2" {...props} />
                   ),
                   li: ({ node, ...props }) => (
-                    <li className="text-foreground leading-[1.9]" {...props} />
+                    <li className="text-base text-foreground leading-[1.9]" {...props} />
                   ),
                   strong: ({ node, ...props }) => (
                     <strong className="font-bold text-foreground" {...props} />
