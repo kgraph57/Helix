@@ -7,6 +7,8 @@ export const fullPrompts: Prompt[] = [
     title: "Differential Diagnosis Generator",
     description: "主訴と現病歴から鑑別診断リストを作成し、見逃しを防ぎます。",
     category: "diagnosis",
+    riskLevel: "high",
+    warningMessage: "⚠️ 重要：このプロンプトは診断の補助ツールです。AIの出力は参考情報であり、最終的な診断は必ず医師の臨床判断に基づいて行ってください。入力情報の不足や誤りがあると、重要な疾患を見逃す可能性があります。",
     template: `あなたは熟練した総合診療医です。以下の症例情報に基づき、鑑別診断リストを作成してください。
 
 # 症例情報
@@ -20,7 +22,9 @@ export const fullPrompts: Prompt[] = [
 2. **Common (頻度の高い疾患)**: 3つ
 3. **Rare (稀だが考慮すべき疾患)**: 2つ
 
-各疾患について、この症例で疑う根拠と、除外するために必要な追加検査を簡潔に記載してください。`,
+各疾患について、この症例で疑う根拠と、除外するために必要な追加検査を簡潔に記載してください。
+
+⚠️ 注意：この出力は診断の補助であり、最終判断は必ず医師が臨床所見と合わせて行ってください。`,
     inputs: [
       { key: 'chief_complaint', label: '主訴', placeholder: '主訴を選択または入力', type: 'select', options: ['発熱', '頭痛', '胸痛', '腹痛', '呼吸困難', '咳嗽', '嘔気・嘔吐', '下痢', 'めまい', '意識障害', '全身倦怠感', '関節痛', '腰痛', '浮腫', 'その他'] },
       { key: 'present_illness', label: '現病歴', placeholder: '例: 3日前から発熱あり。昨日から咳嗽も出現。解熱剤を内服するも改善せず。', type: 'textarea' },
@@ -37,6 +41,8 @@ export const fullPrompts: Prompt[] = [
     title: "Symptom Analysis (OPQRST)",
     description: "症状をOPQRST法に基づいて分析し、問診の不足点を指摘します。",
     category: "diagnosis",
+    riskLevel: "high",
+    warningMessage: "⚠️ 重要：このプロンプトは問診の補助ツールです。AIの提案を参考にしつつ、必ず直接患者さんと対話して情報を収集してください。",
     template: `以下の症状について、OPQRST法（Onset, Palliative/Provocative, Quality, Region/Radiation, Severity, Time）に基づいて分析してください。
 また、診断を絞り込むために追加で聴取すべき問診事項を3つ挙げてください。
 
@@ -51,6 +57,8 @@ export const fullPrompts: Prompt[] = [
     title: "Lab Result Interpretation",
     description: "異常な検査結果の解釈と、次に考えるべき病態を提示します。",
     category: "diagnosis",
+    riskLevel: "high",
+    warningMessage: "⚠️ 重要：検査結果の解釈は臨床所見と組み合わせて行う必要があります。AIは数値のみから判断しており、患者背景や臨床文脈を十分に考慮できない可能性があります。",
     template: `以下の検査結果の異常値について、考えられる病態生理学的メカニズムと、鑑別すべき疾患を挙げてください。
 
 # 検査結果
@@ -69,6 +77,8 @@ export const fullPrompts: Prompt[] = [
     title: "Evidence-Based Treatment Plan",
     description: "最新のガイドラインに基づいた治療計画のオプションを提示します。",
     category: "treatment",
+    riskLevel: "high",
+    warningMessage: "⚠️ 重要：AIが提案する治療計画は、最新のガイドラインと照合して検証してください。薬剤投与量、相互作用、患者背景（腐機能、アレルギーなど）を必ず再確認し、最終判断は医師が行ってください。",
     template: `以下の診断に対する標準的な治療計画を、最新のガイドライン（UpToDateや学会ガイドライン）に基づいて提示してください。
 
 # 診断名
@@ -134,8 +144,10 @@ export const fullPrompts: Prompt[] = [
   {
     id: "med-renal-dosing",
     title: "Renal Dosing Adjustment",
-    description: "腎機能（eGFR/CCr）に応じた薬剤の投与量調節を提案します。",
+    description: "腔機能（eGFR/CCr）に応じた薬剤の投与量調節を提案します。",
     category: "medication",
+    riskLevel: "high",
+    warningMessage: "⚠️ 重要：薬剤投与量の決定は患者の生命に直結します。AIの提案は参考情報であり、必ず最新の添付文書、医薬品インタビュー、または信頼できるデータベースで確認してください。",
     template: `以下の患者における{{drug_name}}の適切な投与設計を教えてください。
 腎機能に応じた減量基準（添付文書やSanford Guideなど）を参照してください。
 
@@ -156,6 +168,8 @@ export const fullPrompts: Prompt[] = [
     title: "Drug Interaction Checker",
     description: "処方薬リスト内の相互作用をチェックし、注意すべき組み合わせを指摘します。",
     category: "medication",
+    riskLevel: "high",
+    warningMessage: "⚠️ 重要：薬剤相互作用は重篤な副作用を引き起こす可能性があります。AIの出力に加えて、必ず添付文書や信頼できる相互作用データベースで確認してください。",
     template: `以下の薬剤リストに含まれる薬物相互作用をチェックしてください。
 特に「併用禁忌」と「併用注意」を明確に区別し、臨床的にどのような影響が出るか（例：血中濃度上昇、QT延長など）を説明してください。
 

@@ -14,6 +14,8 @@ export interface Prompt {
     options?: string[];
   }[];
   example?: string;
+  riskLevel?: 'high' | 'medium' | 'low';
+  warningMessage?: string;
 }
 
 export const categories: { id: PromptCategory; label: string; description: string }[] = [

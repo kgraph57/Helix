@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "./ui/button";
 import { ScrollArea } from "./ui/scroll-area";
+import { SafetyWarningModal } from "./SafetyWarningModal";
 
 const categoryIcons: Record<string, React.ReactNode> = {
   "diagnosis": <Stethoscope className="w-4 h-4" />,
@@ -328,6 +329,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <main className="flex-1 lg:ml-64 overflow-y-auto pt-16 lg:pt-0">
         {children}
       </main>
+      
+      {/* Safety Warning Modal */}
+      <SafetyWarningModal />
     </div>
   );
 }

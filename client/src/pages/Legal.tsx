@@ -37,9 +37,74 @@ export default function Legal() {
                   本サービスの利用により生じたいかなる損害（医療過誤、情報の誤りによる不利益など）についても、運営者は一切の責任を負いません。
                 </li>
                 <li>
-                  AI（ChatGPT等）の出力結果は、必ずしも正確であるとは限りません。ユーザーは出力内容の事実確認（ファクトチェック）を行う責任があります。
+                  <strong>AIのハルシネーション（誤情報生成）について：</strong>AI（ChatGPT、Claude、Gemini等）は、学習データに基づいて「それらしい」回答を生成しますが、実際には誤った情報や存在しない引用文献を「自信満々に」提示することがあります。特に以下のケースでは注意が必要です：
+                  <ul className="list-circle pl-5 mt-1 space-y-1">
+                    <li>薬剤投与量や治療プロトコルが古いまたは誤っている</li>
+                    <li>引用文献が実在しない、または内容が歪められている</li>
+                    <li>最新のガイドラインや研究結果が反映されていない</li>
+                    <li>稀な疾患や非典型的な症例に関する情報が不正確</li>
+                  </ul>
+                </li>
+                <li>
+                  <strong>ファクトチェックの義務：</strong>ユーザーは、AIの出力内容を以下の信頼できる情報源で必ず確認する責任があります：
+                  <ul className="list-circle pl-5 mt-1 space-y-1">
+                    <li>最新の臨床ガイドライン（各学会公式、UpToDate等）</li>
+                    <li>薬剤添付文書および医薬品インタビューフォーム</li>
+                    <li>原著論文（PubMed、医中誌等で検索）</li>
+                    <li>信頼できる医療データベース</li>
+                  </ul>
                 </li>
               </ul>
+            </CardContent>
+          </Card>
+
+          {/* 想定されるエラーシナリオ */}
+          <Card className="border-red-200 bg-red-50">
+            <CardHeader>
+              <CardTitle className="text-red-900">⚠️ 想定されるエラーシナリオと防止策</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4 text-sm leading-relaxed">
+              <p className="font-semibold text-red-900">
+                以下は、AIプロンプトを医療現場で使用する際に起こりうる具体的なエラーシナリオです。必ず読んで、同様のエラーを防いでください。
+              </p>
+              <div className="space-y-3">
+                <div className="border-l-4 border-red-500 pl-3">
+                  <h4 className="font-semibold text-red-900">シナリオ1：鑑別診断プロンプトで重篤疾患を見逃す</h4>
+                  <p className="mt-1">
+                    <strong>例：</strong>「胸痛」を主訴として鑑別診断を生成したが、AIが「筋骨格系痛み」を第一に挙げ、急性心筋棗塞や大動脈解離などのCritical疾患の優先度が低かった。
+                  </p>
+                  <p className="mt-1 text-red-800">
+                    <strong>防止策：</strong>鑑別診断プロンプトを使用する前に、必ずバイタルサイン、身体所見、リスク因子を再確認し、AIが提示した「Critical疾患」が臨床像と矛盾しないかを必ず検証する。
+                  </p>
+                </div>
+                <div className="border-l-4 border-red-500 pl-3">
+                  <h4 className="font-semibold text-red-900">シナリオ2：薬剤投与量の誤り</h4>
+                  <p className="mt-1">
+                    <strong>例：</strong>腔機能低下患者に対する薬剤投与量調節プロンプトを使用したが、AIが提案した投与量が添付文書の推奨量と異なり、そのまま処方してしまった。
+                  </p>
+                  <p className="mt-1 text-red-800">
+                    <strong>防止策：</strong>薬剤投与量はAIの出力をそのまま使用せず、必ず最新の添付文書、医薬品インタビューフォーム、または信頼できるデータベース（Sanford Guide、UpToDate等）で確認する。
+                  </p>
+                </div>
+                <div className="border-l-4 border-red-500 pl-3">
+                  <h4 className="font-semibold text-red-900">シナリオ3：存在しない引用文献を信じる</h4>
+                  <p className="mt-1">
+                    <strong>例：</strong>治療計画プロンプトで「最新のガイドラインに基づく」と指示したが、AIが引用した論文やガイドラインが実在せず、誤った治療を行ってしまった。
+                  </p>
+                  <p className="mt-1 text-red-800">
+                    <strong>防止策：</strong>AIが引用した文献やガイドラインは、必ずPubMed、医中誌、各学会公式サイトで実在を確認する。特に「2023年版」など具体的な年号が記載されている場合、その文書が本当に存在するかを確認する。
+                  </p>
+                </div>
+                <div className="border-l-4 border-red-500 pl-3">
+                  <h4 className="font-semibold text-red-900">シナリオ4：患者情報の入力不足</h4>
+                  <p className="mt-1">
+                    <strong>例：</strong>鑑別診断プロンプトに、主訴と現病歴のみを入力し、既往歴やバイタルサインを省略したため、AIが不十分な情報に基づいて誤った鑑別診断を提示した。
+                  </p>
+                  <p className="mt-1 text-red-800">
+                    <strong>防止策：</strong>プロンプトの入力項目はすべて埋める。特に診断支援プロンプトでは、バイタルサイン、既往歴、アレルギー歴、家族歴などを漏れなく入力する。
+                  </p>
+                </div>
+              </div>
             </CardContent>
           </Card>
 

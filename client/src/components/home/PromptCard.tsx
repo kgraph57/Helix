@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react";
+import { AlertTriangle, ArrowRight } from "lucide-react";
 import { useLocation } from "wouter";
 import { memo } from "react";
 
@@ -7,6 +7,7 @@ interface Prompt {
   title: string;
   description: string;
   category: string;
+  riskLevel?: 'high' | 'medium' | 'low';
 }
 
 interface PromptCardProps {
@@ -23,9 +24,22 @@ export const PromptCard = memo(function PromptCard({ prompt }: PromptCardProps) 
     >
       {/* カテゴリバッジ */}
       <div className="flex items-center justify-between mb-3 md:mb-4">
-        <span className="px-2.5 py-0.5 md:px-3 md:py-1 text-xs md:text-caption font-semibold rounded-full border bg-primary-50 text-primary-700 border-primary-100">
-          {prompt.category}
-        </span>
+        <div className="flex items-center gap-2">
+          <span className="px-2.5 py-0.5 md:px-3 md:py-1 text-xs md:text-caption font-semibold rounded-full border bg-primary-50 text-primary-700 border-primary-100">
+            {prompt.category}
+          </span>
+          {prompt.riskLevel === 'high' && (
+            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-red-100 text-red-800">
+              <AlertTriangle className="w-3 h-3 mr-0.5" />
+              高
+            </span>
+          )}
+          {prompt.riskLevel === 'medium' && (
+            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-800">
+              中
+            </span>
+          )}
+        </div>
         <ArrowRight className="w-4 h-4 md:w-5 md:h-5 transition-all duration-200 text-neutral-400" />
       </div>
       

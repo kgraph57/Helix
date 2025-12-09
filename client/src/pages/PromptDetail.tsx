@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { fullPrompts as prompts } from "@/lib/prompts-full";
-import { ArrowLeft, Bookmark, Check, Copy, RefreshCw, Sparkles } from "lucide-react";
+import { AlertTriangle, ArrowLeft, Bookmark, Check, Copy, RefreshCw, Sparkles } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useFavorites } from "@/hooks/useFavorites";
@@ -66,7 +66,16 @@ export default function PromptDetail() {
     try {
       await navigator.clipboard.writeText(content);
       setCopied(true);
-      toast.success("クリップボードにコピーしました");
+      
+      // 高リスクプロンプトの場合は追加の警告を表示
+      if (prompt.riskLevel === 'high') {
+        toast.warning("⚠️ 重要：AIの出力は参考情報です。必ず臨床判断とファクトチェックを行ってください。", {
+          duration: 5000,
+        });
+      } else {
+        toast.success("クリップボードにコピーしました");
+      }
+      
       // GA4にコピーイベントを送信
       trackPromptCopy(prompt.id, prompt.title);
       setTimeout(() => setCopied(false), 2000);
@@ -84,26 +93,46 @@ export default function PromptDetail() {
     <Layout>
       <div className="space-y-3 h-[calc(100vh-8rem)] flex flex-col">
         {/* Header - コンパクト */}
-        <div className="flex items-center gap-2 flex-none pb-1.5 border-b">
-          <Link href={`/category/${prompt.category}`}>
-            <Button variant="ghost" size="icon" className="rounded-full h-9 w-9">
-              <ArrowLeft className="w-4 h-4" />
-            </Button>
-          </Link>
-          <div className="flex-1 min-w-0">
-            <h1 className="text-xl font-bold tracking-tight truncate">{prompt.title}</h1>
-            <p className="text-xs text-muted-foreground line-clamp-1">{prompt.description}</p>
+        <div className="flex-none space-y-2">
+          <div className="flex items-center gap-2 pb-1.5 border-b">
+            <Link href={`/category/${prompt.category}`}>
+              <Button variant="ghost" size="icon" className="rounded-full h-9 w-9">
+                <ArrowLeft className="w-4 h-4" />
+              </Button>
+            </Link>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2">
+                <h1 className="text-xl font-bold tracking-tight truncate">{prompt.title}</h1>
+                {prompt.riskLevel === 'high' && (
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400">
+                    <AlertTriangle className="w-3 h-3 mr-1" />
+                    高リスク
+                  </span>
+                )}
+                {prompt.riskLevel === 'medium' && (
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400">
+                    中リスク
+                  </span>
+                )}
+              </div>
+              <p className="text-xs text-muted-foreground line-clamp-1">{prompt.description}</p>
+            </div>
+            <div className="ml-auto">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => toggleFavorite(prompt.id)}
+                className={isFavorite(prompt.id) ? "text-yellow-500 border-yellow-500 bg-yellow-50 dark:bg-yellow-950/20" : "text-muted-foreground"}
+              >
+                <Bookmark className={isFavorite(prompt.id) ? "fill-current w-5 h-5" : "w-5 h-5"} />
+              </Button>
+            </div>
           </div>
-          <div className="ml-auto">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => toggleFavorite(prompt.id)}
-              className={isFavorite(prompt.id) ? "text-yellow-500 border-yellow-500 bg-yellow-50 dark:bg-yellow-950/20" : "text-muted-foreground"}
-            >
-              <Bookmark className={isFavorite(prompt.id) ? "fill-current w-5 h-5" : "w-5 h-5"} />
-            </Button>
-          </div>
+          {prompt.warningMessage && (
+            <div className="bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/50 rounded-lg p-3">
+              <p className="text-sm text-red-900 dark:text-red-400">{prompt.warningMessage}</p>
+            </div>
+          )}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 flex-1 min-h-0">
