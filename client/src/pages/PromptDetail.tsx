@@ -15,6 +15,7 @@ import { PromptFeedback } from "@/components/PromptFeedback";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useFavorites } from "@/hooks/useFavorites";
+import { usePromptStats } from "@/hooks/usePromptStats";
 import { Link, useRoute } from "wouter";
 import { trackPromptCopy, trackPromptView } from "@/lib/analytics";
 import { useEffect } from "react";
@@ -27,7 +28,9 @@ export default function PromptDetail() {
 
   const [inputValues, setInputValues] = useState<Record<string, string>>({});
   const [copied, setCopied] = useState(false);
-  const { isFavorite, toggleFavorite } = useFavorites();
+  const { favorites, toggleFavorite } = useFavorites();
+  const { trackPromptUsage, getPromptUsageCount } = usePromptStats();
+  const usageCount = prompt ? getPromptUsageCount(prompt.id) : 0;;
 
   // プロンプト閲覧を追跡
   useEffect(() => {
@@ -81,6 +84,8 @@ export default function PromptDetail() {
       
       // GA4にコピーイベントを送信
       trackPromptCopy(prompt.id, prompt.title);
+      // 使用統計を記録
+      trackPromptUsage(prompt.id);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
       toast.error("コピーに失敗しました");

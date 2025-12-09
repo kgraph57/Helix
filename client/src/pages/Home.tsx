@@ -6,6 +6,7 @@ import { trackSearch, trackCategorySelect } from "@/lib/analytics";
 import { useGamification } from "@/hooks/useGamification";
 import { HeroSection } from "@/components/home/HeroSection";
 import { QuickAccessSection } from "@/components/home/QuickAccessSection";
+import { PopularPromptsRanking } from "@/components/PopularPromptsRanking";
 
 // 遅延ローディング
 const LearningProgressSection = lazy(() => import("@/components/home/LearningProgressSection").then(m => ({ default: m.LearningProgressSection })));
@@ -91,6 +92,11 @@ export default function Home() {
 
         {/* クイックアクセスセクション */}
         <QuickAccessSection prompts={topPrompts} />
+
+        {/* 人気ランキング */}
+        <div className="container mx-auto px-4 py-4">
+          <PopularPromptsRanking />
+        </div>
 
         {/* 学習進捗セクション - 遅延ローディング */}
         <Suspense fallback={<LoadingSpinner />}>
