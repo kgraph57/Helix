@@ -38,6 +38,7 @@ jobs:
         run: pnpm build:client
         env:
           NODE_ENV: production
+          VITE_BASE_PATH: /medicalprompthub/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
