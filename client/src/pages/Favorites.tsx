@@ -5,6 +5,7 @@ import { useFavorites } from "@/hooks/useFavorites";
 import { fullPrompts } from "@/lib/prompts-full";
 import { ArrowRight, Bookmark, BookmarkX } from "lucide-react";
 import { Link } from "wouter";
+import { ExportFavorites } from "@/components/ExportFavorites";
 
 export default function Favorites() {
   const { favorites, toggleFavorite } = useFavorites();
@@ -22,6 +23,8 @@ export default function Favorites() {
             保存したプロンプトの一覧です。よく使うプロンプトに素早くアクセスできます。
           </p>
         </div>
+
+        <ExportFavorites favoriteIds={favorites} />
 
         {favoritePrompts.length === 0 ? (
           <div className="text-center py-12 border-2 border-dashed rounded-lg">
