@@ -694,3 +694,208 @@
   word-break: break-word;
   overflow-wrap: break-word;
 }
+
+/* ========================================
+   Phase 4: レスポンシブデザインの最適化
+   ======================================== */
+
+/* レスポンシブタイポグラフィ */
+@media (max-width: 768px) {
+  .text-display {
+    font-size: 40px !important;
+    line-height: 1.15 !important;
+  }
+  
+  .text-h1 {
+    font-size: 32px !important;
+    line-height: 1.2 !important;
+  }
+  
+  .text-h2 {
+    font-size: 24px !important;
+    line-height: 1.25 !important;
+  }
+  
+  .text-h3 {
+    font-size: 18px !important;
+    line-height: 1.3 !important;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .text-display {
+    font-size: 48px !important;
+    line-height: 1.12 !important;
+  }
+  
+  .text-h1 {
+    font-size: 36px !important;
+    line-height: 1.2 !important;
+  }
+  
+  .text-h2 {
+    font-size: 28px !important;
+    line-height: 1.25 !important;
+  }
+}
+
+/* タッチデバイス対応 - ホバーエフェクトの無効化 */
+@media (hover: none) and (pointer: coarse) {
+  .hover\:shadow-md:hover {
+    box-shadow: none !important;
+  }
+  
+  .hover\:-translate-y-1:hover {
+    transform: none !important;
+  }
+  
+  /* タッチ時のアクティブステートは維持 */
+  button:active,
+  [role="button"]:active {
+    transform: scale(0.95);
+  }
+}
+
+/* ========================================
+   Phase 5: 細部の磨き上げ
+   ======================================== */
+
+/* アニメーションの最適化 - イージング関数 */
+.transition-smooth {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+.transition-bounce {
+  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition-duration: 300ms;
+}
+
+.transition-spring {
+  transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition-duration: 400ms;
+}
+
+/* マイクロインタラクション */
+@keyframes subtle-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.animate-subtle-pulse {
+  animation: subtle-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* フォーカス状態の改善（アクセシビリティ） */
+*:focus-visible {
+  outline: 2px solid var(--primary-500);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* スケルトンローディング */
+@keyframes skeleton-loading {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--neutral-200) 0%,
+    var(--neutral-100) 50%,
+    var(--neutral-200) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+}
+
+/* プログレッシブエンハンスメント */
+@supports (backdrop-filter: blur(10px)) {
+  .backdrop-blur-glass {
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+/* パフォーマンス最適化 - GPU加速 */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* スムーズスクロール */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* 減速モーション対応（アクセシビリティ） */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ダークモード対応の改善 */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    color-scheme: dark;
+  }
+}
+
+/* ========================================
+   追加施策: キーボードショートカット
+   ======================================== */
+
+/* キーボードナビゲーション時の視覚的フィードバック */
+body:not(.user-is-tabbing) *:focus {
+  outline: none;
+}
+
+body.user-is-tabbing *:focus {
+  outline: 2px solid var(--primary-500);
+  outline-offset: 2px;
+}
+
+/* ========================================
+   パフォーマンス指標最適化
+   ======================================== */
+
+/* CLS（Cumulative Layout Shift）対策 */
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* フォントローディング最適化 */
+@font-face {
+  font-family: 'Inter';
+  font-display: swap;
+}
+
+/* LCP（Largest Contentful Paint）対策 */
+.hero-section {
+  content-visibility: auto;
+}
+
+/* FID（First Input Delay）対策 */
+button,
+a {
+  touch-action: manipulation;
+}
