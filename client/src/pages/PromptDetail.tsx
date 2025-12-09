@@ -11,6 +11,7 @@ import { fullPrompts as prompts } from "@/lib/prompts-full";
 import { AlertTriangle, ArrowLeft, Bookmark, Check, Copy, RefreshCw, Sparkles } from "lucide-react";
 import { PromptChecklist } from "@/components/PromptChecklist";
 import { FactCheckLinks } from "@/components/FactCheckLinks";
+import { PromptFeedback } from "@/components/PromptFeedback";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useFavorites } from "@/hooks/useFavorites";
@@ -139,6 +140,7 @@ export default function PromptDetail() {
             <PromptChecklist promptCategory={prompt.category} promptId={prompt.id} />
           )}
           <FactCheckLinks promptCategory={prompt.category} promptId={prompt.id} />
+          <PromptFeedback promptId={prompt.id} />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 flex-1 min-h-0">
