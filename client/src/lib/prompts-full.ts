@@ -2018,5 +2018,143 @@ ABC（気道・呼吸・循環）の評価から始めてください。
       { key: 'options', label: '選択肢', placeholder: '例：A案、B案、C案', type: 'text' },
       { key: 'criteria', label: '評価基準', placeholder: '例：コスト、利便性、将来性', type: 'text' }
     ]
+  },
+
+  // 共同意思決定 (Shared Decision Making)
+  {
+    id: "sdm-treatment-options",
+    title: "治療選択肢の共有（Shared Decision Making）",
+    description: "患者の価値観、生活状況、希望を考慮した治療選択肢の比較と説明を支援します。",
+    category: "shared-decision-making",
+    riskLevel: "medium",
+    warningMessage: "⚠️ 注意：このプロンプトは患者との対話のための参考情報です。患者の個別の状況、価値観、希望を十分に傾聴し、尊重してください。",
+    template: `以下の診断に対する治療選択肢を、患者の価値観と生活状況を考慮して比較し、患者が理解しやすい言葉で説明してください。
+
+# 診断名
+{{diagnosis}}
+
+# 患者情報
+- 年齢・性別：{{patient_demographics}}
+- 生活状況：{{lifestyle}}
+- 価値観・希望：{{patient_values}}
+- 懸念事項：{{concerns}}
+
+# 出力要件
+1. **利用可能な治療選択肢**（各選択肢の概要）
+2. **各選択肢の比較表**
+   - 期待される効果
+   - 起こりうるリスク・副作用
+   - 生活への影響（通院頻度、仕事への影響、費用など）
+   - 治療期間
+3. **患者の価値観と各選択肢の適合性**
+   - この患者の生活状況や希望を考慮した場合、各選択肢がどのように適合するか
+4. **患者への質問例**
+   - 意思決定を支援するために、患者に聞くべき質問
+5. **次のステップ**
+   - 患者が決定を下すために必要な情報や時間
+
+# 重要な原則
+- 医学用語を避け、患者が理解しやすい言葉で説明する
+- 「正しい答え」を押し付けず、患者が自分で選択できるよう支援する
+- 患者の価値観や希望を尊重し、それらが選択にどう影響するかを明確にする
+- 不確実性がある場合は、それを正直に伝える
+
+⚠️ 注意：この出力は、患者との対話のための参考情報です。実際の対話では、患者の反応や質問に応じて柔軟に対応してください。`,
+    inputs: [
+      { key: 'diagnosis', label: '診断名', placeholder: '例: 2型糖尿病', type: 'text' },
+      { key: 'patient_demographics', label: '年齢・性別', placeholder: '例: 55歳男性', type: 'text' },
+      { key: 'lifestyle', label: '生活状況', placeholder: '例: フルタイム勤務、家族と同居', type: 'text' },
+      { key: 'patient_values', label: '価値観・希望', placeholder: '例: 仕事を続けたい、副作用を最小限にしたい', type: 'textarea' },
+      { key: 'concerns', label: '懸念事項', placeholder: '例: 注射が苦手、低血糖が怖い', type: 'textarea' }
+    ]
+  },
+  {
+    id: "sdm-cancer-screening",
+    title: "がん検診の意思決定支援",
+    description: "がん検診のメリットとデメリットを患者の状況に応じて説明し、意思決定を支援します。",
+    category: "shared-decision-making",
+    riskLevel: "medium",
+    template: `以下のがん検診について、患者が意思決定をするための情報を、バランスの取れた形で提供してください。
+
+# 検診の種類
+{{screening_type}}
+
+# 患者情報
+- 年齢・性別：{{patient_demographics}}
+- 家族歴：{{family_history}}
+- リスク因子：{{risk_factors}}
+- 懸念事項：{{concerns}}
+
+# 出力要件
+1. **検診の目的と方法**（分かりやすい言葉で）
+2. **メリット（検診を受ける利点）**
+   - 早期発見の可能性
+   - 死亡率の減少（エビデンスがあれば明記）
+3. **デメリット（検診のリスクや負担）**
+   - 偽陽性（がんではないのに陽性と出る）の可能性
+   - 過剰診断（放置しても害のないがんを発見してしまう）の可能性
+   - 検診自体の身体的・精神的負担
+   - 費用や時間
+4. **この患者にとっての推奨事項**
+   - 年齢、家族歴、リスク因子を考慮した場合の推奨
+   - ガイドラインに基づく推奨
+5. **意思決定のための質問**
+   - 患者が考えるべきポイント
+
+# 重要な原則
+- 検診を「受けるべき」と押し付けず、メリットとデメリットを公平に提示する
+- 不確実性や意見が分かれている点があれば、正直に伝える
+- 患者が自分の価値観に基づいて選択できるよう支援する`,
+    inputs: [
+      { key: 'screening_type', label: '検診の種類', placeholder: '例: PSA検査（前立腺がん）', type: 'text' },
+      { key: 'patient_demographics', label: '年齢・性別', placeholder: '例: 60歳男性', type: 'text' },
+      { key: 'family_history', label: '家族歴', placeholder: '例: 父が前立腺がん', type: 'text' },
+      { key: 'risk_factors', label: 'リスク因子', placeholder: '例: 喜煙歴、肥満', type: 'text' },
+      { key: 'concerns', label: '懸念事項', placeholder: '例: 検査の痛みが怖い', type: 'textarea' }
+    ]
+  },
+  {
+    id: "sdm-end-of-life",
+    title: "終末期ケアの意思決定支援",
+    description: "終末期の患者と家族が、価値観に基づいたケアの選択をできるよう支援します。",
+    category: "shared-decision-making",
+    riskLevel: "high",
+    warningMessage: "⚠️ 重要：終末期ケアは非常にデリケートなテーマです。AIの出力は参考情報であり、実際の対話では患者と家族の感情、文化的背景、価値観を最大限尊重してください。",
+    template: `終末期の患者と家族が、今後のケアについて考え、選択するための情報を、共感的で分かりやすい言葉で提供してください。
+
+# 患者情報
+- 診断名と病状：{{diagnosis_and_condition}}
+- 予後：{{prognosis}}
+- 患者の価値観・希望：{{patient_values}}
+- 家族の状況：{{family_situation}}
+
+# 出力要件
+1. **現在の状況と今後の見通し**（優しく、正直に）
+2. **利用可能なケアの選択肢**
+   - 積極的治療（化学療法、放射線療法など）
+   - 緙和ケア（症状緩和を中心としたケア）
+   - ホスピス・在宅緩和ケア
+3. **各選択肢の比較**
+   - 期待される効果（症状緩和、生存期間への影響）
+   - 身体的・精神的負担
+   - 生活の質（QOL）への影響
+   - 家族への影響
+4. **患者の価値観と各選択肢の適合性**
+5. **家族へのサポート**
+   - 利用可能なサポートシステム
+6. **話し合いのためのガイド**
+   - 患者と家族が話し合うべきテーマ
+
+# 重要な原則
+- 共感的で、尊重の気持ちを持って接する
+- 「正しい選択」はなく、患者と家族の価値観に基づく選択を支援する
+- 希望を持ち続けることと、現実的な見通しを伝えることのバランスを取る
+- 文化的・宗教的背景を尊重する`,
+    inputs: [
+      { key: 'diagnosis_and_condition', label: '診断名と病状', placeholder: '例: 進行性膝がん、呼吸困難、痛みあり', type: 'textarea' },
+      { key: 'prognosis', label: '予後', placeholder: '例: 余命数ヶ月', type: 'text' },
+      { key: 'patient_values', label: '患者の価値観・希望', placeholder: '例: 家で過ごしたい、痛みを減らしたい', type: 'textarea' },
+      { key: 'family_situation', label: '家族の状況', placeholder: '例: 配偶者と子供2人、在宅ケア可能', type: 'textarea' }
+    ]
   }
 ];

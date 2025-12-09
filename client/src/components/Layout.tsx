@@ -1,6 +1,6 @@
 import { categories } from "@/lib/prompts";
 import { cn } from "@/lib/utils";
-import { Activity, ArrowRight, BookOpen, Bookmark, Briefcase, ClipboardList, FileText, GraduationCap, HelpCircle, Home, Lightbulb, Mail, Menu, MessageSquare, Microscope, Pill, Stethoscope, X } from "lucide-react";
+import { Activity, ArrowRight, BookOpen, Bookmark, Briefcase, ClipboardList, FileText, GraduationCap, HandHeart, HelpCircle, Home, Lightbulb, Mail, Menu, MessageSquare, Microscope, Pill, Stethoscope, X } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "./ui/button";
@@ -13,6 +13,7 @@ const categoryIcons: Record<string, React.ReactNode> = {
   "documentation": <FileText className="w-4 h-4" />,
   "medication": <Pill className="w-4 h-4" />,
   "communication": <MessageSquare className="w-4 h-4" />,
+  "shared-decision-making": <HandHeart className="w-4 h-4" />,
   "literature": <BookOpen className="w-4 h-4" />,
   "research": <Microscope className="w-4 h-4" />,
   "case-analysis": <ClipboardList className="w-4 h-4" />,
