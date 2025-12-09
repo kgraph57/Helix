@@ -153,6 +153,59 @@ export default function AILiteracy() {
             </CardContent>
           </Card>
 
+          {/* 具体的な失敗例と対策 */}
+          <Card className="border-orange-200">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-orange-900 dark:text-orange-400">
+                <AlertTriangle className="w-5 h-5" />
+                よくある失敗例とその対策
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4 text-sm leading-relaxed">
+              <div className="space-y-4">
+                <div className="bg-orange-50 dark:bg-orange-950/20 border border-orange-200 dark:border-orange-900/50 rounded-lg p-4">
+                  <h4 className="font-semibold text-orange-900 dark:text-orange-400 mb-2">失敗例 1: 存在しない論文を引用してしまった</h4>
+                  <p className="text-orange-800 dark:text-orange-300 mb-2">
+                    <strong>状況：</strong>AIに「新型コロナウイルス感染症の治療について、最新のエビデンスを教えてください」と問い合わせたところ、「Smith et al. (2023) Lancet」という論文が提示されたが、PubMedで検索しても見つからなかった。
+                  </p>
+                  <p className="text-orange-800 dark:text-orange-300">
+                    <strong>対策：</strong>AIが提示した引用文献は、必ずPubMed、医中誌、Google Scholarで実在を確認する。見つからない場合は、AIに「DOIを教えてください」と再度問い合わせるか、別の情報源を使用する。
+                  </p>
+                </div>
+
+                <div className="bg-orange-50 dark:bg-orange-950/20 border border-orange-200 dark:border-orange-900/50 rounded-lg p-4">
+                  <h4 className="font-semibold text-orange-900 dark:text-orange-400 mb-2">失敗例 2: 古いガイドラインを提示された</h4>
+                  <p className="text-orange-800 dark:text-orange-300 mb-2">
+                    <strong>状況：</strong>AIに「高血圧の治療ガイドラインを教えてください」と問い合わせたところ、JSH2014（日本高血圧学会2014年版）の内容が提示されたが、現在はJSH2019が最新版である。
+                  </p>
+                  <p className="text-orange-800 dark:text-orange-300">
+                    <strong>対策：</strong>プロンプトに「最新のガイドライン」と明記しても、AIの学習データのカットオフ日以降の情報は含まれていない。必ず各学会の公式サイトやUpToDateで最新版を確認する。
+                  </p>
+                </div>
+
+                <div className="bg-orange-50 dark:bg-orange-950/20 border border-orange-200 dark:border-orange-900/50 rounded-lg p-4">
+                  <h4 className="font-semibold text-orange-900 dark:text-orange-400 mb-2">失敗例 3: 薬剤投与量が誤っていた</h4>
+                  <p className="text-orange-800 dark:text-orange-300 mb-2">
+                    <strong>状況：</strong>AIに「腐機能低下患者への抗菌薬投与量を教えてください」と問い合わせたところ、一般的な投与量が提示されたが、患者のCCr（クレアチニン・クリアランス）に応じた減量が考慮されていなかった。
+                  </p>
+                  <p className="text-orange-800 dark:text-orange-300">
+                    <strong>対策：</strong>薬剤投与量はAIの出力を参考にするだけで、必ず添付文書、医薬品インタビューフォーム、または薬剤師に確認する。特に腐機能低下、肝機能障害、小児、高齢者など、特殊な患者集団では注意が必要。
+                  </p>
+                </div>
+
+                <div className="bg-orange-50 dark:bg-orange-950/20 border border-orange-200 dark:border-orange-900/50 rounded-lg p-4">
+                  <h4 className="font-semibold text-orange-900 dark:text-orange-400 mb-2">失敗例 4: 患者情報を入力してしまった</h4>
+                  <p className="text-orange-800 dark:text-orange-300 mb-2">
+                    <strong>状況：</strong>AIに診断支援を依頼する際、患者の氏名、生年月日、カルテ番号などをそのまま入力してしまった。
+                  </p>
+                  <p className="text-orange-800 dark:text-orange-300">
+                    <strong>対策：</strong>AIに入力する情報は必ず匿名化する。「60歳男性」「患者A」など、個人を特定できない表現を使用する。特にクラウド型AIサービスを使用する際は、患者のプライバシー保護に細心の注意を払う。
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
           {/* まとめ */}
           <Card className="border-primary">
             <CardHeader>
