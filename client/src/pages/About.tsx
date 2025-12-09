@@ -43,16 +43,27 @@ export default function About() {
           <CardHeader className="p-4">
             <CardTitle className="flex items-center gap-2 text-base">
               <Heart className="w-4 h-4 text-primary" />
-              ミッション
+              ミッション：「このツールで生まれた時間を、患者さんとの対話のために。」
             </CardTitle>
           </CardHeader>
-          <CardContent className="p-4 pt-0 space-y-2 text-xs leading-relaxed">
+          <CardContent className="p-4 pt-0 space-y-3 text-xs leading-relaxed">
+            <p className="text-sm font-medium text-primary-700 italic">
+              AIは医療を効率化するだけではなく、医師が患者と向き合う時間を増やすためのツールです。
+            </p>
             <p>
               Medical Prompt Hubは、医療従事者がAI（ChatGPT, Claude, Geminiなど）を臨床業務、研究、教育に効果的に活用できるよう、実践的で高品質なプロンプトを提供することを目的としています。
             </p>
             <p>
               私たちは、AI技術が医療現場の効率化と質の向上に貢献できると信じており、医療従事者の皆様が安全かつ効果的にAIを活用できるよう、専門的なプロンプト集とガイドを提供しています。
             </p>
+            <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-950/20 rounded-lg border border-blue-200 dark:border-blue-900/50">
+              <h4 className="text-sm font-semibold text-blue-900 dark:text-blue-400 mb-2">
+                🛡️ 医療安全へのコミットメント
+              </h4>
+              <p className="text-xs text-blue-800 dark:text-blue-300">
+                本サービスは、デジタルヘルス、医療安全、EBM、AI技術の専門家の視点からレビューされ、医療安全機能（リスクレベル表示、チェックリスト、AIリテラシーガイド）を実装しています。
+              </p>
+            </div>
           </CardContent>
         </Card>
 
@@ -100,6 +111,24 @@ export default function About() {
                 </h3>
                 <p className="text-xs text-muted-foreground">
                   すべてのプロンプトとガイドは無料で利用でき、オープンソースとして公開されています
+                </p>
+              </div>
+              <div className="space-y-1.5">
+                <h3 className="font-semibold text-sm flex items-center gap-1.5">
+                  <Heart className="w-3.5 h-3.5 text-red-600" />
+                  医療安全機能
+                </h3>
+                <p className="text-xs text-muted-foreground">
+                  リスクレベル表示、チェックリスト、AIリテラシーガイドで安全な利用をサポート
+                </p>
+              </div>
+              <div className="space-y-1.5">
+                <h3 className="font-semibold text-sm flex items-center gap-1.5">
+                  <Users className="w-3.5 h-3.5 text-primary" />
+                  Shared Decision Making
+                </h3>
+                <p className="text-xs text-muted-foreground">
+                  患者の価値観を尊重した共同意思決定を支援するプロンプトを提供
                 </p>
               </div>
             </div>

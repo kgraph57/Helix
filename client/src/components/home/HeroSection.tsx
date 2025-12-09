@@ -22,6 +22,14 @@ export function HeroSection({ searchQuery, onSearchChange }: HeroSectionProps) {
           <p className="text-base md:text-h3 font-normal max-w-2xl mx-auto text-neutral-600">
             100以上の実践的なプロンプトで、診断、研究、文書作成を支援
           </p>
+          <div className="mt-6 max-w-3xl mx-auto">
+            <p className="text-sm md:text-base text-primary-700 font-medium italic">
+              「このツールで生まれた時間を、患者さんとの対話のために。」
+            </p>
+            <p className="text-xs md:text-sm text-neutral-500 mt-2">
+              AIは医療を効率化するだけではなく、医師が患者と向き合う時間を増やすためのツールです。
+            </p>
+          </div>
         </div>
         
         {/* 検索バー - 最優先機能 */}
