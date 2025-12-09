@@ -48,6 +48,11 @@
 
 ---
 
+**更新日**: 2025年1月  
+**対象読者**: 医学研究者・臨床医
+
+---
+
 ### 参考文献
 
 [1] Anthropic. "Introducing Claude 3.5 Sonnet." 2024. https://www.anthropic.com/news/claude-3-5-sonnet
