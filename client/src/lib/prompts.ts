@@ -16,6 +16,7 @@ export interface Prompt {
   example?: string;
   riskLevel?: 'high' | 'medium' | 'low';
   warningMessage?: string;
+  tags?: string[];
 }
 
 export const categories: { id: PromptCategory; label: string; description: string }[] = [

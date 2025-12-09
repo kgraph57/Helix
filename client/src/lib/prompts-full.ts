@@ -2,13 +2,13 @@ import { Prompt } from "./prompts";
 
 export const fullPrompts: Prompt[] = [
   // 診断支援
-  {
-    id: "diagnosis-differential",
+  {    id: "diagnosis-differential",
     title: "Differential Diagnosis Generator",
-    description: "主訴と現病歴から鑑別診断リストを作成し、見逃しを防ぎます。",
+    description: "主訴と現病歴から鑑別診断リストを作成し、見落しを防ぎます。",
     category: "diagnosis",
     riskLevel: "high",
-    warningMessage: "⚠️ 重要：このプロンプトは診断の補助ツールです。AIの出力は参考情報であり、最終的な診断は必ず医師の臨床判断に基づいて行ってください。入力情報の不足や誤りがあると、重要な疾患を見逃す可能性があります。",
+    warningMessage: "⚠️ 重要：このプロンプトは診断の補助ツールです。AIの出力は参考情報であり、最終的な診断は必ず医師の臨床判断に基づいて行ってください。入力情報の不足や誤りがあると、重要な疾患を見落とす可能性があります。",
+    tags: ["鑑別診断", "総合診療", "初診", "緊急"],
     template: `あなたは熟練した総合診療医です。以下の症例情報に基づき、鑑別診断リストを作成してください。
 
 # 症例情報

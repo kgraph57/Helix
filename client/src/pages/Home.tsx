@@ -51,12 +51,15 @@ export default function Home() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory]);
 
-  // 検索・フィルタリングされたプロンプト
+  // 検索・フィルタリングされたプロンプト（全文検索とタグ検索を含む）
   const filteredPrompts = useMemo(() => {
     const filtered = fullPrompts.filter((prompt) => {
+      const query = searchQuery.toLowerCase();
       const matchesSearch = 
-        prompt.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        prompt.description.toLowerCase().includes(searchQuery.toLowerCase());
+        prompt.title.toLowerCase().includes(query) ||
+        prompt.description.toLowerCase().includes(query) ||
+        prompt.template.toLowerCase().includes(query) ||
+        (prompt.tags && prompt.tags.some(tag => tag.toLowerCase().includes(query)));
       const matchesCategory = selectedCategory ? prompt.category === selectedCategory : true;
       return matchesSearch && matchesCategory;
     });
