@@ -6,6 +6,8 @@ import { Link, useLocation } from "wouter";
 import { Button } from "./ui/button";
 import { ScrollArea } from "./ui/scroll-area";
 import { SafetyWarningModal } from "./SafetyWarningModal";
+import { KeyboardShortcutsHelp } from "./KeyboardShortcutsHelp";
+import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 
 const categoryIcons: Record<string, React.ReactNode> = {
   "diagnosis": <Stethoscope className="w-4 h-4" />,
@@ -24,6 +26,7 @@ const categoryIcons: Record<string, React.ReactNode> = {
 export function Layout({ children }: { children: React.ReactNode }) {
   const [location, setLocation] = useLocation();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  useKeyboardShortcuts();
 
   const NavContent = () => (
     <nav className="flex flex-col h-full" aria-label="メインナビゲーション">
@@ -345,6 +348,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
       
       {/* Safety Warning Modal */}
       <SafetyWarningModal />
+      
+      {/* Keyboard Shortcuts Help */}
+      <KeyboardShortcutsHelp />
     </div>
   );
 }
