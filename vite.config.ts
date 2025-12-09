@@ -6,6 +6,8 @@ import path from "path";
 import { defineConfig, Plugin } from "vite";
 import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
 import { VitePWA } from "vite-plugin-pwa";
+import { visualizer } from 'rollup-plugin-visualizer';
+import viteCompression from 'vite-plugin-compression';
 
 
 // Escape HTML attribute values to prevent XSS
@@ -48,6 +50,33 @@ const plugins = [
   // Only enable Manus runtime in development
   ...(process.env.NODE_ENV !== 'production' ? [vitePluginManusRuntime()] : []),
   analyticsPlugin(),
+
+  // Gzip compression (production only)
+  ...(process.env.NODE_ENV === 'production' ? [
+    viteCompression({
+      algorithm: 'gzip',
+      ext: '.gz',
+      threshold: 10240, // Only compress files larger than 10KB
+      deleteOriginFile: false,
+    }),
+    // Brotli compression (production only)
+    viteCompression({
+      algorithm: 'brotliCompress',
+      ext: '.br',
+      threshold: 10240,
+      deleteOriginFile: false,
+    }),
+  ] : []),
+
+  // Bundle visualizer (development only)
+  ...(process.env.NODE_ENV !== 'production' ? [
+    visualizer({
+      open: false,
+      gzipSize: true,
+      brotliSize: true,
+      filename: 'stats.html',
+    }),
+  ] : []),
 
   // Temporarily disable PWA to fix caching issues
   ...(process.env.NODE_ENV !== 'production' ? [VitePWA({
@@ -101,31 +130,47 @@ export default defineConfig({
     setupFiles: ["./client/src/test/setup.ts"],
   },
   optimizeDeps: {
-    exclude: ["@sentry/react"], // Sentryを最適化から除外（インストールされていない場合でもエラーにならないように）
+    include: ['react', 'react-dom', 'wouter'],
+    exclude: ["@sentry/react"],
   },
   build: {
     outDir: path.resolve(import.meta.dirname, "dist"),
     emptyOutDir: true,
+    // Source maps disabled in production for performance
+    sourcemap: false,
+    // Minify with terser for better compression
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+        pure_funcs: ['console.log', 'console.info', 'console.debug'],
+      },
+    },
     rollupOptions: {
       output: {
-        entryFileNames: `assets/[name]-[hash]-v12.js`,
-        chunkFileNames: `assets/[name]-[hash]-v12.js`,
-        assetFileNames: `assets/[name]-[hash]-v12.[ext]`,
+        entryFileNames: `assets/[name]-[hash]-v13.js`,
+        chunkFileNames: `assets/[name]-[hash]-v13.js`,
+        assetFileNames: `assets/[name]-[hash]-v13.[ext]`,
         manualChunks: {
-          // Vendor chunks
+          // React core
           'react-vendor': ['react', 'react-dom'],
+          // Router
           'router-vendor': ['wouter'],
+          // UI libraries
           'ui-vendor': ['framer-motion', 'lucide-react'],
-          // Large libraries
+          // Charts
           'charts-vendor': ['recharts'],
+          // Markdown
+          'markdown-vendor': ['react-markdown', 'remark-gfm'],
         },
       },
     },
-    chunkSizeWarningLimit: 600,
+    chunkSizeWarningLimit: 1000,
   },
   server: {
     port: 3000,
-    strictPort: false, // Will find next available port if 3000 is busy
+    strictPort: false,
     host: true,
     allowedHosts: [
       ".manuspre.computer",

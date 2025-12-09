@@ -1,6 +1,6 @@
 import { Layout } from "@/components/Layout";
 import { fullPrompts } from "@/lib/prompts-full";
-import { useState, useMemo, useEffect, lazy, Suspense } from "react";
+import { useState, useMemo, useCallback, useEffect, lazy, Suspense } from "react";
 import { updateSEO, addHomeStructuredData } from "@/lib/seo";
 import { trackSearch, trackCategorySelect } from "@/lib/analytics";
 import { useGamification } from "@/hooks/useGamification";
@@ -66,11 +66,16 @@ export default function Home() {
   // よく使われるプロンプト（上位4つ）
   const topPrompts = useMemo(() => fullPrompts.slice(0, 4), []);
 
-  // フィルタークリア
-  const handleClearFilters = () => {
+  // フィルタークリア（メモ化）
+  const handleClearFilters = useCallback(() => {
     setSearchQuery('');
     setSelectedCategory(null);
-  };
+  }, []);
+
+  // 検索変更ハンドラ（メモ化）
+  const handleSearchChange = useCallback((value: string) => {
+    setSearchQuery(value);
+  }, []);
 
   return (
     <Layout>
@@ -78,7 +83,7 @@ export default function Home() {
         {/* ヒーローセクション */}
         <HeroSection 
           searchQuery={searchQuery}
-          onSearchChange={setSearchQuery}
+          onSearchChange={handleSearchChange}
         />
 
         {/* クイックアクセスセクション */}
