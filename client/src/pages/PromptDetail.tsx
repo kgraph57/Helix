@@ -18,13 +18,37 @@ import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { useFavorites } from "@/hooks/useFavorites";
 import { usePromptStats } from "@/hooks/usePromptStats";
-import { Link, useRoute } from "wouter";
+import { Link, useRoute, useLocation } from "wouter";
 import { trackPromptCopy, trackPromptView } from "@/lib/analytics";
+import { useSwipeGesture } from "@/hooks/useSwipeGesture";
 
 export default function PromptDetail() {
   const [match, params] = useRoute("/prompts/:id");
+  const [, setLocation] = useLocation();
   const promptId = match ? params.id : null;
   const prompt = prompts.find((p) => p.id === promptId);
+  
+  // 前後のプロンプトを取得
+  const currentIndex = prompts.findIndex((p) => p.id === promptId);
+  const prevPrompt = currentIndex > 0 ? prompts[currentIndex - 1] : null;
+  const nextPrompt = currentIndex < prompts.length - 1 ? prompts[currentIndex + 1] : null;
+  
+  // スワイプジェスチャーで前後のプロンプトに移動
+  useSwipeGesture({
+    onSwipeLeft: () => {
+      if (nextPrompt) {
+        setLocation(`/prompts/${nextPrompt.id}`);
+        toast.success(`次のプロンプト: ${nextPrompt.title}`);
+      }
+    },
+    onSwipeRight: () => {
+      if (prevPrompt) {
+        setLocation(`/prompts/${prevPrompt.id}`);
+        toast.success(`前のプロンプト: ${prevPrompt.title}`);
+      }
+    },
+    threshold: 100
+  });
 
   const [inputValues, setInputValues] = useState<Record<string, string>>({});
   const [copied, setCopied] = useState(false);

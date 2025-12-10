@@ -7,6 +7,9 @@ import { HeroSection } from "@/components/home/HeroSection";
 import { FeatureOverviewSection } from "@/components/home/FeatureOverviewSection";
 import { ContentShowcaseSection } from "@/components/home/ContentShowcaseSection";
 import { UseCaseSection } from "@/components/home/UseCaseSection";
+import { usePullToRefresh } from "@/hooks/usePullToRefresh";
+import { PullToRefreshIndicator } from "@/components/PullToRefreshIndicator";
+import { toast } from "sonner";
 
 // 遅延ローディング
 const PromptGridSection = lazy(() => import("@/components/home/PromptGridSection").then(m => ({ default: m.PromptGridSection })));
@@ -33,6 +36,23 @@ export default function Home() {
   
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  
+  // プルトゥリフレッシュ機能
+  const handleRefresh = useCallback(async () => {
+    // ページをリロードする代わりに、フィルターをクリア
+    setSearchQuery('');
+    setSelectedCategory(null);
+    
+    // 簡単な遅延でリフレッシュアニメーションを表現
+    await new Promise(resolve => setTimeout(resolve, 500));
+    toast.success('プロンプトリストを更新しました');
+  }, []);
+  
+  const { isPulling, isRefreshing, pullDistance, progress } = usePullToRefresh({
+    onRefresh: handleRefresh,
+    threshold: 80,
+    enabled: true
+  });
 
   // 検索イベントを追跡
   useEffect(() => {
@@ -80,6 +100,13 @@ export default function Home() {
 
   return (
     <Layout>
+      {/* プルトゥリフレッシュインジケーター */}
+      <PullToRefreshIndicator
+        isPulling={isPulling}
+        isRefreshing={isRefreshing}
+        pullDistance={pullDistance}
+        progress={progress}
+      />
       <div className="min-h-screen">
         {/* ヒーローセクション */}
         <HeroSection 
