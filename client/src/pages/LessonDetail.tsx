@@ -389,6 +389,8 @@ export default function LessonDetail() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const contentRef = useRef<HTMLDivElement>(null);
   const { addXP } = useGamification();
 
@@ -441,6 +443,18 @@ export default function LessonDetail() {
       const scrollHeight = element.scrollHeight - element.clientHeight;
       const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
       setScrollProgress(progress);
+
+      // ヘッダーの表示/非表示を制御（モバイルのみ）
+      if (window.innerWidth < 1024) {
+        if (scrollTop > lastScrollY && scrollTop > 100) {
+          // 下にスクロールしているときはヘッダーを隠す
+          setIsHeaderVisible(false);
+        } else {
+          // 上にスクロールしているときはヘッダーを表示
+          setIsHeaderVisible(true);
+        }
+        setLastScrollY(scrollTop);
+      }
 
       // アクティブなセクションを検出
       const sectionElements = element.querySelectorAll("h2[id], h3[id]");
@@ -682,7 +696,7 @@ export default function LessonDetail() {
         {/* メインコンテンツ */}
         <div className="flex-1 flex flex-col min-w-0">
           {/* ヘッダー */}
-          <header className="sticky top-0 z-20 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border-b border-border">
+          <header className={`sticky top-0 z-20 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border-b border-border transition-transform duration-300 ${isHeaderVisible ? 'translate-y-0' : '-translate-y-full'}`}>
             <div className="max-w-[680px] mx-auto px-6 py-4">
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-3">
