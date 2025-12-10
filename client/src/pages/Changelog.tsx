@@ -92,7 +92,7 @@ export default function Changelog() {
     <Layout>
       <div className="max-w-4xl mx-auto space-y-4 pb-12">
         {/* Hero Section */}
-        <div className="text-center space-y-2 py-4">
+        <div className="text-center space-y-2 py-2 lg:py-2.5">
           <div className="inline-flex items-center gap-1.5 px-4 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold">
             <Calendar className="w-3.5 h-3.5" />
             <span>Changelog</span>

@@ -44,20 +44,20 @@ export function UseCaseSection() {
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.1 });
 
   return (
-    <section ref={ref} className="py-8 md:py-24 bg-gradient-to-b from-gray-50 to-white">
+    <section ref={ref} className="py-6 md:py-24 bg-gradient-to-b from-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-3 md:px-4">
         {/* セクションヘッダー */}
         <div
-          className={`text-center mb-6 md:mb-8 transition-all duration-700 ${
+          className={`text-center mb-4 md:mb-6 transition-all duration-700 ${
             isVisible
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-8"
           }`}
         >
-          <h2 className="text-2xl md:text-h2 font-semibold mb-4 text-neutral-900">
+          <h2 className="text-lg md:text-h2 font-semibold mb-4 text-neutral-900">
             実際の医療現場での活用シーン
           </h2>
-          <p className="text-base md:text-body text-neutral-600 max-w-3xl mx-auto">
+          <p className="text-sm md:text-body text-neutral-600 max-w-3xl mx-auto">
             日々の診療、研究、学習において、AIがどのように医療従事者をサポートするかをご紹介します
           </p>
         </div>
@@ -78,12 +78,12 @@ export function UseCaseSection() {
                 }}
               >
                 {/* アイコン */}
-                <div className="w-16 h-16 mb-4">
+                <div className="w-16 h-10 lg:h-11 mb-4">
                   <img src={useCase.iconSrc} alt={useCase.title} className="w-full h-full object-contain" />
                 </div>
 
                 {/* タイトル */}
-                <h3 className="text-base md:text-lg font-semibold mb-3 text-neutral-900">
+                <h3 className="text-sm md:text-lg font-semibold mb-3 text-neutral-900">
                   {useCase.title}
                 </h3>
 
@@ -118,7 +118,7 @@ export function UseCaseSection() {
               : "opacity-0 translate-y-8"
           }`}
         >
-          <p className="text-sm md:text-base text-neutral-500 italic">
+          <p className="text-sm md:text-sm text-neutral-500 italic">
             ※ 効果は実際の使用状況により異なります。AIは診断・治療の補助ツールであり、最終判断は必ず医療従事者が行ってください。
           </p>
         </div>

@@ -37,7 +37,7 @@ const buttonVariants = cva(
         // Tobias Frere-Jonesの指示: タップターゲットとして十分なサイズ
         sm: "h-8 px-3 text-xs",      // 32px height, 24px horizontal padding
         default: "h-10 px-4 py-2",   // 40px height, 32px horizontal padding
-        lg: "h-12 px-6 text-base",   // 48px height, 48px horizontal padding
+        lg: "h-10 lg:h-11 px-6 text-base",   // 48px height, 48px horizontal padding
         icon: "h-10 w-10",           // 40px × 40px
       },
     },

@@ -3,7 +3,7 @@ import { Activity } from "lucide-react";
 
 export default function JournalFinderPage() {
   return (
-    <div className="container py-4 space-y-3">
+    <div className="container py-2 lg:py-2.5 space-y-3">
       <div className="space-y-2">
         <h1 className="text-2xl font-bold tracking-tight text-primary flex items-center gap-2">
           <Activity className="w-6 h-6" />

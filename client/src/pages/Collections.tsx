@@ -189,7 +189,7 @@ export default function Collections() {
 
         {collections.length === 0 ? (
           <Card className="p-8 text-center">
-            <FolderOpen className="h-12 w-12 mx-auto mb-3 text-muted-foreground" />
+            <FolderOpen className="h-10 lg:h-11 w-12 mx-auto mb-3 text-muted-foreground" />
             <h3 className="text-base font-semibold mb-1.5">コレクションがありません</h3>
             <p className="text-xs text-muted-foreground mb-4">
               プロンプトをまとめて管理するコレクションを作成しましょう

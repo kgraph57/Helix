@@ -10,20 +10,20 @@ export function HeroSection({ searchQuery, onSearchChange }: HeroSectionProps) {
   const [, setLocation] = useLocation();
 
   return (
-    <section className="relative py-6 md:py-12 bg-white">
-      <div className="max-w-7xl mx-auto px-3 md:px-4">
+    <section className="relative py-2 lg:py-2.5 md:py-8 bg-white">
+      <div className="max-w-7xl mx-auto px-3 md:px-6">
         {/* メインメッセージ */}
-        <div className="text-center mb-4 md:mb-6">
-          <h1 className="text-3xl md:text-display font-bold mb-3 md:mb-4 text-neutral-900 leading-tight">
+        <div className="text-center mb-3 md:mb-4">
+          <h1 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4 text-neutral-900 leading-tight">
             医療従事者のための
             <br />
             AIプロンプトライブラリ
           </h1>
-          <p className="text-base md:text-h3 font-normal max-w-2xl mx-auto text-neutral-600">
+          <p className="text-xs md:text-sm font-normal max-w-2xl mx-auto text-neutral-600">
             100以上の実践的なプロンプトで、診断、研究、文書作成を支援
           </p>
           <div className="mt-6 max-w-3xl mx-auto">
-            <p className="text-sm md:text-base text-primary-700 font-medium italic">
+            <p className="text-xs md:text-sm text-primary-700 font-medium italic">
               「このツールで生まれた時間を、患者さんとの対話のために。」
             </p>
             <p className="text-xs md:text-sm text-neutral-500 mt-2">
@@ -39,7 +39,7 @@ export function HeroSection({ searchQuery, onSearchChange }: HeroSectionProps) {
             <input
               type="text"
               placeholder="プロンプトを検索（例：鑑別診断、症例報告、統計解析）"
-              className="input-field w-full h-12 md:h-14 pl-10 md:pl-12 pr-3 md:pr-4 text-sm md:text-base"
+              className="input-field w-full h-10 lg:h-11 md:h-10 lg:h-11 pl-10 md:pl-12 pr-3 md:pr-4 text-xs md:text-sm"
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
             />
@@ -50,7 +50,7 @@ export function HeroSection({ searchQuery, onSearchChange }: HeroSectionProps) {
         <div className="flex justify-center gap-4">
           <button
             onClick={() => setLocation('/guides')}
-            className="px-3 md:px-4 py-2 md:py-3 text-sm md:text-body font-semibold transition-colors duration-200 text-primary-600 hover:text-primary-700"
+            className="px-3 md:px-6 py-2 md:py-2 lg:py-2.5 text-sm md:text-body font-semibold transition-colors duration-200 text-primary-600 hover:text-primary-700"
           >
             使い方を学ぶ →
           </button>

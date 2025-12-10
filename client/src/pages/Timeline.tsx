@@ -34,7 +34,7 @@ export default function Timeline() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+          <div className="animate-spin rounded-full h-10 lg:h-11 w-12 border-b-2 border-primary mx-auto"></div>
           <p className="mt-4 text-muted-foreground">読み込み中...</p>
         </div>
       </div>
@@ -63,7 +63,7 @@ export default function Timeline() {
 
         {prompts.length === 0 ? (
           <Card className="p-12 text-center">
-            <Users className="h-16 w-16 mx-auto mb-4 text-muted-foreground opacity-50" />
+            <Users className="h-10 lg:h-11 w-16 mx-auto mb-4 text-muted-foreground opacity-50" />
             <p className="text-xl font-semibold mb-2">まだフォローしているユーザーがいません</p>
             <p className="text-muted-foreground mb-6">
               他のユーザーをフォローすると、ここに最新の投稿が表示されます

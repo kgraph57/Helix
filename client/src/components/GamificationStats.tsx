@@ -139,7 +139,7 @@ export function GamificationStats({
               <div className="flex items-center gap-3">
                 <div className="relative flex-shrink-0">
                   <div className={cn(
-                    "w-14 h-14 rounded-full flex items-center justify-center text-xl font-bold border-2 shadow-sm",
+                    "w-14 h-10 lg:h-11 rounded-full flex items-center justify-center text-xl font-bold border-2 shadow-sm",
                     `bg-gradient-to-br ${colors.bg} ${colors.border} ${colors.text}`
                   )}>
                     {currentLevel}

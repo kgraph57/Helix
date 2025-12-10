@@ -63,7 +63,7 @@ export default function Tips() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center space-y-2 py-4"
+          className="text-center space-y-2 py-2 lg:py-2.5"
         >
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -244,7 +244,7 @@ export default function Tips() {
                 exit={{ opacity: 0, scale: 0.95 }}
                 className="text-center py-20 text-muted-foreground"
               >
-                <Search className="h-16 w-16 mx-auto mb-6 opacity-40" />
+                <Search className="h-10 lg:h-11 w-16 mx-auto mb-6 opacity-40" />
                 <p className="text-xl font-semibold mb-2 text-foreground">Tipsが見つかりませんでした</p>
                 <p className="text-base">検索条件を変更してお試しください</p>
               </motion.div>

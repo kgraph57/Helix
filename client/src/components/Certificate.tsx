@@ -77,7 +77,7 @@ export function Certificate({ courseTitle, courseId, completedDate, userName = "
         <CardHeader className="text-center pb-4">
           <div className="flex justify-center mb-4">
             <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
-              <Award className="w-12 h-12 text-primary" />
+              <Award className="w-12 h-10 lg:h-11 text-primary" />
             </div>
           </div>
           <CardTitle className="text-2xl font-bold text-primary">Certificate of Completion</CardTitle>

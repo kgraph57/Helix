@@ -78,7 +78,7 @@ export function NotificationBell() {
         <ScrollArea className="h-[400px]">
           {notifications.length === 0 ? (
             <div className="p-8 text-center text-muted-foreground">
-              <Bell className="h-12 w-12 mx-auto mb-4 opacity-50" />
+              <Bell className="h-10 lg:h-11 w-12 mx-auto mb-4 opacity-50" />
               <p>通知はありません</p>
             </div>
           ) : (

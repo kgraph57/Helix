@@ -674,7 +674,7 @@ export default function LessonDetail() {
         <div className="flex-1 flex flex-col min-w-0">
           {/* ヘッダー */}
           <header className={`lg:sticky top-0 z-20 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border-b border-border transition-transform duration-300 ${isHeaderVisible ? 'translate-y-0' : '-translate-y-full lg:translate-y-0'}`}>
-            <div className="lg:max-w-[680px] lg:mx-auto px-3 lg:px-6 py-2 lg:py-4">
+            <div className="lg:max-w-[680px] lg:mx-auto px-3 lg:px-6 py-2 lg:py-2 lg:py-2.5">
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-3">
 
@@ -740,7 +740,7 @@ export default function LessonDetail() {
                   
                   {/* 完了ボタン */}
                   <div className="mt-16 pt-8 border-t border-border">
-                    <Button onClick={handleComplete} size="lg" className="w-full h-12 text-base">
+                    <Button onClick={handleComplete} size="lg" className="w-full h-10 lg:h-11 text-base">
                       <CheckCircle2 className="mr-2 h-5 w-5" />
                       レッスンを完了する
                     </Button>

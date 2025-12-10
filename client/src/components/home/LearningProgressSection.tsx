@@ -37,7 +37,7 @@ export const LearningProgressSection = memo(function LearningProgressSection({ s
               <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8 mb-6 md:mb-8">
                 {/* レベルアイコン */}
                 <div className="flex-shrink-0">
-                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center bg-gradient-to-br from-primary-500 to-primary-700 shadow-lg">
+                  <div className="w-16 h-10 lg:h-11 md:w-20 md:h-20 rounded-full flex items-center justify-center bg-gradient-to-br from-primary-500 to-primary-700 shadow-lg">
                     <span className="text-2xl md:text-3xl font-bold text-white">
                       {stats.currentLevel}
                     </span>
@@ -101,7 +101,7 @@ export const LearningProgressSection = memo(function LearningProgressSection({ s
         ) : (
           // 進捗がない場合（初回訪問者）
           <div className="text-center py-8 md:py-12 px-4 md:px-6 rounded-xl md:rounded-2xl border bg-neutral-50 border-neutral-200">
-            <GraduationCap className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-4 text-primary-500" />
+            <GraduationCap className="w-12 h-10 lg:h-11 md:w-16 md:h-10 lg:h-11 mx-auto mb-4 text-primary-500" />
             <h2 className="text-xl md:text-h2 font-semibold mb-3 text-neutral-900">
               AIスキルを体系的に学ぶ
             </h2>

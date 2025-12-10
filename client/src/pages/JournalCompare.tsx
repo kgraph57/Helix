@@ -45,7 +45,7 @@ export default function JournalCompare() {
   };
 
   return (
-    <div className="container py-4 space-y-4">
+    <div className="container py-2 lg:py-2.5 space-y-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2 text-muted-foreground">
           <Link href="/journal-finder">

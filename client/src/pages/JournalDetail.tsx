@@ -25,7 +25,7 @@ export default function JournalDetail() {
   }
 
   return (
-    <div className="container max-w-4xl py-4 space-y-4">
+    <div className="container max-w-4xl py-2 lg:py-2.5 space-y-4">
       <div className="flex items-center gap-2 text-muted-foreground mb-2">
         <Link href="/journal-finder">
           <Button variant="ghost" size="sm" className="pl-0 hover:bg-transparent hover:text-primary h-8 text-xs">

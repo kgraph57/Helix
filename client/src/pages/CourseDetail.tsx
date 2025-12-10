@@ -539,7 +539,7 @@ export default function CourseDetail() {
             className="max-w-2xl mx-auto px-4"
           >
             <div className="mb-6 text-center">
-              <GraduationCap className="w-16 h-16 text-primary mx-auto mb-4" />
+              <GraduationCap className="w-16 h-10 lg:h-11 text-primary mx-auto mb-4" />
               <h2 className="text-2xl font-bold mb-2">🎉 コース完了おめでとうございます！</h2>
               <p className="text-muted-foreground">
                 すべてのレッスンを完了しました。証明書をダウンロードできます。

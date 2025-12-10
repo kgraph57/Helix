@@ -83,7 +83,7 @@ export function CookieConsentBanner() {
               <>
                 <CardHeader className="pb-4">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                    <div className="w-12 h-10 lg:h-11 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
                       <Cookie className="w-6 h-6 text-primary" />
                     </div>
                     <div className="flex-1">

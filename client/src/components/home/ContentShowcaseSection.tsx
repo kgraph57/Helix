@@ -77,20 +77,20 @@ export function ContentShowcaseSection() {
   };
 
   return (
-    <section ref={ref} className="py-8 md:py-24 bg-white">
+    <section ref={ref} className="py-6 md:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-3 md:px-4">
         {/* セクションヘッダー */}
         <div
-          className={`text-center mb-6 md:mb-8 transition-all duration-700 ${
+          className={`text-center mb-4 md:mb-6 transition-all duration-700 ${
             isVisible
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-8"
           }`}
         >
-          <h2 className="text-2xl md:text-h2 font-semibold mb-4 text-neutral-900">
+          <h2 className="text-lg md:text-h2 font-semibold mb-4 text-neutral-900">
             あなたに最適なコンテンツを見つけよう
           </h2>
-          <p className="text-base md:text-body text-neutral-600 max-w-3xl mx-auto">
+          <p className="text-sm md:text-body text-neutral-600 max-w-3xl mx-auto">
             学習スタイルや目的に応じて、4つのコンテンツタイプから選べます
           </p>
         </div>
@@ -112,7 +112,7 @@ export function ContentShowcaseSection() {
               >
                 {/* アイコンとタイトル */}
                 <div className="flex items-start gap-4 mb-4">
-                  <div className="w-16 h-16 flex-shrink-0">
+                  <div className="w-16 h-10 lg:h-11 flex-shrink-0">
                     <img src={content.iconSrc} alt={content.title} className="w-full h-full object-contain" />
                   </div>
                   <h3 className="text-lg md:text-h3 font-semibold text-neutral-900 leading-tight">
@@ -126,7 +126,7 @@ export function ContentShowcaseSection() {
                 </p>
 
                 {/* 例 */}
-                <div className="mb-6">
+                <div className="mb-4">
                   <div className="flex flex-wrap gap-2">
                     {content.examples.map((example) => (
                       <span
@@ -142,7 +142,7 @@ export function ContentShowcaseSection() {
                 {/* CTA */}
                 <button
                   onClick={() => handleNavigation(content.link)}
-                  className="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 font-semibold text-sm md:text-base transition-colors group"
+                  className="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 font-semibold text-sm md:text-sm transition-colors group"
                 >
                   {content.cta}
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

@@ -8,28 +8,42 @@ export default {
   theme: {
     extend: {
       fontSize: {
-        'xs': ['12px', { lineHeight: '1.4', letterSpacing: '0.01em' }],
-        'sm': ['14px', { lineHeight: '1.5', letterSpacing: '0.01em' }],
-        'base': ['16px', { lineHeight: '1.6', letterSpacing: '0' }],
-        'lg': ['18px', { lineHeight: '1.6', letterSpacing: '0' }],
-        'xl': ['21px', { lineHeight: '1.5', letterSpacing: '-0.01em' }],
-        '2xl': ['28px', { lineHeight: '1.4', letterSpacing: '-0.02em' }],
-        '3xl': ['37px', { lineHeight: '1.3', letterSpacing: '-0.02em' }],
-        '4xl': ['49px', { lineHeight: '1.2', letterSpacing: '-0.03em' }],
-        '5xl': ['65px', { lineHeight: '1.1', letterSpacing: '-0.03em' }],
+        // 2025年基準：情報密度を高めるため、全体的にコンパクトに
+        'xs': ['10px', { lineHeight: '1.3', letterSpacing: '0.01em' }],    // Tiny
+        'sm': ['12px', { lineHeight: '1.4', letterSpacing: '0.01em' }],    // Small
+        'base': ['14px', { lineHeight: '1.5', letterSpacing: '0' }],       // Body (Mobile)
+        'lg': ['16px', { lineHeight: '1.5', letterSpacing: '0' }],         // Body (Desktop)
+        'xl': ['18px', { lineHeight: '1.4', letterSpacing: '-0.01em' }],   // H3
+        '2xl': ['20px', { lineHeight: '1.3', letterSpacing: '-0.01em' }],  // H2
+        '3xl': ['24px', { lineHeight: '1.2', letterSpacing: '-0.02em' }],  // H1
+        '4xl': ['32px', { lineHeight: '1.2', letterSpacing: '-0.02em' }],  // Display
+        '5xl': ['40px', { lineHeight: '1.1', letterSpacing: '-0.03em' }],  // Hero
       },
       spacing: {
+        // 4pxベースのスペーシングシステム（より細かい制御）
         '0': '0px',
-        '1': '8px',
-        '2': '16px',
-        '3': '24px',
-        '4': '32px',
-        '5': '40px',
-        '6': '48px',
-        '7': '56px',
-        '8': '64px',
-        '9': '72px',
-        '10': '80px',
+        '0.5': '2px',
+        '1': '4px',
+        '1.5': '6px',
+        '2': '8px',
+        '2.5': '10px',
+        '3': '12px',
+        '3.5': '14px',
+        '4': '16px',
+        '5': '20px',
+        '6': '24px',
+        '7': '28px',
+        '8': '32px',
+        '9': '36px',
+        '10': '40px',
+        '11': '44px',
+        '12': '48px',
+        '14': '56px',
+        '16': '64px',
+        '20': '80px',
+        '24': '96px',
+        '28': '112px',
+        '32': '128px',
       },
       borderWidth: {
         DEFAULT: '1px',
@@ -38,12 +52,20 @@ export default {
         '3': '3px',
         '4': '4px',
       },
+      borderRadius: {
+        'sm': '6px',
+        'DEFAULT': '8px',
+        'md': '8px',
+        'lg': '12px',
+        'xl': '16px',
+        '2xl': '20px',
+      },
       transitionTimingFunction: {
         'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)',
       },
       transitionDuration: {
-        'fast': '100ms',
-        'normal': '150ms',
+        'fast': '150ms',
+        'normal': '200ms',
         'slow': '300ms',
       },
       keyframes: {
@@ -57,8 +79,8 @@ export default {
         },
       },
       animation: {
-        'collapsible-down': 'collapsible-down 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-        'collapsible-up': 'collapsible-up 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        'collapsible-down': 'collapsible-down 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+        'collapsible-up': 'collapsible-up 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
       },
     },
   },

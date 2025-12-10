@@ -45,7 +45,7 @@ export function SafetyWarningModal() {
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-4 py-4">
+        <div className="space-y-4 py-2 lg:py-2.5">
           <div className="bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/50 rounded-lg p-4">
             <h3 className="font-semibold text-red-900 dark:text-red-400 mb-2">
               ⚠️ このサービスは医療アドバイスを提供するものではありません

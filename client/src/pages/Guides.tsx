@@ -251,7 +251,7 @@ export default function Guides() {
             <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5 z-10" />
             <Input
               placeholder="ガイドを検索(タイトル、説明、タグ)..."
-              className="pl-12 pr-10 h-12 text-base bg-background/50 backdrop-blur-sm border focus:border-primary/50 transition-all duration-200 rounded-xl shadow-sm hover:shadow-md"
+              className="pl-12 pr-10 h-10 lg:h-11 text-base bg-background/50 backdrop-blur-sm border focus:border-primary/50 transition-all duration-200 rounded-xl shadow-sm hover:shadow-md"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -487,7 +487,7 @@ export default function Guides() {
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.2, duration: 0.5, type: "spring" }}
               >
-                <Search className="h-16 w-16 mx-auto mb-6 opacity-40" />
+                <Search className="h-10 lg:h-11 w-16 mx-auto mb-6 opacity-40" />
               </motion.div>
               <p className="text-xl font-semibold mb-2 text-foreground">ガイドが見つかりませんでした</p>
               <p className="text-base mb-6">検索条件を変更してお試しください</p>
@@ -499,7 +499,7 @@ export default function Guides() {
                     setSearchQuery("");
                     setSelectedCategory(null);
                   }}
-                  className="px-6 py-3 rounded-full bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors shadow-sm hover:shadow-md"
+                  className="px-6 py-2 lg:py-2.5 rounded-full bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors shadow-sm hover:shadow-md"
                 >
                   フィルタをリセット
                 </motion.button>

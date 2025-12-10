@@ -97,7 +97,7 @@ export default function ComparePrompts() {
                       key={prompt.id}
                       onClick={() => handleAddPrompt(prompt.id)}
                       disabled={promptIds.includes(prompt.id) || promptIds.length >= 5}
-                      className="w-full text-left px-4 py-3 hover:bg-muted transition-colors border-b last:border-b-0 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full text-left px-4 py-2 lg:py-2.5 hover:bg-muted transition-colors border-b last:border-b-0 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <div className="font-semibold">{prompt.title}</div>
                       <div className="text-sm text-muted-foreground">

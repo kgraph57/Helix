@@ -48,7 +48,7 @@ export default function Notifications() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+          <div className="animate-spin rounded-full h-10 lg:h-11 w-12 border-b-2 border-primary mx-auto"></div>
           <p className="mt-4 text-muted-foreground">読み込み中...</p>
         </div>
       </div>
@@ -89,7 +89,7 @@ export default function Notifications() {
 
         {notifications.length === 0 ? (
           <Card className="p-12 text-center">
-            <Bell className="h-16 w-16 mx-auto mb-4 text-muted-foreground opacity-50" />
+            <Bell className="h-10 lg:h-11 w-16 mx-auto mb-4 text-muted-foreground opacity-50" />
             <p className="text-xl font-semibold mb-2">通知はありません</p>
             <p className="text-muted-foreground">
               新しい通知が届くと、ここに表示されます

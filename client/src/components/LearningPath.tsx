@@ -138,7 +138,7 @@ export function LearningPath({ currentCourseId }: LearningPathProps) {
                 </div>
 
                 {pathIndex < recommendedPath.length - 1 && (
-                  <div className="flex justify-center py-4 pl-14">
+                  <div className="flex justify-center py-2 lg:py-2.5 pl-14">
                     <ArrowRight className="w-6 h-6 text-muted-foreground" />
                   </div>
                 )}
