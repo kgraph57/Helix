@@ -36,41 +36,41 @@ export function Layout({ children }: { children: React.ReactNode }) {
       {/* Header with toggle button */}
       <div className={cn(
         "flex-shrink-0 flex items-center border-b border-border/50 transition-all duration-300",
-        collapsed ? "px-3 py-4 justify-center" : "px-6 py-6 justify-between"
+        collapsed ? "px-2 py-3 justify-center" : "px-4 py-4 justify-between"
       )}>
         {!collapsed && (
           <div>
             <Link href="/" aria-label="ホームページに戻る">
-              <h1 className="text-xl font-bold tracking-tight text-primary flex items-center gap-2">
-                <Activity className="w-6 h-6" aria-hidden="true" />
+              <h1 className="text-base font-bold tracking-tight text-primary flex items-center gap-2">
+                <Activity className="w-5 h-5" aria-hidden="true" />
                 Medical Prompt Hub
               </h1>
             </Link>
-            <p className="text-xs text-muted-foreground mt-1">For Healthcare Professionals</p>
+            <p className="text-[10px] text-muted-foreground mt-0.5">For Healthcare Professionals</p>
           </div>
         )}
         {collapsed && (
           <Link href="/" aria-label="ホームページに戻る">
-            <Activity className="w-6 h-6 text-primary" aria-hidden="true" />
+            <Activity className="w-5 h-5 text-primary" aria-hidden="true" />
           </Link>
         )}
         <button
           onClick={toggle}
           className={cn(
-            "p-2 hover:bg-accent rounded-md transition-colors",
-            collapsed && "mt-2"
+            "p-1.5 hover:bg-accent rounded-md transition-colors",
+            collapsed && "mt-1"
           )}
           aria-label={collapsed ? "サイドバーを展開" : "サイドバーを折りたたむ"}
         >
           {collapsed ? (
-            <ChevronRight className="w-5 h-5" />
+            <ChevronRight className="w-4 h-4" />
           ) : (
-            <ChevronLeft className="w-5 h-5" />
+            <ChevronLeft className="w-4 h-4" />
           )}
         </button>
       </div>
 
-      <ScrollArea className="flex-1 overflow-y-auto px-4 py-4">
+      <ScrollArea className="flex-1 overflow-y-auto px-2 py-3">
         <div className="space-y-1" role="list">
           <NavItem
             icon={<Home className="w-4 h-4" />}
@@ -126,7 +126,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
         {!collapsed && (
           <>
-            <div className="mt-6 mb-2 px-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider" id="categories-heading">
+            <div className="mt-4 mb-1.5 px-2 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider" id="categories-heading">
               Categories
             </div>
             <div className="space-y-1" role="list" aria-labelledby="categories-heading">
@@ -151,12 +151,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
       {/* Footer */}
       <div className={cn(
         "flex-shrink-0 border-t border-border/50 transition-all duration-300",
-        collapsed ? "px-3 py-4" : "px-6 py-4"
+        collapsed ? "px-2 py-3" : "px-4 py-3"
       )}>
         {!collapsed && (
-          <div className="text-xs text-muted-foreground space-y-2">
+          <div className="text-[10px] text-muted-foreground space-y-1.5">
             <p>© 2024 Medical Prompt Hub</p>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-1.5">
               <Link href="/ai-literacy">
                 <span className="hover:text-foreground transition-colors cursor-pointer flex items-center gap-1">
                   <Lightbulb className="w-3 h-3" />
@@ -179,12 +179,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </div>
         )}
         {collapsed && (
-          <div className="flex flex-col gap-2 items-center">
+          <div className="flex flex-col gap-1.5 items-center">
             <Tooltip>
               <TooltipTrigger asChild>
                 <Link href="/ai-literacy">
-                  <button className="p-2 hover:bg-accent rounded-md transition-colors">
-                    <Lightbulb className="w-4 h-4" />
+                  <button className="p-1.5 hover:bg-accent rounded-md transition-colors">
+                    <Lightbulb className="w-3.5 h-3.5" />
                   </button>
                 </Link>
               </TooltipTrigger>
@@ -195,8 +195,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <Tooltip>
               <TooltipTrigger asChild>
                 <Link href="/faq">
-                  <button className="p-2 hover:bg-accent rounded-md transition-colors">
-                    <HelpCircle className="w-4 h-4" />
+                  <button className="p-1.5 hover:bg-accent rounded-md transition-colors">
+                    <HelpCircle className="w-3.5 h-3.5" />
                   </button>
                 </Link>
               </TooltipTrigger>
@@ -207,8 +207,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <Tooltip>
               <TooltipTrigger asChild>
                 <Link href="/contact">
-                  <button className="p-2 hover:bg-accent rounded-md transition-colors">
-                    <Mail className="w-4 h-4" />
+                  <button className="p-1.5 hover:bg-accent rounded-md transition-colors">
+                    <Mail className="w-3.5 h-3.5" />
                   </button>
                 </Link>
               </TooltipTrigger>
@@ -227,7 +227,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       {/* Desktop Sidebar - Hidden on Mobile/Tablet */}
       <aside className={cn(
         "hidden lg:flex lg:flex-col lg:fixed lg:inset-y-0 bg-card border-r border-border/50 transition-all duration-300",
-        isCollapsed ? "lg:w-16" : "lg:w-64"
+        isCollapsed ? "lg:w-12" : "lg:w-52"
       )}>
         <NavContent collapsed={isCollapsed} />
       </aside>
@@ -284,7 +284,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               </div>
               
               {/* Navigation Content without duplicate header */}
-              <ScrollArea className="flex-1 overflow-y-auto px-4 py-4">
+              <ScrollArea className="flex-1 overflow-y-auto px-2 py-3">
                 <div className="space-y-1" role="list">
                   <NavItem
                     icon={<Home className="w-4 h-4" />}
@@ -338,7 +338,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                   />
                 </div>
 
-                <div className="mt-6 mb-2 px-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider" id="categories-heading">
+                <div className="mt-4 mb-1.5 px-2 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider" id="categories-heading">
                   Categories
                 </div>
                 <div className="space-y-1" role="list" aria-labelledby="categories-heading">
@@ -392,7 +392,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <main className={cn(
         "flex-1 overflow-y-auto transition-all duration-300",
         "pt-16 lg:pt-0", // Add padding-top for mobile header
-        isCollapsed ? "lg:ml-16" : "lg:ml-64"
+        isCollapsed ? "lg:ml-12" : "lg:ml-52"
       )}>
         {children}
         <SafetyWarningModal />
@@ -416,13 +416,13 @@ function NavItem({ icon, label, active, onClick, collapsed }: NavItemProps) {
     <Button
       variant={active ? "secondary" : "ghost"}
       className={cn(
-        "font-medium transition-all duration-200",
+        "font-medium transition-all duration-200 text-sm",
         active && "bg-secondary text-secondary-foreground",
-        collapsed ? "w-10 h-10 p-0 justify-center" : "w-full justify-start"
+        collapsed ? "w-8 h-8 p-0 justify-center" : "w-full justify-start"
       )}
       onClick={onClick}
     >
-      <span className={cn(collapsed ? "" : "mr-2")} aria-hidden="true">
+      <span className={cn(collapsed ? "" : "mr-2", "flex-shrink-0")} aria-hidden="true">
         {icon}
       </span>
       {!collapsed && label}
