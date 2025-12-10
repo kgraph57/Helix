@@ -565,7 +565,7 @@ export default function LessonDetail() {
                     <h4 className="text-base md:text-lg font-semibold mt-8 mb-3 text-foreground scroll-mt-20" {...props} />
                   ),
                   p: ({ node, ...props }) => (
-                    <p className="mb-6 text-base text-foreground leading-[1.9] max-w-none md:max-w-[65ch]" {...props} />
+                    <p className="mb-6 text-base text-foreground leading-[1.9]" {...props} />
                   ),
                   ul: ({ node, ...props }) => (
                     <ul className="list-disc pl-6 mb-6 space-y-2" {...props} />
