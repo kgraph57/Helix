@@ -14,9 +14,9 @@ import { motion } from "framer-motion";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Quiz } from "@/components/Quiz";
-import { PracticeExercise, ExerciseResult } from "@/components/PracticeExercise";
+import { PracticeTips } from "@/components/PracticeTips";
 import { lesson1Quizzes, lesson2Quizzes, lesson3Quizzes, lesson4Quizzes, lesson5Quizzes, lesson6Quizzes, lesson7Quizzes, lesson8Quizzes } from "@/data/courses/ai-basics/quizzes";
-import { lesson1Exercises } from "@/data/courses/ai-basics/exercises";
+import { lesson1Tips } from "@/data/courses/ai-basics/tips";
 import { useGamification } from "@/hooks/useGamification";
 
 // レッスンコンテンツ（Markdownファイルから読み込み）
@@ -305,9 +305,9 @@ const quizzesData: Record<string, typeof lesson1Quizzes> = {
   "ai-basics-8": lesson8Quizzes,
 };
 
-// 演習データ
-const exercisesData: Record<string, typeof lesson1Exercises> = {
-  "ai-basics-1": lesson1Exercises,
+// 実践のヒントデータ
+const tipsData: Record<string, typeof lesson1Tips> = {
+  "ai-basics-1": lesson1Tips,
   "ai-basics-2": [],
   "ai-basics-3": [],
   "ai-basics-4": [],
@@ -392,9 +392,9 @@ export default function LessonDetail() {
   const contentRef = useRef<HTMLDivElement>(null);
   const { addXP } = useGamification();
 
-  // クイズと演習データを取得
+  // クイズと実践のヒントデータを取得
   const quizzes = lessonId ? quizzesData[lessonId] || [] : [];
-  const exercises = lessonId ? exercisesData[lessonId] || [] : [];
+  const tips = lessonId ? tipsData[lessonId] || [] : [];
 
   // レッスンコンテンツを取得
   const content = lessonId ? lessonContent[lessonId] || "" : "";
@@ -482,15 +482,15 @@ export default function LessonDetail() {
     setIsSidebarOpen(false);
   };
 
-  // マークダウンコンテンツを処理（クイズと演習をインラインで配置）
+  // マークダウンコンテンツを処理（クイズと実践のヒントをインラインで配置）
   const renderContent = () => {
     if (!content) return null;
 
-    // コンテンツを[QUIZ]と[EXERCISE]で分割
-    const parts = content.split(/(\[QUIZ\]|\[EXERCISE\])/);
+    // コンテンツを[QUIZ]と[TIP]で分割
+    const parts = content.split(/(\[QUIZ\]|\[TIP\])/);
     const elements: React.ReactNode[] = [];
     let quizIndex = 0;
-    let exerciseIndex = 0;
+    let tipIndex = 0;
     let sectionIndex = 0;
 
     parts.forEach((part, index) => {
@@ -511,18 +511,15 @@ export default function LessonDetail() {
           </div>
         );
         quizIndex++;
-      } else if (part === "[EXERCISE]" && exercises.length > 0 && exerciseIndex < exercises.length) {
+      } else if (part === "[TIP]" && tips.length > 0 && tipIndex < tips.length) {
         elements.push(
-          <div key={`exercise-${exerciseIndex}`} className="my-12">
-            <PracticeExercise
-              exercise={exercises[exerciseIndex]}
-              onComplete={(result) => {
-                addXP(3, "実践演習完了");
-              }}
+          <div key={`tip-${tipIndex}`} className="my-8">
+            <PracticeTips
+              tip={tips[tipIndex]}
             />
           </div>
         );
-        exerciseIndex++;
+        tipIndex++;
       } else if (part.trim()) {
         // Markdownコンテンツをレンダリング
         const markdownContent = part.trim();
