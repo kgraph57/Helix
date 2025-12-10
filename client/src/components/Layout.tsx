@@ -54,22 +54,22 @@ export function Layout({ children }: { children: React.ReactNode }) {
       {/* Header with toggle button */}
       <div className={cn(
         "flex-shrink-0 flex items-center border-b border-border/50 transition-all duration-300",
-        collapsed ? "px-2 py-2 lg:py-2.5 justify-center" : "px-4 py-2 lg:py-2.5 justify-between"
+        collapsed ? "px-2 py-1.5 lg:py-2 justify-center" : "px-3 py-1.5 lg:py-2 justify-between"
       )}>
         {!collapsed && (
           <div>
             <Link href="/" aria-label="ホームページに戻る">
-              <h1 className="text-base font-bold tracking-tight text-primary flex items-center gap-1.5">
-                <Activity className="w-5 h-5" aria-hidden="true" />
+              <h1 className="text-sm font-bold tracking-tight text-primary flex items-center gap-1">
+                <Activity className="w-4 h-4" aria-hidden="true" />
                 Medical Prompt Hub
               </h1>
             </Link>
-            <p className="text-[10px] text-muted-foreground mt-0.5">For Healthcare Professionals</p>
+            <p className="text-[9px] text-muted-foreground mt-0">For Healthcare Professionals</p>
           </div>
         )}
         {collapsed && (
           <Link href="/" aria-label="ホームページに戻る">
-            <Activity className="w-5 h-5 text-primary" aria-hidden="true" />
+            <Activity className="w-4 h-4 text-primary" aria-hidden="true" />
           </Link>
         )}
         <button
@@ -88,7 +88,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         </button>
       </div>
 
-      <ScrollArea className="flex-1 overflow-y-auto px-2 py-2 lg:py-2.5">
+      <ScrollArea className="flex-1 overflow-y-auto px-2 py-1.5 lg:py-2">
         <div className="space-y-1" role="list">
           <NavItem
             icon={<Home className="w-4 h-4" />}
@@ -305,7 +305,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               </div>
               
               {/* Navigation Content without duplicate header */}
-              <ScrollArea className="flex-1 overflow-y-auto px-2 py-2 lg:py-2.5">
+              <ScrollArea className="flex-1 overflow-y-auto px-2 py-1.5 lg:py-2">
                 <div className="space-y-1" role="list">
                   <NavItem
                     icon={<Home className="w-4 h-4" />}

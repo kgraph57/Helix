@@ -112,7 +112,7 @@ export default function CategoryCourses() {
 
   return (
     <Layout>
-      <div className="space-y-4 pb-12">
+      <div className="space-y-2 pb-8">
         {/* ヘッダー */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
@@ -127,7 +127,7 @@ export default function CategoryCourses() {
             <ArrowLeft className="mr-1.5 h-3.5 w-3.5" /> コース一覧に戻る
           </Button>
 
-          <div className="space-y-1.5">
+          <div className="space-y-1">
             <h1 className="text-xl font-bold tracking-tight">
               {categoryLabels[category]}
             </h1>
@@ -153,11 +153,11 @@ export default function CategoryCourses() {
             if (levelCourses.length === 0) return null;
 
             return (
-              <div key={level} className="space-y-2">
+              <div key={level} className="space-y-1.5">
                 <h2 className="text-base font-semibold text-muted-foreground border-b pb-1.5">
                   {levelLabels[level]}
                 </h2>
-                <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3" style={{gridAutoRows: '1fr'}}>
+                <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-3" style={{gridAutoRows: '1fr'}}>
                   {levelCourses.map((course, index) => {
                     const { completed, total } = getCourseProgress(course.id);
                     const progress = getProgressPercentage(completed, total);
@@ -173,7 +173,7 @@ export default function CategoryCourses() {
                       >
                         <Card 
                           className={cn(
-                            course.locked ? "opacity-60" : "hover:shadow-lg hover:scale-[1.01] transition-all duration-300 cursor-pointer",
+                            course.locked ? "opacity-60" : "hover:shadow-lg hover:scale-[1.005] transition-all duration-300 cursor-pointer",
                             "h-full flex flex-col"
                           )}
                           onClick={() => {
@@ -182,11 +182,11 @@ export default function CategoryCourses() {
                             }
                           }}
                         >
-                          <CardHeader className="flex-1 pb-2">
+                          <CardHeader className="flex-1 pb-1.5 p-2">
                             <div className="flex items-start justify-between">
                               <div className="flex-1">
-                                <div className="flex items-center gap-2 mb-1.5">
-                                  <CardTitle className="text-sm">{course.title}</CardTitle>
+                                <div className="flex items-center gap-1.5 mb-1">
+                                  <CardTitle className="text-xs">{course.title}</CardTitle>
                                   {isCompleted && (
                                     <Badge variant="default" className="bg-green-500 text-[10px]">
                                       <CheckCircle2 className="w-2.5 h-2.5 mr-0.5" />
@@ -200,14 +200,14 @@ export default function CategoryCourses() {
                                     </Badge>
                                   )}
                                 </div>
-                                <CardDescription className="text-xs line-clamp-2">
+                                <CardDescription className="text-[10px] line-clamp-1">
                                   {course.description}
                                 </CardDescription>
                               </div>
-                              <div className="text-2xl ml-1.5">{course.badge}</div>
+                              <div className="text-lg ml-1">{course.badge}</div>
                             </div>
                           </CardHeader>
-                          <CardContent className="space-y-2 mt-auto min-h-[120px] flex flex-col justify-end pt-0">
+                          <CardContent className="space-y-1.5 mt-auto min-h-[80px] flex flex-col justify-end pt-0 p-2">
                             <div className="flex items-center justify-between text-xs text-muted-foreground">
                               <div className="flex items-center gap-3">
                                 <div className="flex items-center gap-1">
@@ -226,13 +226,13 @@ export default function CategoryCourses() {
                             </div>
 
                             {!course.locked && (
-                              <div className="space-y-2">
-                                <div className="space-y-1">
+                              <div className="space-y-1.5">
+                                <div className="space-y-0.5">
                                   <div className="flex justify-between text-[10px] text-muted-foreground">
                                     <span>Progress</span>
                                     <span>{completed} / {total}</span>
                                   </div>
-                                  <Progress value={progress} className="h-1.5" />
+                                  <Progress value={progress} className="h-1" />
                                 </div>
 
                                 <Button

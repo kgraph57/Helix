@@ -57,19 +57,19 @@ export default function Tips() {
 
   return (
     <Layout>
-      <div className="space-y-4 pb-12">
+      <div className="space-y-2 pb-8">
         {/* Hero Section - コンパクト */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center space-y-2 py-2 lg:py-2.5"
+          className="text-center space-y-1 py-1.5 lg:py-2"
         >
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.5 }}
-            className="text-2xl md:text-3xl font-bold tracking-tight"
+            className="text-lg md:text-xl font-bold tracking-tight"
           >
             Tips & Techniques
           </motion.h1>
@@ -78,7 +78,7 @@ export default function Tips() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto"
+            className="text-xs md:text-sm text-muted-foreground max-w-2xl mx-auto"
           >
             AIプロンプトの効果を最大化するための実践的なテクニック集
           </motion.p>
@@ -87,15 +87,15 @@ export default function Tips() {
         {/* 基礎コンテンツカード（固定配置） */}
         <Card className="border border-border">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Sparkles className="w-5 h-5" />
+            <CardTitle className="flex items-center gap-1.5 text-sm">
+              <Sparkles className="w-4 h-4" />
               プロンプトエンジニアリングとは？
             </CardTitle>
-            <CardDescription>
+            <CardDescription className="text-xs">
               AIを最大限に活用するための基礎知識
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4 text-sm leading-relaxed">
+          <CardContent className="space-y-2 text-xs leading-snug">
             <p>
               <strong>プロンプトエンジニアリング</strong>とは、AI（ChatGPT、Claudeなど）に対して、期待する出力を得るための「問いかけ方」を設計・最適化する技術です。医療現場では、曖昧な指示ではAIが不正確な情報を生成するリスクがあります。
             </p>

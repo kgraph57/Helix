@@ -46,15 +46,15 @@ export const PromptGridSection = memo(function PromptGridSection({
   const visiblePrompts = prompts.slice(0, visibleCount);
   
   return (
-    <section className="py-6 md:py-6 bg-white">
+    <section className="py-3 md:py-4 bg-white">
       <div className="max-w-7xl mx-auto px-3 md:px-4">
         {/* セクションヘッダー */}
-        <div className="flex items-center justify-between mb-4 md:mb-6">
+        <div className="flex items-center justify-between mb-2 md:mb-3">
           <div>
-            <h2 className="text-lg md:text-h2 font-semibold mb-1 md:mb-2 text-neutral-900">
+            <h2 className="text-sm md:text-base font-semibold mb-0.5 md:mb-1 text-neutral-900">
               {searchQuery || selectedCategory ? '検索結果' : 'すべてのプロンプト'}
             </h2>
-            <p className="text-sm md:text-body text-neutral-600">
+            <p className="text-xs md:text-sm text-neutral-600">
               {prompts.length}件のプロンプト
             </p>
           </div>
@@ -62,7 +62,7 @@ export const PromptGridSection = memo(function PromptGridSection({
           {selectedCategory && (
             <button
               onClick={onClearFilters}
-              className="px-3 py-1.5 md:px-3 md:py-2 rounded-lg text-sm md:text-sm font-medium transition-colors duration-200 bg-primary-50 text-primary-700 hover:bg-primary-100"
+              className="px-2 py-1 md:px-2.5 md:py-1 rounded text-xs md:text-xs font-medium transition-colors duration-200 bg-primary-50 text-primary-700 hover:bg-primary-100"
             >
               {selectedCategory} ×
             </button>
@@ -72,7 +72,7 @@ export const PromptGridSection = memo(function PromptGridSection({
         {/* プロンプトカードグリッド - レスポンシブ */}
         {prompts.length > 0 ? (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1.5 md:gap-2">
               {visiblePrompts.map((prompt) => (
                 <PromptCard key={prompt.id} prompt={prompt} />
               ))}
