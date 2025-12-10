@@ -49,13 +49,13 @@ export function LearningPath({ currentCourseId }: LearningPathProps) {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold mb-2">推奨学習パス</h2>
-        <p className="text-muted-foreground">
+        <h2 className="text-xl font-bold mb-1.5">推奨学習パス</h2>
+        <p className="text-sm text-muted-foreground">
           効率的に学習を進めるための推奨順序です。基礎から実践、そして専門へと段階的に進めましょう。
         </p>
       </div>
 
-      <div className="space-y-8">
+      <div className="space-y-4">
         {recommendedPath.map((path, pathIndex) => {
           if (path.courses.length === 0) return null;
 
@@ -66,18 +66,18 @@ export function LearningPath({ currentCourseId }: LearningPathProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: pathIndex * 0.1 }}
             >
-              <div className="space-y-3">
+              <div className="space-y-2">
                 <div className="flex items-center gap-3">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold">
                     {path.level}
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold">{path.title}</h3>
+                    <h3 className="text-base font-semibold">{path.title}</h3>
                     <p className="text-sm text-muted-foreground">{path.description}</p>
                   </div>
                 </div>
 
-                <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3 pl-14">
+                <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-3 pl-10">
                   {path.courses.map((course, courseIndex) => {
                     const isCurrent = course.id === currentCourseId;
                     const isLocked = course.locked;
@@ -101,11 +101,11 @@ export function LearningPath({ currentCourseId }: LearningPathProps) {
                             }
                           }}
                         >
-                          <CardHeader className="pb-3">
+                          <CardHeader className="pb-2">
                             <div className="flex items-start justify-between">
                               <div className="flex-1">
                                 <div className="flex items-center gap-2 mb-1">
-                                  <CardTitle className="text-base">{course.title}</CardTitle>
+                                  <CardTitle className="text-sm">{course.title}</CardTitle>
                                   {isCurrent && (
                                     <Badge variant="default" className="text-xs">
                                       現在
@@ -118,15 +118,15 @@ export function LearningPath({ currentCourseId }: LearningPathProps) {
                                     </Badge>
                                   )}
                                 </div>
-                                <CardDescription className="text-xs line-clamp-2">
+                                <CardDescription className="text-[11px] line-clamp-2">
                                   {course.description}
                                 </CardDescription>
                               </div>
-                              <div className="text-2xl ml-2">{course.badge}</div>
+                              <div className="text-xl ml-1.5">{course.badge}</div>
                             </div>
                           </CardHeader>
-                          <CardContent className="pt-0">
-                            <div className="flex items-center justify-between text-xs text-muted-foreground">
+                          <CardContent className="pt-0 pb-2">
+                            <div className="flex items-center justify-between text-[11px] text-muted-foreground">
                               <span>{course.lessons} レッスン</span>
                               <span>{course.xpReward} XP</span>
                             </div>
@@ -138,7 +138,7 @@ export function LearningPath({ currentCourseId }: LearningPathProps) {
                 </div>
 
                 {pathIndex < recommendedPath.length - 1 && (
-                  <div className="flex justify-center py-2 lg:py-2.5 pl-14">
+                  <div className="flex justify-center py-1.5 pl-10">
                     <ArrowRight className="w-6 h-6 text-muted-foreground" />
                   </div>
                 )}

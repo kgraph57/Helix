@@ -619,9 +619,9 @@ export default function Courses() {
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center py-2"
+          className="text-center py-1.5"
         >
-          <h1 className="text-2xl font-bold tracking-tight">Learning Courses</h1>
+          <h1 className="text-xl font-bold tracking-tight">Learning Courses</h1>
         </motion.section>
 
         {/* コース一覧 */}
@@ -629,17 +629,17 @@ export default function Courses() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="max-w-6xl mx-auto px-4 space-y-3"
+          className="max-w-6xl mx-auto px-4 space-y-2"
         >
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold">Available Courses</h2>
+            <h2 className="text-lg font-bold">Available Courses</h2>
             <div className="text-xs text-muted-foreground">
               {courses.filter(c => !c.locked).length} / {courses.length} unlocked
             </div>
           </div>
           
           {/* ジャンル一覧のみ表示（階層構造） */}
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
             {categoryOrder.map((category) => {
               // このジャンルの全コース数（全レベル）
               const allCategoryCourses = courses.filter(c => c.category === category);
@@ -665,19 +665,19 @@ export default function Courses() {
                   transition={{ delay: 0.1 * categoryOrder.indexOf(category) }}
                 >
                   <Card 
-                    className="hover:shadow-lg hover:scale-[1.02] transition-all duration-300 cursor-pointer border-2 hover:border-primary/50 min-h-[320px] flex flex-col"
+                    className="hover:shadow-lg hover:scale-[1.01] transition-all duration-300 cursor-pointer border-2 hover:border-primary/50 min-h-[240px] flex flex-col"
                     onClick={() => setLocation(`/courses/category/${category}`)}
                   >
-                    <CardHeader className="flex-1">
-                      <div className="flex items-start justify-between mb-3">
+                    <CardHeader className="flex-1 pb-3">
+                      <div className="flex items-start justify-between mb-2">
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-2">
-                            <span className="w-1.5 h-6 bg-primary rounded-full"></span>
-                            <CardTitle className="text-2xl">
+                            <span className="w-1 h-5 bg-primary rounded-full"></span>
+                            <CardTitle className="text-lg">
                               {categoryLabels[category] || category}
                             </CardTitle>
                           </div>
-                          <CardDescription className="text-sm leading-relaxed line-clamp-3">
+                          <CardDescription className="text-xs leading-snug line-clamp-2">
                             {category === "基礎理論" && "AIの基礎理論と概念を体系的に学びます。初心者向けの内容から始まり、AIの全体像を把握できます。"}
                             {category === "ツール" && "ChatGPT、Claude、GeminiなどのAIツールの実践的な使い方を学びます。医療現場で即座に活用できるスキルを習得します。"}
                             {category === "技術" && "AIの技術的な仕組みを深く理解します。機械学習、深層学習、API、プログラミングなど、技術的な側面を学びます。"}
@@ -689,33 +689,33 @@ export default function Courses() {
                         </div>
                       </div>
                     </CardHeader>
-                    <CardContent className="space-y-4">
-                      <div className="flex items-center gap-4 text-sm">
-                        <Badge variant="secondary" className="text-xs">
+                    <CardContent className="space-y-2 pt-0">
+                      <div className="flex items-center gap-3 text-xs">
+                        <Badge variant="secondary" className="text-[10px]">
                           {allCategoryCourses.length} コース
                         </Badge>
                         <div className="flex items-center gap-1 text-muted-foreground">
-                          <BookOpen className="w-4 h-4" />
+                          <BookOpen className="w-3.5 h-3.5" />
                           <span>{totalLessons} レッスン</span>
                         </div>
                         <div className="flex items-center gap-1 text-muted-foreground">
-                          <Star className="w-4 h-4 text-yellow-500" />
+                          <Star className="w-3.5 h-3.5 text-yellow-500" />
                           <span>{totalXP} XP</span>
                         </div>
                       </div>
                       
                       {categoryProgress > 0 && (
-                        <div className="space-y-1">
-                          <div className="flex justify-between text-xs text-muted-foreground">
+                        <div className="space-y-0.5">
+                          <div className="flex justify-between text-[10px] text-muted-foreground">
                             <span>進捗</span>
                             <span>{categoryProgress} / {categoryTotal} レッスン完了</span>
                           </div>
-                          <Progress value={categoryProgressPercent} className="h-2" />
+                          <Progress value={categoryProgressPercent} className="h-1.5" />
                         </div>
                       )}
                       
-                      <div className="pt-2">
-                        <div className="text-xs text-muted-foreground text-center">
+                      <div className="pt-1">
+                        <div className="text-[10px] text-muted-foreground text-center">
                           {unlockedCount} / {allCategoryCourses.length} コース利用可能
                         </div>
                       </div>

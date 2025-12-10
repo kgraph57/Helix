@@ -122,20 +122,20 @@ export default function CategoryCourses() {
           <Button
             variant="ghost"
             onClick={() => setLocation("/courses")}
-            className="mb-4"
+            className="mb-3 h-8 text-xs"
           >
-            <ArrowLeft className="mr-2 h-4 w-4" /> コース一覧に戻る
+            <ArrowLeft className="mr-1.5 h-3.5 w-3.5" /> コース一覧に戻る
           </Button>
 
-          <div className="space-y-2">
-            <h1 className="text-3xl font-bold tracking-tight">
+          <div className="space-y-1.5">
+            <h1 className="text-xl font-bold tracking-tight">
               {categoryLabels[category]}
             </h1>
-            <p className="text-muted-foreground max-w-2xl">
+            <p className="text-sm text-muted-foreground max-w-2xl">
               {categoryDescriptions[category]}
             </p>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <BookOpen className="w-4 h-4" />
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <BookOpen className="w-3.5 h-3.5" />
               <span>{categoryCourses.length} コース</span>
             </div>
           </div>
@@ -146,18 +146,18 @@ export default function CategoryCourses() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="max-w-6xl mx-auto px-4 space-y-6"
+          className="max-w-6xl mx-auto px-4 space-y-4"
         >
           {[1, 2, 3, 4].map((level) => {
             const levelCourses = coursesByLevel[level] || [];
             if (levelCourses.length === 0) return null;
 
             return (
-              <div key={level} className="space-y-4">
-                <h2 className="text-xl font-semibold text-muted-foreground border-b pb-2">
+              <div key={level} className="space-y-2">
+                <h2 className="text-base font-semibold text-muted-foreground border-b pb-1.5">
                   {levelLabels[level]}
                 </h2>
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3" style={{gridAutoRows: '1fr'}}>
+                <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3" style={{gridAutoRows: '1fr'}}>
                   {levelCourses.map((course, index) => {
                     const { completed, total } = getCourseProgress(course.id);
                     const progress = getProgressPercentage(completed, total);
@@ -173,7 +173,7 @@ export default function CategoryCourses() {
                       >
                         <Card 
                           className={cn(
-                            course.locked ? "opacity-60" : "hover:shadow-lg hover:scale-[1.02] transition-all duration-300 cursor-pointer",
+                            course.locked ? "opacity-60" : "hover:shadow-lg hover:scale-[1.01] transition-all duration-300 cursor-pointer",
                             "h-full flex flex-col"
                           )}
                           onClick={() => {
@@ -182,61 +182,61 @@ export default function CategoryCourses() {
                             }
                           }}
                         >
-                          <CardHeader className="flex-1">
+                          <CardHeader className="flex-1 pb-2">
                             <div className="flex items-start justify-between">
                               <div className="flex-1">
-                                <div className="flex items-center gap-2 mb-2">
-                                  <CardTitle className="text-lg">{course.title}</CardTitle>
+                                <div className="flex items-center gap-2 mb-1.5">
+                                  <CardTitle className="text-sm">{course.title}</CardTitle>
                                   {isCompleted && (
-                                    <Badge variant="default" className="bg-green-500">
-                                      <CheckCircle2 className="w-3 h-3 mr-1" />
+                                    <Badge variant="default" className="bg-green-500 text-[10px]">
+                                      <CheckCircle2 className="w-2.5 h-2.5 mr-0.5" />
                                       Completed
                                     </Badge>
                                   )}
                                   {course.locked && (
-                                    <Badge variant="secondary">
-                                      <Lock className="w-3 h-3 mr-1" />
+                                    <Badge variant="secondary" className="text-[10px]">
+                                      <Lock className="w-2.5 h-2.5 mr-0.5" />
                                       Locked
                                     </Badge>
                                   )}
                                 </div>
-                                <CardDescription className="text-sm line-clamp-3">
+                                <CardDescription className="text-xs line-clamp-2">
                                   {course.description}
                                 </CardDescription>
                               </div>
-                              <div className="text-3xl ml-2">{course.badge}</div>
+                              <div className="text-2xl ml-1.5">{course.badge}</div>
                             </div>
                           </CardHeader>
-                          <CardContent className="space-y-4 mt-auto min-h-[180px] flex flex-col justify-end">
-                            <div className="flex items-center justify-between text-sm text-muted-foreground">
-                              <div className="flex items-center gap-4">
+                          <CardContent className="space-y-2 mt-auto min-h-[120px] flex flex-col justify-end pt-0">
+                            <div className="flex items-center justify-between text-xs text-muted-foreground">
+                              <div className="flex items-center gap-3">
                                 <div className="flex items-center gap-1">
-                                  <BookOpen className="w-4 h-4" />
+                                  <BookOpen className="w-3.5 h-3.5" />
                                   <span>{course.lessons} lessons</span>
                                 </div>
                                 <div className="flex items-center gap-1">
-                                  <Star className="w-4 h-4 text-yellow-500" />
+                                  <Star className="w-3.5 h-3.5 text-yellow-500" />
                                   <span>{course.xpReward} XP</span>
                                 </div>
                               </div>
                               <div className="flex items-center gap-1">
-                                <Award className="w-4 h-4" />
+                                <Award className="w-3.5 h-3.5" />
                                 <span>Lv.{course.level}</span>
                               </div>
                             </div>
 
                             {!course.locked && (
-                              <div className="space-y-4">
-                                <div className="space-y-2">
-                                  <div className="flex justify-between text-xs text-muted-foreground">
+                              <div className="space-y-2">
+                                <div className="space-y-1">
+                                  <div className="flex justify-between text-[10px] text-muted-foreground">
                                     <span>Progress</span>
                                     <span>{completed} / {total}</span>
                                   </div>
-                                  <Progress value={progress} className="h-2" />
+                                  <Progress value={progress} className="h-1.5" />
                                 </div>
 
                                 <Button
-                                  className="w-full"
+                                  className="w-full h-8 text-xs"
                                   variant={isCompleted ? "outline" : "default"}
                                   onClick={(e) => {
                                     e.stopPropagation();
@@ -249,7 +249,7 @@ export default function CategoryCourses() {
                             )}
 
                             {course.locked && (
-                              <div className="text-sm text-muted-foreground text-center py-2">
+                              <div className="text-xs text-muted-foreground text-center py-1.5">
                                 Complete previous courses to unlock
                               </div>
                             )}

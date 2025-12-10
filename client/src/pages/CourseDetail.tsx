@@ -471,16 +471,16 @@ export default function CourseDetail() {
             <ArrowLeft className="mr-2 h-3.5 w-3.5" /> Back to Courses
           </Button>
 
-          <div className="flex items-start gap-4">
-            <div className="text-4xl">{course.badge}</div>
-            <div className="flex-1 space-y-2">
+          <div className="flex items-start gap-3">
+            <div className="text-3xl">{course.badge}</div>
+            <div className="flex-1 space-y-1.5">
               <div className="flex items-center gap-2">
-                <h1 className="text-2xl font-bold">{course.title}</h1>
+                <h1 className="text-xl font-bold">{course.title}</h1>
                 <Badge variant="secondary" className="text-[10px]">Level {course.level}</Badge>
               </div>
-              <p className="text-base text-muted-foreground">{course.description}</p>
+              <p className="text-sm text-muted-foreground">{course.description}</p>
               
-              <div className="flex items-center gap-4 text-xs text-muted-foreground">
+              <div className="flex items-center gap-3 text-xs text-muted-foreground">
                 <div className="flex items-center gap-1.5">
                   <BookOpen className="w-3.5 h-3.5" />
                   <span>{totalLessons} lessons</span>
@@ -509,7 +509,7 @@ export default function CourseDetail() {
               
               {/* コース開始ボタン */}
               {lessons.length > 0 && (
-                <div className="pt-2">
+                <div className="pt-1.5">
                   <Button
                     onClick={() => {
                       // 最初の未完了レッスン、または最初のレッスンに進む
@@ -519,8 +519,7 @@ export default function CourseDetail() {
                       const targetLesson = firstIncompleteLesson || lessons[0];
                       setLocation(`/courses/${courseId}/lessons/${targetLesson.id}`);
                     }}
-                    className="w-full sm:w-auto"
-                    size="lg"
+                    className="w-full sm:w-auto h-9 text-sm"
                   >
                     {completedLessons === 0 ? "コースを開始" : completedLessons === totalLessons ? "コースを再開" : "続きから再開"}
                   </Button>
@@ -540,8 +539,8 @@ export default function CourseDetail() {
           >
             <div className="mb-6 text-center">
               <GraduationCap className="w-16 h-10 lg:h-11 text-primary mx-auto mb-4" />
-              <h2 className="text-2xl font-bold mb-2">🎉 コース完了おめでとうございます！</h2>
-              <p className="text-muted-foreground">
+              <h2 className="text-xl font-bold mb-1.5">🎉 コース完了おめでとうございます！</h2>
+              <p className="text-sm text-muted-foreground">
                 すべてのレッスンを完了しました。証明書をダウンロードできます。
               </p>
             </div>
@@ -560,7 +559,7 @@ export default function CourseDetail() {
           transition={{ delay: 0.1 }}
           className="max-w-6xl mx-auto px-4 space-y-2"
         >
-          <h2 className="text-xl font-bold">Lessons</h2>
+          <h2 className="text-lg font-bold">Lessons</h2>
           <div className="space-y-2">
             {lessons.map((lesson, index) => {
               const isCompleted = courseProgress.completedLessons?.includes(lesson.id) || false;
@@ -574,14 +573,14 @@ export default function CourseDetail() {
                   transition={{ delay: 0.1 * index }}
                 >
                   <Card className={isLocked ? "opacity-60" : "hover:shadow-md transition-shadow"}>
-                    <CardHeader className="p-3">
+                    <CardHeader className="p-2.5">
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-1.5">
                             <div className="flex items-center justify-center w-6 h-6 rounded-full bg-primary/10 text-primary font-bold text-xs">
                               {index + 1}
                             </div>
-                            <CardTitle className="text-base">{lesson.title}</CardTitle>
+                            <CardTitle className="text-sm">{lesson.title}</CardTitle>
                             {isCompleted && (
                               <Badge variant="default" className="bg-green-500 text-[10px]">
                                 <CheckCircle2 className="w-3 h-3 mr-0.5" />
@@ -595,11 +594,11 @@ export default function CourseDetail() {
                               </Badge>
                             )}
                           </div>
-                          <CardDescription className="text-xs">{lesson.description}</CardDescription>
+                          <CardDescription className="text-[11px]">{lesson.description}</CardDescription>
                         </div>
                       </div>
                     </CardHeader>
-                    <CardContent className="p-3 pt-0">
+                    <CardContent className="p-2.5 pt-0">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3 text-xs text-muted-foreground">
                           <div className="flex items-center gap-1">
