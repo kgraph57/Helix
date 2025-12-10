@@ -223,7 +223,8 @@ export default function CaseReportGuide() {
                 remarkPlugins={[remarkGfm]}
                 rehypePlugins={[rehypeRaw, rehypeSanitize]}
                 components={{
-                  code({ node, inline, className, children, ...props }) {
+                  code({ node, className, children, ...props }: any) {
+                    const inline = !className;
                     if (inline) {
                       return <code className={className} {...props}>{children}</code>;
                     }

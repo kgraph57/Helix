@@ -1092,7 +1092,7 @@ CASPチェックリストの視点を取り入れ、以下の点について指�
     id: "jc-slide-outline",
     title: "Journal Club Slide Outline",
     description: "10分間の抄読会発表用スライド構成案を作成します。",
-    category: "presentation",
+    category: "education",
     template: `以下の論文を紹介するための、10分間のプレゼンテーション用スライド構成案を作成してください。
 スライド枚数は8〜10枚程度とし、各スライドのタイトルと箇条書きの内容を提示してください。
 
