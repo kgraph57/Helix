@@ -17,48 +17,57 @@ interface PromptCardProps {
 export const PromptCard = memo(function PromptCard({ prompt }: PromptCardProps) {
   const [, setLocation] = useLocation();
 
+  // リスクレベルに応じた左ボーダーの色
+  const getBorderColor = () => {
+    if (prompt.riskLevel === 'high') return 'border-l-red-500';
+    if (prompt.riskLevel === 'medium') return 'border-l-yellow-500';
+    return 'border-l-blue-500';
+  };
+
   return (
     <button
       onClick={() => setLocation(`/prompts/${prompt.id}`)}
-      className="group p-4 md:p-6 bg-white rounded-lg md:rounded-xl border border-neutral-200 transition-all duration-200 text-left hover:border-primary-300 hover:shadow-md hover:-translate-y-1"
+      className={`
+        group relative p-6 bg-white dark:bg-gray-900 rounded-xl 
+        border-l-[3px] ${getBorderColor()}
+        border border-gray-200 dark:border-gray-800
+        shadow-sm hover:shadow-md
+        transition-all duration-150 ease-out
+        text-left
+        hover:scale-[1.02]
+        hover:border-gray-300 dark:hover:border-gray-700
+      `}
     >
-      {/* カテゴリバッジ */}
-      <div className="flex items-center justify-between mb-3 md:mb-4">
+      {/* カテゴリとリスクレベル */}
+      <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <span className="px-2.5 py-0.5 md:px-3 md:py-1 text-xs md:text-caption font-semibold rounded-full border bg-primary-50 text-primary-700 border-primary-100">
+          <span className="px-3 py-1 text-xs font-semibold rounded-md bg-blue-50 dark:bg-blue-950/30 text-blue-700 dark:text-blue-400">
             {prompt.category}
           </span>
           {prompt.riskLevel === 'high' && (
-            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-red-100 text-red-800">
-              <AlertTriangle className="w-3 h-3 mr-0.5" />
-              高
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-semibold bg-red-50 dark:bg-red-950/30 text-red-700 dark:text-red-400">
+              <AlertTriangle className="w-3 h-3 mr-1" />
+              高リスク
             </span>
           )}
           {prompt.riskLevel === 'medium' && (
-            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-800">
-              中
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-semibold bg-yellow-50 dark:bg-yellow-950/30 text-yellow-700 dark:text-yellow-400">
+              中リスク
             </span>
           )}
         </div>
-        <ArrowRight className="w-4 h-4 md:w-5 md:h-5 transition-all duration-200 text-neutral-400" />
+        <ArrowRight className="w-5 h-5 transition-transform duration-150 text-gray-400 group-hover:translate-x-1 group-hover:text-blue-600 dark:group-hover:text-blue-400" />
       </div>
       
       {/* タイトル */}
-      <h3 className="text-base md:text-h3 font-semibold mb-2 md:mb-3 transition-colors duration-200 text-neutral-900">
+      <h3 className="text-lg font-semibold mb-2 transition-colors duration-150 text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400">
         {prompt.title}
       </h3>
       
       {/* 説明 - 3行表示 */}
-      <p className="text-sm md:text-body leading-relaxed line-clamp-3 text-neutral-600">
+      <p className="text-sm leading-relaxed line-clamp-3 text-gray-600 dark:text-gray-400">
         {prompt.description}
       </p>
-      
-      {/* ボトムアクセント */}
-      <div className="mt-3 md:mt-4 pt-3 md:pt-4 border-t border-neutral-100 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-        <span className="text-xs md:text-caption font-medium text-primary-600">
-          詳細を見る →
-        </span>
-      </div>
     </button>
   );
 });
