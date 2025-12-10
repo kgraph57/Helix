@@ -352,6 +352,7 @@ export default function Guides() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4 }}
               className="grid gap-4 md:grid-cols-2 lg:grid-cols-3"
+              style={{gridAutoRows: '1fr'}}
             >
               {filteredAndSortedGuides.map((guide, index) => {
                 const isImplemented = IMPLEMENTED_GUIDES.includes(guide.id);

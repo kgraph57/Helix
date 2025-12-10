@@ -157,7 +157,7 @@ export default function CategoryCourses() {
                 <h2 className="text-xl font-semibold text-muted-foreground border-b pb-2">
                   {levelLabels[level]}
                 </h2>
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3" style={{gridAutoRows: '1fr'}}>
                   {levelCourses.map((course, index) => {
                     const { completed, total } = getCourseProgress(course.id);
                     const progress = getProgressPercentage(completed, total);
