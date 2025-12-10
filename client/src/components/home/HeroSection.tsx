@@ -10,10 +10,10 @@ export function HeroSection({ searchQuery, onSearchChange }: HeroSectionProps) {
   const [, setLocation] = useLocation();
 
   return (
-    <section className="relative py-12 md:py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 md:px-6">
+    <section className="relative py-6 md:py-12 bg-white">
+      <div className="max-w-7xl mx-auto px-3 md:px-4">
         {/* メインメッセージ */}
-        <div className="text-center mb-8 md:mb-12">
+        <div className="text-center mb-4 md:mb-6">
           <h1 className="text-3xl md:text-display font-bold mb-3 md:mb-4 text-neutral-900 leading-tight">
             医療従事者のための
             <br />
@@ -50,7 +50,7 @@ export function HeroSection({ searchQuery, onSearchChange }: HeroSectionProps) {
         <div className="flex justify-center gap-4">
           <button
             onClick={() => setLocation('/guides')}
-            className="px-4 md:px-6 py-2 md:py-3 text-sm md:text-body font-semibold transition-colors duration-200 text-primary-600 hover:text-primary-700"
+            className="px-3 md:px-4 py-2 md:py-3 text-sm md:text-body font-semibold transition-colors duration-200 text-primary-600 hover:text-primary-700"
           >
             使い方を学ぶ →
           </button>

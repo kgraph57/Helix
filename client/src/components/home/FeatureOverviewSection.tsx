@@ -23,11 +23,11 @@ export function FeatureOverviewSection() {
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.2 });
 
   return (
-    <section ref={ref} className="py-16 md:py-24 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 md:px-6">
+    <section ref={ref} className="py-8 md:py-24 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-3 md:px-4">
         {/* セクションヘッダー */}
         <div
-          className={`text-center mb-12 md:mb-16 transition-all duration-700 ${
+          className={`text-center mb-6 md:mb-8 transition-all duration-700 ${
             isVisible
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-8"

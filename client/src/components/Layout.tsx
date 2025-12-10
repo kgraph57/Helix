@@ -57,7 +57,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {!collapsed && (
           <div>
             <Link href="/" aria-label="ホームページに戻る">
-              <h1 className="text-base font-bold tracking-tight text-primary flex items-center gap-2">
+              <h1 className="text-base font-bold tracking-tight text-primary flex items-center gap-1.5">
                 <Activity className="w-5 h-5" aria-hidden="true" />
                 Medical Prompt Hub
               </h1>
@@ -249,22 +249,22 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </aside>
 
       {/* Mobile/Tablet Header */}
-      <header className="lg:hidden fixed top-0 left-0 right-0 z-40 bg-background border-b border-border/50 h-16">
-        <div className="flex items-center justify-between h-full px-4">
+      <header className="lg:hidden fixed top-0 left-0 right-0 z-40 bg-background border-b border-border/50 h-12">
+        <div className="flex items-center justify-between h-full px-3">
           <button
             onClick={() => setIsMobileOpen(true)}
             className="p-2 hover:bg-accent rounded-md transition-colors"
             aria-label="メニューを開く"
           >
-            <Menu className="w-6 h-6" />
+            <Menu className="w-5 h-5" />
           </button>
           <Link href="/" aria-label="ホームページに戻る">
-            <h1 className="text-lg font-bold tracking-tight text-primary flex items-center gap-2">
+            <h1 className="text-sm font-bold tracking-tight text-primary flex items-center gap-1.5">
               <Activity className="w-5 h-5" aria-hidden="true" />
               Medical Prompt Hub
             </h1>
           </Link>
-          <div className="w-10" /> {/* Spacer for centering */}
+          <div className="w-8" /> {/* Spacer for centering */}
         </div>
       </header>
 
@@ -283,8 +283,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <div className="px-6 py-6 flex-shrink-0 flex items-center justify-between border-b border-border/50">
                 <div>
                   <Link href="/" aria-label="ホームページに戻る">
-                    <h1 className="text-xl font-bold tracking-tight text-primary flex items-center gap-2">
-                      <Activity className="w-6 h-6" aria-hidden="true" />
+                    <h1 className="text-xl font-bold tracking-tight text-primary flex items-center gap-1.5">
+                      <Activity className="w-5 h-5" aria-hidden="true" />
                       Medical Prompt Hub
                     </h1>
                   </Link>
@@ -377,7 +377,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <div className="flex-shrink-0 px-6 py-4 border-t border-border/50">
                 <div className="text-xs text-muted-foreground space-y-2">
                   <p>© 2024 Medical Prompt Hub</p>
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-1.5">
                     <Link href="/ai-literacy">
                       <span className="hover:text-foreground transition-colors cursor-pointer flex items-center gap-1">
                         <Lightbulb className="w-3 h-3" />
@@ -407,7 +407,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       {/* Main Content */}
       <main className={cn(
         "flex-1 overflow-y-auto transition-all duration-300",
-        "pt-16 pb-16 lg:pt-0 lg:pb-0", // Add padding-top for mobile header and padding-bottom for bottom nav
+        "pt-12 pb-12 lg:pt-0 lg:pb-0", // Add padding-top for mobile header and padding-bottom for bottom nav
         isCollapsed ? "lg:ml-12" : "lg:ml-52"
       )}>
         {children}
