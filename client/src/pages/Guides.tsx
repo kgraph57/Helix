@@ -386,6 +386,7 @@ export default function Guides() {
                     }}
                     whileHover={isImplemented ? { y: -8, scale: 1.02 } : {}}
                     whileTap={isImplemented ? { scale: 0.98 } : {}}
+                    className="h-full"
                   >
                     <Card className={cn(
                       "h-full flex flex-col border-l-2 bg-card group overflow-hidden shadow-sm transition-all duration-200 border",

@@ -198,6 +198,7 @@ export default function Tips() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ delay: index * 0.02, duration: 0.3 }}
+                  className="h-full"
                 >
                   <motion.div
                     whileHover={{ y: -4, scale: 1.01 }}
@@ -206,7 +207,7 @@ export default function Tips() {
                     onClick={() => {
                       setLocation(`/tips/${tip.id}`);
                     }}
-                    className="relative z-10"
+                    className="relative z-10 h-full"
                   >
                     <Card className="h-full flex flex-col cursor-pointer border hover:border-primary/30 bg-card group overflow-hidden shadow-sm hover:shadow-md transition-all duration-200 rounded-lg">
                       <CardHeader className="p-4 space-y-2 flex-1">
