@@ -4,6 +4,9 @@ import { useState, useMemo, useCallback, useEffect, lazy, Suspense } from "react
 import { updateSEO, addHomeStructuredData } from "@/lib/seo";
 import { trackSearch, trackCategorySelect } from "@/lib/analytics";
 import { HeroSection } from "@/components/home/HeroSection";
+import { FeatureOverviewSection } from "@/components/home/FeatureOverviewSection";
+import { ContentShowcaseSection } from "@/components/home/ContentShowcaseSection";
+import { UseCaseSection } from "@/components/home/UseCaseSection";
 
 // 遅延ローディング
 const PromptGridSection = lazy(() => import("@/components/home/PromptGridSection").then(m => ({ default: m.PromptGridSection })));
@@ -84,15 +87,26 @@ export default function Home() {
           onSearchChange={handleSearchChange}
         />
 
+        {/* 機能概要セクション */}
+        <FeatureOverviewSection />
+
+        {/* コンテンツ紹介セクション */}
+        <ContentShowcaseSection />
+
+        {/* ユースケースセクション */}
+        <UseCaseSection />
+
         {/* プロンプトグリッドセクション - 遅延ローディング */}
-        <Suspense fallback={<LoadingSpinner />}>
-          <PromptGridSection 
-            prompts={filteredPrompts}
-            searchQuery={searchQuery}
-            selectedCategory={selectedCategory}
-            onClearFilters={handleClearFilters}
-          />
-        </Suspense>
+        <div id="prompts">
+          <Suspense fallback={<LoadingSpinner />}>
+            <PromptGridSection 
+              prompts={filteredPrompts}
+              searchQuery={searchQuery}
+              selectedCategory={selectedCategory}
+              onClearFilters={handleClearFilters}
+            />
+          </Suspense>
+        </div>
       </div>
     </Layout>
   );
