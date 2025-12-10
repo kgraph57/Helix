@@ -1,10 +1,10 @@
-import { BookOpen, Lightbulb, Workflow, FileText, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useLocation } from "wouter";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const contentTypes = [
   {
-    icon: BookOpen,
+    iconSrc: "/medicalprompthub/icons/book-open.png",
     title: "体系的に学ぶAI活用コース",
     description: "AIの基礎から実践まで、ステップバイステップで学べる構造化されたコース。医療現場での具体的な活用方法を習得できます。",
     cta: "コースを見る",
@@ -18,7 +18,7 @@ const contentTypes = [
     ]
   },
   {
-    icon: Lightbulb,
+    iconSrc: "/medicalprompthub/icons/lightbulb.png",
     title: "すぐに使えるAI活用Tips",
     description: "プロンプトの書き方から高度なテクニックまで、実践的なTipsを提供。明日から使える具体的なノウハウが満載です。",
     cta: "Tipsを見る",
@@ -32,7 +32,7 @@ const contentTypes = [
     ]
   },
   {
-    icon: Workflow,
+    iconSrc: "/medicalprompthub/icons/workflow.png",
     title: "実務に使えるワークフローガイド",
     description: "症例報告、論文執筆、英文校正など、実務に直結するステップバイステップガイド。複雑な業務を効率化します。",
     cta: "ガイドを見る",
@@ -46,7 +46,7 @@ const contentTypes = [
     ]
   },
   {
-    icon: FileText,
+    iconSrc: "/medicalprompthub/icons/file-text.png",
     title: "100以上の実践的プロンプト",
     description: "診断、研究、文書作成など、あらゆる場面で使えるプロンプトライブラリ。コピー&ペーストですぐに使えます。",
     cta: "プロンプトを探す",
@@ -98,7 +98,6 @@ export function ContentShowcaseSection() {
         {/* コンテンツカードグリッド */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
           {contentTypes.map((content, index) => {
-            const Icon = content.icon;
             return (
               <div
                 key={content.title}
@@ -113,8 +112,8 @@ export function ContentShowcaseSection() {
               >
                 {/* アイコンとタイトル */}
                 <div className="flex items-start gap-4 mb-4">
-                  <div className={`flex items-center justify-center w-12 h-12 ${content.bgColor} rounded-lg flex-shrink-0`}>
-                    <Icon className={`w-6 h-6 ${content.iconColor}`} />
+                  <div className="w-16 h-16 flex-shrink-0">
+                    <img src={content.iconSrc} alt={content.title} className="w-full h-full object-contain" />
                   </div>
                   <h3 className="text-lg md:text-h3 font-semibold text-neutral-900 leading-tight">
                     {content.title}

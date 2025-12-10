@@ -1,19 +1,19 @@
-import { Stethoscope, GraduationCap, Zap } from "lucide-react";
+
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const features = [
   {
-    icon: Stethoscope,
+    iconSrc: "/medicalprompthub/icons/stethoscope.png",
     title: "診断支援",
     description: "100以上の実践的なプロンプトで、鑑別診断や症例分析をサポート。複雑な症状を持つ患者の診断プロセスを効率化します。",
   },
   {
-    icon: GraduationCap,
+    iconSrc: "/medicalprompthub/icons/graduation-cap.png",
     title: "学習支援",
     description: "体系的なコースとTipsで、AIの効果的な活用方法を学習。基礎から実践まで、ステップバイステップで習得できます。",
   },
   {
-    icon: Zap,
+    iconSrc: "/medicalprompthub/icons/zap.png",
     title: "業務効率化",
     description: "症例報告、論文執筆、統計解析などの業務を効率化。時間のかかる作業をAIがサポートし、患者との対話に集中できます。",
   },
@@ -44,7 +44,6 @@ export function FeatureOverviewSection() {
         {/* 機能カード */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           {features.map((feature, index) => {
-            const Icon = feature.icon;
             return (
               <div
                 key={feature.title}
@@ -57,8 +56,8 @@ export function FeatureOverviewSection() {
                   transitionDelay: isVisible ? `${index * 150}ms` : "0ms",
                 }}
               >
-                <div className="flex items-center justify-center w-12 h-12 md:w-14 md:h-14 bg-primary-50 rounded-lg mb-4">
-                  <Icon className="w-6 h-6 md:w-7 md:h-7 text-primary-600" />
+                <div className="w-16 h-16 md:w-20 md:h-20 mb-4">
+                  <img src={feature.iconSrc} alt={feature.title} className="w-full h-full object-contain" />
                 </div>
                 <h3 className="text-lg md:text-h3 font-semibold mb-3 text-neutral-900">
                   {feature.title}

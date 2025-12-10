@@ -1,9 +1,9 @@
-import { Activity, FileText, BarChart3, GraduationCap } from "lucide-react";
+
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const useCases = [
   {
-    icon: Activity,
+    iconSrc: "/medicalprompthub/icons/activity.png",
     title: "救急外来での診断支援",
     scene: "複雑な症状を持つ患者の鑑別診断をAIがサポート",
     feature: "Prompts（鑑別診断）",
@@ -12,7 +12,7 @@ const useCases = [
     iconColor: "text-red-600",
   },
   {
-    icon: FileText,
+    iconSrc: "/medicalprompthub/icons/file-text.png",
     title: "症例報告の作成",
     scene: "症例報告の構成から執筆までをステップバイステップでガイド",
     feature: "Guides（症例報告ワークフロー）",
@@ -21,7 +21,7 @@ const useCases = [
     iconColor: "text-blue-600",
   },
   {
-    icon: BarChart3,
+    iconSrc: "/medicalprompthub/icons/bar-chart.png",
     title: "研究データの統計解析",
     scene: "統計解析コードの生成から結果の解釈までをサポート",
     feature: "Prompts（統計解析）",
@@ -30,7 +30,7 @@ const useCases = [
     iconColor: "text-green-600",
   },
   {
-    icon: GraduationCap,
+    iconSrc: "/medicalprompthub/icons/graduation-cap.png",
     title: "AI活用スキルの習得",
     scene: "AIの基礎から実践まで、体系的に学習",
     feature: "Courses（AI基礎コース）",
@@ -65,7 +65,6 @@ export function UseCaseSection() {
         {/* ユースケースカードグリッド */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {useCases.map((useCase, index) => {
-            const Icon = useCase.icon;
             return (
               <div
                 key={useCase.title}
@@ -79,8 +78,8 @@ export function UseCaseSection() {
                 }}
               >
                 {/* アイコン */}
-                <div className={`flex items-center justify-center w-12 h-12 ${useCase.color} rounded-lg mb-4`}>
-                  <Icon className={`w-6 h-6 ${useCase.iconColor}`} />
+                <div className="w-16 h-16 mb-4">
+                  <img src={useCase.iconSrc} alt={useCase.title} className="w-full h-full object-contain" />
                 </div>
 
                 {/* タイトル */}
