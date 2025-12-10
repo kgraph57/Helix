@@ -565,7 +565,7 @@ export default function LessonDetail() {
                     <h4 className="text-base md:text-lg font-semibold mt-8 mb-3 text-foreground scroll-mt-20" {...props} />
                   ),
                   p: ({ node, ...props }) => (
-                    <p className="mb-6 text-base text-foreground leading-[1.9]" {...props} />
+                    <p className="mb-6 text-base md:text-lg text-foreground leading-[1.9]" {...props} />
                   ),
                   ul: ({ node, ...props }) => (
                     <ul className="list-disc pl-6 mb-6 space-y-2" {...props} />
@@ -574,7 +574,7 @@ export default function LessonDetail() {
                     <ol className="list-decimal pl-6 mb-6 space-y-2" {...props} />
                   ),
                   li: ({ node, ...props }) => (
-                    <li className="text-base text-foreground leading-[1.9]" {...props} />
+                    <li className="text-base md:text-lg text-foreground leading-[1.9]" {...props} />
                   ),
                   strong: ({ node, ...props }) => (
                     <strong className="font-bold text-foreground" {...props} />
@@ -586,7 +586,7 @@ export default function LessonDetail() {
                     <pre className="bg-muted p-5 rounded-lg overflow-x-auto my-6" {...props} />
                   ),
                   blockquote: ({ node, ...props }) => (
-                    <blockquote className="border-l-4 border-border pl-4 italic my-6 text-muted-foreground leading-[1.9]" {...props} />
+                    <blockquote className="border-l-4 border-border pl-4 italic my-6 text-base md:text-lg text-muted-foreground leading-[1.9]" {...props} />
                   ),
                   table: ({ node, ...props }) => (
                     <div className="overflow-x-auto my-6">

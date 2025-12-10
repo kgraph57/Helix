@@ -167,6 +167,7 @@ export default function TipDetail() {
                   <Button
                     onClick={handleCopyTemplate}
                     size="sm"
+                    variant="outline"
                     className="gap-1.5 h-7 text-xs"
                   >
                     {copiedTemplate ? (
