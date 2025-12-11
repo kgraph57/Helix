@@ -649,18 +649,12 @@ export default function LessonDetail() {
       }
     }
     
-    setCompleted(true);
-    
-    // 次のレッスンがあれば自動的に遷移
+    // 次のレッスンがあれば即座に遷移
     if (nextLesson) {
-      setTimeout(() => {
-        setLocation(`/courses/${courseId}/lessons/${nextLesson.id}`);
-      }, 1000); // 1秒後に遷移（完了メッセージを表示する時間を確保）
+      setLocation(`/courses/${courseId}/lessons/${nextLesson.id}`);
     } else {
       // 最後のレッスンの場合はコース詳細ページに戻る
-      setTimeout(() => {
-        setLocation(`/courses/${courseId}`);
-      }, 1500); // 1.5秒後にコース詳細ページに戻る
+      setLocation(`/courses/${courseId}`);
     }
   };
 
@@ -752,35 +746,23 @@ export default function LessonDetail() {
                   
                   {/* 完了ボタンと次へボタン */}
                   <div className="mt-16 pt-8 border-t border-border">
-                    {!completed ? (
-                      <div className="flex flex-col sm:flex-row gap-3">
-                        <Button onClick={handleComplete} size="lg" className="flex-1 h-10 lg:h-11 text-base">
-                          <CheckCircle2 className="mr-2 h-5 w-5" />
-                          レッスンを完了する
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <Button onClick={handleComplete} size="lg" className="flex-1 h-10 lg:h-11 text-base">
+                        <CheckCircle2 className="mr-2 h-5 w-5" />
+                        レッスンを完了する
+                      </Button>
+                      {nextLesson && (
+                        <Button 
+                          onClick={() => setLocation(`/courses/${courseId}/lessons/${nextLesson.id}`)}
+                          variant="outline" 
+                          size="lg" 
+                          className="flex-1 h-10 lg:h-11 text-base"
+                        >
+                          次のレッスンへ
+                          <ArrowRight className="ml-2 h-5 w-5" />
                         </Button>
-                        {nextLesson && (
-                          <Button 
-                            onClick={() => setLocation(`/courses/${courseId}/lessons/${nextLesson.id}`)}
-                            variant="outline" 
-                            size="lg" 
-                            className="flex-1 h-10 lg:h-11 text-base"
-                          >
-                            次のレッスンへ
-                            <ArrowRight className="ml-2 h-5 w-5" />
-                          </Button>
-                        )}
-                      </div>
-                    ) : (
-                      <div className="text-center py-4">
-                        <CheckCircle2 className="w-12 h-12 text-green-500 mx-auto mb-3" />
-                        <p className="text-lg font-semibold mb-2">レッスン完了！</p>
-                        {nextLesson ? (
-                          <p className="text-sm text-muted-foreground">次のレッスンに進んでいます...</p>
-                        ) : (
-                          <p className="text-sm text-muted-foreground">コース詳細ページに戻ります...</p>
-                        )}
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
                 </>
               )}
