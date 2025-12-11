@@ -83,6 +83,20 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   const NavContent = () => (
     <nav className="flex flex-col h-full bg-muted/30 border-r border-border/30" aria-label="メインナビゲーション">
+      {/* トグルボタン */}
+      <div className="flex-shrink-0 flex items-center justify-end px-3 py-3 border-b border-border/30">
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="p-1 rounded-md hover:bg-accent transition-colors"
+          aria-label={isExpanded ? "サイドバーを折りたたむ" : "サイドバーを展開"}
+        >
+          {isExpanded ? (
+            <PanelLeftClose className="w-4 h-4 text-muted-foreground" />
+          ) : (
+            <PanelLeft className="w-4 h-4 text-muted-foreground" />
+          )}
+        </button>
+      </div>
 
       {/* 上部ナビゲーション */}
       <div className="flex-shrink-0 flex flex-col gap-1 p-2 border-b border-border/30">
