@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { ArrowLeft, BookOpen, Star, CheckCircle2, Lock, Award } from "lucide-react";
+import { ArrowLeft, BookOpen, Star, CheckCircle2, Lock } from "lucide-react";
 import { useRoute, useLocation } from "wouter";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
@@ -112,30 +112,29 @@ export default function CategoryCourses() {
 
   return (
     <Layout>
-      <div className="space-y-2 pb-8">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 py-8 space-y-8">
         {/* ヘッダー */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="max-w-6xl mx-auto px-4"
         >
           <Button
             variant="ghost"
             onClick={() => setLocation("/courses")}
-            className="mb-3 h-8 text-xs"
+            className="mb-6 hover:bg-neutral-100"
           >
-            <ArrowLeft className="mr-1.5 h-3.5 w-3.5" /> コース一覧に戻る
+            <ArrowLeft className="mr-2 h-4 w-4" /> コース一覧に戻る
           </Button>
 
-          <div className="space-y-1">
-            <h1 className="text-xl font-bold tracking-tight">
+          <div className="space-y-3">
+            <h1 className="text-3xl font-bold tracking-tight">
               {categoryLabels[category]}
             </h1>
-            <p className="text-sm text-muted-foreground max-w-2xl">
+            <p className="text-base text-neutral-600 max-w-3xl leading-relaxed">
               {categoryDescriptions[category]}
             </p>
-            <div className="flex items-center gap-2 text-xs text-muted-foreground">
-              <BookOpen className="w-3.5 h-3.5" />
+            <div className="flex items-center gap-2 text-sm text-neutral-500">
+              <BookOpen className="w-4 h-4" />
               <span>{categoryCourses.length} コース</span>
             </div>
           </div>
@@ -146,18 +145,18 @@ export default function CategoryCourses() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="max-w-6xl mx-auto px-4 space-y-4"
+          className="space-y-8"
         >
           {[1, 2, 3, 4].map((level) => {
             const levelCourses = coursesByLevel[level] || [];
             if (levelCourses.length === 0) return null;
 
             return (
-              <div key={level} className="space-y-1.5">
-                <h2 className="text-base font-semibold text-muted-foreground border-b pb-1.5">
+              <div key={level} className="space-y-4">
+                <h2 className="text-lg font-semibold text-neutral-700">
                   {levelLabels[level]}
                 </h2>
-                <div className="grid gap-1 md:grid-cols-2 lg:grid-cols-3" style={{gridAutoRows: '1fr'}}>
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                   {levelCourses.map((course, index) => {
                     const { completed, total } = getCourseProgress(course.id);
                     const progress = getProgressPercentage(completed, total);
@@ -168,13 +167,13 @@ export default function CategoryCourses() {
                         key={course.id}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 * index }}
-                        className="h-full"
+                        transition={{ delay: 0.05 * index }}
                       >
                         <Card 
                           className={cn(
-                            course.locked ? "opacity-60" : "hover:shadow-md hover:border-primary/30 transition-all duration-200 cursor-pointer",
-                            "border-2 bg-gradient-to-r from-background to-accent/5"
+                            "h-full border border-neutral-200 hover:border-neutral-300 hover:shadow-lg transition-all duration-300",
+                            course.locked && "opacity-60 cursor-not-allowed",
+                            !course.locked && "cursor-pointer"
                           )}
                           onClick={() => {
                             if (!course.locked) {
@@ -182,50 +181,53 @@ export default function CategoryCourses() {
                             }
                           }}
                         >
-                          <CardHeader className="p-4">
-                            <div className="flex items-center justify-between gap-4">
-                              <div className="flex items-center gap-3 flex-1">
-                                <div className="text-2xl">{course.badge}</div>
-                                <div className="flex-1">
-                                  <div className="flex items-center gap-2 mb-1">
-                                    <CardTitle className="text-sm font-semibold">{course.title}</CardTitle>
-                                    {isCompleted && (
-                                      <CheckCircle2 className="w-4 h-4 text-green-600" />
-                                    )}
-                                    {course.locked && (
-                                      <Lock className="w-4 h-4 text-muted-foreground" />
-                                    )}
-                                  </div>
-                                  <CardDescription className="text-xs line-clamp-1">
-                                    {course.description}
-                                  </CardDescription>
+                          <CardHeader className="p-6 pb-4">
+                            <div className="flex items-start gap-4">
+                              <div className="text-3xl">{course.badge}</div>
+                              <div className="flex-1 space-y-2">
+                                <div className="flex items-start justify-between gap-2">
+                                  <CardTitle className="text-base font-semibold leading-tight">
+                                    {course.title}
+                                  </CardTitle>
+                                  {isCompleted && (
+                                    <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0" />
+                                  )}
+                                  {course.locked && (
+                                    <Lock className="w-5 h-5 text-neutral-400 flex-shrink-0" />
+                                  )}
                                 </div>
-                              </div>
-                              <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                                <div className="flex items-center gap-1.5">
-                                  <BookOpen className="w-3.5 h-3.5" />
-                                  <span className="font-medium">{course.lessons}</span>
-                                </div>
-                                <div className="flex items-center gap-1.5">
-                                  <Star className="w-3.5 h-3.5 text-yellow-500 fill-yellow-500" />
-                                  <span className="font-medium">{course.xpReward}</span>
-                                </div>
-                                <Badge variant="secondary" className="text-[10px]">
-                                  Lv.{course.level}
-                                </Badge>
+                                <CardDescription className="text-sm text-neutral-600 leading-relaxed line-clamp-2">
+                                  {course.description}
+                                </CardDescription>
                               </div>
                             </div>
                           </CardHeader>
-                          {!course.locked && progress > 0 && (
-                            <CardContent className="pt-0 px-4 pb-4">
-                              <div className="flex items-center gap-3">
-                                <Progress value={progress} className="h-1.5 flex-1" />
-                                <span className="text-xs text-muted-foreground font-medium">
-                                  {completed}/{total}
-                                </span>
+                          <CardContent className="px-6 pb-6 space-y-3">
+                            <div className="flex items-center justify-between text-sm">
+                              <div className="flex items-center gap-4 text-neutral-600">
+                                <div className="flex items-center gap-1.5">
+                                  <BookOpen className="w-4 h-4" />
+                                  <span>{course.lessons}</span>
+                                </div>
+                                <div className="flex items-center gap-1.5">
+                                  <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+                                  <span>{course.xpReward}</span>
+                                </div>
                               </div>
-                            </CardContent>
-                          )}
+                              <Badge variant="secondary" className="text-xs">
+                                Lv.{course.level}
+                              </Badge>
+                            </div>
+                            {!course.locked && progress > 0 && (
+                              <div className="space-y-1.5">
+                                <Progress value={progress} className="h-2" />
+                                <div className="flex items-center justify-between text-xs text-neutral-500">
+                                  <span>{completed}/{total} レッスン完了</span>
+                                  <span>{progress}%</span>
+                                </div>
+                              </div>
+                            )}
+                          </CardContent>
                         </Card>
                       </motion.div>
                     );
