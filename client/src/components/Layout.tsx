@@ -279,7 +279,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
           {/* Backdrop */}
           <div
             className="lg:hidden fixed inset-0 bg-black/50 z-50 transition-opacity"
-            onClick={() => setIsMobileOpen(false)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsMobileOpen(false);
+            }}
             aria-hidden="true"
           />
           {/* Sidebar */}
@@ -439,9 +442,9 @@ function NavItem({ icon, label, active, onClick, collapsed }: NavItemProps) {
     <Button
       variant={active ? "secondary" : "ghost"}
       className={cn(
-        "font-medium transition-all duration-200 text-xs h-7 py-0.5",
+        "font-medium transition-all duration-200 text-xs min-h-[44px] py-2",
         active && "bg-secondary text-secondary-foreground",
-        collapsed ? "w-8 h-8 p-0 justify-center" : "w-full justify-start px-2"
+        collapsed ? "w-11 h-11 p-0 justify-center" : "w-full justify-start px-3"
       )}
       onClick={onClick}
     >
