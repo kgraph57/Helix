@@ -118,7 +118,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
             setIsMobileOpen(false);
           }}
         />
-        <div className="relative">
+        <div 
+          className="relative"
+          onMouseLeave={() => setShowPromptMenu(false)}
+        >
           <NavIcon
             icon={<MessageSquare className="w-4 h-4" />}
             label="Prompts"
@@ -132,8 +135,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
           {showPromptMenu && (
             <div 
               className="absolute left-full top-0 ml-2 w-56 bg-background border border-border rounded-lg shadow-lg p-2 z-50"
-              onMouseEnter={() => setShowPromptMenu(true)}
-              onMouseLeave={() => setShowPromptMenu(false)}
             >
               <div className="text-xs font-semibold text-muted-foreground mb-2 px-2">Categories</div>
               <div className="space-y-0.5">
