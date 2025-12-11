@@ -182,7 +182,7 @@ const courses = [
     xpReward: 70,
     badge: "📜",
     category: "法律倫理",
-    locked: true,
+    locked: false,
   },
   {
     id: "ai-copyright-ethics",
@@ -194,7 +194,7 @@ const courses = [
     xpReward: 50,
     badge: "©️",
     category: "技術",
-    locked: true,
+    locked: false,
   },
   {
     id: "advanced-ai-terminology",
@@ -206,7 +206,7 @@ const courses = [
     xpReward: 60,
     badge: "📚",
     category: "技術",
-    locked: true,
+    locked: false,
   },
   {
     id: "statistics-data-science-terms",
@@ -218,7 +218,7 @@ const courses = [
     xpReward: 50,
     badge: "📊",
     category: "技術",
-    locked: true,
+    locked: false,
   },
   {
     id: "python-ai-programming",
@@ -230,7 +230,7 @@ const courses = [
     xpReward: 70,
     badge: "🐍",
     category: "技術",
-    locked: true,
+    locked: false,
   },
   {
     id: "deep-learning-frameworks",
@@ -242,7 +242,7 @@ const courses = [
     xpReward: 80,
     badge: "⚡",
     category: "実践",
-    locked: true,
+    locked: false,
   },
   {
     id: "research-methodology",
@@ -254,7 +254,7 @@ const courses = [
     xpReward: 70,
     badge: "🔬",
     category: "実践",
-    locked: true,
+    locked: false,
   },
   {
     id: "paper-reading-writing",
@@ -266,7 +266,7 @@ const courses = [
     xpReward: 75,
     badge: "📄",
     category: "実践",
-    locked: true,
+    locked: false,
   },
   {
     id: "literature-review-support",
@@ -290,7 +290,7 @@ const courses = [
     xpReward: 60,
     badge: "🌍",
     category: "研究",
-    locked: true,
+    locked: false,
   },
   {
     id: "advanced-model-architectures",
@@ -302,7 +302,7 @@ const courses = [
     xpReward: 90,
     badge: "🏗️",
     category: "専門",
-    locked: true,
+    locked: false,
   },
   {
     id: "ai-research-project",
@@ -314,7 +314,7 @@ const courses = [
     xpReward: 100,
     badge: "🎓",
     category: "専門",
-    locked: true,
+    locked: false,
   },
   {
     id: "ai-onboarding-workflow",
@@ -326,7 +326,7 @@ const courses = [
     xpReward: 90,
     badge: "🔄",
     category: "専門",
-    locked: true,
+    locked: false,
   },
   {
     id: "knowledge-work-ai",
@@ -338,7 +338,7 @@ const courses = [
     xpReward: 85,
     badge: "💡",
     category: "専門",
-    locked: true,
+    locked: false,
   },
   {
     id: "poc-experimentation",
@@ -350,7 +350,7 @@ const courses = [
     xpReward: 70,
     badge: "🧪",
     category: "実践",
-    locked: true,
+    locked: false,
   },
   {
     id: "ai-era-mindset",
@@ -362,7 +362,7 @@ const courses = [
     xpReward: 75,
     badge: "🌱",
     category: "実践",
-    locked: true,
+    locked: false,
   },
   {
     id: "future-of-work-medicine",
@@ -374,7 +374,7 @@ const courses = [
     xpReward: 80,
     badge: "👨‍⚕️",
     category: "専門",
-    locked: true,
+    locked: false,
   },
 ];
 
@@ -490,14 +490,7 @@ export default function CourseDetail() {
                   <Clock className="w-3 h-3" />
                   <span>約 {totalLessons * 10} 分</span>
                 </div>
-                <div className="flex items-center gap-0.5">
-                  <Star className="w-3 h-3 text-yellow-500" />
-                  <span>{course.xpReward} XP</span>
-                </div>
-                <div className="flex items-center gap-0.5">
-                  <Award className="w-3 h-3" />
-                  <span>バッジ: {course.badge}</span>
-                </div>
+
               </div>
 
               <div className="space-y-0.5 pt-0.5">

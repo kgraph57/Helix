@@ -727,10 +727,7 @@ export default function LessonDetail() {
                     <p className="text-muted-foreground text-lg">
                       おめでとうございます！このレッスンを完了しました。
                     </p>
-                    <div className="flex items-center justify-center gap-2 text-primary mt-6">
-                      <CheckCircle2 className="w-5 h-5" />
-                      <span className="font-semibold">+10 XP 獲得</span>
-                    </div>
+
                     <div className="flex justify-center pt-6">
                       <Button 
                         onClick={() => {

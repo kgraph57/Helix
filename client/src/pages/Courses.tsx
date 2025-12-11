@@ -164,7 +164,7 @@ export const courses = [
     xpReward: 50,
     badge: "🔌",
     category: "技術",
-    locked: true,
+    locked: false,
   },
   {
     id: "mcp-basics",
@@ -175,7 +175,7 @@ export const courses = [
     xpReward: 50,
     badge: "🔗",
     category: "技術",
-    locked: true,
+    locked: false,
   },
   {
     id: "prompt-engineering-basics",
@@ -186,7 +186,7 @@ export const courses = [
     xpReward: 60,
     badge: "✍️",
     category: "技術",
-    locked: true,
+    locked: false,
   },
   {
     id: "medical-data-basics",
@@ -197,7 +197,7 @@ export const courses = [
     xpReward: 50,
     badge: "📊",
     category: "技術",
-    locked: true,
+    locked: false,
   },
   {
     id: "llm-in-medicine",
@@ -241,7 +241,7 @@ export const courses = [
     xpReward: 70,
     badge: "📜",
     category: "法律倫理",
-    locked: true,
+    locked: false,
   },
   {
     id: "ai-copyright-ethics",
@@ -252,7 +252,7 @@ export const courses = [
     xpReward: 50,
     badge: "©️",
     category: "法律倫理",
-    locked: true,
+    locked: false,
   },
   {
     id: "advanced-ai-terminology",
@@ -263,7 +263,7 @@ export const courses = [
     xpReward: 60,
     badge: "📚",
     category: "技術",
-    locked: true,
+    locked: false,
   },
   {
     id: "statistics-data-science-terms",
@@ -274,7 +274,7 @@ export const courses = [
     xpReward: 50,
     badge: "📊",
     category: "技術",
-    locked: true,
+    locked: false,
   },
   {
     id: "python-ai-programming",
@@ -285,7 +285,7 @@ export const courses = [
     xpReward: 70,
     badge: "🐍",
     category: "技術",
-    locked: true,
+    locked: false,
   },
   {
     id: "deep-learning-frameworks",
@@ -296,7 +296,7 @@ export const courses = [
     xpReward: 80,
     badge: "⚡",
     category: "ツール",
-    locked: true,
+    locked: false,
   },
   {
     id: "research-methodology",
@@ -307,7 +307,7 @@ export const courses = [
     xpReward: 70,
     badge: "🔬",
     category: "ツール",
-    locked: true,
+    locked: false,
   },
   {
     id: "paper-reading-writing",
@@ -318,7 +318,7 @@ export const courses = [
     xpReward: 75,
     badge: "📄",
     category: "ツール",
-    locked: true,
+    locked: false,
   },
   {
     id: "research-ethics-open-science",
@@ -329,7 +329,7 @@ export const courses = [
     xpReward: 60,
     badge: "🌍",
     category: "ツール",
-    locked: true,
+    locked: false,
   },
   // レベル3: 実践編（上級者向け）
   {
@@ -341,7 +341,7 @@ export const courses = [
     xpReward: 80,
     badge: "🔗",
     category: "ツール",
-    locked: true,
+    locked: false,
   },
   {
     id: "medical-ai-practice",
@@ -352,7 +352,7 @@ export const courses = [
     xpReward: 60,
     badge: "🩺",
     category: "ツール",
-    locked: true,
+    locked: false,
   },
   {
     id: "paper-writing-support",
@@ -363,7 +363,7 @@ export const courses = [
     xpReward: 70,
     badge: "📝",
     category: "医療応用",
-    locked: true,
+    locked: false,
   },
   {
     id: "case-report-support",
@@ -374,7 +374,7 @@ export const courses = [
     xpReward: 65,
     badge: "📋",
     category: "医療応用",
-    locked: true,
+    locked: false,
   },
   {
     id: "diagnostic-support",
@@ -385,7 +385,7 @@ export const courses = [
     xpReward: 65,
     badge: "🔬",
     category: "医療応用",
-    locked: true,
+    locked: false,
   },
   {
     id: "medical-english-proofreading",
@@ -396,7 +396,7 @@ export const courses = [
     xpReward: 55,
     badge: "🌐",
     category: "医療応用",
-    locked: true,
+    locked: false,
   },
   {
     id: "literature-review-support",
@@ -419,7 +419,7 @@ export const courses = [
     xpReward: 80,
     badge: "🚀",
     category: "専門",
-    locked: true,
+    locked: false,
   },
   {
     id: "medical-ai-system-building",
@@ -430,7 +430,7 @@ export const courses = [
     xpReward: 85,
     badge: "⚙️",
     category: "専門",
-    locked: true,
+    locked: false,
   },
   {
     id: "research-data-analysis",
@@ -441,7 +441,7 @@ export const courses = [
     xpReward: 75,
     badge: "📈",
     category: "研究",
-    locked: true,
+    locked: false,
   },
   {
     id: "ai-clinical-decision",
@@ -452,7 +452,7 @@ export const courses = [
     xpReward: 85,
     badge: "🎯",
     category: "医療応用",
-    locked: true,
+    locked: false,
   },
   {
     id: "advanced-model-architectures",
@@ -463,7 +463,7 @@ export const courses = [
     xpReward: 90,
     badge: "🏗️",
     category: "専門",
-    locked: true,
+    locked: false,
   },
   {
     id: "ai-research-project",
@@ -474,7 +474,7 @@ export const courses = [
     xpReward: 100,
     badge: "🎓",
     category: "専門",
-    locked: true,
+    locked: false,
   },
   {
     id: "ai-onboarding-workflow",
@@ -485,7 +485,7 @@ export const courses = [
     xpReward: 90,
     badge: "🔄",
     category: "専門",
-    locked: true,
+    locked: false,
   },
   {
     id: "knowledge-work-ai",
@@ -496,7 +496,7 @@ export const courses = [
     xpReward: 85,
     badge: "💡",
     category: "専門",
-    locked: true,
+    locked: false,
   },
   {
     id: "poc-experimentation",
@@ -507,7 +507,7 @@ export const courses = [
     xpReward: 70,
     badge: "🧪",
     category: "ツール",
-    locked: true,
+    locked: false,
   },
   {
     id: "ai-era-mindset",
@@ -518,7 +518,7 @@ export const courses = [
     xpReward: 75,
     badge: "🌱",
     category: "ツール",
-    locked: true,
+    locked: false,
   },
   {
     id: "future-of-work-medicine",
@@ -529,7 +529,7 @@ export const courses = [
     xpReward: 80,
     badge: "👨‍⚕️",
     category: "専門",
-    locked: true,
+    locked: false,
   },
 ];
 
