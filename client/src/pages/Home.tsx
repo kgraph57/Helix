@@ -1,5 +1,6 @@
 import { Layout } from "@/components/Layout";
 import { loadPrompts } from "@/lib/prompts-loader";
+import { preloadDataFiles } from "@/lib/preload";
 import { useState, useMemo, useCallback, useEffect, lazy, Suspense } from "react";
 import { updateSEO, addHomeStructuredData } from "@/lib/seo";
 import { trackSearch, trackCategorySelect } from "@/lib/analytics";
@@ -32,6 +33,9 @@ export default function Home() {
       keywords: "医療,AI,プロンプト,症例報告,統計解析,学会発表,医学研究,医療従事者,医師,看護師,薬剤師"
     });
     addHomeStructuredData();
+    
+    // プリロード戦略: よく使われるデータを事前に読み込む
+    preloadDataFiles();
   }, []);
   
   const [searchQuery, setSearchQuery] = useState("");

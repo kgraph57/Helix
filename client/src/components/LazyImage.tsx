@@ -1,68 +1,73 @@
 /**
- * 画像遅延読み込みコンポーネント
- * Intersection Observer APIを使用して、画像がビューポートに入ったときに読み込む
+ * 遅延ロード対応の画像コンポーネント
+ * 画像がビューポートに入った時にのみ読み込む
  */
 
-import { useState, useEffect, useRef } from 'react';
-import { cn } from '@/lib/utils';
+import { useState, useEffect, useRef, ImgHTMLAttributes } from 'react';
 
-interface LazyImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+interface LazyImageProps extends Omit<ImgHTMLAttributes<HTMLImageElement>, 'loading'> {
   src: string;
   alt: string;
   placeholder?: string;
-  threshold?: number;
-  rootMargin?: string;
+  fallback?: string;
 }
 
-export function LazyImage({
-  src,
-  alt,
-  placeholder = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect fill="%23f0f0f0" width="100" height="100"/%3E%3C/svg%3E',
-  threshold = 0.1,
-  rootMargin = '50px',
+export function LazyImage({ 
+  src, 
+  alt, 
+  placeholder = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3C/svg%3E',
+  fallback,
   className,
-  ...props
+  ...props 
 }: LazyImageProps) {
+  const [imageSrc, setImageSrc] = useState<string>(placeholder);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [isInView, setIsInView] = useState(false);
+  const [hasError, setHasError] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
-    if (!imgRef.current) return;
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsInView(true);
+          if (entry.isIntersecting && !isLoaded) {
+            // 画像がビューポートに入ったら読み込む
+            const img = new Image();
+            img.src = src;
+            img.onload = () => {
+              setImageSrc(src);
+              setIsLoaded(true);
+            };
+            img.onerror = () => {
+              if (fallback) {
+                setImageSrc(fallback);
+              } else {
+                setHasError(true);
+              }
+            };
             observer.disconnect();
           }
         });
       },
       {
-        threshold,
-        rootMargin
+        rootMargin: '50px', // ビューポートの50px前から読み込み開始
       }
     );
 
-    observer.observe(imgRef.current);
+    if (imgRef.current) {
+      observer.observe(imgRef.current);
+    }
 
     return () => {
       observer.disconnect();
     };
-  }, [threshold, rootMargin]);
+  }, [src, isLoaded, fallback]);
 
   return (
     <img
       ref={imgRef}
-      src={isInView ? src : placeholder}
+      src={imageSrc}
       alt={alt}
-      className={cn(
-        'transition-opacity duration-300',
-        isLoaded ? 'opacity-100' : 'opacity-0',
-        className
-      )}
-      onLoad={() => setIsLoaded(true)}
+      className={`${className || ''} ${isLoaded ? 'opacity-100' : 'opacity-50'} transition-opacity duration-300`}
       loading="lazy"
       {...props}
     />

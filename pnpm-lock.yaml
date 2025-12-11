@@ -226,8 +226,8 @@ importers:
         specifier: ^10.4.22
         version: 10.4.22(postcss@8.5.6)
       esbuild:
-        specifier: ^0.25.0
-        version: 0.25.12
+        specifier: ^0.27.1
+        version: 0.27.1
       gh-pages:
         specifier: ^6.3.0
         version: 6.3.0
