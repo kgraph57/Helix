@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { Activity, BookOpen, Bookmark, GraduationCap, HelpCircle, Home, Mail, MessageSquare, Settings, Lightbulb } from "lucide-react";
+import { Activity, BookOpen, Bookmark, GraduationCap, HelpCircle, Home, Mail, MessageSquare, Settings, Lightbulb, Stethoscope, Heart, FileText, Pill, Users, Handshake, BookMarked, Microscope, ClipboardList, School, Briefcase } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "./ui/button";
@@ -12,17 +12,17 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 
 // プロンプトカテゴリ定義
 const categories = [
-  { id: "diagnosis", label: "診断支援", icon: "🩺" },
-  { id: "treatment", label: "治療計画", icon: "❤️‍🩹" },
-  { id: "documentation", label: "書類作成", icon: "📄" },
-  { id: "medication", label: "薬剤・処方", icon: "💊" },
-  { id: "communication", label: "患者対話", icon: "💬" },
-  { id: "shared-decision-making", label: "共同意思決定", icon: "🤝" },
-  { id: "literature", label: "医学文献", icon: "📖" },
-  { id: "research", label: "研究・学会", icon: "🔬" },
-  { id: "case-analysis", label: "症例分析", icon: "📋" },
-  { id: "education", label: "教育・学習", icon: "🎓" },
-  { id: "administrative", label: "管理・運営", icon: "💼" },
+  { id: "diagnosis", label: "診断支援", icon: Stethoscope },
+  { id: "treatment", label: "治療計画", icon: Heart },
+  { id: "documentation", label: "書類作成", icon: FileText },
+  { id: "medication", label: "薬剤・処方", icon: Pill },
+  { id: "communication", label: "患者対話", icon: Users },
+  { id: "shared-decision-making", label: "共同意思決定", icon: Handshake },
+  { id: "literature", label: "医学文献", icon: BookMarked },
+  { id: "research", label: "研究・学会", icon: Microscope },
+  { id: "case-analysis", label: "症例分析", icon: ClipboardList },
+  { id: "education", label: "教育・学習", icon: School },
+  { id: "administrative", label: "管理・運営", icon: Briefcase },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -128,31 +128,37 @@ export function Layout({ children }: { children: React.ReactNode }) {
             icon={<MessageSquare className="w-4 h-4" />}
             label="Prompts"
             active={location === "/" && !location.startsWith("/courses")}
+            onClick={() => {
+              setLocation("/");
+              setIsMobileOpen(false);
+            }}
             onMouseEnter={() => setShowPromptMenu(true)}
-            onMouseLeave={() => setShowPromptMenu(false)}
           />
           {showPromptMenu && (
             <div 
-              className="absolute left-full top-0 ml-2 w-56 bg-background border-2 border-border rounded-lg shadow-lg p-2 z-50"
+              className="absolute left-full top-0 ml-2 w-56 bg-background border border-border rounded-lg shadow-lg p-2 z-50"
               onMouseEnter={() => setShowPromptMenu(true)}
               onMouseLeave={() => setShowPromptMenu(false)}
             >
               <div className="text-xs font-semibold text-muted-foreground mb-2 px-2">Categories</div>
               <div className="space-y-0.5">
-                {categories.map((category) => (
-                  <button
-                    key={category.id}
-                    onClick={() => {
-                      setLocation(`/?category=${category.id}`);
-                      setShowPromptMenu(false);
-                      setIsMobileOpen(false);
-                    }}
-                    className="w-full flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-accent transition-colors text-left"
-                  >
-                    <span className="text-lg">{category.icon}</span>
-                    <span className="text-xs font-medium">{category.label}</span>
-                  </button>
-                ))}
+                {categories.map((category) => {
+                  const IconComponent = category.icon;
+                  return (
+                    <button
+                      key={category.id}
+                      onClick={() => {
+                        setLocation(`/?category=${category.id}`);
+                        setShowPromptMenu(false);
+                        setIsMobileOpen(false);
+                      }}
+                      className="w-full flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-accent transition-colors text-left"
+                    >
+                      <IconComponent className="w-4 h-4 text-muted-foreground" />
+                      <span className="text-xs font-medium">{category.label}</span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           )}
