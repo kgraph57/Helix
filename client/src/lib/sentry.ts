@@ -28,7 +28,6 @@ async function loadSentry() {
     // 動的インポート（Sentryがインストールされていない場合はエラーをキャッチ）
     // 文字列として動的に構築してViteの静的解析を回避
     const sentryPackage = "@sentry/react";
-    // @ts-expect-error - Sentry may not be installed, dynamic import
     const sentryModule = await import(sentryPackage);
     Sentry = sentryModule;
     sentryLoaded = true;
@@ -79,7 +78,7 @@ export async function initSentry(): Promise<void> {
       replaysSessionSampleRate: import.meta.env.PROD ? 0.1 : 1.0, // 本番環境では10%をサンプリング
       replaysOnErrorSampleRate: 1.0, // エラー時は100%記録
       // 機密情報をマスク
-      beforeSend(event, hint) {
+      beforeSend(event: any, hint: any) {
         // 個人情報が含まれる可能性のあるフィールドを削除
         if (event.request) {
           // URLからクエリパラメータを削除（個人情報が含まれる可能性）

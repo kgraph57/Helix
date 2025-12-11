@@ -624,9 +624,18 @@ export default function LessonDetail() {
     
     // コースの進捗も更新
     const courseProgressKey = `course-progress-${courseId}`;
-    const courseProgress = JSON.parse(localStorage.getItem(courseProgressKey) || "{}");
+    let courseProgress: { completedLessons?: string[] } = {};
+    try {
+      const saved = localStorage.getItem(courseProgressKey);
+      if (saved) {
+        courseProgress = JSON.parse(saved);
+      }
+    } catch (e) {
+      console.error("Failed to parse course progress from localStorage", e);
+      courseProgress = {};
+    }
     const completedLessons = courseProgress.completedLessons || [];
-    if (!completedLessons.includes(lessonId)) {
+    if (lessonId && !completedLessons.includes(lessonId)) {
       completedLessons.push(lessonId);
       const updatedProgress = {
         ...courseProgress,

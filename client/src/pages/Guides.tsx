@@ -395,7 +395,7 @@ export default function Guides() {
                         ? "cursor-pointer hover:shadow-md hover:border-primary/30" 
                         : "opacity-60 cursor-not-allowed"
                     )}>
-                      <CardHeader className="space-y-1.5">
+                      <CardHeader className="space-y-1.5 p-4 pb-2">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-2">
                             <Badge variant="secondary" className={cn("font-medium px-2 py-0.5 rounded-md text-xs", colors.badge)}>
@@ -423,7 +423,7 @@ export default function Guides() {
                           {guide.description}
                         </CardDescription>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="p-4 pt-0 space-y-3">
                         {isImplemented ? (
                           <div className="flex items-center text-sm font-semibold text-primary group-hover:gap-1.5 gap-1 transition-all duration-200">
                             <span>ガイドを読む</span>
@@ -435,7 +435,7 @@ export default function Guides() {
                             <span>準備中</span>
                           </div>
                         )}
-                        <div className="flex flex-wrap gap-1 pt-1">
+                        <div className="flex flex-wrap gap-1">
                           {guide.tags.map(tag => (
                             <span 
                               key={tag} 

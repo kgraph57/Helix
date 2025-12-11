@@ -13,6 +13,7 @@ import { Certificate } from "@/components/Certificate";
 import { useRoute, useLocation } from "wouter";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import { cn } from "@/lib/utils";
 // コースデータ（Courses.tsxから共有）
 const courses = [
   {

@@ -4,7 +4,13 @@ import { toast } from 'sonner';
 export function useFavorites() {
   const [favorites, setFavorites] = useState<string[]>(() => {
     const saved = localStorage.getItem('favorites');
-    return saved ? JSON.parse(saved) : [];
+    if (!saved) return [];
+    try {
+      return JSON.parse(saved);
+    } catch (e) {
+      console.error("Failed to parse favorites from localStorage", e);
+      return [];
+    }
   });
 
   useEffect(() => {

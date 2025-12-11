@@ -228,7 +228,8 @@ export default function EnglishProofreadingGuide() {
                 remarkPlugins={[remarkGfm]}
                 rehypePlugins={[rehypeRaw, rehypeSanitize]}
                 components={{
-                  code({ node, inline, className, children, ...props }) {
+                  code({ node, className, children, ...props }: any) {
+                    const inline = (props as any).inline;
                     if (inline) {
                       return <code className={className} {...props}>{children}</code>;
                     }

@@ -3,6 +3,8 @@
  * @sentry/reactがインストールされていない場合でもテストが実行できるように
  */
 
+import { vi } from "vitest";
+
 // Sentryがインストールされていない場合のモック
 export const mockSentry = {
   init: vi.fn(),
@@ -14,9 +16,11 @@ export const mockSentry = {
 };
 
 // 動的インポートをモック
+// @ts-ignore - @sentry/react may not be installed
 vi.mock("@sentry/react", async () => {
   try {
     // 実際のSentryがインストールされている場合はそれを使用
+    // @ts-ignore
     return await import("@sentry/react");
   } catch {
     // インストールされていない場合はモックを返す

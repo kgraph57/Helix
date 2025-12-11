@@ -1,5 +1,5 @@
 import { Layout } from "@/components/Layout";
-import { fullPrompts } from "@/lib/prompts-full";
+import { loadPrompts } from "@/lib/prompts-loader";
 import { useState, useMemo, useCallback, useEffect, lazy, Suspense } from "react";
 import { updateSEO, addHomeStructuredData } from "@/lib/seo";
 import { trackSearch, trackCategorySelect } from "@/lib/analytics";
@@ -7,6 +7,7 @@ import { HeroSection } from "@/components/home/HeroSection";
 import { FeatureOverviewSection } from "@/components/home/FeatureOverviewSection";
 import { ContentShowcaseSection } from "@/components/home/ContentShowcaseSection";
 import { UseCaseSection } from "@/components/home/UseCaseSection";
+import type { Prompt } from "@/lib/prompts";
 
 import { toast } from "sonner";
 
@@ -35,16 +36,34 @@ export default function Home() {
   
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  
+  const [prompts, setPrompts] = useState<Prompt[]>([]);
+  const [isLoadingPrompts, setIsLoadingPrompts] = useState(true);
 
+  // プロンプトデータの遅延ロード（アイドル時間を利用）
+  useEffect(() => {
+    // requestIdleCallbackを使用して、ブラウザがアイドル状態の時にデータを読み込む
+    const loadData = () => {
+      loadPrompts().then((loadedPrompts) => {
+        setPrompts(loadedPrompts);
+        setIsLoadingPrompts(false);
+      });
+    };
+
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadData, { timeout: 2000 });
+    } else {
+      // requestIdleCallbackがサポートされていない場合は、短い遅延後に読み込む
+      setTimeout(loadData, 100);
+    }
+  }, []);
 
   // 検索イベントを追跡
   useEffect(() => {
-    if (searchQuery.trim()) {
+    if (searchQuery.trim() && !isLoadingPrompts) {
       trackSearch(searchQuery, filteredPrompts.length);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchQuery]);
+  }, [searchQuery, isLoadingPrompts]);
 
   // カテゴリ選択イベントを追跡
   useEffect(() => {
@@ -56,7 +75,8 @@ export default function Home() {
 
   // 検索・フィルタリングされたプロンプト（全文検索とタグ検索を含む）
   const filteredPrompts = useMemo(() => {
-    const filtered = fullPrompts.filter((prompt) => {
+    if (isLoadingPrompts) return [];
+    const filtered = prompts.filter((prompt) => {
       const query = searchQuery.toLowerCase();
       const matchesSearch = 
         prompt.title.toLowerCase().includes(query) ||
@@ -67,7 +87,7 @@ export default function Home() {
       return matchesSearch && matchesCategory;
     });
     return filtered;
-  }, [searchQuery, selectedCategory]);
+  }, [searchQuery, selectedCategory, prompts, isLoadingPrompts]);
 
 
 

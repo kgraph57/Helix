@@ -28,17 +28,12 @@ const analyticsPlugin = (): Plugin => {
       const analyticsEndpoint = process.env.VITE_ANALYTICS_ENDPOINT;
       const analyticsWebsiteId = process.env.VITE_ANALYTICS_WEBSITE_ID;
       
-      if (analyticsEndpoint && analyticsWebsiteId) {
-        // Escape values to prevent XSS
-        const escapedEndpoint = escapeHtmlAttribute(analyticsEndpoint);
-        const escapedWebsiteId = escapeHtmlAttribute(analyticsWebsiteId);
-        
-        return html.replace(
-          "%VITE_ANALYTICS_SCRIPT%",
-          `<script defer src="${escapedEndpoint}/umami" data-website-id="${escapedWebsiteId}"></script>`
-        );
-      }
-      return html.replace("%VITE_ANALYTICS_SCRIPT%", "");
+      // Replace the placeholder with analytics script or empty string
+      const analyticsScript = (analyticsEndpoint && analyticsWebsiteId)
+        ? `<script defer src="${escapeHtmlAttribute(analyticsEndpoint)}/umami" data-website-id="${escapeHtmlAttribute(analyticsWebsiteId)}"></script>`
+        : "";
+      
+      return html.replace("%VITE_ANALYTICS_SCRIPT%", analyticsScript);
     },
   };
 };
@@ -152,17 +147,38 @@ export default defineConfig({
         entryFileNames: `assets/[name]-[hash]-v15.js`,
         chunkFileNames: `assets/[name]-[hash]-v15.js`,
         assetFileNames: `assets/[name]-[hash]-v15.[ext]`,
-        manualChunks: {
+        manualChunks: (id) => {
           // React core
-          'react-vendor': ['react', 'react-dom'],
+          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) {
+            return 'react-vendor';
+          }
           // Router
-          'router-vendor': ['wouter'],
+          if (id.includes('node_modules/wouter')) {
+            return 'router-vendor';
+          }
           // UI libraries
-          'ui-vendor': ['framer-motion', 'lucide-react'],
+          if (id.includes('node_modules/framer-motion') || id.includes('node_modules/lucide-react')) {
+            return 'ui-vendor';
+          }
           // Charts
-          'charts-vendor': ['recharts'],
+          if (id.includes('node_modules/recharts')) {
+            return 'charts-vendor';
+          }
           // Markdown
-          'markdown-vendor': ['react-markdown', 'remark-gfm'],
+          if (id.includes('node_modules/react-markdown') || id.includes('node_modules/remark') || id.includes('node_modules/rehype')) {
+            return 'markdown-vendor';
+          }
+          // Radix UI components (large library, split separately)
+          if (id.includes('node_modules/@radix-ui')) {
+            return 'radix-vendor';
+          }
+          // Large data files (prompts-full, tips) - split into separate chunks
+          if (id.includes('prompts-full')) {
+            return 'prompts-data';
+          }
+          if (id.includes('tips.ts') && !id.includes('tips-loader')) {
+            return 'tips-data';
+          }
         },
       },
     },

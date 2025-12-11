@@ -49,20 +49,30 @@ export function Quiz({ questions, onComplete, showResults = true, allowRetry = t
     const isCorrect = answer === currentQuestion.correctAnswer;
     const points = currentQuestion.points || 1;
     
-    if (isCorrect) {
-      setScore(score + points);
-    }
-    setTotalPoints(totalPoints + points);
-
-    // 最後の質問の場合、完了処理
-    if (isLastQuestion) {
-      setTimeout(() => {
-        setIsCompleted(true);
-        if (onComplete) {
-          onComplete(isCorrect ? score + points : score, totalPoints + points);
-        }
-      }, 1500);
-    }
+    // 関数型の更新を使用して、最新の状態を参照
+    setScore((prevScore) => {
+      return isCorrect ? prevScore + points : prevScore;
+    });
+    
+    setTotalPoints((prevTotalPoints) => {
+      const newTotalPoints = prevTotalPoints + points;
+      
+      // 最後の質問の場合、完了処理
+      if (isLastQuestion) {
+        setTimeout(() => {
+          setIsCompleted(true);
+          if (onComplete) {
+            // 最新のスコアと合計ポイントを計算
+            setScore((finalScore) => {
+              onComplete(finalScore, newTotalPoints);
+              return finalScore;
+            });
+          }
+        }, 1500);
+      }
+      
+      return newTotalPoints;
+    });
   };
 
   const handleNext = () => {

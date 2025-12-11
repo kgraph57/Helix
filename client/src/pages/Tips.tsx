@@ -1,8 +1,9 @@
 import { Layout } from "@/components/Layout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { tips, PromptTip } from "@/lib/tips";
+import { loadTips } from "@/lib/tips-loader";
+import type { PromptTip } from "@/lib/tips";
 import { Search, ArrowRight, Sparkles } from "lucide-react";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { useLocation } from "wouter";
@@ -26,8 +27,27 @@ export default function Tips() {
   const [, setLocation] = useLocation();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<PromptTip['category'] | null>(null);
+  const [tips, setTips] = useState<PromptTip[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // requestIdleCallbackを使用して、ブラウザがアイドル状態の時にデータを読み込む
+    const loadData = () => {
+      loadTips().then((loadedTips) => {
+        setTips(loadedTips);
+        setIsLoading(false);
+      });
+    };
+
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadData, { timeout: 2000 });
+    } else {
+      setTimeout(loadData, 100);
+    }
+  }, []);
 
   const filteredTips = useMemo(() => {
+    if (isLoading) return [];
     const filtered = tips.filter((tip) => {
       const matchesSearch = 
         tip.title.toLowerCase().includes(searchQuery.toLowerCase()) ||

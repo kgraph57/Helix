@@ -3,24 +3,47 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { categories } from "@/lib/prompts";
-import { fullPrompts as prompts } from "@/lib/prompts-full";
+import { loadPrompts } from "@/lib/prompts-loader";
 import { ArrowLeft, ArrowRight, Copy } from "lucide-react";
 import { Link, useRoute } from "wouter";
+import { useState, useEffect } from "react";
+import type { Prompt } from "@/lib/prompts";
 
 export default function Category() {
   const [match, params] = useRoute("/category/:id");
   const categoryId = match ? params.id : null;
   const category = categories.find((c) => c.id === categoryId);
+  const [prompts, setPrompts] = useState<Prompt[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  
+  useEffect(() => {
+    loadPrompts().then((loadedPrompts) => {
+      setPrompts(loadedPrompts);
+      setIsLoading(false);
+    });
+  }, []);
+  
   const categoryPrompts = prompts.filter((p) => p.category === categoryId);
+
+  if (isLoading) {
+    return (
+      <Layout>
+        <div className="text-center py-20">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">読み込み中...</p>
+        </div>
+      </Layout>
+    );
+  }
 
   if (!category) {
     return (
       <Layout>
         <div className="text-center py-20">
-          <h2 className="text-2xl font-bold">Category not found</h2>
+          <h2 className="text-2xl font-bold">カテゴリが見つかりません</h2>
           <Link href="/">
             <Button variant="link" className="mt-4">
-              <ArrowLeft className="mr-2 w-4 h-4" /> Back to Home
+              <ArrowLeft className="mr-2 w-4 h-4" /> ホームに戻る
             </Button>
           </Link>
         </div>

@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { fullPrompts as prompts } from "@/lib/prompts-full";
+import { getPromptById, loadPrompts } from "@/lib/prompts-loader";
 import { AlertTriangle, ArrowLeft, Bookmark, Check, Copy, RefreshCw, Sparkles } from "lucide-react";
 import { CollapsibleWarning } from "@/components/CollapsibleWarning";
 import { PromptSidebar } from "@/components/PromptSidebar";
@@ -21,15 +21,30 @@ import { usePromptStats } from "@/hooks/usePromptStats";
 import { Link, useRoute, useLocation } from "wouter";
 import { trackPromptCopy, trackPromptView } from "@/lib/analytics";
 import { useSwipeGesture } from "@/hooks/useSwipeGesture";
+import type { Prompt } from "@/lib/prompts";
 
 export default function PromptDetail() {
   const [match, params] = useRoute("/prompts/:id");
   const [, setLocation] = useLocation();
   const promptId = match ? params.id : null;
-  const prompt = prompts.find((p) => p.id === promptId);
+  const [prompt, setPrompt] = useState<Prompt | undefined>(undefined);
+  const [prompts, setPrompts] = useState<Prompt[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  
+  // プロンプトデータの遅延ロード
+  useEffect(() => {
+    if (!promptId) return;
+    
+    loadPrompts().then((loadedPrompts) => {
+      setPrompts(loadedPrompts);
+      const foundPrompt = loadedPrompts.find((p) => p.id === promptId);
+      setPrompt(foundPrompt);
+      setIsLoading(false);
+    });
+  }, [promptId]);
   
   // 前後のプロンプトを取得
-  const currentIndex = prompts.findIndex((p) => p.id === promptId);
+  const currentIndex = promptId ? prompts.findIndex((p) => p.id === promptId) : -1;
   const prevPrompt = currentIndex > 0 ? prompts[currentIndex - 1] : null;
   const nextPrompt = currentIndex < prompts.length - 1 ? prompts[currentIndex + 1] : null;
   
@@ -65,11 +80,22 @@ export default function PromptDetail() {
     }
   }, [prompt]);
 
+  if (isLoading) {
+    return (
+      <Layout>
+        <div className="text-center py-20">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">読み込み中...</p>
+        </div>
+      </Layout>
+    );
+  }
+
   if (!prompt) {
     return (
       <Layout>
         <div className="text-center py-20">
-          <h2 className="text-2xl font-bold">Prompt not found</h2>
+          <h2 className="text-2xl font-bold">プロンプトが見つかりません</h2>
           <Link href="/">
             <Button variant="link" className="mt-4">
               <ArrowLeft className="mr-2 w-4 h-4" /> Back to Home
