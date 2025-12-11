@@ -650,6 +650,18 @@ export default function LessonDetail() {
     }
     
     setCompleted(true);
+    
+    // 次のレッスンがあれば自動的に遷移
+    if (nextLesson) {
+      setTimeout(() => {
+        setLocation(`/courses/${courseId}/lessons/${nextLesson.id}`);
+      }, 1000); // 1秒後に遷移（完了メッセージを表示する時間を確保）
+    } else {
+      // 最後のレッスンの場合はコース詳細ページに戻る
+      setTimeout(() => {
+        setLocation(`/courses/${courseId}`);
+      }, 1500); // 1.5秒後にコース詳細ページに戻る
+    }
   };
 
   if (!courseId || !lessonId || !content) {
