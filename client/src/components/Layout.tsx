@@ -84,7 +84,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const NavContent = () => (
     <nav className="flex flex-col h-full bg-muted/30 border-r border-border/30" aria-label="メインナビゲーション">
       {/* トグルボタン */}
-      <div className="flex-shrink-0 flex items-center justify-end px-3 py-3 border-b border-border/30">
+      <div className="flex-shrink-0 flex items-center px-3 py-2 border-b border-border/30">
         <button
           onClick={() => setIsExpanded(!isExpanded)}
           className="p-1 rounded-md hover:bg-accent transition-colors"
