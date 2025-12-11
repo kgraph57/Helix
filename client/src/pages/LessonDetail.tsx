@@ -418,18 +418,19 @@ export default function LessonDetail() {
   // ローカルストレージから完了状態を読み込む
   useEffect(() => {
     if (lessonId) {
-      const progressKey = `lesson-progress-${lessonId}`;
-      const saved = localStorage.getItem(progressKey);
-      if (saved) {
-        try {
-          const progress = JSON.parse(saved);
-          if (progress.completed) {
-            setCompleted(true);
-          }
-        } catch (e) {
-          // ignore
-        }
-      }
+      // 完了画面は削除したので、進捗確認は不要
+      // const progressKey = `lesson-progress-${lessonId}`;
+      // const saved = localStorage.getItem(progressKey);
+      // if (saved) {
+      //   try {
+      //     const progress = JSON.parse(saved);
+      //     if (progress.completed) {
+      //       setCompleted(true);
+      //     }
+      //   } catch (e) {
+      //     // ignore
+      //   }
+      // }
     }
   }, [lessonId]);
 
@@ -704,12 +705,7 @@ export default function LessonDetail() {
                   <span className="text-xs text-muted-foreground font-medium">
                     {Math.round(scrollProgress)}%
                   </span>
-                  {completed && (
-                    <div className="flex items-center gap-1.5 text-green-600 dark:text-green-500">
-                      <CheckCircle2 className="w-4 h-4" />
-                      <span className="font-medium text-xs">完了</span>
-                    </div>
-                  )}
+
                 </div>
               </div>
               <Progress value={scrollProgress} className="h-0.5" />
