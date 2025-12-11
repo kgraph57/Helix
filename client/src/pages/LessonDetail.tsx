@@ -385,7 +385,7 @@ export default function LessonDetail() {
   const courseId = match ? params.courseId : null;
   const lessonId = match ? params.lessonId : null;
 
-  const [completed, setCompleted] = useState(false);
+  // const [completed, setCompleted] = useState(false); // 削除: 完了画面は不要
   const [scrollProgress, setScrollProgress] = useState(0);
 
   const [activeSection, setActiveSection] = useState<string>("");
@@ -719,35 +719,7 @@ export default function LessonDetail() {
           {/* コンテンツエリア */}
           <div className="flex-1 overflow-y-auto" ref={contentRef}>
             <div className="lg:max-w-[900px] lg:mx-auto px-4 lg:px-8 py-8 lg:py-16">
-              {completed ? (
-                <Card className="text-center py-16 border-border">
-                  <CardContent className="space-y-6">
-                    <div className="text-6xl mb-6">🎉</div>
-                    <h2 className="text-3xl font-bold mb-4">レッスン完了！</h2>
-                    <p className="text-muted-foreground text-lg">
-                      おめでとうございます！このレッスンを完了しました。
-                    </p>
-
-                    <div className="flex justify-center pt-6">
-                      <Button 
-                        onClick={() => {
-                          if (nextLesson) {
-                            setLocation(`/courses/${courseId}/lessons/${nextLesson.id}`);
-                          } else {
-                            setLocation(`/courses/${courseId}`);
-                          }
-                        }}
-                        size="lg"
-                        className="min-w-[180px]"
-                      >
-                        <ArrowRight className="mr-2 h-4 w-4" />
-                        次に進む
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ) : (
-                <>
+              <>
                   {/* Zenn風の記事コンテンツ */}
                   <article className="zenn-article bg-background rounded-lg">
                     {renderContent()}
@@ -778,7 +750,6 @@ export default function LessonDetail() {
                     </div>
                   </div>
                 </>
-              )}
             </div>
           </div>
         </div>
