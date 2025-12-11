@@ -149,9 +149,9 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-        entryFileNames: `assets/[name]-[hash]-v13.js`,
-        chunkFileNames: `assets/[name]-[hash]-v13.js`,
-        assetFileNames: `assets/[name]-[hash]-v13.[ext]`,
+        entryFileNames: `assets/[name]-[hash]-v15.js`,
+        chunkFileNames: `assets/[name]-[hash]-v15.js`,
+        assetFileNames: `assets/[name]-[hash]-v15.[ext]`,
         manualChunks: {
           // React core
           'react-vendor': ['react', 'react-dom'],
