@@ -224,7 +224,7 @@ export default function Guides() {
 
   return (
     <Layout>
-      <div className="space-y-2 pb-6">
+      <div className="space-y-6 pb-8">
         {/* Hero Section - コンパクト */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -351,7 +351,7 @@ export default function Guides() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4 }}
-              className="grid gap-2 md:grid-cols-2 lg:grid-cols-3"
+              className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
               style={{gridAutoRows: '1fr'}}
             >
               {filteredAndSortedGuides.map((guide, index) => {
