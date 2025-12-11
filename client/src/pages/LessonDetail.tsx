@@ -725,28 +725,26 @@ export default function LessonDetail() {
                     {renderContent()}
                   </article>
                   
-                  {/* 完了ボタンと次へボタン */}
+                  {/* 次へ進むボタン */}
                   <div className="mt-20 pt-12 border-t border-border/50">
-                    <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="flex justify-center">
                       <Button 
-                        onClick={handleComplete} 
+                        onClick={handleComplete}
                         size="lg" 
-                        className="flex-1 h-12 text-base font-semibold shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5"
+                        className="w-full max-w-md h-12 text-base font-semibold shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5"
                       >
-                        <CheckCircle2 className="mr-2 h-5 w-5" />
-                        レッスンを完了する
+                        {nextLesson ? (
+                          <>
+                            次へ進む
+                            <ArrowRight className="ml-2 h-5 w-5" />
+                          </>
+                        ) : (
+                          <>
+                            <CheckCircle2 className="mr-2 h-5 w-5" />
+                            コースに戻る
+                          </>
+                        )}
                       </Button>
-                      {nextLesson && (
-                        <Button 
-                          onClick={() => setLocation(`/courses/${courseId}/lessons/${nextLesson.id}`)}
-                          variant="outline" 
-                          size="lg" 
-                          className="flex-1 h-12 text-base font-medium border-2 hover:bg-accent/50 transition-all duration-200 hover:-translate-y-0.5"
-                        >
-                          次のレッスンへ
-                          <ArrowRight className="ml-2 h-5 w-5" />
-                        </Button>
-                      )}
                     </div>
                   </div>
                 </>
