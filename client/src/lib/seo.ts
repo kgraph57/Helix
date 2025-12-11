@@ -158,3 +158,57 @@ export function addFAQStructuredData(faqs: Array<{ question: string; answer: str
     }))
   });
 }
+
+/**
+ * 記事ページ用の構造化データ
+ */
+export function addArticleStructuredData(data: {
+  title: string;
+  description: string;
+  author?: string;
+  datePublished?: string;
+  dateModified?: string;
+  image?: string;
+}): void {
+  addStructuredData({
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": data.title,
+    "description": data.description,
+    "author": {
+      "@type": "Person",
+      "name": data.author || "Medical Prompt Hub"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Medical Prompt Hub",
+      "logo": {
+        "@type": "ImageObject",
+        "url": DEFAULT_OG_IMAGE
+      }
+    },
+    "datePublished": data.datePublished || new Date().toISOString(),
+    "dateModified": data.dateModified || new Date().toISOString(),
+    "image": data.image || DEFAULT_OG_IMAGE,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `${BASE_URL}${data.path || ""}`
+    }
+  });
+}
+
+/**
+ * Breadcrumb用の構造化データ
+ */
+export function addBreadcrumbStructuredData(items: Array<{ name: string; url: string }>): void {
+  addStructuredData({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": items.map((item, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": item.name,
+      "item": item.url
+    }))
+  });
+}

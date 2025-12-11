@@ -243,7 +243,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </aside>
 
       {/* メインコンテンツ */}
-      <main className="flex-1 overflow-y-auto">
+      <main id="main-content" className="flex-1 overflow-y-auto" role="main" aria-label="メインコンテンツ">
         {/* モバイルヘッダー */}
         <header
           className={cn(

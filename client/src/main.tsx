@@ -4,6 +4,7 @@ import "./index.css";
 import { setupGlobalErrorHandlers } from "./lib/errorTracking";
 import { startPerformanceMonitoring } from "./lib/performance";
 import { initSentry } from "./lib/sentry";
+import { enhanceFocusStyles, addSkipLink } from "./lib/accessibility";
 
 // Sentryを初期化（非同期、エラーが発生しても続行）
 initSentry().catch((error) => {
@@ -15,6 +16,10 @@ setupGlobalErrorHandlers();
 
 // パフォーマンス監視を開始
 startPerformanceMonitoring();
+
+// アクセシビリティの改善
+enhanceFocusStyles();
+addSkipLink('main-content');
 
 // Google Analytics 4はCookie同意後に初期化される（CookieConsentBannerで処理）
 
