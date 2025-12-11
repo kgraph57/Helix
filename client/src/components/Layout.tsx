@@ -68,7 +68,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
           className={cn(
-            "w-10 h-10 flex items-center justify-center rounded-md transition-all duration-200",
+            "w-8 h-8 flex items-center justify-center rounded-md transition-all duration-200",
             active 
               ? "bg-primary/10 text-primary" 
               : "hover:bg-accent text-muted-foreground hover:text-foreground"
@@ -87,16 +87,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const NavContent = () => (
     <nav className="flex flex-col h-full bg-muted/30 border-r border-border/30" aria-label="メインナビゲーション">
       {/* ヘッダー: ロゴ */}
-      <div className="flex-shrink-0 flex items-center justify-center py-3 border-b border-border/30">
+      <div className="flex-shrink-0 flex items-center justify-center py-2 border-b border-border/30">
         <Link href="/" aria-label="ホームページに戻る">
-          <Activity className="w-6 h-6 text-primary" aria-hidden="true" />
+          <Activity className="w-5 h-5 text-primary" aria-hidden="true" />
         </Link>
       </div>
 
       {/* 上部ナビゲーション */}
-      <div className="flex-shrink-0 flex flex-col items-center gap-1 py-3 border-b border-border/30">
+      <div className="flex-shrink-0 flex flex-col items-center gap-0.5 py-2 border-b border-border/30">
         <NavIcon
-          icon={<Home className="w-5 h-5" />}
+          icon={<Home className="w-4 h-4" />}
           label="Home"
           active={location === "/"}
           onClick={() => {
@@ -105,7 +105,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           }}
         />
         <NavIcon
-          icon={<GraduationCap className="w-5 h-5" />}
+          icon={<GraduationCap className="w-4 h-4" />}
           label="Courses"
           active={location.startsWith("/courses")}
           onClick={() => {
@@ -115,7 +115,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         />
         <div className="relative">
           <NavIcon
-            icon={<MessageSquare className="w-5 h-5" />}
+            icon={<MessageSquare className="w-4 h-4" />}
             label="Prompts"
             active={location === "/" && !location.startsWith("/courses")}
             onMouseEnter={() => setShowPromptMenu(true)}
@@ -148,7 +148,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           )}
         </div>
         <NavIcon
-          icon={<Bookmark className="w-5 h-5" />}
+          icon={<Bookmark className="w-4 h-4" />}
           label="Favorites"
           active={location === "/favorites"}
           onClick={() => {
@@ -162,30 +162,30 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <div className="flex-1"></div>
 
       {/* 下部ナビゲーション */}
-      <div className="flex-shrink-0 flex flex-col items-center gap-1 py-3 border-t border-border/30">
+      <div className="flex-shrink-0 flex flex-col items-center gap-0.5 py-2 border-t border-border/30">
         <NavIcon
-          icon={<BookOpen className="w-5 h-5" />}
+          icon={<BookOpen className="w-4 h-4" />}
           label="Documentation"
           onClick={() => {
             window.open("https://docs.example.com", "_blank");
           }}
         />
         <NavIcon
-          icon={<HelpCircle className="w-5 h-5" />}
+          icon={<HelpCircle className="w-4 h-4" />}
           label="Help"
           onClick={() => {
             // ヘルプモーダルを開く
           }}
         />
         <NavIcon
-          icon={<Mail className="w-5 h-5" />}
+          icon={<Mail className="w-4 h-4" />}
           label="Contact"
           onClick={() => {
             window.location.href = "mailto:support@example.com";
           }}
         />
         <NavIcon
-          icon={<Settings className="w-5 h-5" />}
+          icon={<Settings className="w-4 h-4" />}
           label="Settings"
           onClick={() => {
             setLocation("/settings");
@@ -202,7 +202,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <KeyboardShortcutsHelp />
 
       {/* デスクトップサイドバー */}
-      <aside className="hidden lg:block w-16 flex-shrink-0">
+      <aside className="hidden lg:block w-14 flex-shrink-0">
         <NavContent />
       </aside>
 
@@ -214,7 +214,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             onClick={() => setIsMobileOpen(false)}
             aria-hidden="true"
           />
-          <aside className="fixed left-0 top-0 bottom-0 w-16 bg-background z-50 lg:hidden">
+          <aside className="fixed left-0 top-0 bottom-0 w-14 bg-background z-50 lg:hidden">
             <NavContent />
           </aside>
         </>
