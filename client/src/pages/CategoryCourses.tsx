@@ -37,6 +37,17 @@ const categoryDescriptions: Record<string, string> = {
   "専門": "高度なAI技術と専門的な応用を学びます。システム構築、組織的な導入、最新のアーキテクチャなど、エキスパート向けの内容です。",
 };
 
+// カテゴリー画像マッピング
+const categoryImages: Record<string, string> = {
+  "基礎理論": "/medicalprompthub/images/category-basics.png",
+  "ツール": "/medicalprompthub/images/category-tools.png",
+  "技術": "/medicalprompthub/images/category-technology.png",
+  "医療応用": "/medicalprompthub/images/category-medical.png",
+  "法律倫理": "/medicalprompthub/images/category-ethics.png",
+  "研究": "/medicalprompthub/images/category-basics.png",
+  "専門": "/medicalprompthub/images/category-technology.png",
+};
+
 export default function CategoryCourses() {
   const [match, params] = useRoute("/courses/category/:category");
   const [, setLocation] = useLocation();
@@ -126,16 +137,28 @@ export default function CategoryCourses() {
             <ArrowLeft className="mr-2 h-4 w-4" /> コース一覧に戻る
           </Button>
 
-          <div className="space-y-3">
-            <h1 className="text-3xl font-bold tracking-tight">
-              {categoryLabels[category]}
-            </h1>
-            <p className="text-base text-neutral-600 max-w-3xl leading-relaxed">
-              {categoryDescriptions[category]}
-            </p>
-            <div className="flex items-center gap-2 text-sm text-neutral-500">
-              <BookOpen className="w-4 h-4" />
-              <span>{categoryCourses.length} コース</span>
+          {/* カテゴリーヘッダーカード */}
+          <div className="bg-gradient-to-br from-neutral-50 to-white rounded-2xl p-8 border border-neutral-200 mb-8">
+            <div className="flex flex-col md:flex-row items-center gap-8">
+              <div className="flex-shrink-0">
+                <img 
+                  src={categoryImages[category]} 
+                  alt={categoryLabels[category]}
+                  className="w-48 h-32 object-contain"
+                />
+              </div>
+              <div className="flex-1 space-y-3 text-center md:text-left">
+                <h1 className="text-3xl font-bold tracking-tight">
+                  {categoryLabels[category]}
+                </h1>
+                <p className="text-base text-neutral-600 leading-relaxed">
+                  {categoryDescriptions[category]}
+                </p>
+                <div className="flex items-center gap-2 text-sm text-neutral-500 justify-center md:justify-start">
+                  <BookOpen className="w-4 h-4" />
+                  <span>{categoryCourses.length} コース</span>
+                </div>
+              </div>
             </div>
           </div>
         </motion.section>
