@@ -141,7 +141,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                     <button
                       key={category.id}
                       onClick={() => {
-                        setLocation(`/?category=${category.id}`);
+                        setLocation(`/category/${category.id}`);
                         setShowPromptMenu(false);
                         setIsMobileOpen(false);
                       }}
