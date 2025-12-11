@@ -5,7 +5,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import rehypeSanitize from 'rehype-sanitize';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Circle, CheckCircle2, Clock, Menu, X } from 'lucide-react';
+import { ArrowLeft, Circle, CheckCircle2, Clock, Menu, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { paperReadingGuideData } from '@/lib/paper-reading-guide-data';
 import { CodeBlock } from '@/components/CodeBlock';
 
@@ -83,6 +83,28 @@ export default function PaperReadingGuide() {
   const completedCount = completedSteps.size;
   const totalSteps = paperReadingGuideData.phases.reduce((sum, phase) => sum + phase.steps.length, 0);
   const progressPercentage = (completedCount / totalSteps) * 100;
+
+  // Get all steps in order
+  const allSteps = ['intro', ...paperReadingGuideData.phases.flatMap(phase => phase.steps.map(step => step.id))];
+  const currentIndex = allSteps.indexOf(currentStepId);
+  const hasPrevious = currentIndex > 0;
+  const hasNext = currentIndex < allSteps.length - 1;
+
+  const goToPrevious = () => {
+    if (hasPrevious) {
+      const prevStepId = allSteps[currentIndex - 1];
+      setCurrentStepId(prevStepId);
+      navigate(`/guides/paper-reading-efficiency/${prevStepId}`);
+    }
+  };
+
+  const goToNext = () => {
+    if (hasNext) {
+      const nextStepId = allSteps[currentIndex + 1];
+      setCurrentStepId(nextStepId);
+      navigate(`/guides/paper-reading-efficiency/${nextStepId}`);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -260,9 +282,21 @@ export default function PaperReadingGuide() {
               </ReactMarkdown>
             </article>
 
-            {/* Completion Button */}
-            {currentStepId !== 'intro' && (
-              <div className="mt-8 flex justify-end">
+            {/* Navigation and Completion Buttons */}
+            <div className="mt-8 flex items-center justify-between gap-4">
+              {/* Previous Button */}
+              <Button
+                onClick={goToPrevious}
+                disabled={!hasPrevious}
+                variant="outline"
+                size="lg"
+              >
+                <ChevronLeft className="h-5 w-5 mr-2" />
+                前へ
+              </Button>
+
+              {/* Completion Button - Only for steps, not intro */}
+              {currentStepId !== 'intro' && (
                 <Button
                   onClick={() => toggleComplete(currentStepId)}
                   variant={completedSteps.has(currentStepId) ? 'outline' : 'default'}
@@ -280,8 +314,19 @@ export default function PaperReadingGuide() {
                     </>
                   )}
                 </Button>
-              </div>
-            )}
+              )}
+
+              {/* Next Button */}
+              <Button
+                onClick={goToNext}
+                disabled={!hasNext}
+                variant="default"
+                size="lg"
+              >
+                次へ
+                <ChevronRight className="h-5 w-5 ml-2" />
+              </Button>
+            </div>
           </main>
         </div>
       </div>
