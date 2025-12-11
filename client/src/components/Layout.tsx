@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { Activity, BookOpen, Bookmark, GraduationCap, HelpCircle, Home, Mail, MessageSquare, Settings } from "lucide-react";
+import { Activity, BookOpen, Bookmark, GraduationCap, HelpCircle, Home, Mail, MessageSquare, Settings, Lightbulb } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "./ui/button";
@@ -88,9 +88,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
     <nav className="flex flex-col h-full bg-muted/30 border-r border-border/30" aria-label="メインナビゲーション">
       {/* ヘッダー: ロゴ */}
       <div className="flex-shrink-0 flex items-center justify-center py-2 border-b border-border/30">
-        <Link href="/" aria-label="ホームページに戻る">
+        <button 
+          onClick={() => {
+            if (window.innerWidth < 1024) {
+              setIsMobileOpen(!isMobileOpen);
+            } else {
+              setLocation("/");
+            }
+          }}
+          aria-label="ホームページに戻る"
+          className="focus:outline-none focus:ring-2 focus:ring-primary rounded-md"
+        >
           <Activity className="w-5 h-5 text-primary" aria-hidden="true" />
-        </Link>
+        </button>
       </div>
 
       {/* 上部ナビゲーション */}
@@ -147,6 +157,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
             </div>
           )}
         </div>
+        <NavIcon
+          icon={<Lightbulb className="w-4 h-4" />}
+          label="Tips"
+          active={location.startsWith("/tips")}
+          onClick={() => {
+            setLocation("/tips");
+            setIsMobileOpen(false);
+          }}
+        />
         <NavIcon
           icon={<Bookmark className="w-4 h-4" />}
           label="Favorites"
