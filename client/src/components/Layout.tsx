@@ -54,22 +54,22 @@ export function Layout({ children }: { children: React.ReactNode }) {
       {/* Header with toggle button */}
       <div className={cn(
         "flex-shrink-0 flex items-center border-b border-border/50 transition-all duration-300",
-        collapsed ? "px-1 py-0.5 lg:py-1 justify-center" : "px-1.5 py-0.5 lg:py-1 justify-between"
+        collapsed ? "px-1 py-0.5 justify-center" : "px-1.5 py-0.5 justify-between"
       )}>
         {!collapsed && (
           <div>
             <Link href="/" aria-label="ホームページに戻る">
-              <h1 className="text-xs font-bold tracking-tight text-primary flex items-center gap-0.5">
-                <Activity className="w-3 h-3" aria-hidden="true" />
+              <h1 className="text-[11px] font-bold tracking-tight text-primary flex items-center gap-0.5">
+                <Activity className="w-2.5 h-2.5" aria-hidden="true" />
                 Medical Prompt Hub
               </h1>
             </Link>
-            <p className="text-[8px] text-muted-foreground mt-0 leading-none">For Healthcare Professionals</p>
+            <p className="text-[7px] text-muted-foreground mt-0 leading-none">For Healthcare Professionals</p>
           </div>
         )}
         {collapsed && (
           <Link href="/" aria-label="ホームページに戻る">
-            <Activity className="w-3 h-3 text-primary" aria-hidden="true" />
+            <Activity className="w-2.5 h-2.5 text-primary" aria-hidden="true" />
           </Link>
         )}
         <button
@@ -288,12 +288,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <div className="px-2 py-1.5 flex-shrink-0 flex items-center justify-between border-b border-border/50">
                 <div>
                   <Link href="/" aria-label="ホームページに戻る">
-                    <h1 className="text-xs font-bold tracking-tight text-primary flex items-center gap-0.5">
-                      <Activity className="w-3 h-3" aria-hidden="true" />
+                    <h1 className="text-[11px] font-bold tracking-tight text-primary flex items-center gap-0.5">
+                      <Activity className="w-2.5 h-2.5" aria-hidden="true" />
                       Medical Prompt Hub
                     </h1>
                   </Link>
-                  <p className="text-[8px] text-muted-foreground mt-0 leading-none">For Healthcare Professionals</p>
+                  <p className="text-[7px] text-muted-foreground mt-0 leading-none">For Healthcare Professionals</p>
                 </div>
                 <button
                   onClick={() => setIsMobileOpen(false)}
