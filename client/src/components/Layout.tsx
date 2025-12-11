@@ -120,7 +120,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
         />
         <div 
           className="relative"
-          onMouseLeave={() => setShowPromptMenu(false)}
         >
           <NavIcon
             icon={<MessageSquare className="w-4 h-4" />}
@@ -129,7 +128,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
             onClick={() => {
               setShowPromptMenu(!showPromptMenu);
             }}
-            onMouseEnter={() => setShowPromptMenu(true)}
           />
           {showPromptMenu && (
             <div 
