@@ -701,14 +701,9 @@ export default function LessonDetail() {
                   <ArrowLeft className="mr-1.5 h-3.5 w-3.5" /> コースに戻る
                 </Button>
                 
-                <div className="flex items-center gap-3">
-                  <span className="text-xs text-muted-foreground font-medium">
-                    {Math.round(scrollProgress)}%
-                  </span>
 
-                </div>
               </div>
-              <Progress value={scrollProgress} className="h-0.5" />
+
             </div>
           </header>
 
