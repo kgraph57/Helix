@@ -18,9 +18,7 @@ import { PracticeTips } from "@/components/PracticeTips";
 import { lesson1Quizzes, lesson2Quizzes, lesson3Quizzes, lesson4Quizzes, lesson5Quizzes, lesson6Quizzes, lesson7Quizzes, lesson8Quizzes } from "@/data/courses/ai-basics/quizzes";
 import { lesson1Tips } from "@/data/courses/ai-basics/tips";
 import { useGamification } from "@/hooks/useGamification";
-import { updateSEO, addStructuredData } from "@/lib/seo";
-
-const BASE_URL = "https://kgraph57.github.io/medicalprompthub";
+import { updateSEO, addStructuredData, BASE_URL } from "@/lib/seo";
 
 // レッスンコンテンツ（Markdownファイルから読み込み）
 // ai-basicsコース

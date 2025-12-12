@@ -5,9 +5,10 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ArrowRight, BookOpen, FileText, Microscope, ClipboardList, Mail, Image, Presentation, Search, Stethoscope, Pill, X, Lock } from "lucide-react";
 import { Link } from "wouter";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { updateSEO } from "@/lib/seo";
 
 type SortOption = "title-asc" | "title-desc" | "readTime-asc" | "readTime-desc";
 
@@ -23,6 +24,16 @@ export default function Guides() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [sortOption, setSortOption] = useState<SortOption>("title-asc");
+
+  // SEO設定
+  useEffect(() => {
+    updateSEO({
+      title: "ワークフローガイド | Medical Prompt Hub",
+      description: "症例報告、論文執筆、統計解析など、医療従事者が直面する複雑なタスクを段階的にサポートするワークフローガイド。AIを活用して効率的に作業を進める方法を学べます。",
+      path: "/guides",
+      keywords: "ワークフローガイド,症例報告,論文執筆,統計解析,医療研究,AI活用"
+    });
+  }, []);
 
   const guides = [
     {

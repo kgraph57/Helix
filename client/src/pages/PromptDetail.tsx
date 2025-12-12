@@ -21,6 +21,7 @@ import { usePromptStats } from "@/hooks/usePromptStats";
 import { Link, useRoute, useLocation } from "wouter";
 import { trackPromptCopy, trackPromptView } from "@/lib/analytics";
 import { useSwipeGesture } from "@/hooks/useSwipeGesture";
+import { updateSEO, addStructuredData, BASE_URL } from "@/lib/seo";
 import type { Prompt } from "@/lib/prompts";
 
 export default function PromptDetail() {
@@ -73,9 +74,44 @@ export default function PromptDetail() {
 
   const isFavorite = (id: string) => favorites.includes(id);
 
-  // プロンプト閲覧を追跡
+  // SEO設定とプロンプト閲覧を追跡
   useEffect(() => {
     if (prompt) {
+      // SEO最適化
+      updateSEO({
+        title: `${prompt.title} | Medical Prompt Hub`,
+        description: prompt.description || `${prompt.title}のプロンプト。医療従事者がAIを効果的に活用するための実践的なプロンプトです。`,
+        path: `/prompts/${prompt.id}`,
+        keywords: `${prompt.title},${prompt.category},医療,AI,プロンプト,${prompt.tags?.join(',') || ''}`,
+        ogImage: prompt.image ? `${BASE_URL}${prompt.image}` : undefined
+      });
+
+      // 構造化データ（Article）を追加
+      addStructuredData({
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": prompt.title,
+        "description": prompt.description || `${prompt.title}のプロンプト`,
+        "author": {
+          "@type": "Organization",
+          "name": "Medical Prompt Hub"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Medical Prompt Hub",
+          "logo": {
+            "@type": "ImageObject",
+            "url": `${BASE_URL}/og-image-new.png`
+          }
+        },
+        "datePublished": prompt.createdAt || new Date().toISOString(),
+        "dateModified": prompt.updatedAt || new Date().toISOString(),
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": `${BASE_URL}/prompts/${prompt.id}`
+        }
+      });
+
       trackPromptView(prompt.id, prompt.title);
     }
   }, [prompt]);

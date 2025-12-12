@@ -8,6 +8,7 @@ import { ArrowLeft, ArrowRight, Copy } from "lucide-react";
 import { Link, useRoute } from "wouter";
 import { useState, useEffect } from "react";
 import type { Prompt } from "@/lib/prompts";
+import { updateSEO } from "@/lib/seo";
 
 export default function Category() {
   const [match, params] = useRoute("/category/:id");
@@ -22,6 +23,18 @@ export default function Category() {
       setIsLoading(false);
     });
   }, []);
+
+  // SEO設定
+  useEffect(() => {
+    if (category) {
+      updateSEO({
+        title: `${category.name} | Medical Prompt Hub`,
+        description: `${category.name}カテゴリのプロンプト一覧。医療従事者がAIを効果的に活用するための実践的なプロンプトを提供しています。`,
+        path: `/category/${categoryId}`,
+        keywords: `${category.name},医療,AI,プロンプト,${category.description || ''}`
+      });
+    }
+  }, [category, categoryId]);
   
   const categoryPrompts = prompts.filter((p) => p.category === categoryId);
 

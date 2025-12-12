@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
+import { updateSEO } from "@/lib/seo";
 
 const categoryLabels: Record<PromptTip['category'], string> = {
   basic: '基本テクニック',
@@ -29,6 +30,16 @@ export default function Tips() {
   const [selectedCategory, setSelectedCategory] = useState<PromptTip['category'] | null>(null);
   const [tips, setTips] = useState<PromptTip[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  // SEO設定
+  useEffect(() => {
+    updateSEO({
+      title: "AI活用Tips | Medical Prompt Hub",
+      description: "プロンプトエンジニアリングの基礎から応用まで、医療従事者向けに解説したAI活用Tips。初心者から上級者まで、レベルに応じたテクニックを学べます。",
+      path: "/tips",
+      keywords: "AI活用Tips,プロンプトエンジニアリング,医療AI,テクニック,ベストプラクティス"
+    });
+  }, []);
 
   useEffect(() => {
     // requestIdleCallbackを使用して、ブラウザがアイドル状態の時にデータを読み込む

@@ -14,6 +14,7 @@ import { useRoute, useLocation } from "wouter";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { updateSEO, addStructuredData, BASE_URL } from "@/lib/seo";
 // コースデータ（Courses.tsxから共有）
 const courses = [
   {
@@ -397,6 +398,35 @@ export default function CourseDetail() {
     }
     return { completedLessons: [] };
   });
+
+  // SEO設定
+  useEffect(() => {
+    if (course) {
+      updateSEO({
+        title: `${course.title} | Medical Prompt Hub`,
+        description: course.description || `${course.title}の学習コース。医療従事者がAIを効果的に活用するための実践的なコースです。`,
+        path: `/courses/${courseId}`,
+        keywords: `${course.title},AI学習,コース,医療従事者,教育,レッスン,${course.category}`
+      });
+
+      // 構造化データ（Course）を追加
+      addStructuredData({
+        "@context": "https://schema.org",
+        "@type": "Course",
+        "name": course.title,
+        "description": course.description || `${course.title}の学習コース`,
+        "provider": {
+          "@type": "Organization",
+          "name": "Medical Prompt Hub",
+          "url": BASE_URL
+        },
+        "courseCode": course.id,
+        "educationalLevel": `レベル${course.level}`,
+        "numberOfCredits": course.xpReward,
+        "url": `${BASE_URL}/courses/${courseId}`
+      });
+    }
+  }, [course, courseId]);
 
   useEffect(() => {
     // 進捗を定期的に更新
