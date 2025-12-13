@@ -6,6 +6,7 @@
 import { Layout } from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { UNIFIED_PROSE_CLASSES, UNIFIED_MARKDOWN_COMPONENTS } from "@/lib/markdownStyles.tsx";
 import { Progress } from "@/components/ui/progress";
 import { ArrowLeft, CheckCircle2, ArrowRight, Clock, FileText } from "lucide-react";
 import { useRoute, useLocation } from "wouter";
@@ -845,7 +846,7 @@ export default function LessonDetail() {
                   )}
                   
                   {/* コンテンツ */}
-                  <div className="prose prose-slate dark:prose-invert max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-h1:text-3xl prose-h1:mb-6 prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h2:pb-2 prose-h2:border-b prose-h2:border-slate-200 dark:prose-h2:border-slate-700 prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3 prose-h4:text-lg prose-h4:mt-6 prose-h4:mb-2 prose-p:text-base prose-p:leading-relaxed prose-p:my-4 prose-li:my-2 prose-li:leading-relaxed prose-ul:my-4 prose-ol:my-4 prose-strong:font-semibold prose-strong:text-slate-900 dark:prose-strong:text-slate-100 prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-slate-50 dark:prose-blockquote:bg-slate-800/50 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:my-6 prose-blockquote:not-italic">
+                  <div className={UNIFIED_PROSE_CLASSES}>
                     {renderContent()}
                   </div>
                   

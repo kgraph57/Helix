@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Layout } from "@/components/Layout";
 import { updateSEO } from "@/lib/seo";
+import { UNIFIED_PROSE_CLASSES, UNIFIED_MARKDOWN_COMPONENTS } from "@/lib/markdownStyles.tsx";
 
 // ガイドのメタデータ定義
 const guideMetadata: Record<string, {
@@ -96,6 +97,329 @@ const guideMetadata: Record<string, {
       { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
       { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
       { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "polypharmacy-support": {
+    title: "ポリファーマシー対策支援",
+    description: "多剤併用の適正化を支援",
+    readTime: "40 min",
+    category: "臨床",
+    basePath: "/assets/guides/polypharmacy-support",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "medical-news-commentary": {
+    title: "医療ニュース・トピック解説",
+    description: "最新の医療ニュースをわかりやすく解説",
+    readTime: "25 min",
+    category: "研究",
+    basePath: "/assets/guides/medical-news-commentary",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "medical-safety-manual": {
+    title: "医療安全マニュアル作成",
+    description: "実践的な医療安全マニュアルの作成",
+    readTime: "45 min",
+    category: "臨床",
+    basePath: "/assets/guides/medical-safety-manual",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "medical-statistics-consultation": {
+    title: "医療統計・データ分析相談",
+    description: "AIを活用した医療統計の理解と分析",
+    readTime: "45 min",
+    category: "研究",
+    basePath: "/assets/guides/medical-statistics-consultation",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "image-diagnosis-report-reading": {
+    title: "画像診断レポート読解支援",
+    description: "画像診断レポートの理解を深める",
+    readTime: "30 min",
+    category: "臨床",
+    basePath: "/assets/guides/image-diagnosis-report-reading",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "conference-presentation-slides": {
+    title: "学会発表スライド作成支援",
+    description: "インパクトのある学会発表スライドの作成",
+    readTime: "45 min",
+    category: "発表",
+    basePath: "/assets/guides/conference-presentation-slides",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "clinical-trial-search": {
+    title: "臨床試験検索支援",
+    description: "効率的な臨床試験情報の検索",
+    readTime: "30 min",
+    category: "研究",
+    basePath: "/assets/guides/clinical-trial-search",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "consultation-email": {
+    title: "コンサルテーションメール作成",
+    description: "専門医へのコンサルテーションメール作成",
+    readTime: "25 min",
+    category: "臨床",
+    basePath: "/assets/guides/consultation-email",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "ethics-review-application": {
+    title: "倫理審査申請書作成",
+    description: "研究倫理審査申請書の作成支援",
+    readTime: "45 min",
+    category: "研究",
+    basePath: "/assets/guides/ethics-review-application",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "guideline-comparison": {
+    title: "ガイドライン比較分析",
+    description: "複数のガイドラインを比較分析",
+    readTime: "40 min",
+    category: "研究",
+    basePath: "/assets/guides/guideline-comparison",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "incident-report-creation": {
+    title: "インシデントレポート作成",
+    description: "医療安全のためのインシデントレポート作成",
+    readTime: "30 min",
+    category: "臨床",
+    basePath: "/assets/guides/incident-report-creation",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "infection-control-manual": {
+    title: "感染対策マニュアル作成",
+    description: "実践的な感染対策マニュアルの作成",
+    readTime: "45 min",
+    category: "臨床",
+    basePath: "/assets/guides/infection-control-manual",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "multilingual-medical-consultation": {
+    title: "多言語医療相談支援",
+    description: "外国人患者への医療相談支援",
+    readTime: "35 min",
+    category: "臨床",
+    basePath: "/assets/guides/multilingual-medical-consultation",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "new-drug-information": {
+    title: "新薬情報整理",
+    description: "新薬の情報を効率的に整理",
+    readTime: "30 min",
+    category: "研究",
+    basePath: "/assets/guides/new-drug-information",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "palliative-care-planning": {
+    title: "緩和ケア計画立案",
+    description: "患者中心の緩和ケア計画の立案",
+    readTime: "40 min",
+    category: "臨床",
+    basePath: "/assets/guides/palliative-care-planning",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "patient-education-materials": {
+    title: "患者教育資料作成",
+    description: "わかりやすい患者教育資料の作成",
+    readTime: "35 min",
+    category: "臨床",
+    basePath: "/assets/guides/patient-education-materials",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "post-discharge-follow-up": {
+    title: "退院後フォローアップ計画",
+    description: "効果的な退院後フォローアップ計画の作成",
+    readTime: "30 min",
+    category: "臨床",
+    basePath: "/assets/guides/post-discharge-follow-up",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "rare-disease-information": {
+    title: "希少疾患情報収集",
+    description: "希少疾患の情報を効率的に収集",
+    readTime: "35 min",
+    category: "研究",
+    basePath: "/assets/guides/rare-disease-information",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "research-protocol": {
+    title: "研究プロトコル作成",
+    description: "研究プロトコルの作成支援",
+    readTime: "45 min",
+    category: "研究",
+    basePath: "/assets/guides/research-protocol",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
       { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
       { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
     ]
@@ -253,49 +577,10 @@ export default function MarkdownGuide() {
                     </Button>
                   </div>
 ) : (
-                  <div className="prose prose-slate dark:prose-invert max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-h1:text-3xl prose-h1:mb-6 prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h2:pb-2 prose-h2:border-b prose-h2:border-slate-200 dark:prose-h2:border-slate-700 prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3 prose-h4:text-lg prose-h4:mt-6 prose-h4:mb-2 prose-p:text-base prose-p:leading-relaxed prose-p:my-4 prose-li:my-2 prose-li:leading-relaxed prose-ul:my-4 prose-ol:my-4 prose-strong:font-semibold prose-strong:text-slate-900 dark:prose-strong:text-slate-100 prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-slate-50 dark:prose-blockquote:bg-slate-800/50 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:my-6 prose-blockquote:not-italic prose-table:border-collapse prose-table:w-full prose-th:border prose-th:border-slate-300 prose-th:bg-slate-50 prose-th:p-3 prose-th:text-left prose-td:border prose-td:border-slate-300 prose-td:p-3 dark:prose-th:border-slate-700 dark:prose-th:bg-slate-800 dark:prose-td:border-slate-700 break-words overflow-wrap-anywhere">
+                  <div className={UNIFIED_PROSE_CLASSES}>
                     <ReactMarkdown 
                       remarkPlugins={[remarkGfm]}
-                      components={{
-                        code: ({node, inline, ...props}) => (
-                          inline ? 
-                            <code className="px-2 py-1 rounded-md bg-primary/10 text-primary font-mono text-sm" {...props} /> :
-                            <div className="overflow-x-auto my-6 rounded-lg border border-slate-200 dark:border-slate-700">
-                              <code className="block p-5 bg-slate-50 dark:bg-slate-900 text-sm font-mono leading-relaxed" {...props} />
-                            </div>
-                        ),
-                        pre: ({node, ...props}) => (
-                          <div className="overflow-x-auto my-6 rounded-lg border border-slate-200 dark:border-slate-700">
-                            <pre className="p-5 bg-slate-50 dark:bg-slate-900 leading-relaxed" {...props} />
-                          </div>
-                        ),
-                        ul: ({node, ...props}) => (
-                          <ul className="space-y-2 my-6" {...props} />
-                        ),
-                        ol: ({node, ...props}) => (
-                          <ol className="space-y-2 my-6" {...props} />
-                        ),
-                        li: ({node, ...props}) => (
-                          <li className="leading-relaxed" {...props} />
-                        ),
-                        table: ({node, ...props}) => (
-                          <div className="overflow-x-auto my-6">
-                            <table className="min-w-full divide-y divide-slate-300 dark:divide-slate-700 border border-slate-300 dark:border-slate-700" {...props} />
-                          </div>
-                        ),
-                        thead: ({node, ...props}) => (
-                          <thead className="bg-slate-50 dark:bg-slate-800" {...props} />
-                        ),
-                        th: ({node, ...props}) => (
-                          <th className="px-4 py-3 text-left text-sm font-semibold text-slate-900 dark:text-slate-100 border-b border-slate-300 dark:border-slate-700" {...props} />
-                        ),
-                        td: ({node, ...props}) => (
-                          <td className="px-4 py-3 text-sm text-slate-700 dark:text-slate-300 border-b border-slate-200 dark:border-slate-700" {...props} />
-                        ),
-                        tr: ({node, ...props}) => (
-                          <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50" {...props} />
-                        )
-                      }}
+                      components={UNIFIED_MARKDOWN_COMPONENTS}
                     >
                       {content}
                     </ReactMarkdown>
