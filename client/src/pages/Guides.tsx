@@ -16,7 +16,8 @@ type SortOption = "title-asc" | "title-desc" | "readTime-asc" | "readTime-desc";
 const IMPLEMENTED_GUIDES = [
   "case-report-complete",
   "paper-reading-efficiency",
-  "english-proofreading-guide"
+  "english-proofreading-guide",
+  "marw-complete"
 ];
 
 // Updated: 2025-12-07
@@ -36,6 +37,15 @@ export default function Guides() {
   }, []);
 
   const guides = [
+    {
+      id: "marw-complete",
+      title: "【最新版】AI論文執筆ワークフロー:MARW完全ガイド",
+      description: "世界標準に準拠したAI駆動型論文執筆の7段階ワークフロー。ハーバード大学、JAMA、ICMJEのガイドラインに基づき、24個の実践的プロンプト例を提供。研究のアイデア創出から論文出版まで完全サポート。",
+      category: "Research",
+      icon: <FileText className="h-6 w-6 text-indigo-600" />,
+      readTime: "45 min read",
+      tags: ["AI Paper Writing", "Research Workflow", "MARW", "AI Tools", "Academic Writing"]
+    },
     {
       id: "case-report-complete",
       title: "【完全版】症例報告執筆ガイド:構想から投稿まで",
