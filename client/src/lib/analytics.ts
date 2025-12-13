@@ -1,6 +1,6 @@
 /**
  * Google Analytics 4 (GA4) の実装
- * 環境変数 VITE_GA4_MEASUREMENT_ID が設定されている場合のみ有効
+ * 環境変数 NEXT_PUBLIC_GA4_MEASUREMENT_ID が設定されている場合のみ有効
  */
 
 declare global {
@@ -14,13 +14,19 @@ declare global {
   }
 }
 
-const GA4_MEASUREMENT_ID = import.meta.env.VITE_GA4_MEASUREMENT_ID;
+function getGA4MeasurementId(): string | undefined {
+  return import.meta.env.VITE_GA4_MEASUREMENT_ID;
+}
 
 /**
  * Google Analytics 4を初期化
  * Cookie同意後に呼び出す
  */
 export function initGA4(): void {
+  if (typeof window === 'undefined') return;
+  
+  const GA4_MEASUREMENT_ID = getGA4MeasurementId();
+  
   // MEASUREMENT_IDが設定されている場合のみ初期化
   if (!GA4_MEASUREMENT_ID) {
     return;
@@ -58,13 +64,16 @@ export function initGA4(): void {
  * ページビューを送信
  */
 export function trackPageView(path: string, title?: string): void {
+  if (typeof window === 'undefined') return;
+  
+  const GA4_MEASUREMENT_ID = getGA4MeasurementId();
   if (!GA4_MEASUREMENT_ID || !window.gtag || import.meta.env.DEV) {
     return;
   }
 
   window.gtag("config", GA4_MEASUREMENT_ID, {
     page_path: path,
-    page_title: title || document.title,
+    page_title: title || (typeof document !== 'undefined' ? document.title : ''),
   });
 }
 
@@ -75,6 +84,9 @@ export function trackEvent(
   eventName: string,
   eventParams?: Record<string, unknown>
 ): void {
+  if (typeof window === 'undefined') return;
+  
+  const GA4_MEASUREMENT_ID = getGA4MeasurementId();
   if (!GA4_MEASUREMENT_ID || !window.gtag || import.meta.env.DEV) {
     return;
   }

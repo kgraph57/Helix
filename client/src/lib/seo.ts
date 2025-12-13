@@ -4,10 +4,17 @@
  */
 
 // 環境変数からBASE_URLを取得、フォールバックはGitHub PagesのURL
-export const BASE_URL = import.meta.env.VITE_BASE_URL || 
-  (import.meta.env.VITE_BASE_PATH 
-    ? `https://kgraph57.github.io${import.meta.env.VITE_BASE_PATH.replace(/\/$/, '')}`
-    : "https://kgraph57.github.io/medicalprompthub");
+function getBaseUrl(): string {
+  const baseUrl = import.meta.env.VITE_BASE_URL;
+  const basePath = import.meta.env.VITE_BASE_PATH;
+  if (baseUrl) return baseUrl;
+  if (basePath) {
+    return `https://kgraph57.github.io${basePath.replace(/\/$/, '')}`;
+  }
+  return "https://kgraph57.github.io/medicalprompthub";
+}
+
+export const BASE_URL = getBaseUrl();
 export const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image-new.png`;
 
 interface SEOData {

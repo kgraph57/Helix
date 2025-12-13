@@ -40,12 +40,16 @@ async function loadSentry() {
   }
 }
 
-const SENTRY_DSN = import.meta.env.VITE_SENTRY_DSN;
+function getSentryDsn(): string | undefined {
+  return import.meta.env.VITE_SENTRY_DSN;
+}
 
 /**
  * Sentryを初期化
  */
 export async function initSentry(): Promise<void> {
+  const SENTRY_DSN = getSentryDsn();
+  
   // DSNが設定されていない場合は初期化しない
   if (!SENTRY_DSN) {
     return;

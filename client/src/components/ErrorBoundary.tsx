@@ -6,7 +6,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/
 import { useLocation, Link } from "wouter";
 import { errorTracker } from "@/lib/errorTracking";
 import { captureError as sentryCaptureError } from "@/lib/sentry";
-import { trackEvent } from "@/lib/analytics";
 
 interface Props {
   children: ReactNode;
@@ -47,12 +46,22 @@ class ErrorBoundary extends Component<Props, State> {
       type: "react_error_boundary",
     });
 
-    // アナリティクスにエラーイベントを送信
-    trackEvent("error_boundary_triggered", {
-      error_name: error.name,
-      error_message: error.message,
-      component_stack: errorInfo.componentStack?.substring(0, 200),
-    });
+    // アナリティクスにエラーイベントを送信（クライアント側でのみ実行、動的インポート）
+    if (typeof window !== 'undefined') {
+      try {
+        import("@/lib/analytics").then(({ trackEvent }) => {
+          trackEvent("error_boundary_triggered", {
+            error_name: error.name,
+            error_message: error.message,
+            component_stack: errorInfo.componentStack?.substring(0, 200),
+          });
+        }).catch(() => {
+          // アナリティクスのエラーは無視
+        });
+      } catch (e) {
+        // アナリティクスのエラーは無視
+      }
+    }
   }
 
   handleReset = () => {
@@ -95,7 +104,7 @@ function ErrorFallback({
     onReset();
     // 少し遅延を入れてからホームに移動（エラー状態のクリアを確実にする）
     setTimeout(() => {
-      setLocation("/");
+      setLocation('/');
     }, 0);
   };
 
