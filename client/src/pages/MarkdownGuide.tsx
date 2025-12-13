@@ -99,6 +99,329 @@ const guideMetadata: Record<string, {
       { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
       { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
     ]
+  },
+  "polypharmacy-support": {
+    title: "ポリファーマシー対策支援",
+    description: "多剤併用の適正化を支援",
+    readTime: "40 min",
+    category: "臨床",
+    basePath: "/assets/guides/polypharmacy-support",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "medical-news-commentary": {
+    title: "医療ニュース・トピック解説",
+    description: "最新の医療ニュースをわかりやすく解説",
+    readTime: "25 min",
+    category: "研究",
+    basePath: "/assets/guides/medical-news-commentary",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "medical-safety-manual": {
+    title: "医療安全マニュアル作成",
+    description: "実践的な医療安全マニュアルの作成",
+    readTime: "45 min",
+    category: "臨床",
+    basePath: "/assets/guides/medical-safety-manual",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "medical-statistics-consultation": {
+    title: "医療統計・データ分析相談",
+    description: "AIを活用した医療統計の理解と分析",
+    readTime: "45 min",
+    category: "研究",
+    basePath: "/assets/guides/medical-statistics-consultation",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "image-diagnosis-report-reading": {
+    title: "画像診断レポート読解支援",
+    description: "画像診断レポートの理解を深める",
+    readTime: "30 min",
+    category: "臨床",
+    basePath: "/assets/guides/image-diagnosis-report-reading",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "conference-presentation-slides": {
+    title: "学会発表スライド作成支援",
+    description: "インパクトのある学会発表スライドの作成",
+    readTime: "45 min",
+    category: "発表",
+    basePath: "/assets/guides/conference-presentation-slides",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "clinical-trial-search": {
+    title: "臨床試験検索支援",
+    description: "効率的な臨床試験情報の検索",
+    readTime: "30 min",
+    category: "研究",
+    basePath: "/assets/guides/clinical-trial-search",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "consultation-email": {
+    title: "コンサルテーションメール作成",
+    description: "専門医へのコンサルテーションメール作成",
+    readTime: "25 min",
+    category: "臨床",
+    basePath: "/assets/guides/consultation-email",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "ethics-review-application": {
+    title: "倫理審査申請書作成",
+    description: "研究倫理審査申請書の作成支援",
+    readTime: "45 min",
+    category: "研究",
+    basePath: "/assets/guides/ethics-review-application",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "guideline-comparison": {
+    title: "ガイドライン比較分析",
+    description: "複数のガイドラインを比較分析",
+    readTime: "40 min",
+    category: "研究",
+    basePath: "/assets/guides/guideline-comparison",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "incident-report-creation": {
+    title: "インシデントレポート作成",
+    description: "医療安全のためのインシデントレポート作成",
+    readTime: "30 min",
+    category: "臨床",
+    basePath: "/assets/guides/incident-report-creation",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "infection-control-manual": {
+    title: "感染対策マニュアル作成",
+    description: "実践的な感染対策マニュアルの作成",
+    readTime: "45 min",
+    category: "臨床",
+    basePath: "/assets/guides/infection-control-manual",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "multilingual-medical-consultation": {
+    title: "多言語医療相談支援",
+    description: "外国人患者への医療相談支援",
+    readTime: "35 min",
+    category: "臨床",
+    basePath: "/assets/guides/multilingual-medical-consultation",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "new-drug-information": {
+    title: "新薬情報整理",
+    description: "新薬の情報を効率的に整理",
+    readTime: "30 min",
+    category: "研究",
+    basePath: "/assets/guides/new-drug-information",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "palliative-care-planning": {
+    title: "緩和ケア計画立案",
+    description: "患者中心の緩和ケア計画の立案",
+    readTime: "40 min",
+    category: "臨床",
+    basePath: "/assets/guides/palliative-care-planning",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "patient-education-materials": {
+    title: "患者教育資料作成",
+    description: "わかりやすい患者教育資料の作成",
+    readTime: "35 min",
+    category: "臨床",
+    basePath: "/assets/guides/patient-education-materials",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "post-discharge-follow-up": {
+    title: "退院後フォローアップ計画",
+    description: "効果的な退院後フォローアップ計画の作成",
+    readTime: "30 min",
+    category: "臨床",
+    basePath: "/assets/guides/post-discharge-follow-up",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "rare-disease-information": {
+    title: "希少疾患情報収集",
+    description: "希少疾患の情報を効率的に収集",
+    readTime: "35 min",
+    category: "研究",
+    basePath: "/assets/guides/rare-disease-information",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "research-protocol": {
+    title: "研究プロトコル作成",
+    description: "研究プロトコルの作成支援",
+    readTime: "45 min",
+    category: "研究",
+    basePath: "/assets/guides/research-protocol",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
   }
 };
 
