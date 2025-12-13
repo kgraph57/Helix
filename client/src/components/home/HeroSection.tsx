@@ -154,7 +154,7 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
           <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-white/75 backdrop-blur-md border border-neutral-200/60 rounded-full shadow-[0_1px_2px_rgba(0,0,0,0.02)]">
             <Sparkles className="w-3 h-3 text-primary-500" strokeWidth={2} />
             <span className="text-[10px] font-medium text-neutral-700 tracking-[-0.008em]" style={{ fontFamily: 'Inter, system-ui, sans-serif' }}>
-              2025年、医療AIの新時代
+              The New Era of Medical AI in 2025
             </span>
           </div>
         </motion.div>
@@ -168,7 +168,7 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
             className="text-[60px] md:text-[80px] lg:text-[100px] xl:text-[120px] font-black mb-5 md:mb-6 leading-[0.94] tracking-[-0.048em] text-neutral-900"
             style={{ fontFamily: 'Inter Display, Inter, system-ui, sans-serif' }}
           >
-            <span className="block">医療の未来を、</span>
+            <span className="block">Building the Future of</span>
             <motion.span 
               className="block mt-2 md:mt-3 bg-gradient-to-r from-primary-600 via-purple-600 to-pink-600 bg-clip-text text-transparent"
               initial={{ opacity: 0, scale: 0.98 }}
@@ -179,7 +179,7 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
                 ease: [0.16, 1, 0.3, 1] 
               }}
             >
-              共に創る
+              Healthcare, Together
             </motion.span>
           </h1>
           
@@ -188,7 +188,7 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
             variants={itemVariants}
             style={{ fontFamily: 'Inter, system-ui, sans-serif' }}
           >
-            100以上の実践プロンプトで、あなたの専門性を高める
+            Enhance your expertise with 100+ practical prompts
           </motion.p>
         </motion.div>
         
@@ -236,7 +236,7 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
                   <input
                     ref={searchInputRef}
                     type="text"
-                    placeholder="必要なプロンプトを検索（例：鑑別診断、症例報告、統計解析）"
+                    placeholder="Search for prompts (e.g., differential diagnosis, case report, statistical analysis)"
                     className="flex-1 h-full pr-9 md:pr-11 text-[21px] md:text-[24px] lg:text-[26px] bg-transparent border-0 focus:outline-none focus:ring-0 placeholder:text-neutral-400 text-neutral-900 font-semibold tracking-[-0.022em]"
                     value={searchQuery}
                     onChange={(e) => onSearchChange(e.target.value)}
@@ -261,9 +261,9 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
           variants={itemVariants}
         >
           {[
-            { value: "100+", label: "プロンプト", color: "text-primary-600" },
-            { value: "24/7", label: "サポート", color: "text-purple-600" },
-            { value: "AI", label: "パワード", color: "text-pink-600" },
+            { value: "100+", label: "Prompts", color: "text-primary-600" },
+            { value: "24/7", label: "Support", color: "text-purple-600" },
+            { value: "AI", label: "Powered", color: "text-pink-600" },
           ].map((stat, index) => (
             <motion.div
               key={stat.label}
@@ -301,7 +301,7 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
             whileTap={{ scale: 0.98 }}
             style={{ fontFamily: 'Inter, system-ui, sans-serif' }}
           >
-            はじめる
+            Get Started
             <motion.div
               animate={{ x: [0, 4, 0] }}
               transition={{ 
@@ -327,7 +327,7 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
             whileTap={{ scale: 0.98 }}
             style={{ fontFamily: 'Inter, system-ui, sans-serif' }}
           >
-            プロンプトを探す
+            Explore Prompts
           </motion.button>
         </motion.div>
       </motion.div>
