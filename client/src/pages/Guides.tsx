@@ -17,7 +17,32 @@ const IMPLEMENTED_GUIDES = [
   "case-report-complete",
   "paper-reading-efficiency",
   "english-proofreading-guide",
-  "marw-complete"
+  "marw-complete",
+  // 新規追加ガイド
+  "conference-presentation",
+  "differential-diagnosis",
+  "patient-explanation",
+  "literature-search",
+  "medical-documents",
+  "research-protocol",
+  "conference-presentation-slides",
+  "ethics-review-application",
+  "new-drug-information",
+  "rare-disease-information",
+  "guideline-comparison",
+  "multilingual-medical-consultation",
+  "medical-news-commentary",
+  "patient-education-materials",
+  "incident-report-creation",
+  "consultation-email",
+  "clinical-trial-search",
+  "medical-statistics-consultation",
+  "image-diagnosis-report-reading",
+  "post-discharge-follow-up",
+  "medical-safety-manual",
+  "infection-control-manual",
+  "polypharmacy-support",
+  "palliative-care-planning"
 ];
 
 // Updated: 2025-12-07
@@ -189,6 +214,223 @@ export default function Guides() {
       icon: <FileText className="h-6 w-6 text-violet-500" />,
       readTime: "10 min read",
       tags: ["Discharge Summary", "Continuity of Care", "Documentation"]
+    },
+    // 新規追加ガイド
+    {
+      id: "conference-presentation",
+      title: "カンファレンス発表資料作成支援",
+      description: "AIを活用した効果的なカンファレンス発表資料の作成",
+      category: "Presentation",
+      icon: <Presentation className="h-6 w-6 text-blue-500" />,
+      readTime: "40 min read",
+      tags: ["カンファレンス", "発表資料", "プレゼンテーション"]
+    },
+    {
+      id: "differential-diagnosis",
+      title: "鑑別診断リスト生成",
+      description: "AIによる包括的な鑑別診断リストの作成",
+      category: "Clinical",
+      icon: <Stethoscope className="h-6 w-6 text-red-500" />,
+      readTime: "30 min read",
+      tags: ["鑑別診断", "診断支援"]
+    },
+    {
+      id: "patient-explanation",
+      title: "患者説明シナリオ作成",
+      description: "わかりやすく、配慮の行き届いた患者説明の作成",
+      category: "Clinical",
+      icon: <FileText className="h-6 w-6 text-green-500" />,
+      readTime: "40 min read",
+      tags: ["患者説明", "インフォームド・コンセント"]
+    },
+    {
+      id: "literature-search",
+      title: "論文検索・読解サポート",
+      description: "AIを活用した効率的な文献検索と読解",
+      category: "Research",
+      icon: <Search className="h-6 w-6 text-purple-500" />,
+      readTime: "40 min read",
+      tags: ["文献検索", "論文読解", "エビデンス"]
+    },
+    {
+      id: "medical-documents",
+      title: "診断書・紹介状作成支援",
+      description: "AIで医療文書作成を効率化・標準化",
+      category: "Clinical",
+      icon: <FileText className="h-6 w-6 text-indigo-500" />,
+      readTime: "40 min read",
+      tags: ["診断書", "紹介状", "医療文書"]
+    },
+    {
+      id: "research-protocol",
+      title: "研究計画書作成支援",
+      description: "AIを活用した質の高い研究計画書の作成",
+      category: "Research",
+      icon: <FileText className="h-6 w-6 text-blue-600" />,
+      readTime: "50 min read",
+      tags: ["研究計画書", "研究デザイン"]
+    },
+    {
+      id: "conference-presentation-slides",
+      title: "学会発表スライド作成支援",
+      description: "インパクトのある学会発表スライドの作成",
+      category: "Presentation",
+      icon: <Presentation className="h-6 w-6 text-cyan-500" />,
+      readTime: "45 min read",
+      tags: ["学会発表", "スライド", "プレゼンテーション"]
+    },
+    {
+      id: "ethics-review-application",
+      title: "倫理審査申請書類作成支援",
+      description: "倫理審査申請書類の効率的な作成",
+      category: "Research",
+      icon: <FileText className="h-6 w-6 text-amber-500" />,
+      readTime: "45 min read",
+      tags: ["倫理審査", "研究倫理"]
+    },
+    {
+      id: "new-drug-information",
+      title: "新薬情報収集・要約",
+      description: "最新の新薬情報を効率的に収集・要約",
+      category: "Clinical",
+      icon: <Pill className="h-6 w-6 text-pink-500" />,
+      readTime: "35 min read",
+      tags: ["新薬", "薬剤情報"]
+    },
+    {
+      id: "rare-disease-information",
+      title: "希少疾患情報収集",
+      description: "希少疾患に関する最新情報の収集",
+      category: "Clinical",
+      icon: <Microscope className="h-6 w-6 text-teal-500" />,
+      readTime: "35 min read",
+      tags: ["希少疾患", "疾患情報"]
+    },
+    {
+      id: "guideline-comparison",
+      title: "治療ガイドライン比較",
+      description: "複数のガイドラインを比較・統合",
+      category: "Clinical",
+      icon: <BookOpen className="h-6 w-6 text-orange-600" />,
+      readTime: "30 min read",
+      tags: ["ガイドライン", "エビデンス"]
+    },
+    {
+      id: "multilingual-medical-consultation",
+      title: "多言語医療相談支援",
+      description: "多言語での医療相談を円滑に",
+      category: "Clinical",
+      icon: <FileText className="h-6 w-6 text-lime-500" />,
+      readTime: "25 min read",
+      tags: ["多言語", "医療通訳"]
+    },
+    {
+      id: "medical-news-commentary",
+      title: "医療ニュース・トピック解説",
+      description: "最新の医療ニュースをわかりやすく解説",
+      category: "Research",
+      icon: <FileText className="h-6 w-6 text-sky-500" />,
+      readTime: "25 min read",
+      tags: ["医療ニュース", "情報収集"]
+    },
+    {
+      id: "patient-education-materials",
+      title: "患者教育資料作成",
+      description: "わかりやすい患者教育資料の作成",
+      category: "Clinical",
+      icon: <BookOpen className="h-6 w-6 text-emerald-600" />,
+      readTime: "35 min read",
+      tags: ["患者教育", "資料作成"]
+    },
+    {
+      id: "incident-report-creation",
+      title: "インシデントレポート作成支援",
+      description: "正確で建設的なインシデントレポートの作成",
+      category: "Clinical",
+      icon: <ClipboardList className="h-6 w-6 text-rose-600" />,
+      readTime: "30 min read",
+      tags: ["インシデント", "医療安全"]
+    },
+    {
+      id: "consultation-email",
+      title: "専門医へのコンサルトメール作成",
+      description: "効果的なコンサルトメールの作成",
+      category: "Clinical",
+      icon: <Mail className="h-6 w-6 text-violet-600" />,
+      readTime: "30 min read",
+      tags: ["コンサルト", "メール"]
+    },
+    {
+      id: "clinical-trial-search",
+      title: "臨床試験情報検索",
+      description: "関連する臨床試験情報の効率的な検索",
+      category: "Research",
+      icon: <Search className="h-6 w-6 text-blue-700" />,
+      readTime: "35 min read",
+      tags: ["臨床試験", "情報検索"]
+    },
+    {
+      id: "medical-statistics-consultation",
+      title: "医療統計・データ分析相談",
+      description: "AIを活用した医療統計の理解と分析",
+      category: "Research",
+      icon: <Microscope className="h-6 w-6 text-purple-600" />,
+      readTime: "45 min read",
+      tags: ["統計", "データ分析"]
+    },
+    {
+      id: "image-diagnosis-report-reading",
+      title: "画像診断レポート読解支援",
+      description: "画像診断レポートの理解を深める",
+      category: "Clinical",
+      icon: <Image className="h-6 w-6 text-indigo-600" />,
+      readTime: "30 min read",
+      tags: ["画像診断", "レポート読解"]
+    },
+    {
+      id: "post-discharge-follow-up",
+      title: "退院後フォローアップ計画作成",
+      description: "包括的な退院後フォローアップ計画の作成",
+      category: "Clinical",
+      icon: <FileText className="h-6 w-6 text-teal-600" />,
+      readTime: "35 min read",
+      tags: ["退院計画", "フォローアップ"]
+    },
+    {
+      id: "medical-safety-manual",
+      title: "医療安全マニュアル作成",
+      description: "実践的な医療安全マニュアルの作成",
+      category: "Clinical",
+      icon: <ClipboardList className="h-6 w-6 text-red-600" />,
+      readTime: "45 min read",
+      tags: ["医療安全", "マニュアル"]
+    },
+    {
+      id: "infection-control-manual",
+      title: "感染対策マニュアル作成",
+      description: "効果的な感染対策マニュアルの作成",
+      category: "Clinical",
+      icon: <Microscope className="h-6 w-6 text-green-600" />,
+      readTime: "45 min read",
+      tags: ["感染対策", "マニュアル"]
+    },
+    {
+      id: "polypharmacy-support",
+      title: "ポリファーマシー対策支援",
+      description: "多剤併用の適正化を支援",
+      category: "Clinical",
+      icon: <Pill className="h-6 w-6 text-amber-600" />,
+      readTime: "40 min read",
+      tags: ["ポリファーマシー", "薬剤管理"]
+    },
+    {
+      id: "palliative-care-planning",
+      title: "緩和ケア計画立案支援",
+      description: "患者中心の緩和ケア計画の立案",
+      category: "Clinical",
+      icon: <Stethoscope className="h-6 w-6 text-purple-700" />,
+      readTime: "45 min read",
+      tags: ["緩和ケア", "ケア計画"]
     }
   ];
 
