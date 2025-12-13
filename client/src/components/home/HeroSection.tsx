@@ -168,7 +168,7 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
             className="text-[60px] md:text-[80px] lg:text-[100px] xl:text-[120px] font-black mb-5 md:mb-6 leading-[0.94] tracking-[-0.048em] text-neutral-900"
             style={{ fontFamily: 'Inter Display, Inter, system-ui, sans-serif' }}
           >
-            <span className="block">Building the Future of</span>
+            <span className="block">Medical AI,</span>
             <motion.span 
               className="block mt-2 md:mt-3 bg-gradient-to-r from-primary-600 via-purple-600 to-pink-600 bg-clip-text text-transparent"
               initial={{ opacity: 0, scale: 0.98 }}
@@ -179,7 +179,7 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
                 ease: [0.16, 1, 0.3, 1] 
               }}
             >
-              Healthcare, Together
+              Redefined
             </motion.span>
           </h1>
           
@@ -188,7 +188,7 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
             variants={itemVariants}
             style={{ fontFamily: 'Inter, system-ui, sans-serif' }}
           >
-            Enhance your expertise with 100+ practical prompts
+            100+ expert prompts. Infinite impact.
           </motion.p>
         </motion.div>
         
