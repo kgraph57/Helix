@@ -1,5 +1,6 @@
-import { Search, ArrowRight } from "lucide-react";
+import { Search, ArrowRight, Command } from "lucide-react";
 import { useLocation } from "wouter";
+import { useEffect, useRef } from "react";
 
 interface HeroSectionProps {
   searchQuery: string;
@@ -8,6 +9,35 @@ interface HeroSectionProps {
 
 export function HeroSection({ searchQuery, onSearchChange }: HeroSectionProps) {
   const [, setLocation] = useLocation();
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  // キーボードショートカット: /キーで検索バーにフォーカス
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      // 入力フィールドにフォーカスがある場合はスキップ
+      if (
+        e.target instanceof HTMLInputElement ||
+        e.target instanceof HTMLTextAreaElement
+      ) {
+        return;
+      }
+
+      // /キーで検索バーにフォーカス
+      if (e.key === '/' && !e.ctrlKey && !e.metaKey) {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+      }
+
+      // Escキーで検索をクリア
+      if (e.key === 'Escape' && searchQuery) {
+        onSearchChange('');
+        searchInputRef.current?.blur();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [searchQuery, onSearchChange]);
 
   return (
     <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-white">
@@ -37,21 +67,38 @@ export function HeroSection({ searchQuery, onSearchChange }: HeroSectionProps) {
             </div>
           </div>
 
-          {/* 検索バー - シンプルで洗練されたデザイン */}
+          {/* 検索バー - Code Wiki風の強化デザイン */}
           <div className="max-w-2xl mx-auto mb-8">
             <div className="relative">
-              <div className="flex items-center bg-white border border-neutral-200 rounded-lg shadow-sm hover:shadow-md transition-shadow focus-within:shadow-md focus-within:border-primary-300">
-                <div className="pl-4 pr-3">
-                  <Search className="w-5 h-5 text-neutral-400" />
+              <div className="flex items-center bg-white dark:bg-neutral-800 border-2 border-neutral-200 dark:border-neutral-700 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 focus-within:shadow-xl focus-within:border-primary-500 dark:focus-within:border-primary-400">
+                <div className="pl-4 md:pl-5 pr-3">
+                  <Search className="w-5 h-5 md:w-6 md:h-6 text-neutral-400 dark:text-neutral-500" />
+                </div>
+                <input
+                  ref={searchInputRef}
+                  type="text"
+                  placeholder="プロンプトを検索... (例: 鑑別診断、症例報告)"
+                  className="flex-1 h-14 md:h-16 pr-4 text-base md:text-lg bg-transparent border-0 focus:outline-none focus:ring-0 text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
+                  value={searchQuery}
+                  onChange={(e) => onSearchChange(e.target.value)}
+                  aria-label="プロンプト検索"
+                />
+                {/* キーボードショートカット表示 */}
+                {!searchQuery && (
+                  <div className="hidden sm:flex items-center gap-1 pr-3 md:pr-4">
+                    <kbd className="hidden md:inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded">
+                      <Command className="w-3 h-3" />
+                      <span>/</span>
+                    </kbd>
                   </div>
-                  <input
-                    type="text"
-                  placeholder="プロンプトを検索..."
-                  className="flex-1 h-12 md:h-14 pr-4 text-base bg-transparent border-0 focus:outline-none focus:ring-0 text-neutral-900 placeholder:text-neutral-400"
-                    value={searchQuery}
-                    onChange={(e) => onSearchChange(e.target.value)}
-                  />
+                )}
               </div>
+              {/* 検索ヒント */}
+              {searchQuery && (
+                <p className="mt-2 text-xs md:text-sm text-neutral-500 dark:text-neutral-400 text-center">
+                  <kbd className="px-2 py-0.5 bg-neutral-100 dark:bg-neutral-800 rounded text-xs">Esc</kbd> キーでクリア
+                </p>
+              )}
             </div>
           </div>
           

@@ -5,7 +5,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import rehypeSanitize from 'rehype-sanitize';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Circle, CheckCircle2, Clock, Menu, X } from 'lucide-react';
+import { ArrowLeft, Circle, CheckCircle2, Clock, Menu, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { englishProofreadingGuideData } from '@/lib/english-proofreading-guide-data';
 import { CodeBlock } from '@/components/CodeBlock';
 import { updateSEO } from '@/lib/seo';
@@ -72,6 +72,8 @@ export default function EnglishProofreadingGuide() {
   useEffect(() => {
     if (stepId) {
       setCurrentStepId(stepId);
+    } else {
+      setCurrentStepId('intro');
     }
   }, [stepId]);
 
@@ -96,6 +98,28 @@ export default function EnglishProofreadingGuide() {
   const completedCount = completedSteps.size;
   const totalSteps = englishProofreadingGuideData.phases.reduce((sum, phase) => sum + phase.steps.length, 0);
   const progressPercentage = (completedCount / totalSteps) * 100;
+
+  // Get all steps in order
+  const allSteps = ['intro', ...englishProofreadingGuideData.phases.flatMap(phase => phase.steps.map(step => step.id))];
+  const currentIndex = allSteps.indexOf(currentStepId);
+  const hasPrevious = currentIndex > 0;
+  const hasNext = currentIndex < allSteps.length - 1;
+
+  const goToPrevious = () => {
+    if (hasPrevious) {
+      const prevStepId = allSteps[currentIndex - 1];
+      setCurrentStepId(prevStepId);
+      navigate(`/guides/english-proofreading-guide/${prevStepId === 'intro' ? '' : prevStepId}`);
+    }
+  };
+
+  const goToNext = () => {
+    if (hasNext) {
+      const nextStepId = allSteps[currentIndex + 1];
+      setCurrentStepId(nextStepId);
+      navigate(`/guides/english-proofreading-guide/${nextStepId}`);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -179,6 +203,24 @@ export default function EnglishProofreadingGuide() {
 
               {/* Navigation */}
               <nav className="space-y-6">
+                {/* Introduction Link */}
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4">
+                  <button
+                    onClick={() => {
+                      setCurrentStepId('intro');
+                      navigate('/guides/english-proofreading-guide');
+                      setIsSidebarOpen(false);
+                    }}
+                    className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
+                      currentStepId === 'intro'
+                        ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 font-medium'
+                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
+                    }`}
+                  >
+                    <div className="font-medium">イントロダクション</div>
+                  </button>
+                </div>
+
                 {englishProofreadingGuideData.phases.map((phase, phaseIndex) => (
                   <div key={phase.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4">
                     <div className="flex items-center gap-2 mb-3">
@@ -299,9 +341,21 @@ export default function EnglishProofreadingGuide() {
               </ReactMarkdown>
             </article>
 
-            {/* Completion Button */}
-            {currentStepId !== 'intro' && (
-              <div className="mt-8 flex justify-end">
+            {/* Navigation and Completion Buttons */}
+            <div className="mt-8 flex items-center justify-between gap-4">
+              {/* Previous Button */}
+              <Button
+                onClick={goToPrevious}
+                disabled={!hasPrevious}
+                variant="outline"
+                size="lg"
+              >
+                <ChevronLeft className="h-5 w-5 mr-2" />
+                前へ
+              </Button>
+
+              {/* Completion Button - Only for steps, not intro */}
+              {currentStepId !== 'intro' && (
                 <Button
                   onClick={() => toggleComplete(currentStepId)}
                   variant={completedSteps.has(currentStepId) ? 'outline' : 'default'}
@@ -319,8 +373,19 @@ export default function EnglishProofreadingGuide() {
                     </>
                   )}
                 </Button>
-              </div>
-            )}
+              )}
+
+              {/* Next Button */}
+              <Button
+                onClick={goToNext}
+                disabled={!hasNext}
+                variant="default"
+                size="lg"
+              >
+                次へ
+                <ChevronRight className="h-5 w-5 ml-2" />
+              </Button>
+            </div>
           </main>
         </div>
       </div>

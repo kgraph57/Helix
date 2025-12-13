@@ -6,6 +6,8 @@ import { updateSEO, addHomeStructuredData } from "@/lib/seo";
 import { trackSearch, trackCategorySelect } from "@/lib/analytics";
 import { HeroSection } from "@/components/home/HeroSection";
 import { FeatureOverviewSection } from "@/components/home/FeatureOverviewSection";
+import { StatsBannerSection } from "@/components/home/StatsBannerSection";
+import { FeaturedPromptsSection } from "@/components/home/FeaturedPromptsSection";
 import { ContentShowcaseSection } from "@/components/home/ContentShowcaseSection";
 import { UseCaseSection } from "@/components/home/UseCaseSection";
 import type { Prompt } from "@/lib/prompts";
@@ -116,8 +118,18 @@ export default function Home() {
           onSearchChange={handleSearchChange}
         />
 
+        {/* 統計情報バナーセクション */}
+        {!isLoadingPrompts && prompts.length > 0 && (
+          <StatsBannerSection prompts={prompts} />
+        )}
+
         {/* 機能概要セクション */}
         <FeatureOverviewSection />
+
+        {/* フィーチャードプロンプトセクション */}
+        {!isLoadingPrompts && prompts.length > 0 && (
+          <FeaturedPromptsSection prompts={prompts} />
+        )}
 
         {/* コンテンツ紹介セクション */}
         <ContentShowcaseSection />

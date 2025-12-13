@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'wouter';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import rehypeSanitize from 'rehype-sanitize';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Circle, CheckCircle2, Clock, Menu, X } from 'lucide-react';
+import { ArrowLeft, Circle, CheckCircle2, Clock, Menu, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { marwGuideData } from '@/lib/marw-guide-data';
 import { CodeBlock } from '@/components/CodeBlock';
 import { updateSEO } from '@/lib/seo';
@@ -72,6 +72,8 @@ export default function MARWGuide() {
   useEffect(() => {
     if (stepId) {
       setCurrentStepId(stepId);
+    } else {
+      setCurrentStepId('intro');
     }
   }, [stepId]);
 
@@ -93,199 +95,305 @@ export default function MARWGuide() {
     });
   };
 
+  // Get all steps (excluding intro from phases since it's separate)
+  const allSteps = marwGuideData.phases.flatMap(phase => phase.steps.map(step => step.id));
+  // Filter out 'intro' from phases steps since we handle it separately
+  const stepsWithoutIntro = allSteps.filter(id => id !== 'intro');
+  const allStepsInOrder = ['intro', ...stepsWithoutIntro];
+  const currentIndex = allStepsInOrder.indexOf(currentStepId);
+  const hasPrevious = currentIndex > 0;
+  const hasNext = currentIndex < allStepsInOrder.length - 1;
+
   const completedCount = completedSteps.size;
-  const totalSteps = marwGuideData.phases.reduce((sum, phase) => sum + phase.steps.length, 0);
+  const totalSteps = stepsWithoutIntro.length;
   const progressPercentage = (completedCount / totalSteps) * 100;
+
+  const goToPrevious = () => {
+    if (hasPrevious) {
+      const prevStepId = allStepsInOrder[currentIndex - 1];
+      setCurrentStepId(prevStepId);
+      navigate(`/guides/marw-complete/${prevStepId === 'intro' ? '' : prevStepId}`);
+    }
+  };
+
+  const goToNext = () => {
+    if (hasNext) {
+      const nextStepId = allStepsInOrder[currentIndex + 1];
+      setCurrentStepId(nextStepId);
+      navigate(`/guides/marw-complete/${nextStepId}`);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Header */}
       <header className="sticky top-0 z-10 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 lg:py-2.5">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => navigate('/guides')}
-                className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
-              >
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                ガイド一覧に戻る
-              </Button>
-            </div>
+          <div className="flex items-center gap-2">
+            {/* Hamburger Menu Button - Mobile Only */}
             <Button
               variant="ghost"
-              size="sm"
-              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className="lg:hidden"
+              size="icon"
+              onClick={() => setIsSidebarOpen(true)}
+              className="lg:hidden flex-shrink-0 h-7 w-7"
             >
-              {isSidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              <Menu className="h-4 w-4" />
             </Button>
+            
+            <Button
+              variant="ghost"
+              onClick={() => navigate('/guides')}
+              className="flex items-center flex-shrink-0"
+            >
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              <span className="hidden sm:inline">ガイド一覧に戻る</span>
+            </Button>
+            <h1 className="text-sm sm:text-base lg:text-xl font-bold text-gray-900 dark:text-white truncate">
+              {marwGuideData.title}
+            </h1>
           </div>
         </div>
       </header>
 
+      {/* Mobile Sidebar Overlay */}
+      {isSidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
+      {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Sidebar */}
+          {/* Left Sidebar - Fixed Navigation */}
           <aside className={`
-            ${isSidebarOpen ? 'block' : 'hidden'} lg:block
-            w-full lg:w-80 flex-shrink-0
+            fixed lg:static inset-y-0 left-0 z-50 lg:z-0
+            w-80 lg:w-80 flex-shrink-0
+            transform transition-transform duration-300 ease-in-out
+            ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+            bg-gray-50 dark:bg-gray-900 lg:bg-transparent
           `}>
-            <div className="sticky top-24 space-y-6">
+            <div className="h-full lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] overflow-y-auto p-4 lg:p-0">
+              {/* Close Button - Mobile Only */}
+              <div className="lg:hidden flex justify-end mb-4">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setIsSidebarOpen(false)}
+                  className="h-7 w-7"
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
               {/* Progress Card */}
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-                <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
+              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-6">
+                <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
                   進捗状況
                 </h3>
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-600 dark:text-gray-400">完了</span>
-                    <span className="font-medium text-gray-900 dark:text-white">
-                      {completedCount} / {totalSteps}
-                    </span>
-                  </div>
-                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                <div className="mb-2">
+                  <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                     <div
-                      className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                      className="h-full bg-purple-600 transition-all duration-300"
                       style={{ width: `${progressPercentage}%` }}
                     />
                   </div>
                 </div>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  {completedCount} / {totalSteps} 完了
+                </p>
               </div>
 
               {/* Navigation */}
-              <nav className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-                <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
-                  {marwGuideData.title}
-                </h3>
-                {marwGuideData.phases.map((phase) => (
-                  <div key={phase.id} className="space-y-2">
-                    <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mt-4 mb-2">
-                      {phase.title}
-                    </h4>
-                    {phase.steps.map((step) => (
-                      <button
-                        key={step.id}
-                        onClick={() => {
-                          setCurrentStepId(step.id);
-                          navigate(`/guides/marw-complete/${step.id}`);
-                          setIsSidebarOpen(false);
-                        }}
-                        className={`
-                          w-full text-left px-3 py-2 rounded-md text-sm
-                          flex items-center justify-between group
-                          transition-colors
-                          ${currentStepId === step.id
-                            ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300'
-                            : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700'
-                          }
-                        `}
-                      >
-                        <span className="flex items-center space-x-2">
-                          {completedSteps.has(step.id) ? (
-                            <CheckCircle2 className="h-4 w-4 text-green-600 dark:text-green-400 flex-shrink-0" />
-                          ) : (
-                            <Circle className="h-4 w-4 flex-shrink-0" />
-                          )}
-                          <span className="truncate">{step.title}</span>
-                        </span>
-                        <Clock className="h-3 w-3 ml-2 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
-                      </button>
-                    ))}
-                  </div>
-                ))}
+              <nav className="space-y-6">
+                {/* Introduction Link */}
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4">
+                  <button
+                    onClick={() => {
+                      setCurrentStepId('intro');
+                      navigate('/guides/marw-complete');
+                      setIsSidebarOpen(false);
+                    }}
+                    className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
+                      currentStepId === 'intro'
+                        ? 'bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 font-medium'
+                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
+                    }`}
+                  >
+                    <div className="font-medium">イントロダクション</div>
+                  </button>
+                </div>
+
+                {marwGuideData.phases.map((phase, phaseIndex) => {
+                  // Filter out intro from steps since we handle it separately
+                  const stepsWithoutIntro = phase.steps.filter(step => step.id !== 'intro');
+                  if (stepsWithoutIntro.length === 0) return null;
+                  
+                  return (
+                    <div key={phase.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4">
+                      <div className="flex items-center gap-2 mb-3">
+                        <div className="flex items-center justify-center w-6 h-6 rounded-full bg-purple-600 text-white text-sm font-bold">
+                          {phaseIndex + 1}
+                        </div>
+                        <h3 className="font-semibold text-gray-900 dark:text-white">
+                          {phase.title}
+                        </h3>
+                      </div>
+                      <div className="space-y-1">
+                        {stepsWithoutIntro.map((step) => {
+                          const isCompleted = completedSteps.has(step.id);
+                          const isCurrent = currentStepId === step.id;
+                          return (
+                            <div key={step.id} className="flex items-center gap-2">
+                              <button
+                                onClick={() => toggleComplete(step.id)}
+                                className="flex-shrink-0"
+                              >
+                                {isCompleted ? (
+                                  <CheckCircle2 className="h-5 w-5 text-green-600" />
+                                ) : (
+                                  <Circle className="h-5 w-5 text-gray-400" />
+                                )}
+                              </button>
+                              <button
+                                onClick={() => {
+                                  setCurrentStepId(step.id);
+                                  navigate(`/guides/marw-complete/${step.id}`);
+                                  setIsSidebarOpen(false);
+                                }}
+                                className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors break-words ${
+                                  isCurrent
+                                    ? 'bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 font-medium'
+                                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
+                                }`}
+                              >
+                                <div className="font-medium">{step.title}</div>
+                                <div className="flex items-center gap-1 mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                  <Clock className="h-3 w-3" />
+                                  {step.duration}
+                                </div>
+                              </button>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })}
               </nav>
             </div>
           </aside>
 
-          {/* Main Content */}
+          {/* Right Content - Scrollable Article */}
           <main className="flex-1 min-w-0">
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 lg:p-8">
-              {/* Completion Toggle */}
+            <article className="zenn-article">
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                rehypePlugins={[rehypeRaw, rehypeSanitize]}
+                components={{
+                  h1: ({ node, ...props }) => (
+                    <h1 className="text-3xl md:text-4xl font-bold mb-8 mt-16 text-foreground scroll-mt-20 tracking-tight" {...props} />
+                  ),
+                  h2: ({ node, ...props }) => {
+                    const id = typeof props.children === 'string' 
+                      ? props.children.toLowerCase().replace(/\s+/g, '-')
+                      : undefined;
+                    return (
+                      <h2
+                        id={id}
+                        className="text-2xl md:text-3xl font-bold mt-16 mb-8 text-foreground scroll-mt-20 tracking-tight"
+                        {...props}
+                      />
+                    );
+                  },
+                  h3: ({ node, ...props }) => (
+                    <h3 className="text-xl md:text-2xl font-semibold mt-12 mb-6 text-foreground scroll-mt-20 tracking-tight" {...props} />
+                  ),
+                  h4: ({ node, ...props }) => (
+                    <h4 className="text-lg md:text-xl font-semibold mt-10 mb-4 text-foreground scroll-mt-20" {...props} />
+                  ),
+                  p: ({ node, ...props }) => (
+                    <p className="mb-6 text-lg md:text-xl text-foreground leading-[1.85] max-w-[65ch]" {...props} />
+                  ),
+                  ul: ({ node, ...props }) => (
+                    <ul className="list-disc pl-8 mb-6 space-y-3" {...props} />
+                  ),
+                  ol: ({ node, ...props }) => (
+                    <ol className="list-decimal pl-8 mb-6 space-y-3" {...props} />
+                  ),
+                  li: ({ node, ...props }) => (
+                    <li className="text-lg md:text-xl text-foreground leading-[1.85] pl-2" {...props} />
+                  ),
+                  strong: ({ node, ...props }) => (
+                    <strong className="font-semibold text-foreground" {...props} />
+                  ),
+                  code({ node, className, children, ...props }: any) {
+                    const inline = (props as any).inline;
+                    if (inline) {
+                      return <code className="bg-muted/80 px-2 py-1 rounded-md text-base font-mono border border-border/50" {...props}>{children}</code>;
+                    }
+                    return (
+                      <CodeBlock className={className}>
+                        {String(children).replace(/\n$/, '')}
+                      </CodeBlock>
+                    );
+                  },
+                  pre: ({ node, ...props }) => (
+                    <pre className="bg-muted/80 p-6 rounded-xl overflow-x-auto my-8 border border-border/50 shadow-sm" {...props} />
+                  ),
+                  blockquote: ({ node, ...props }) => (
+                    <blockquote className="border-l-4 border-primary pl-6 italic my-8 text-lg md:text-xl text-muted-foreground leading-[1.85] bg-accent/30 py-4 pr-4 rounded-r-lg" {...props} />
+                  ),
+                }}
+              >
+                {markdown}
+              </ReactMarkdown>
+            </article>
+
+            {/* Navigation and Completion Buttons */}
+            <div className="mt-8 flex items-center justify-between gap-4">
+              {/* Previous Button */}
+              <Button
+                onClick={goToPrevious}
+                disabled={!hasPrevious}
+                variant="outline"
+                size="lg"
+              >
+                <ChevronLeft className="h-5 w-5 mr-2" />
+                前へ
+              </Button>
+
+              {/* Completion Button - Only for steps, not intro */}
               {currentStepId !== 'intro' && (
-                <div className="mb-6 flex items-center justify-between pb-4 border-b border-gray-200 dark:border-gray-700">
-                  <Button
-                    variant={completedSteps.has(currentStepId) ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => toggleComplete(currentStepId)}
-                    className="flex items-center space-x-2"
-                  >
-                    {completedSteps.has(currentStepId) ? (
-                      <>
-                        <CheckCircle2 className="h-4 w-4" />
-                        <span>完了済み</span>
-                      </>
-                    ) : (
-                      <>
-                        <Circle className="h-4 w-4" />
-                        <span>完了にする</span>
-                      </>
-                    )}
-                  </Button>
-                </div>
+                <Button
+                  onClick={() => toggleComplete(currentStepId)}
+                  variant={completedSteps.has(currentStepId) ? 'outline' : 'default'}
+                  size="lg"
+                >
+                  {completedSteps.has(currentStepId) ? (
+                    <>
+                      <CheckCircle2 className="h-5 w-5 mr-2" />
+                      完了！
+                    </>
+                  ) : (
+                    <>
+                      <Circle className="h-5 w-5 mr-2" />
+                      完了にする
+                    </>
+                  )}
+                </Button>
               )}
 
-              {/* Markdown Content */}
-              <article className="prose prose-lg dark:prose-invert max-w-none">
-                <ReactMarkdown
-                  remarkPlugins={[remarkGfm]}
-                  rehypePlugins={[rehypeRaw, rehypeSanitize]}
-                  components={{
-                    code({ node, inline, className, children, ...props }) {
-                      const match = /language-(\w+)/.exec(className || '');
-                      return !inline && match ? (
-                        <CodeBlock
-                          language={match[1]}
-                          code={String(children).replace(/\n$/, '')}
-                        />
-                      ) : (
-                        <code className={className} {...props}>
-                          {children}
-                        </code>
-                      );
-                    },
-                  }}
-                >
-                  {markdown}
-                </ReactMarkdown>
-              </article>
-
-              {/* Navigation Buttons */}
-              <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700 flex justify-between">
-                <Button
-                  variant="outline"
-                  onClick={() => {
-                    const allSteps = marwGuideData.phases.flatMap(p => p.steps);
-                    const currentIndex = allSteps.findIndex(s => s.id === currentStepId);
-                    if (currentIndex > 0) {
-                      const prevStep = allSteps[currentIndex - 1];
-                      setCurrentStepId(prevStep.id);
-                      navigate(`/guides/marw-complete/${prevStep.id}`);
-                    }
-                  }}
-                  disabled={currentStepId === 'intro'}
-                >
-                  <ArrowLeft className="h-4 w-4 mr-2" />
-                  前のステップ
-                </Button>
-                <Button
-                  onClick={() => {
-                    const allSteps = marwGuideData.phases.flatMap(p => p.steps);
-                    const currentIndex = allSteps.findIndex(s => s.id === currentStepId);
-                    if (currentIndex < allSteps.length - 1) {
-                      const nextStep = allSteps[currentIndex + 1];
-                      setCurrentStepId(nextStep.id);
-                      navigate(`/guides/marw-complete/${nextStep.id}`);
-                    }
-                  }}
-                  disabled={currentStepId === 'stage7'}
-                >
-                  次のステップ
-                  <ArrowLeft className="h-4 w-4 ml-2 rotate-180" />
-                </Button>
-              </div>
+              {/* Next Button */}
+              <Button
+                onClick={goToNext}
+                disabled={!hasNext}
+                variant="default"
+                size="lg"
+              >
+                次へ
+                <ChevronRight className="h-5 w-5 ml-2" />
+              </Button>
             </div>
           </main>
         </div>

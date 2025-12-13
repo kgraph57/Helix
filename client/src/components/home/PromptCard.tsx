@@ -1,6 +1,7 @@
 import { AlertTriangle, ArrowRight } from "lucide-react";
 import { useLocation } from "wouter";
 import { memo } from "react";
+import { HighlightedText } from "@/components/HighlightedText";
 
 interface Prompt {
   id: string;
@@ -12,9 +13,10 @@ interface Prompt {
 
 interface PromptCardProps {
   prompt: Prompt;
+  searchQuery?: string;
 }
 
-export const PromptCard = memo(function PromptCard({ prompt }: PromptCardProps) {
+export const PromptCard = memo(function PromptCard({ prompt, searchQuery = '' }: PromptCardProps) {
   const [, setLocation] = useLocation();
 
   // リスクレベルに応じた色
@@ -43,9 +45,11 @@ export const PromptCard = memo(function PromptCard({ prompt }: PromptCardProps) 
         rounded-xl
         border border-neutral-200 dark:border-neutral-800
         hover:border-neutral-300 dark:hover:border-neutral-700
-        transition-all duration-200
+        transition-all duration-300
         text-left
-        hover:shadow-md
+        hover:shadow-lg hover:shadow-neutral-200/50 dark:hover:shadow-neutral-800/50
+        hover:-translate-y-1
+        active:translate-y-0
       "
     >
       {/* ヘッダー: カテゴリとリスクレベル */}
@@ -66,12 +70,12 @@ export const PromptCard = memo(function PromptCard({ prompt }: PromptCardProps) 
       
       {/* タイトル */}
       <h3 className="text-base font-semibold mb-2 text-neutral-900 dark:text-neutral-100 group-hover:text-neutral-700 dark:group-hover:text-neutral-200 transition-colors line-clamp-2">
-        {prompt.title}
+        <HighlightedText text={prompt.title} query={searchQuery} />
       </h3>
       
       {/* 説明 */}
       <p className="text-sm leading-relaxed line-clamp-2 text-neutral-600 dark:text-neutral-400">
-        {prompt.description}
+        <HighlightedText text={prompt.description} query={searchQuery} />
       </p>
     </button>
   );

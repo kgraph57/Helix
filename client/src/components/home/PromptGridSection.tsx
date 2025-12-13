@@ -190,7 +190,7 @@ export const PromptGridSection = memo(function PromptGridSection({
           {prompts.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               {prompts.map((prompt) => (
-                <PromptCard key={prompt.id} prompt={prompt} />
+                <PromptCard key={prompt.id} prompt={prompt} searchQuery={searchQuery} />
               ))}
             </div>
           ) : (
@@ -315,7 +315,7 @@ export const PromptGridSection = memo(function PromptGridSection({
                     {/* プロンプトグリッド */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                       {displayPrompts.map((prompt) => (
-                        <PromptCard key={prompt.id} prompt={prompt} />
+                        <PromptCard key={prompt.id} prompt={prompt} searchQuery={searchQuery} />
                       ))}
                     </div>
 
@@ -366,7 +366,7 @@ export const PromptGridSection = memo(function PromptGridSection({
               {/* グリッド表示 */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                 {displayPrompts.map((prompt) => (
-                  <PromptCard key={prompt.id} prompt={prompt} />
+                  <PromptCard key={prompt.id} prompt={prompt} searchQuery={searchQuery} />
                 ))}
               </div>
 
