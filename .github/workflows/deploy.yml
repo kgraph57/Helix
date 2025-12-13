@@ -43,7 +43,7 @@ jobs:
         continue-on-error: true
 
       - name: Build
-        run: pnpm build:client
+        run: pnpm build
         env:
           NODE_ENV: production
           VITE_BASE_PATH: /medicalprompthub/

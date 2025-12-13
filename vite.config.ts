@@ -164,6 +164,9 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist"),
     emptyOutDir: true,
+    // Copy 404.html for GitHub Pages SPA routing
+    copyPublicDir: true,
+    publicDir: path.resolve(import.meta.dirname, "client", "public"),
     // Source maps disabled in production for performance
     sourcemap: false,
     // Minify with terser for better compression
