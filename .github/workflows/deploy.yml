@@ -43,7 +43,10 @@ jobs:
         continue-on-error: true
 
       - name: Build
-        run: pnpm build
+        run: |
+          echo "Starting build..."
+          pnpm build || (echo "Build failed!" && exit 1)
+          echo "Build completed successfully"
         env:
           NODE_ENV: production
           VITE_BASE_PATH: /medicalprompthub/
