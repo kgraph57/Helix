@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
 import { useRoute, Link } from "wouter";
-import { Layout } from "@/components/Layout";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft, Clock, BookOpen, Loader2 } from "lucide-react";
-import { updateSEO } from "@/lib/seo";
+import { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { ArrowLeft, BookOpen, Clock, Loader2, ChevronRight, ChevronLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import Layout from "@/components/Layout";
+import { updateSEO } from "@/lib/seo";
 
 // ガイドのメタデータ定義
 const guideMetadata: Record<string, {
@@ -15,188 +15,92 @@ const guideMetadata: Record<string, {
   readTime: string;
   category: string;
   basePath: string;
+  steps: Array<{ id: string; title: string; file: string }>;
 }> = {
   "conference-presentation": {
     title: "カンファレンス発表資料作成支援",
     description: "AIを活用した効果的なカンファレンス発表資料の作成",
     readTime: "40 min",
     category: "Presentation",
-    basePath: "/assets/guides/conference-presentation"
+    basePath: "/assets/guides/conference-presentation",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
   },
   "differential-diagnosis": {
     title: "鑑別診断リスト生成",
     description: "AIによる包括的な鑑別診断リストの作成",
     readTime: "30 min",
     category: "Clinical",
-    basePath: "/assets/guides/differential-diagnosis"
+    basePath: "/assets/guides/differential-diagnosis",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
   },
   "patient-explanation": {
     title: "患者説明シナリオ作成",
     description: "わかりやすく、配慮の行き届いた患者説明の作成",
     readTime: "40 min",
     category: "Clinical",
-    basePath: "/assets/guides/patient-explanation"
+    basePath: "/assets/guides/patient-explanation",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
   },
   "literature-search": {
     title: "論文検索・読解サポート",
     description: "AIを活用した効率的な文献検索と読解",
     readTime: "40 min",
     category: "Research",
-    basePath: "/assets/guides/literature-search"
+    basePath: "/assets/guides/literature-search",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
   },
   "medical-documents": {
     title: "診断書・紹介状作成支援",
     description: "AIで医療文書作成を効率化・標準化",
     readTime: "40 min",
     category: "Clinical",
-    basePath: "/assets/guides/medical-documents"
-  },
-  "research-protocol": {
-    title: "研究計画書作成支援",
-    description: "AIを活用した質の高い研究計画書の作成",
-    readTime: "50 min",
-    category: "Research",
-    basePath: "/assets/guides/research-protocol"
-  },
-  "conference-presentation-slides": {
-    title: "学会発表スライド作成支援",
-    description: "インパクトのある学会発表スライドの作成",
-    readTime: "45 min",
-    category: "Presentation",
-    basePath: "/assets/guides/conference-presentation-slides"
-  },
-  "ethics-review-application": {
-    title: "倫理審査申請書類作成支援",
-    description: "倫理審査申請書類の効率的な作成",
-    readTime: "45 min",
-    category: "Research",
-    basePath: "/assets/guides/ethics-review-application"
-  },
-  "new-drug-information": {
-    title: "新薬情報収集・要約",
-    description: "最新の新薬情報を効率的に収集・要約",
-    readTime: "35 min",
-    category: "Clinical",
-    basePath: "/assets/guides/new-drug-information"
-  },
-  "rare-disease-information": {
-    title: "希少疾患情報収集",
-    description: "希少疾患に関する最新情報の収集",
-    readTime: "35 min",
-    category: "Clinical",
-    basePath: "/assets/guides/rare-disease-information"
-  },
-  "guideline-comparison": {
-    title: "治療ガイドライン比較",
-    description: "複数のガイドラインを比較・統合",
-    readTime: "30 min",
-    category: "Clinical",
-    basePath: "/assets/guides/guideline-comparison"
-  },
-  "multilingual-medical-consultation": {
-    title: "多言語医療相談支援",
-    description: "多言語での医療相談を円滑に",
-    readTime: "25 min",
-    category: "Clinical",
-    basePath: "/assets/guides/multilingual-medical-consultation"
-  },
-  "medical-news-commentary": {
-    title: "医療ニュース・トピック解説",
-    description: "最新の医療ニュースをわかりやすく解説",
-    readTime: "25 min",
-    category: "Research",
-    basePath: "/assets/guides/medical-news-commentary"
-  },
-  "patient-education-materials": {
-    title: "患者教育資料作成",
-    description: "わかりやすい患者教育資料の作成",
-    readTime: "35 min",
-    category: "Clinical",
-    basePath: "/assets/guides/patient-education-materials"
-  },
-  "incident-report-creation": {
-    title: "インシデントレポート作成支援",
-    description: "正確で建設的なインシデントレポートの作成",
-    readTime: "30 min",
-    category: "Clinical",
-    basePath: "/assets/guides/incident-report-creation"
-  },
-  "consultation-email": {
-    title: "専門医へのコンサルトメール作成",
-    description: "効果的なコンサルトメールの作成",
-    readTime: "30 min",
-    category: "Clinical",
-    basePath: "/assets/guides/consultation-email"
-  },
-  "clinical-trial-search": {
-    title: "臨床試験情報検索",
-    description: "関連する臨床試験情報の効率的な検索",
-    readTime: "35 min",
-    category: "Research",
-    basePath: "/assets/guides/clinical-trial-search"
-  },
-  "medical-statistics-consultation": {
-    title: "医療統計・データ分析相談",
-    description: "AIを活用した医療統計の理解と分析",
-    readTime: "45 min",
-    category: "Research",
-    basePath: "/assets/guides/medical-statistics-consultation"
-  },
-  "image-diagnosis-report-reading": {
-    title: "画像診断レポート読解支援",
-    description: "画像診断レポートの理解を深める",
-    readTime: "30 min",
-    category: "Clinical",
-    basePath: "/assets/guides/image-diagnosis-report-reading"
-  },
-  "post-discharge-follow-up": {
-    title: "退院後フォローアップ計画作成",
-    description: "包括的な退院後フォローアップ計画の作成",
-    readTime: "35 min",
-    category: "Clinical",
-    basePath: "/assets/guides/post-discharge-follow-up"
-  },
-  "medical-safety-manual": {
-    title: "医療安全マニュアル作成",
-    description: "実践的な医療安全マニュアルの作成",
-    readTime: "45 min",
-    category: "Clinical",
-    basePath: "/assets/guides/medical-safety-manual"
-  },
-  "infection-control-manual": {
-    title: "感染対策マニュアル作成",
-    description: "効果的な感染対策マニュアルの作成",
-    readTime: "45 min",
-    category: "Clinical",
-    basePath: "/assets/guides/infection-control-manual"
-  },
-  "polypharmacy-support": {
-    title: "ポリファーマシー対策支援",
-    description: "多剤併用の適正化を支援",
-    readTime: "40 min",
-    category: "Clinical",
-    basePath: "/assets/guides/polypharmacy-support"
-  },
-  "palliative-care-planning": {
-    title: "緩和ケア計画立案支援",
-    description: "患者中心の緩和ケア計画の立案",
-    readTime: "45 min",
-    category: "Clinical",
-    basePath: "/assets/guides/palliative-care-planning"
+    basePath: "/assets/guides/medical-documents",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
   }
 };
-
-// ガイドの構造定義
-const guideStructure = [
-  { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
-  { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
-  { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
-  { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
-  { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
-  { id: "02-practice-step-03", title: "実践編 - ステップ3", file: "02-practice/step-03.md" },
-  { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
-  { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
-];
 
 export default function MarkdownGuide() {
   const [, params] = useRoute("/guides/:guideId");
@@ -232,7 +136,7 @@ export default function MarkdownGuide() {
       setError(null);
 
       try {
-        const step = guideStructure[currentStep];
+        const step = metadata.steps[currentStep];
         // GitHub Pagesのベースパスを考慮
         const filePath = `/medicalprompthub${metadata.basePath}/${step.file}`;
         
@@ -258,26 +162,18 @@ export default function MarkdownGuide() {
     return (
       <Layout>
         <div className="max-w-4xl mx-auto py-8 px-4">
-          <Card>
-            <CardContent className="py-8 text-center">
-              <p className="text-muted-foreground">ガイドが見つかりません</p>
-              <Link href="/guides">
-                <Button className="mt-4">
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  ガイド一覧に戻る
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
+          <p className="text-center text-muted-foreground">ガイドが見つかりません</p>
         </div>
       </Layout>
     );
   }
 
+  const totalSteps = metadata.steps.length;
+  const currentStepData = metadata.steps[currentStep];
+
   return (
     <Layout>
-      <div className="max-w-6xl mx-auto py-8 px-4">
-        {/* ヘッダー */}
+      <div className="max-w-7xl mx-auto py-8 px-4">
         <div className="mb-6">
           <Link href="/guides">
             <Button variant="ghost" size="sm" className="mb-4">
@@ -309,8 +205,21 @@ export default function MarkdownGuide() {
                   <BookOpen className="w-4 h-4 mr-2" />
                   目次
                 </h3>
+                <div className="mb-4">
+                  <div className="text-sm text-muted-foreground mb-1">進捗状況</div>
+                  <div className="flex items-center gap-2">
+                    <div className="text-sm font-medium">完了</div>
+                    <div className="text-sm text-muted-foreground">{currentStep + 1}/{totalSteps}</div>
+                  </div>
+                  <div className="w-full bg-muted rounded-full h-2 mt-2">
+                    <div 
+                      className="bg-primary h-2 rounded-full transition-all duration-300"
+                      style={{ width: `${((currentStep + 1) / totalSteps) * 100}%` }}
+                    />
+                  </div>
+                </div>
                 <nav className="space-y-1">
-                  {guideStructure.map((step, index) => (
+                  {metadata.steps.map((step, index) => (
                     <button
                       key={step.id}
                       onClick={() => setCurrentStep(index)}
@@ -379,15 +288,15 @@ export default function MarkdownGuide() {
                     onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
                     disabled={currentStep === 0}
                   >
-                    <ArrowLeft className="w-4 h-4 mr-2" />
+                    <ChevronLeft className="w-4 h-4 mr-2" />
                     前のステップ
                   </Button>
                   <Button
-                    onClick={() => setCurrentStep(Math.min(guideStructure.length - 1, currentStep + 1))}
-                    disabled={currentStep === guideStructure.length - 1}
+                    onClick={() => setCurrentStep(Math.min(totalSteps - 1, currentStep + 1))}
+                    disabled={currentStep === totalSteps - 1}
                   >
                     次のステップ
-                    <ArrowLeft className="w-4 h-4 ml-2 rotate-180" />
+                    <ChevronRight className="w-4 h-4 ml-2" />
                   </Button>
                 </div>
               </CardContent>
