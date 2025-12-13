@@ -141,7 +141,7 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
       <MouseFollowEffect x={x} y={y} />
       
       <motion.div 
-        className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 relative z-10 w-full"
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -184,7 +184,7 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
           </h1>
           
           <motion.p 
-            className="text-[16px] sm:text-[19px] md:text-[24px] lg:text-[28px] text-neutral-600 mb-3 max-w-2xl mx-auto font-normal leading-[1.4] tracking-[-0.02em] px-4"
+            className="text-[16px] sm:text-[19px] md:text-[24px] lg:text-[28px] text-neutral-600 mb-3 max-w-3xl mx-auto font-normal leading-[1.4] tracking-[-0.02em] px-2"
             variants={itemVariants}
             style={{ fontFamily: 'Inter, system-ui, sans-serif' }}
           >
@@ -195,7 +195,7 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
         {/* Algolia風: プロフェッショナルな検索バー（中央、非常に目立つ） */}
         {onSearchChange && (
           <motion.div 
-            className="max-w-4xl mx-auto mb-8 md:mb-10"
+            className="max-w-5xl mx-auto mb-8 md:mb-10 px-2"
             variants={searchVariants}
           >
             <div className="relative group">
@@ -257,7 +257,7 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
         
         {/* Linear風: 統計情報（検索バーの下、横並び） */}
         <motion.div 
-          className="grid grid-cols-3 gap-4 sm:gap-8 md:gap-10 max-w-3xl mx-auto mb-8 md:mb-10 px-4"
+          className="grid grid-cols-3 gap-4 sm:gap-8 md:gap-10 max-w-4xl mx-auto mb-8 md:mb-10 px-2"
           variants={itemVariants}
         >
           {[
@@ -288,7 +288,7 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
         
         {/* Linear風: 完璧に洗練されたCTA（中央配置） */}
         <motion.div 
-          className="flex flex-col sm:flex-row justify-center items-center gap-4 px-4"
+          className="flex flex-col sm:flex-row justify-center items-center gap-4 px-2"
           variants={itemVariants}
         >
           <motion.button
