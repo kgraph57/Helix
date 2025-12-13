@@ -100,7 +100,8 @@ export default function MarkdownGuide() {
 
       try {
         const step = guideStructure[currentStep];
-        const filePath = `${metadata.basePath}/${step.file}`;
+        // GitHub Pagesのベースパスを考慮
+        const filePath = `/medicalprompthub${metadata.basePath}/${step.file}`;
         
         const response = await fetch(filePath);
         if (!response.ok) {
