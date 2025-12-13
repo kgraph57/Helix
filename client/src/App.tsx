@@ -36,6 +36,7 @@ const CaseReportGuide = lazy(() => import("@/pages/CaseReportGuide"));
 const PaperReadingGuide = lazy(() => import("@/pages/PaperReadingGuide"));
 const EnglishProofreadingGuide = lazy(() => import("@/pages/EnglishProofreadingGuide"));
 const MARWGuide = lazy(() => import("@/pages/MARWGuide"));
+const MarkdownGuide = lazy(() => import("@/pages/MarkdownGuide"));
 const AILiteracy = lazy(() => import("@/pages/AILiteracy"));
 
 // Loading component（アクセシビリティ改善）
@@ -72,6 +73,11 @@ function Router() {
           <Route path="/guides/paper-reading-efficiency/:stepId?" component={PaperReadingGuide} />
           <Route path="/guides/english-proofreading-guide/:stepId?" component={EnglishProofreadingGuide} />
           <Route path="/guides/marw-complete/:stepId?" component={MARWGuide} />
+          <Route path="/guides/conference-presentation" component={MarkdownGuide} />
+          <Route path="/guides/differential-diagnosis" component={MarkdownGuide} />
+          <Route path="/guides/patient-explanation" component={MarkdownGuide} />
+          <Route path="/guides/literature-search" component={MarkdownGuide} />
+          <Route path="/guides/medical-documents" component={MarkdownGuide} />
           <Route path="/guides/:id" component={GuideDetail} />
           <Route path="/tips" component={Tips} />
           <Route path="/tips/:id" component={TipDetail} />
