@@ -2,7 +2,7 @@ import { Layout } from "@/components/Layout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { loadTips } from "@/lib/tips-loader";
 import type { PromptTip } from "@/lib/tips";
-import { Search, ArrowRight, Brain } from "lucide-react";
+import { Search, ArrowRight } from "lucide-react";
 import { useState, useMemo, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -125,10 +125,6 @@ export default function Tips() {
           <Card className="border border-border">
             <CardHeader className="p-4">
               <CardTitle className="flex items-center gap-1.5 text-sm">
-                <div className="relative inline-flex items-center justify-center">
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/30 via-pink-500/30 to-orange-500/30 rounded-full blur-md animate-sparkle-pulse" />
-                  <Brain className="w-5 h-5 relative text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 drop-shadow-sm" />
-                </div>
                 プロンプトエンジニアリングとは？
               </CardTitle>
               <CardDescription className="text-xs">
@@ -257,7 +253,16 @@ export default function Tips() {
                             <Badge variant="secondary" className="capitalize text-[10px] font-medium px-2 py-0.5 rounded-md">
                               {categoryLabels[tip.category]}
                             </Badge>
-                            <Badge variant="outline" className="text-[10px] font-medium px-2 py-0.5 rounded-md">
+                            <Badge 
+                              variant="outline" 
+                              className={`text-[10px] font-semibold px-2.5 py-0.5 rounded-md border-2 ${
+                                tip.level === 'beginner' 
+                                  ? 'bg-green-50 dark:bg-green-950/30 border-green-500/50 text-green-700 dark:text-green-400' 
+                                  : tip.level === 'intermediate'
+                                  ? 'bg-blue-50 dark:bg-blue-950/30 border-blue-500/50 text-blue-700 dark:text-blue-400'
+                                  : 'bg-orange-50 dark:bg-orange-950/30 border-orange-500/50 text-orange-700 dark:text-orange-400'
+                              }`}
+                            >
                               {levelLabels[tip.level]}
                             </Badge>
                           </div>

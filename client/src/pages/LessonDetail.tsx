@@ -296,6 +296,11 @@ const lessonContent: Record<string, string> = {
   "ai-tools-5": aiToolsLesson5Md,
 };
 
+// レッスンコンテンツが存在するかチェックする関数
+export function hasLessonContent(lessonId: string): boolean {
+  return lessonId in lessonContent && lessonContent[lessonId] && lessonContent[lessonId].trim().length > 0;
+}
+
 // クイズデータ
 const quizzesData: Record<string, typeof lesson1Quizzes> = {
   "ai-basics-1": lesson1Quizzes,
@@ -343,47 +348,8 @@ function extractSections(content: string): Array<{ id: string; title: string; le
   return sections;
 }
 
-// レッスンデータ（CourseDetail.tsxと同じ構造）
-function getLessonsForCourse(courseId: string) {
-  // CourseDetail.tsxからレッスンデータを取得する関数をインポート
-  // ここでは簡易的に、主要コースのレッスンIDを返す
-  const lessonsData: Record<string, Array<{
-    id: string;
-    title: string;
-    description?: string;
-    duration?: number;
-    slides?: number;
-  }>> = {
-    "ai-basics": [
-      { id: "ai-basics-1", title: "AIとは何か", description: "AIとは何か、知能の定義、チューリングテスト、強いAIと弱いAIの違いを理解します", duration: 15, slides: 8 },
-      { id: "ai-basics-2", title: "AIの歴史", description: "1950年代のダートマス会議から現在までのAIの発展、AI冬の時代、深層学習革命をたどります", duration: 20, slides: 12 },
-      { id: "ai-basics-3", title: "AIの現状と未来", description: "最新のAI技術動向、医療分野での活用例、今後の可能性と課題を学びます", duration: 18, slides: 10 },
-      { id: "ai-basics-4", title: "AIの分類と種類", description: "ルールベースAI、機械学習、深層学習、専門家システムなど、AIの分類体系を理解します", duration: 18, slides: 10 },
-      { id: "ai-basics-5", title: "機械学習の基本概念", description: "教師あり学習、教師なし学習、強化学習の違い、学習データの重要性を学びます", duration: 15, slides: 8 },
-      { id: "ai-basics-6", title: "AIの能力と限界", description: "現在のAIが得意なこと、苦手なこと、汎化能力、バイアスの問題を理解します", duration: 15, slides: 8 },
-      { id: "ai-basics-7", title: "AIの社会的影響と倫理", description: "AIの社会的影響、雇用への影響、倫理的課題、責任あるAI開発と使用を理解します", duration: 15, slides: 8 },
-      { id: "ai-basics-8", title: "AI学習の次のステップ", description: "AI基礎を学んだ後の学習パス、実践的な活用方法、継続的な学習リソースを学びます", duration: 12, slides: 6 },
-    ],
-    "generative-ai-basics": [
-      { id: "generative-ai-1", title: "生成AIとは何か - 基本概念" },
-      { id: "generative-ai-2", title: "大規模言語モデル（LLM）の基礎" },
-      { id: "generative-ai-3", title: "Transformerアーキテクチャ入門" },
-      { id: "generative-ai-4", title: "注意機構（Attention Mechanism）" },
-      { id: "generative-ai-5", title: "トークン化とコンテキストウィンドウ" },
-      { id: "generative-ai-6", title: "生成プロセスとサンプリング" },
-      { id: "generative-ai-7", title: "主要な生成AIツールと比較" },
-      { id: "generative-ai-8", title: "生成AIの学習とファインチューニング" },
-      { id: "generative-ai-9", title: "生成AIの限界と注意点" },
-    ],
-    "ai-usage-basics": [
-      { id: "ai-usage-1", title: "AIチャットの基本" },
-      { id: "ai-usage-2", title: "効果的なプロンプトの書き方" },
-      { id: "ai-usage-3", title: "AIとの対話のコツ" },
-    ],
-  };
-
-  return lessonsData[courseId] || [];
-}
+// CourseDetail.tsxからレッスンデータ取得関数をインポート
+import { getLessonsForCourse } from "./CourseDetail";
 
 export default function LessonDetail() {
   const [match, params] = useRoute("/courses/:courseId/lessons/:lessonId");
@@ -870,7 +836,8 @@ export default function LessonDetail() {
     }
   };
 
-  if (!courseId || !lessonId || !content) {
+  // レッスンコンテンツが存在しない場合のフォールバック
+  if (!courseId || !lessonId) {
     return (
       <Layout>
         <div className="container py-10 text-center">
@@ -879,6 +846,39 @@ export default function LessonDetail() {
           <Button onClick={() => setLocation(`/courses/${courseId || ""}`)}>
             <ArrowLeft className="mr-2 h-4 w-4" /> Back to Course
           </Button>
+        </div>
+      </Layout>
+    );
+  }
+
+  // レッスンコンテンツが存在しない場合でも、レッスン情報を表示
+  if (!content) {
+    return (
+      <Layout>
+        <div className="max-w-7xl mx-auto pt-4 pb-8 px-4">
+          <Button
+            variant="ghost"
+            onClick={() => setLocation(`/courses/${courseId}`)}
+            className="mb-4"
+          >
+            <ArrowLeft className="mr-2 h-4 w-4" /> コースに戻る
+          </Button>
+          
+          <div className="text-center py-16">
+            <BookOpen className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
+            <h1 className="text-3xl font-bold mb-4">{currentLesson?.title || "レッスン"}</h1>
+            {currentLesson?.description && (
+              <p className="text-lg text-muted-foreground mb-8">{currentLesson.description}</p>
+            )}
+            <div className="bg-muted/50 rounded-lg p-8 max-w-2xl mx-auto">
+              <p className="text-muted-foreground mb-4">
+                このレッスンのコンテンツは現在準備中です。
+              </p>
+              <p className="text-sm text-muted-foreground">
+                まもなく公開予定です。しばらくお待ちください。
+              </p>
+            </div>
+          </div>
         </div>
       </Layout>
     );

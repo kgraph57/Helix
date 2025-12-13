@@ -15,6 +15,7 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { updateSEO, addStructuredData, BASE_URL } from "@/lib/seo";
+import { hasLessonContent } from "./LessonDetail";
 // コースデータ（Courses.tsxから共有）
 const courses = [
   {
@@ -588,6 +589,7 @@ export default function CourseDetail() {
             {lessons.map((lesson, index) => {
               const isCompleted = courseProgress.completedLessons?.includes(lesson.id) || false;
               const isLocked = index > 0 && !courseProgress.completedLessons?.includes(lessons[index - 1].id);
+              const isContentAvailable = hasLessonContent(lesson.id);
 
               return (
                 <motion.div
@@ -622,6 +624,11 @@ export default function CourseDetail() {
                               {isLocked && (
                                 <Lock className="w-3 h-3 text-muted-foreground" />
                               )}
+                              {!isContentAvailable && (
+                                <Badge variant="secondary" className="text-xs bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300">
+                                  準備中
+                                </Badge>
+                              )}
                             </div>
                             <CardDescription className="text-sm line-clamp-2">{lesson.description}</CardDescription>
                           </div>
@@ -652,7 +659,7 @@ export default function CourseDetail() {
 }
 
 // レッスンデータ（モック、後でデータベースから取得）
-function getLessonsForCourse(courseId: string) {
+export function getLessonsForCourse(courseId: string) {
   const lessonsData: Record<string, Array<{
     id: string;
     title: string;

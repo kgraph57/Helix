@@ -23,12 +23,12 @@ export const PromptCard = memo(function PromptCard({ prompt, searchQuery = '' }:
   const getRiskConfig = () => {
     if (prompt.riskLevel === 'high') {
       return {
-        badge: 'bg-red-50 dark:bg-red-950/30 text-red-700 dark:text-red-400'
+        badge: 'bg-red-100 dark:bg-red-900/50 text-red-900 dark:text-red-100 border border-red-300 dark:border-red-700 font-semibold shadow-sm'
       };
     }
     if (prompt.riskLevel === 'medium') {
       return {
-        badge: 'bg-yellow-50 dark:bg-yellow-950/30 text-yellow-700 dark:text-yellow-400'
+        badge: 'bg-yellow-100 dark:bg-yellow-900/50 text-yellow-900 dark:text-yellow-100 border border-yellow-300 dark:border-yellow-700 font-semibold shadow-sm'
       };
     }
     return null;
@@ -59,9 +59,9 @@ export const PromptCard = memo(function PromptCard({ prompt, searchQuery = '' }:
             {prompt.category}
           </span>
           {riskConfig && (
-            <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium ${riskConfig.badge}`}>
-              {prompt.riskLevel === 'high' && <AlertTriangle className="w-3 h-3" />}
-              {prompt.riskLevel === 'high' ? '高リスク' : '中リスク'}
+            <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold ${riskConfig.badge}`}>
+              {prompt.riskLevel === 'high' && <AlertTriangle className="w-3.5 h-3.5" />}
+              {prompt.riskLevel === 'high' ? '高' : '中'}
             </span>
           )}
         </div>

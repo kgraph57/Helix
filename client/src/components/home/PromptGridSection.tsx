@@ -160,6 +160,71 @@ export const PromptGridSection = memo(function PromptGridSection({
     };
   }, []);
 
+  // プロンプトリストの表示コンポーネント（3つ以上は横スクロール、それ以下はグリッド）
+  const PromptList = ({ prompts: promptList, categoryId }: { prompts: Prompt[]; categoryId?: string }) => {
+    const scrollRef = useRef<HTMLDivElement>(null);
+    const [showLeft, setShowLeft] = useState(false);
+    const [showRight, setShowRight] = useState(true);
+
+    useEffect(() => {
+      const container = scrollRef.current;
+      if (!container) return;
+
+      const updateGradients = () => {
+        const { scrollLeft, scrollWidth, clientWidth } = container;
+        setShowLeft(scrollLeft > 0);
+        setShowRight(scrollLeft < scrollWidth - clientWidth - 1);
+      };
+
+      updateGradients();
+      container.addEventListener('scroll', updateGradients);
+      
+      const resizeObserver = new ResizeObserver(updateGradients);
+      resizeObserver.observe(container);
+
+      return () => {
+        container.removeEventListener('scroll', updateGradients);
+        resizeObserver.disconnect();
+      };
+    }, [promptList]);
+
+    // 3つ未満の場合はグリッドレイアウト
+    if (promptList.length < 3) {
+      return (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          {promptList.map((prompt) => (
+            <PromptCard key={prompt.id} prompt={prompt} searchQuery={searchQuery} />
+          ))}
+        </div>
+      );
+    }
+
+    // 3つ以上の場合は横スクロール
+    return (
+      <div className="relative -mx-4 md:-mx-6 px-4 md:px-6">
+        {/* 左側のグラデーション */}
+        {showLeft && (
+          <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-background to-transparent pointer-events-none z-10" />
+        )}
+        {/* 右側のグラデーション */}
+        {showRight && (
+          <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-background to-transparent pointer-events-none z-10" />
+        )}
+        <div 
+          ref={scrollRef}
+          className="flex gap-4 md:gap-6 overflow-x-auto pb-2 scrollbar-hide snap-x snap-mandatory"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {promptList.map((prompt) => (
+            <div key={prompt.id} className="flex-shrink-0 w-full sm:w-[calc(50vw-2rem)] md:w-[320px] lg:w-[360px] snap-start">
+              <PromptCard prompt={prompt} searchQuery={searchQuery} />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
   // 検索やフィルターが適用されている場合は従来の表示
   const isFiltered = searchQuery || selectedCategory;
   
@@ -312,12 +377,8 @@ export const PromptGridSection = memo(function PromptGridSection({
                       </div>
                     </div>
 
-                    {/* プロンプトグリッド */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-                      {displayPrompts.map((prompt) => (
-                        <PromptCard key={prompt.id} prompt={prompt} searchQuery={searchQuery} />
-                      ))}
-                    </div>
+                    {/* プロンプトリスト */}
+                    <PromptList prompts={displayPrompts} categoryId={category.id} />
 
                     {/* 「もっと見る」ボタン */}
                     {hasMore && (
@@ -363,12 +424,8 @@ export const PromptGridSection = memo(function PromptGridSection({
                 );
               })()}
 
-              {/* グリッド表示 */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-                {displayPrompts.map((prompt) => (
-                  <PromptCard key={prompt.id} prompt={prompt} searchQuery={searchQuery} />
-                ))}
-              </div>
+              {/* プロンプトリスト */}
+              <PromptList prompts={displayPrompts} categoryId={activeTab} />
 
               {/* 「もっと見る」ボタン */}
               {hasMorePrompts(activeTab as PromptCategory) && (

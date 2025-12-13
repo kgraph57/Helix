@@ -237,93 +237,96 @@ export default function PromptDetail() {
           </div>
         </div>
 
-        {/* プロンプト出力エリア（Above the Fold） */}
-        <Card className="mb-2">
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-sm md:text-base font-semibold flex items-center gap-1">
-                <Sparkles className="w-4 h-4" />
-                プロンプトプレビュー
-              </CardTitle>
-              <Button onClick={handleCopy} variant="ghost" size="sm">
-                {copied ? (
-                  <>
-                    <Check className="w-3 h-3 mr-1" /> コピー完了
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-3 h-3 mr-1" /> コピー
-                  </>
-                )}
-              </Button>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <ScrollArea className="h-[300px]">
-              <pre className="whitespace-pre-wrap text-xs md:text-sm font-mono bg-gray-50 dark:bg-gray-900 p-2 rounded-lg border">
-                {generatePrompt()}
-              </pre>
-            </ScrollArea>
-          </CardContent>
-        </Card>
+        {/* 入力フォームとプロンプトプレビューを横並び（デスクトップ） */}
+        <div className="flex flex-col lg:flex-row gap-2 mb-2">
+          {/* 入力フォームエリア（左） */}
+          <Card className="flex-1 mb-2 lg:mb-0">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-sm md:text-base font-semibold">入力項目</CardTitle>
+                  <Button variant="ghost" size="sm" onClick={handleReset}>
+                    <RefreshCw className="w-4 h-4 mr-2" /> リセット
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <ScrollArea className="h-[400px] lg:h-[500px] pr-4">
+                  <div className="space-y-2">
+                    {prompt.inputs.map((input) => (
+                      <div key={input.key} className="space-y-1">
+                        <Label htmlFor={input.key} className="text-sm font-medium">
+                          {input.label}
+                        </Label>
+                        {input.type === "textarea" ? (
+                          <Textarea
+                            id={input.key}
+                            placeholder={input.placeholder}
+                            value={inputValues[input.key] || ""}
+                            onChange={(e) => handleInputChange(input.key, e.target.value)}
+                            className="min-h-[120px] resize-y"
+                          />
+                        ) : input.type === "select" ? (
+                          <Select
+                            value={inputValues[input.key] || ""}
+                            onValueChange={(value) => handleInputChange(input.key, value)}
+                          >
+                            <SelectTrigger id={input.key}>
+                              <SelectValue placeholder={input.placeholder} />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {input.options?.map((option) => (
+                                <SelectItem key={option} value={option}>
+                                  {option}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        ) : (
+                          <Input
+                            id={input.key}
+                            type={input.type}
+                            placeholder={input.placeholder}
+                            value={inputValues[input.key] || ""}
+                            onChange={(e) => handleInputChange(input.key, e.target.value)}
+                          />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </ScrollArea>
+              </CardContent>
+            </Card>
 
-        {/* 入力フォームエリア */}
-        <Card className="mb-2">
+          {/* プロンプト出力エリア（右） */}
+          <Card className="flex-1 mb-2 lg:mb-0">
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm md:text-base font-semibold">入力項目</CardTitle>
-                <Button variant="ghost" size="sm" onClick={handleReset}>
-                  <RefreshCw className="w-4 h-4 mr-2" /> リセット
+                <CardTitle className="text-sm md:text-base font-semibold flex items-center gap-1">
+                  <Sparkles className="w-4 h-4" />
+                  プロンプトプレビュー
+                </CardTitle>
+                <Button onClick={handleCopy} variant="ghost" size="sm">
+                  {copied ? (
+                    <>
+                      <Check className="w-3 h-3 mr-1" /> コピー完了
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3 h-3 mr-1" /> コピー
+                    </>
+                  )}
                 </Button>
               </div>
             </CardHeader>
             <CardContent>
-              <ScrollArea className="h-[400px] pr-4">
-                <div className="space-y-2">
-                  {prompt.inputs.map((input) => (
-                    <div key={input.key} className="space-y-1">
-                      <Label htmlFor={input.key} className="text-sm font-medium">
-                        {input.label}
-                      </Label>
-                      {input.type === "textarea" ? (
-                        <Textarea
-                          id={input.key}
-                          placeholder={input.placeholder}
-                          value={inputValues[input.key] || ""}
-                          onChange={(e) => handleInputChange(input.key, e.target.value)}
-                          className="min-h-[120px] resize-y"
-                        />
-                      ) : input.type === "select" ? (
-                        <Select
-                          value={inputValues[input.key] || ""}
-                          onValueChange={(value) => handleInputChange(input.key, value)}
-                        >
-                          <SelectTrigger id={input.key}>
-                            <SelectValue placeholder={input.placeholder} />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {input.options?.map((option) => (
-                              <SelectItem key={option} value={option}>
-                                {option}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      ) : (
-                        <Input
-                          id={input.key}
-                          type={input.type}
-                          placeholder={input.placeholder}
-                          value={inputValues[input.key] || ""}
-                          onChange={(e) => handleInputChange(input.key, e.target.value)}
-                        />
-                      )}
-                    </div>
-                  ))}
-                </div>
+              <ScrollArea className="h-[300px] lg:h-[500px]">
+                <pre className="whitespace-pre-wrap text-xs md:text-sm font-mono bg-gray-50 dark:bg-gray-900 p-2 rounded-lg border">
+                  {generatePrompt()}
+                </pre>
               </ScrollArea>
             </CardContent>
           </Card>
+        </div>
 
           {/* 警告メッセージ（折りたたみ式）- ページ下部に目立たない配置 */}
           {prompt.warningMessage && (
