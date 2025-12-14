@@ -94,10 +94,10 @@ export function GamificationStats({
       progress: "from-blue-500 to-blue-600"
     },
     2: { 
-      bg: "from-purple-500/10 to-purple-600/5", 
-      text: "text-purple-600", 
-      border: "border-purple-500/20",
-      progress: "from-purple-500 to-purple-600"
+      bg: "from-blue-500/10 to-blue-600/5", 
+      text: "text-blue-600", 
+      border: "border-blue-500/20",
+      progress: "from-blue-500 to-blue-600"
     },
     3: { 
       bg: "from-green-500/10 to-green-600/5", 
@@ -263,11 +263,11 @@ export function GamificationStats({
               <div className="flex flex-col items-center text-center space-y-1.5">
                 <div className={cn(
                   "w-8 h-8 rounded-lg flex items-center justify-center",
-                  "bg-gradient-to-br from-purple-500/15 to-purple-600/10 border border-purple-500/20"
+                  "bg-gradient-to-br from-blue-500/15 to-blue-600/10 border border-blue-500/20"
                 )}>
-                  <TrendingUp className="w-4 h-4 text-purple-600" />
+                  <TrendingUp className="w-4 h-4 text-blue-600" />
                 </div>
-                <div className="text-xl font-bold text-purple-600 leading-none">
+                <div className="text-xl font-bold text-blue-600 leading-none">
                   {totalLessonsCompleted > 0 ? Math.round(totalXP / totalLessonsCompleted) : 0}
                 </div>
                 <div className="text-[10px] text-muted-foreground leading-tight">

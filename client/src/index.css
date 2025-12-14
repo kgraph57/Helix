@@ -109,29 +109,29 @@
   --error: #EF4444;
   
   /* Latest Apple Design - Light Mode (Default) */
-  /* Base: Clean White with subtle warmth */
-  --background: oklch(0.99 0.002 260); /* Slightly warm white */
-  --foreground: oklch(0.15 0.01 260); /* Deep Slate for text */
+  /* Base: Clean White with neutral tone */
+  --background: oklch(0.99 0 0); /* Pure neutral white */
+  --foreground: oklch(0.15 0 0); /* Pure neutral dark for text */
   
   /* Card: Elevated with subtle glow */
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.15 0.01 260);
+  --card-foreground: oklch(0.15 0 0);
   
   /* Popover */
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.15 0.01 260);
+  --popover-foreground: oklch(0.15 0 0);
   
   /* Primary: Apple Blue (Modern, Vibrant) */
   --primary: oklch(0.58 0.2 255); /* Apple's signature blue */
   --primary-foreground: oklch(1 0 0); /* White text on blue */
   
-  /* Secondary: Soft, warm gray */
-  --secondary: oklch(0.97 0.005 260); /* Very light warm gray */
-  --secondary-foreground: oklch(0.3 0.01 260); /* Darker warm gray text */
+  /* Secondary: Soft, neutral gray */
+  --secondary: oklch(0.97 0 0); /* Pure neutral light gray */
+  --secondary-foreground: oklch(0.3 0 0); /* Pure neutral dark gray text */
   
-  /* Muted: Neutral Grays with warmth */
-  --muted: oklch(0.96 0.003 260); /* Light warm gray */
-  --muted-foreground: oklch(0.5 0.005 260); /* Medium warm gray text */
+  /* Muted: Neutral Grays */
+  --muted: oklch(0.96 0 0); /* Pure neutral light gray */
+  --muted-foreground: oklch(0.5 0 0); /* Pure neutral medium gray text */
   
   /* Accent: Subtle highlight */
   --accent: oklch(0.96 0.008 255); /* Light blue tint */
@@ -142,78 +142,78 @@
   --destructive-foreground: oklch(1 0 0);
   
   /* Borders & Inputs - Softer edges */
-  --border: oklch(0.9 0.005 260); /* Soft gray border */
-  --input: oklch(0.95 0.003 260);
+  --border: oklch(0.9 0 0); /* Pure neutral border */
+  --input: oklch(0.95 0 0);
   --ring: oklch(0.58 0.2 255); /* Matches Primary */
   
   /* Radius: More rounded, friendly */
   --radius: 0.5rem; /* 8px - aligned to 8px grid */
   
   /* Sidebar */
-  --sidebar: oklch(0.985 0.002 260); /* Off-white with warmth */
-  --sidebar-foreground: oklch(0.25 0.01 260);
+  --sidebar: oklch(0.985 0 0); /* Pure neutral off-white */
+  --sidebar-foreground: oklch(0.25 0 0);
   --sidebar-primary: oklch(0.58 0.2 255);
   --sidebar-primary-foreground: oklch(1 0 0);
   --sidebar-accent: oklch(0.96 0.008 255);
   --sidebar-accent-foreground: oklch(0.3 0.01 255);
-  --sidebar-border: oklch(0.9 0.005 260);
+  --sidebar-border: oklch(0.9 0 0);
   --sidebar-ring: oklch(0.58 0.2 255);
   
   /* Charts - Vibrant but harmonious */
   --chart-1: oklch(0.6 0.2 255); /* Blue */
   --chart-2: oklch(0.65 0.18 180); /* Teal */
   --chart-3: oklch(0.7 0.15 220); /* Cyan */
-  --chart-4: oklch(0.6 0.18 290); /* Purple */
+  --chart-4: oklch(0.6 0.18 240); /* Blue */
   --chart-5: oklch(0.7 0.15 50); /* Orange */
 }
 
 .dark {
   /* Latest Apple Design - Dark Mode */
-  /* Base: Rich dark with subtle warmth */
-  --background: oklch(0.12 0.01 260); /* Deep, rich dark */
-  --foreground: oklch(0.98 0.002 260); /* Slightly warm white text */
+  /* Base: Rich dark with pure neutral tone */
+  --background: oklch(0.12 0 0); /* Pure neutral dark */
+  --foreground: oklch(0.98 0 0); /* Pure neutral white text */
   
   /* Card */
-  --card: oklch(0.16 0.015 260); /* Slightly lighter with warmth */
-  --card-foreground: oklch(0.98 0.002 260);
+  --card: oklch(0.16 0 0); /* Pure neutral slightly lighter */
+  --card-foreground: oklch(0.98 0 0);
   
   /* Popover */
-  --popover: oklch(0.16 0.015 260);
-  --popover-foreground: oklch(0.98 0.002 260);
+  --popover: oklch(0.16 0 0);
+  --popover-foreground: oklch(0.98 0 0);
   
   /* Primary - Vibrant but not harsh */
   --primary: oklch(0.65 0.2 255); /* Brighter blue for dark mode */
   --primary-foreground: oklch(1 0 0);
   
   /* Secondary */
-  --secondary: oklch(0.22 0.015 260); /* Warm dark gray */
-  --secondary-foreground: oklch(0.92 0.002 255);
+  --secondary: oklch(0.22 0 0); /* Pure neutral dark gray */
+  --secondary-foreground: oklch(0.92 0 0);
   
   /* Muted */
-  --muted: oklch(0.2 0.01 260);
-  --muted-foreground: oklch(0.65 0.003 260);
+  --muted: oklch(0.2 0 0);
+  --muted-foreground: oklch(0.65 0 0);
   
   /* Accent */
-  --accent: oklch(0.22 0.018 260);
-  --accent-foreground: oklch(0.92 0.002 255);
+  --accent: oklch(0.22 0 0);
+  --accent-foreground: oklch(0.92 0 0);
   
   /* Destructive */
   --destructive: oklch(0.55 0.22 25);
   --destructive-foreground: oklch(0.98 0 0);
   
   /* Borders - Softer */
-  --border: oklch(0.25 0.01 260);
-  --input: oklch(0.25 0.01 260);
+  --border: oklch(0.25 0 0);
+  --input: oklch(0.25 0 0);
   --ring: oklch(0.65 0.2 255);
   
   /* Sidebar */
-  --sidebar: oklch(0.1 0.01 260); /* Even darker */
-  --sidebar-foreground: oklch(0.92 0.002 260);
+  --sidebar: oklch(0.1 0 0); /* Pure neutral darker */
+  --sidebar-foreground: oklch(0.92 0 0);
   --sidebar-primary: oklch(0.65 0.2 255);
   --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.18 0.015 260);
+  --sidebar-accent: oklch(0.18 0 0);
   --sidebar-accent-foreground: oklch(0.92 0 0);
-  --sidebar-border: oklch(0.22 0.01 260);
+  --sidebar-border: oklch(0.22 0 0);
   --sidebar-ring: oklch(0.65 0.2 255);
 }
 
@@ -431,15 +431,15 @@
   /* Apple-style gradient backgrounds */
   .gradient-apple-light {
     background: linear-gradient(135deg, 
-      oklch(0.99 0.002 260) 0%,
+      oklch(0.99 0 0) 0%,
       oklch(0.98 0.005 255) 50%,
-      oklch(0.99 0.003 260) 100%);
+      oklch(0.99 0 0) 100%);
   }
   
   .gradient-apple-card {
     background: linear-gradient(135deg,
       oklch(1 0 0) 0%,
-      oklch(0.99 0.002 260) 100%);
+      oklch(0.99 0 0) 100%);
   }
   
   /* Apple-style smooth animations */
@@ -533,10 +533,10 @@
 
 .dark .zenn-article {
   background: linear-gradient(135deg,
-    oklch(0.16 0.015 260) 0%,
-    oklch(0.18 0.018 260) 100%);
-  color: oklch(0.98 0.002 260);
-  border-color: oklch(0.25 0.01 260);
+    oklch(0.16 0 0) 0%,
+    oklch(0.18 0 0) 100%);
+  color: oklch(0.98 0 0);
+  border-color: oklch(0.25 0 0);
   box-shadow: 
     0 1px 3px 0 rgba(0, 0, 0, 0.3),
     0 4px 12px 0 rgba(0, 0, 0, 0.2),
@@ -572,7 +572,7 @@
 }
 
 .dark .zenn-article h2 {
-  color: oklch(0.98 0.002 260);
+  color: oklch(0.98 0 0);
   border-bottom-color: oklch(0.3 0.01 255);
 }
 
@@ -590,7 +590,7 @@
 }
 
 .dark .zenn-article h3 {
-  color: oklch(0.95 0.002 260);
+  color: oklch(0.95 0 0);
   border-left-color: oklch(0.65 0.2 255);
 }
 
@@ -604,7 +604,7 @@
 }
 
 .dark .zenn-article h4 {
-  color: oklch(0.9 0.002 260);
+  color: oklch(0.9 0 0);
 }
 
 .zenn-article ul,
@@ -622,27 +622,27 @@
 }
 
 .dark .zenn-article li {
-  color: oklch(0.95 0.002 260);
+  color: oklch(0.95 0 0);
 }
 
 .zenn-article code {
   background: linear-gradient(135deg, 
-    oklch(0.97 0.003 260) 0%,
-    oklch(0.96 0.005 260) 100%); /* わずかなグラデーション */
+    oklch(0.97 0 0) 0%,
+    oklch(0.96 0 0) 100%); /* わずかなグラデーション */
   padding: 4px 10px; /* より余裕のあるパディング */
   border-radius: 6px;
   font-size: 16px; /* より読みやすいサイズ */
   font-family: 'SF Mono', 'Consolas', 'Monaco', 'JetBrains Mono', monospace;
   color: oklch(0.5 0.22 25); /* より読みやすい色 */
-  border: 1px solid oklch(0.92 0.005 260); /* わずかなボーダー */
+  border: 1px solid oklch(0.92 0 0); /* わずかなボーダー */
   font-weight: 500;
 }
 
 .dark .zenn-article code {
   background: linear-gradient(135deg,
-    oklch(0.22 0.015 260) 0%,
-    oklch(0.24 0.018 260) 100%);
-  border-color: oklch(0.3 0.01 260);
+    oklch(0.22 0 0) 0%,
+    oklch(0.24 0 0) 100%);
+  border-color: oklch(0.3 0 0);
   color: oklch(0.7 0.18 25);
 }
 
@@ -665,9 +665,9 @@
 
 .dark .zenn-article pre {
   background: linear-gradient(135deg,
-    oklch(0.22 0.015 260) 0%,
-    oklch(0.24 0.018 260) 100%);
-  border-color: oklch(0.3 0.01 260);
+    oklch(0.22 0 0) 0%,
+    oklch(0.24 0 0) 100%);
+  border-color: oklch(0.3 0 0);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -689,7 +689,7 @@
 
 .dark .zenn-article blockquote {
   border-left-color: oklch(0.65 0.2 255);
-  color: oklch(0.75 0.003 260);
+  color: oklch(0.75 0 0);
   background: linear-gradient(90deg,
     oklch(0.2 0.015 255) 0%,
     transparent 100%);
@@ -729,7 +729,7 @@
 
 .dark .zenn-article th,
 .dark .zenn-article td {
-  border-color: oklch(0.3 0.01 260);
+  border-color: oklch(0.3 0 0);
 }
 
 .zenn-article th {
@@ -739,7 +739,7 @@
 }
 
 .dark .zenn-article th {
-  background: oklch(0.22 0.015 260);
+  background: oklch(0.22 0 0);
 }
 
 .zenn-article img {
@@ -751,11 +751,11 @@
   box-shadow: 
     0 4px 12px rgba(0, 0, 0, 0.08),
     0 8px 24px rgba(0, 0, 0, 0.04); /* より洗練された影 */
-  border: 1px solid oklch(0.95 0.003 260); /* わずかなボーダー */
+  border: 1px solid oklch(0.95 0 0); /* わずかなボーダー */
 }
 
 .dark .zenn-article img {
-  border-color: oklch(0.25 0.01 260);
+  border-color: oklch(0.25 0 0);
   box-shadow: 
     0 4px 12px rgba(0, 0, 0, 0.3),
     0 8px 24px rgba(0, 0, 0, 0.2);

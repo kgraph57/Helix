@@ -41,16 +41,19 @@ export const PromptCard = memo(function PromptCard({ prompt, searchQuery = '' }:
       onClick={() => setLocation(`/prompts/${prompt.id}`)}
       className="
         group relative w-full p-5
-        bg-white dark:bg-neutral-900
+        bg-background
         rounded-xl
-        border border-neutral-200 dark:border-neutral-800
-        hover:border-neutral-300 dark:hover:border-neutral-700
         transition-all duration-300
         text-left
+        shadow-[0_1px_2px_rgba(0,0,0,0.04),0_4px_16px_rgba(0,0,0,0.08)]
         hover:shadow-lg hover:shadow-neutral-200/50 dark:hover:shadow-neutral-800/50
         hover:-translate-y-1
         active:translate-y-0
       "
+      style={{
+        outline: '1px solid rgba(0, 0, 0, 0.06)',
+        outlineOffset: '-1px',
+      }}
     >
       {/* ヘッダー: カテゴリとリスクレベル */}
       <div className="flex items-center justify-between mb-3">
@@ -69,7 +72,7 @@ export const PromptCard = memo(function PromptCard({ prompt, searchQuery = '' }:
       </div>
       
       {/* タイトル */}
-      <h3 className="text-base font-semibold mb-2 text-neutral-900 dark:text-neutral-100 group-hover:text-neutral-700 dark:group-hover:text-neutral-200 transition-colors line-clamp-2">
+      <h3 className="text-base font-semibold mb-2 text-neutral-900 dark:text-neutral-100 group-hover:text-neutral-700 dark:group-hover:text-neutral-200 transition-colors truncate">
         <HighlightedText text={prompt.title} query={searchQuery} />
       </h3>
       

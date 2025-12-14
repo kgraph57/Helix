@@ -9,6 +9,7 @@ import { ArrowLeft, Clock, Loader2, ChevronRight, ChevronLeft, Menu, X, Circle, 
 import { Button } from "@/components/ui/button";
 import { updateSEO } from "@/lib/seo";
 import { CodeBlock } from '@/components/CodeBlock';
+import { Layout } from '@/components/Layout';
 
 // 絵文字を削除する関数
 function removeEmojis(text: string): string {
@@ -582,9 +583,10 @@ export default function MarkdownGuide() {
   };
 
   return (
+    <Layout>
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Header */}
-      <header className="sticky top-0 z-10 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-sm">
+        <header className="sticky top-0 z-10 bg-background shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 lg:py-2.5">
           <div className="flex items-center gap-2">
             {/* Hamburger Menu Button - Mobile Only */}
@@ -623,144 +625,8 @@ export default function MarkdownGuide() {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Left Sidebar - Fixed Navigation */}
-          <aside className={`
-            fixed lg:static inset-y-0 left-0 z-50 lg:z-0
-            w-80 lg:w-80 flex-shrink-0
-            transform transition-transform duration-300 ease-in-out
-            ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-            bg-gray-50 dark:bg-gray-900 lg:bg-transparent
-          `}>
-            <div className="h-full lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] overflow-y-auto p-4 lg:p-0">
-              {/* Close Button - Mobile Only */}
-              <div className="lg:hidden flex justify-end mb-4">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setIsSidebarOpen(false)}
-                  className="h-7 w-7"
-                >
-                  <X className="h-4 w-4" />
-                </Button>
-              </div>
-              {/* Progress Card */}
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-6">
-                <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
-                  進捗状況
-                </h3>
-                <div className="mb-2">
-                  <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-purple-600 transition-all duration-300"
-                      style={{ width: `${progressPercentage}%` }}
-                    />
-                  </div>
-                </div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {completedCount} / {totalSteps} 完了
-                </p>
-              </div>
-
-              {/* Navigation */}
-              <nav className="space-y-6">
-                {/* Introduction Link */}
-                {metadata.steps[0]?.id === '00-introduction' && (
-                  <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4">
-                    <button
-                      onClick={() => {
-                        setCurrentStep(0);
-                        setIsSidebarOpen(false);
-                      }}
-                      className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
-                        currentStep === 0
-                          ? 'bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 font-medium'
-                          : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
-                      }`}
-                    >
-                      <div className="font-medium">イントロダクション</div>
-                    </button>
-                  </div>
-                )}
-
-                {/* Group steps by phase (基本編, 実践編, 応用編) - 1つのカードにまとめる */}
-                {(() => {
-                  // ステップをフェーズごとにグループ化
-                  const otherSteps = metadata.steps.filter((step, index) => step.id !== '00-introduction' || index !== 0);
-                  const phases: Array<{ title: string; steps: Array<{ step: typeof metadata.steps[0]; index: number }> }> = [];
-                  
-                  otherSteps.forEach((step, filteredIndex) => {
-                    const originalIndex = metadata.steps.findIndex(s => s.id === step.id);
-                    // タイトルからフェーズ名を抽出（例: "基本編 - ステップ1" -> "基本編"）
-                    const phaseMatch = step.title.match(/^(基本編|実践編|応用編)/);
-                    const phaseTitle = phaseMatch ? phaseMatch[1] : 'その他';
-                    
-                    let phase = phases.find(p => p.title === phaseTitle);
-                    if (!phase) {
-                      phase = { title: phaseTitle, steps: [] };
-                      phases.push(phase);
-                    }
-                    phase.steps.push({ step, index: originalIndex });
-                  });
-
-                  // すべてのフェーズを1つのカードにまとめる
-                  return (
-                    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4">
-                      {phases.map((phase, phaseIndex) => (
-                        <div key={phase.title} className={phaseIndex > 0 ? "mt-6 pt-6 border-t border-gray-200 dark:border-gray-700" : ""}>
-                          <div className="flex items-center gap-2 mb-3">
-                            <div className="flex items-center justify-center w-6 h-6 rounded-full bg-purple-600 text-white text-sm font-bold">
-                              {phaseIndex + 1}
-                            </div>
-                            <h3 className="font-semibold text-gray-900 dark:text-white">
-                              {phase.title}
-                            </h3>
-                          </div>
-                          <div className="space-y-1">
-                            {phase.steps.map(({ step, index: originalIndex }) => {
-                              const isCompleted = completedSteps.has(originalIndex);
-                              const isCurrent = currentStep === originalIndex;
-                              return (
-                                <div key={step.id} className="flex items-center gap-2">
-                                  <button
-                                    onClick={() => toggleComplete(originalIndex)}
-                                    className="flex-shrink-0"
-                                  >
-                                    {isCompleted ? (
-                                      <CheckCircle2 className="h-5 w-5 text-green-600" />
-                                    ) : (
-                                      <Circle className="h-5 w-5 text-gray-400" />
-                                    )}
-                                  </button>
-                                  <button
-                                    onClick={() => {
-                                      setCurrentStep(originalIndex);
-                                      setIsSidebarOpen(false);
-                                    }}
-                                    className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors break-words ${
-                                      isCurrent
-                                        ? 'bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 font-medium'
-                                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
-                                    }`}
-                                  >
-                                    <div className="font-medium">
-                                      {step.title.replace(/^(基本編|実践編|応用編) - /, '')}
-                                    </div>
-                                  </button>
-                                </div>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  );
-                })()}
-              </nav>
-            </div>
-          </aside>
-
           {/* Right Content - Scrollable Article */}
-          <main className="flex-1 min-w-0">
+          <main className="flex-1 min-w-0 order-2 lg:order-1">
             {loading ? (
               <div className="flex items-center justify-center py-12">
                 <Loader2 className="w-8 h-8 animate-spin text-primary" />
@@ -856,113 +722,19 @@ export default function MarkdownGuide() {
                     code({ node, className, children, ...props }: any) {
                       const inline = (props as any).inline;
                       if (inline) {
-                        return <code className="bg-muted/80 px-2 py-1 rounded-md text-base font-mono border border-border/50" {...props}>{children}</code>;
+                        return <code className="bg-muted/80 px-2 py-1 rounded-md text-base font-mono" {...props}>{children}</code>;
                       }
-                      // 本のコード（サンプルコード）のみのコードブロックをフィルタリング
-                      const codeContent = String(children).replace(/\n$/, '');
-                      
-                      // HTMLコードの検出パターン
-                      const htmlPattern = /(&lt;|<)(!DOCTYPE|html|head|body|script.*type.*module|meta.*charset|Single Page Apps for GitHub Pages)/i;
-                      const hasViteClient = /vite\/client|@vite\/client|spa-github-pages|window\.history\.replaceState|rafgraph|MIT License|Start Single Page Apps|Cache-Control|Pragma|Expires|no-cache|no-store|must-revalidate/i.test(codeContent);
-                      
-                      // HTMLタグの数をカウント
-                      const htmlTagCount = (codeContent.match(/(&lt;|<)\/?[a-z]+/gi) || []).length;
-                      
-                      // 医療関連のキーワードをチェック
-                      const medicalKeywords = [
-                        'プロンプト', '指示', '例', '実践', 'AI', 'ChatGPT', 'Claude', '患者', '症例', 
-                        'メール', 'コンサルト', '専門医', '医療', '診断', '治療', '臨床', '医師', '病院', 
-                        '診療', '疾患', '症状', '検査', '薬剤', '手術', '入院', '退院', '診察', '診断書',
-                        '紹介状', 'カルテ', 'SOAP', 'バイタル', '所見', '経過', '既往歴', '現病歴'
-                      ];
-                      const hasMedicalContent = medicalKeywords.some(keyword => codeContent.includes(keyword));
-                      
-                      // 本のサンプルコードの特徴を検出（より積極的に）
-                      const isBookSampleCode = (
-                        htmlPattern.test(codeContent) || 
-                        hasViteClient || 
-                        (htmlTagCount >= 3 && !hasMedicalContent && codeContent.length >= 200)
-                      ) && 
-                        codeContent.length < 100000 && 
-                        !hasMedicalContent;
-                      
-                      if (isBookSampleCode) {
-                        // 本のサンプルコードの場合は表示しない
-                        return null;
-                      }
-                      
                       return (
                         <CodeBlock className={className}>
-                          {codeContent}
+                          {String(children).replace(/\n$/, '')}
                         </CodeBlock>
                       );
                     },
-                    pre: ({ node, children, ...props }: any) => {
-                      // preタグ内のコードをチェック
-                      let codeContent = '';
-                      
-                      // childrenからテキストを抽出する関数
-                      const extractText = (element: any): string => {
-                        if (typeof element === 'string') {
-                          return element;
-                        }
-                        if (React.isValidElement(element)) {
-                          if (element.props?.children) {
-                            return React.Children.toArray(element.props.children)
-                              .map(extractText)
-                              .join('');
-                          }
-                          return '';
-                        }
-                        if (Array.isArray(element)) {
-                          return element.map(extractText).join('');
-                        }
-                        return String(element || '');
-                      };
-                      
-                      codeContent = extractText(children);
-                      
-                      // 本のコード（サンプルコード）のみのコードブロックを検出
-                      // HTMLの基本構造（エスケープ済み・未エスケープ両方に対応）
-                      const htmlPattern = /(&lt;|<)(!DOCTYPE|html|head|body|script.*type.*module|meta.*charset|Single Page Apps for GitHub Pages)/i;
-                      const hasViteClient = /vite\/client|@vite\/client|spa-github-pages|window\.history\.replaceState|rafgraph|MIT License|Start Single Page Apps|Cache-Control|Pragma|Expires|no-cache|no-store|must-revalidate/i.test(codeContent);
-                      
-                      // HTMLタグの数をカウント
-                      const htmlTagCount = (codeContent.match(/(&lt;|<)\/?[a-z]+/gi) || []).length;
-                      
-                      // 医療関連のキーワードをチェック（より包括的に）
-                      const medicalKeywords = [
-                        'プロンプト', '指示', '例', '実践', 'AI', 'ChatGPT', 'Claude', '患者', '症例', 
-                        'メール', 'コンサルト', '専門医', '医療', '診断', '治療', '臨床', '医師', '病院', 
-                        '診療', '疾患', '症状', '検査', '薬剤', '手術', '入院', '退院', '診察', '診断書',
-                        '紹介状', 'カルテ', 'SOAP', 'バイタル', '所見', '経過', '既往歴', '現病歴'
-                      ];
-                      const hasMedicalContent = medicalKeywords.some(keyword => codeContent.includes(keyword));
-                      
-                      // 本のサンプルコードの特徴を検出（より積極的に）
-                      // HTMLコードが多く、医療関連のキーワードが少ない場合は本のサンプルコード
-                      // より厳格な条件: HTMLタグが2個以上あり、医療コンテンツがなく、長さが100文字以上
-                      const isBookSampleCode = (
-                        htmlPattern.test(codeContent) || 
-                        hasViteClient || 
-                        (htmlTagCount >= 2 && !hasMedicalContent && codeContent.length >= 100)
-                      ) && 
-                        codeContent.length < 200000 && 
-                        !hasMedicalContent;
-                      
-                      if (isBookSampleCode) {
-                        // 本のサンプルコードの場合は表示しない
-                        return null;
-                      }
-                      
-                      return (
-                        <pre className="bg-muted/80 p-6 rounded-xl overflow-x-auto my-8 border border-border/50 shadow-sm" {...props}>
-                          {children}
-                        </pre>
-                      );
-                    },
+                    pre: ({ node, ...props }) => (
+                      <pre className="bg-muted/80 p-6 rounded-xl overflow-x-auto my-8 shadow-sm" {...props} />
+                    ),
                     blockquote: ({ node, ...props }) => (
-                      <blockquote className="border-l-4 border-primary pl-6 italic my-8 text-lg md:text-xl text-muted-foreground leading-[1.85] bg-accent/30 py-4 pr-4 rounded-r-lg" {...props} />
+                      <blockquote className="pl-6 italic my-8 text-lg md:text-xl text-muted-foreground leading-[1.85] bg-accent/30 py-4 pr-4 rounded-r-lg" {...props} />
                     ),
                   }}
                 >
@@ -971,12 +743,13 @@ export default function MarkdownGuide() {
               </article>
             )}
 
-            {/* Navigation and Completion Buttons */}
+            {/* Navigation Buttons */}
+            {metadata && (
             <div className="mt-8 flex items-center justify-between gap-4">
               {/* Previous Button */}
               <Button
                 onClick={goToPrevious}
-                disabled={!hasPrevious}
+                  disabled={currentStep === 0}
                 variant="outline"
                 size="lg"
               >
@@ -987,17 +760,156 @@ export default function MarkdownGuide() {
               {/* Next Button */}
               <Button
                 onClick={goToNext}
-                disabled={!hasNext}
-                variant="default"
+                  disabled={currentStep >= metadata.steps.length - 1}
+                  variant="outline"
                 size="lg"
               >
                 次へ
                 <ChevronRight className="h-5 w-5 ml-2" />
               </Button>
             </div>
+            )}
           </main>
+
+          {/* Right Sidebar - Fixed Navigation */}
+          <aside className={`
+            fixed lg:static inset-y-0 right-0 z-50 lg:z-0
+            w-80 lg:w-80 flex-shrink-0
+            transform transition-transform duration-300 ease-in-out
+            ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full lg:translate-x-0'}
+            bg-gray-50 dark:bg-gray-900 lg:bg-transparent
+            order-1 lg:order-2
+          `}>
+            <div className="h-full lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] overflow-y-auto p-4 lg:p-0">
+              {/* Close Button - Mobile Only */}
+              <div className="lg:hidden flex justify-end mb-4">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setIsSidebarOpen(false)}
+                  className="h-7 w-7"
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+        </div>
+              {/* Progress Card */}
+              <div className="bg-background rounded-lg shadow-sm p-6 mb-6">
+                <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
+                  進捗状況
+                </h3>
+                <div className="mb-2">
+                  <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-blue-600 transition-all duration-300"
+                      style={{ width: `${progressPercentage}%` }}
+                    />
+      </div>
+                </div>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  {completedCount} / {totalSteps} 完了
+                </p>
+              </div>
+
+              {/* Navigation */}
+              <nav className="space-y-6">
+                {/* Introduction Link */}
+                {metadata.steps[0]?.id === '00-introduction' && (
+                  <div className="bg-background rounded-lg shadow-sm p-4">
+                    <button
+                      onClick={() => {
+                        setCurrentStep(0);
+                        setIsSidebarOpen(false);
+                      }}
+                      className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
+                        currentStep === 0
+                          ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 font-medium'
+                          : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
+                      }`}
+                    >
+                      <div className="font-medium">イントロダクション</div>
+                    </button>
+                  </div>
+                )}
+
+                {/* Group steps by phase (基本編, 実践編, 応用編) - 1つのカードにまとめる */}
+                {(() => {
+                  // ステップをフェーズごとにグループ化
+                  const otherSteps = metadata.steps.filter((step, index) => step.id !== '00-introduction' || index !== 0);
+                  const phases: Array<{ title: string; steps: Array<{ step: typeof metadata.steps[0]; index: number }> }> = [];
+                  
+                  otherSteps.forEach((step, filteredIndex) => {
+                    const originalIndex = metadata.steps.findIndex(s => s.id === step.id);
+                    // タイトルからフェーズ名を抽出（例: "基本編 - ステップ1" -> "基本編"）
+                    const phaseMatch = step.title.match(/^(基本編|実践編|応用編)/);
+                    const phaseTitle = phaseMatch ? phaseMatch[1] : 'その他';
+                    
+                    let phase = phases.find(p => p.title === phaseTitle);
+                    if (!phase) {
+                      phase = { title: phaseTitle, steps: [] };
+                      phases.push(phase);
+                    }
+                    phase.steps.push({ step, index: originalIndex });
+                  });
+
+                  // すべてのフェーズを1つのカードにまとめる
+                  return (
+                    <div className="bg-background rounded-lg shadow-sm p-4">
+                      {phases.map((phase, phaseIndex) => (
+                        <div key={phase.title} className={phaseIndex > 0 ? "mt-6 pt-6" : ""}>
+                          <div className="flex items-center gap-2 mb-3">
+                            <div className="flex items-center justify-center w-6 h-6 rounded-full bg-blue-600 text-white text-sm font-bold">
+                              {phaseIndex + 1}
+                            </div>
+                            <h3 className="font-semibold text-gray-900 dark:text-white">
+                              {phase.title}
+                            </h3>
+                          </div>
+                          <div className="space-y-1">
+                            {phase.steps.map(({ step, index: originalIndex }) => {
+                              const isCompleted = completedSteps.has(originalIndex);
+                              const isCurrent = currentStep === originalIndex;
+                              return (
+                                <div key={step.id} className="flex items-center gap-2">
+                                  <button
+                                    onClick={() => toggleComplete(originalIndex)}
+                                    className="flex-shrink-0"
+                                  >
+                                    {isCompleted ? (
+                                      <CheckCircle2 className="h-5 w-5 text-green-600" />
+                                    ) : (
+                                      <Circle className="h-5 w-5 text-gray-400" />
+                                    )}
+                                  </button>
+                                  <button
+                                    onClick={() => {
+                                      setCurrentStep(originalIndex);
+                                      setIsSidebarOpen(false);
+                                    }}
+                                    className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors break-words ${
+                                      isCurrent
+                                        ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 font-medium'
+                                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
+                                    }`}
+                                  >
+                                    <div className="font-medium">
+                                      {step.title.replace(/^(基本編|実践編|応用編) - /, '')}
+                                    </div>
+                                  </button>
+    </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                })()}
+              </nav>
+            </div>
+          </aside>
         </div>
       </div>
     </div>
+    </Layout>
   );
 }

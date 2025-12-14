@@ -78,7 +78,7 @@ export function FeatureOverviewSection() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <section className="relative py-8 md:py-12 lg:py-16 bg-white dark:bg-neutral-950 overflow-hidden">
+    <section className="relative py-8 md:py-12 lg:py-16 bg-background overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
         {/* Linear風：カルーセルコンテナ */}
         <div 
@@ -103,7 +103,13 @@ export function FeatureOverviewSection() {
                       ease: [0.16, 1, 0.3, 1] 
                     }}
                   >
-                    <div className="bg-white dark:bg-neutral-900 rounded-2xl p-6 md:p-8 border border-neutral-200/50 dark:border-neutral-700/50 hover:border-neutral-300/70 dark:hover:border-neutral-600/70 transition-all duration-300 h-full">
+                    <div 
+                      className="bg-background rounded-2xl p-6 md:p-8 transition-all duration-300 h-full shadow-[0_1px_2px_rgba(0,0,0,0.04),0_4px_16px_rgba(0,0,0,0.08)]"
+                      style={{
+                        outline: '1px solid rgba(0, 0, 0, 0.06)',
+                        outlineOffset: '-1px',
+                      }}
+                    >
                       {/* カテゴリ/ラベル（Linear.app風） */}
                       <div className="flex items-center gap-2 mb-3">
                         <Icon className={`w-4 h-4 ${feature.iconColor}`} strokeWidth={2} />

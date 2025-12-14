@@ -92,7 +92,7 @@ export default function AILiteracy() {
     <Layout>
       {/* ヒーローセクション風のヘッダー */}
       <section 
-        className="relative py-8 md:py-12 lg:py-16 overflow-hidden bg-white dark:bg-neutral-950"
+        className="relative py-8 md:py-12 lg:py-16 overflow-hidden bg-background"
         onMouseMove={handleMouseMove}
       >
         {/* 背景グラデーション（ヒーローセクションと統一） */}
@@ -294,10 +294,10 @@ export default function AILiteracy() {
 
           {/* 確率的性質 */}
           <motion.div variants={itemVariants}>
-            <Card className="border-2 border-border/50 hover:border-purple-200 dark:hover:border-purple-800 transition-colors duration-300">
+            <Card className="border-2 border-border/50 hover:border-blue-200 dark:hover:border-blue-800 transition-colors duration-300">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg md:text-xl">
-                  <TrendingUp className="w-5 h-5 text-purple-600" />
+                  <TrendingUp className="w-5 h-5 text-blue-600" />
                   AIの確率的性質：同じ入力でも異なる出力
                 </CardTitle>
               </CardHeader>
@@ -305,9 +305,9 @@ export default function AILiteracy() {
               <p>
                 AIは確率的なモデルであるため、同じプロンプトを入力しても、毎回異なる出力を生成することがあります。これは「温度（temperature）」というパラメータによって制御されており、温度が高いほど出力のバリエーションが大きくなります。
               </p>
-                <div className="bg-purple-50 dark:bg-purple-950/20 border border-purple-200 dark:border-purple-900/50 rounded-lg p-4 md:p-5">
-                  <h4 className="font-semibold text-purple-900 dark:text-purple-400 mb-2">医療現場での意味</h4>
-                  <p className="text-purple-800 dark:text-purple-300">
+                <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900/50 rounded-lg p-4 md:p-5">
+                  <h4 className="font-semibold text-blue-900 dark:text-blue-400 mb-2">医療現場での意味</h4>
+                  <p className="text-blue-800 dark:text-blue-300">
                     同じ症例について複数回AIに問い合わせると、異なる鑑別診断や治療計画が提示される可能性があります。これは、AIが「不確実性」を持っていることを示しており、出力を鵜呑みにせず、複数の情報源と照合する必要があることを意味します。
                   </p>
                 </div>

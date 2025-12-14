@@ -25,12 +25,12 @@ export function ScrollProgressBar() {
       style={{ scaleX }}
     >
       <motion.div
-        className="h-full bg-gradient-to-r from-blue-500 via-cyan-500 to-purple-500"
+        className="h-full bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-600"
         style={{ scaleX }}
       />
       {/* グロー効果 */}
       <motion.div
-        className="absolute inset-0 h-full bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 blur-sm opacity-50"
+        className="absolute inset-0 h-full bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 blur-sm opacity-50"
         style={{ scaleX }}
       />
     </motion.div>

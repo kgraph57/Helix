@@ -29,7 +29,7 @@ const getCategoryStyle = (categoryId: string) => {
   const styles: Record<string, { bg: string; text: string; border: string }> = {
     'diagnosis': { bg: 'bg-blue-50 dark:bg-blue-950/20', text: 'text-blue-700 dark:text-blue-400', border: 'border-blue-200 dark:border-blue-800' },
     'treatment': { bg: 'bg-emerald-50 dark:bg-emerald-950/20', text: 'text-emerald-700 dark:text-emerald-400', border: 'border-emerald-200 dark:border-emerald-800' },
-    'documentation': { bg: 'bg-purple-50 dark:bg-purple-950/20', text: 'text-purple-700 dark:text-purple-400', border: 'border-purple-200 dark:border-purple-800' },
+    'documentation': { bg: 'bg-indigo-50 dark:bg-indigo-950/20', text: 'text-indigo-700 dark:text-indigo-400', border: 'border-indigo-200 dark:border-indigo-800' },
     'literature': { bg: 'bg-indigo-50 dark:bg-indigo-950/20', text: 'text-indigo-700 dark:text-indigo-400', border: 'border-indigo-200 dark:border-indigo-800' },
     'communication': { bg: 'bg-cyan-50 dark:bg-cyan-950/20', text: 'text-cyan-700 dark:text-cyan-400', border: 'border-cyan-200 dark:border-cyan-800' },
     'research': { bg: 'bg-violet-50 dark:bg-violet-950/20', text: 'text-violet-700 dark:text-violet-400', border: 'border-violet-200 dark:border-violet-800' },
@@ -70,7 +70,7 @@ export function FeaturedPromptsSection({ prompts }: FeaturedPromptsSectionProps)
   return (
     <section 
       ref={sectionRef} 
-      className="relative py-8 md:py-12 bg-gradient-to-b from-neutral-50 to-white dark:from-neutral-950 dark:to-neutral-900 overflow-hidden"
+      className="relative py-8 md:py-12 bg-background overflow-hidden"
     >
       {/* 背景装飾（モバイルではblur削減） */}
       <motion.div
@@ -128,7 +128,11 @@ export function FeaturedPromptsSection({ prompts }: FeaturedPromptsSectionProps)
               >
                 <Link
                   href={`/prompts/${prompt.id}`}
-                  className="group block p-6 rounded-xl border transition-all duration-300 hover:shadow-xl hover:shadow-neutral-200/50 dark:hover:shadow-neutral-800/50 hover:scale-[1.02] hover:-translate-y-1 active:translate-y-0 bg-white/95 dark:bg-neutral-800/95 border-neutral-200/70 dark:border-neutral-700/70"
+                  className="group block p-6 rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-neutral-200/50 dark:hover:shadow-neutral-800/50 hover:scale-[1.02] hover:-translate-y-1 active:translate-y-0 bg-background shadow-[0_1px_2px_rgba(0,0,0,0.04),0_4px_16px_rgba(0,0,0,0.08)]"
+                  style={{
+                    outline: '1px solid rgba(0, 0, 0, 0.06)',
+                    outlineOffset: '-1px',
+                }}
               >
                 {/* カテゴリバッジ */}
                 <div className="mb-3">
@@ -140,7 +144,7 @@ export function FeaturedPromptsSection({ prompts }: FeaturedPromptsSectionProps)
                 </div>
 
                 {/* タイトル */}
-                <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100 mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100 mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors truncate">
                   {prompt.title}
                 </h3>
 
@@ -164,7 +168,7 @@ export function FeaturedPromptsSection({ prompts }: FeaturedPromptsSectionProps)
                 )}
 
                 {/* フッター */}
-                <div className="flex items-center justify-between pt-4 border-t border-neutral-200 dark:border-neutral-700">
+                <div className="flex items-center justify-between pt-4">
                   <span className="text-xs text-neutral-500 dark:text-neutral-400">
                     View Details
                   </span>

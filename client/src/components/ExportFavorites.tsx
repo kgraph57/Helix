@@ -108,13 +108,13 @@ export function ExportFavorites({ favoriteIds }: ExportFavoritesProps) {
   };
 
   return (
-    <Card className="border-purple-200 bg-purple-50 dark:bg-purple-950/20">
+    <Card className="border-blue-200 bg-blue-50 dark:bg-blue-950/20">
       <CardHeader className="pb-3">
-        <CardTitle className="text-sm font-semibold text-purple-900 dark:text-purple-400 flex items-center gap-2">
+        <CardTitle className="text-sm font-semibold text-blue-900 dark:text-blue-400 flex items-center gap-2">
           <Download className="w-4 h-4" />
           お気に入りプロンプトをエクスポート
         </CardTitle>
-        <CardDescription className="text-xs text-purple-700 dark:text-purple-400">
+        <CardDescription className="text-xs text-blue-700 dark:text-blue-400">
           {favoriteIds.length}個のお気に入りプロンプトを保存できます
         </CardDescription>
       </CardHeader>
@@ -124,7 +124,7 @@ export function ExportFavorites({ favoriteIds }: ExportFavoritesProps) {
             variant="outline"
             size="sm"
             onClick={exportAsMarkdown}
-            className="flex-1 border-purple-300 hover:bg-purple-100 dark:hover:bg-purple-900/30"
+            className="flex-1 border-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/30"
           >
             <FileText className="w-4 h-4 mr-2" />
             Markdown形式
@@ -133,13 +133,13 @@ export function ExportFavorites({ favoriteIds }: ExportFavoritesProps) {
             variant="outline"
             size="sm"
             onClick={exportAsText}
-            className="flex-1 border-purple-300 hover:bg-purple-100 dark:hover:bg-purple-900/30"
+            className="flex-1 border-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/30"
           >
             <FileText className="w-4 h-4 mr-2" />
             テキスト形式
           </Button>
         </div>
-        <p className="text-xs text-purple-700 dark:text-purple-400">
+        <p className="text-xs text-blue-700 dark:text-blue-400">
           💡 エクスポートしたファイルは、個人用のプロンプト集として保存・共有できます
         </p>
       </CardContent>

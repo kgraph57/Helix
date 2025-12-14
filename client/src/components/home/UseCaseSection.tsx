@@ -45,7 +45,7 @@ export function UseCaseSection() {
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.1 });
 
   return (
-    <section ref={ref} className="py-8 md:py-12 lg:py-16 bg-white dark:bg-neutral-950">
+    <section ref={ref} className="py-8 md:py-12 lg:py-16 bg-background">
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
         {/* Linear.app風：カテゴリ + パンチライン + 説明文 */}
         <div
@@ -81,7 +81,11 @@ export function UseCaseSection() {
             return (
               <motion.div
                 key={useCase.title}
-                className="bg-white dark:bg-neutral-900 rounded-2xl p-6 border border-neutral-200/50 dark:border-neutral-700/50 hover:border-neutral-300/70 dark:hover:border-neutral-600/70 transition-all duration-300 flex flex-col"
+                className="bg-background rounded-2xl p-6 transition-all duration-300 flex flex-col shadow-[0_1px_2px_rgba(0,0,0,0.04),0_4px_16px_rgba(0,0,0,0.08)]"
+                style={{
+                  outline: '1px solid rgba(0, 0, 0, 0.06)',
+                  outlineOffset: '-1px',
+                }}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}

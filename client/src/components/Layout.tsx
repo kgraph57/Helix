@@ -87,9 +87,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
   };
 
   const NavContent = ({ isMobile = false }: { isMobile?: boolean }) => (
-    <nav className="flex flex-col h-full bg-muted/30 border-r border-border/30" aria-label="メインナビゲーション">
+    <nav className="flex flex-col h-full bg-muted/30" aria-label="メインナビゲーション">
       {/* トグルボタン */}
-      <div className="flex-shrink-0 flex items-center justify-start px-1.5 pt-1.5 pb-0 border-b border-border/30">
+      <div className="flex-shrink-0 flex items-center justify-start px-1.5 pt-1.5 pb-0">
         {isMobile ? (
           <button
             onClick={() => setIsMobileOpen(false)}
@@ -114,7 +114,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* 上部ナビゲーション */}
-      <div className="flex-shrink-0 flex flex-col gap-0.5 px-1.5 pt-2 pb-1.5 border-b border-border/30">
+      <div className="flex-shrink-0 flex flex-col gap-0.5 px-1.5 pt-2 pb-1.5">
         <NavIcon
           icon={<Home className="w-3.5 h-3.5" />}
           label="Home"
@@ -159,7 +159,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           />
           {showPromptMenu && (
             <div 
-              className="absolute left-full top-0 ml-2 w-48 bg-background border border-border rounded-lg shadow-lg p-1.5 z-50"
+              className="absolute left-full top-0 ml-2 w-48 bg-background rounded-lg shadow-lg p-1.5 z-50"
               role="menu"
               aria-label="プロンプトカテゴリメニュー"
             >
@@ -214,7 +214,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <div className="flex-1"></div>
 
       {/* 下部ナビゲーション */}
-      <div className="flex-shrink-0 flex flex-col gap-0.5 p-1.5 border-t border-border/30">
+      <div className="flex-shrink-0 flex flex-col gap-0.5 p-1.5">
         <NavIcon
           icon={<HelpCircle className="w-3.5 h-3.5" />}
           label="FAQ"
@@ -274,7 +274,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       {/* モバイルサイドバー */}
       <aside 
         className={cn(
-          "fixed left-0 top-0 bottom-0 w-56 bg-background z-50 lg:hidden transition-transform duration-300 ease-out border-r border-border/30",
+          "fixed left-0 top-0 bottom-0 w-56 bg-background z-50 lg:hidden transition-transform duration-300 ease-out",
           isMobileOpen ? "translate-x-0" : "-translate-x-full"
         )}
         aria-label="モバイルナビゲーションメニュー"
@@ -309,7 +309,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </div>
         </header>
 
-        <div className="py-3 sm:py-4 lg:py-6">
+        <div className="py-3 sm:py-4 lg:py-6 px-4 sm:px-6 lg:px-8">
           {children}
         </div>
         

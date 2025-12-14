@@ -102,7 +102,7 @@ export function ContentShowcaseSection() {
   return (
     <section 
       ref={sectionRef} 
-      className="relative py-8 md:py-12 lg:py-16 bg-white dark:bg-neutral-950 overflow-hidden"
+      className="relative py-8 md:py-12 lg:py-16 bg-background overflow-hidden"
     >
       {/* 背景装飾（モバイルではblur削減） */}
       <motion.div
@@ -147,7 +147,11 @@ export function ContentShowcaseSection() {
             return (
               <motion.div
                 key={content.title}
-                className="group relative rounded-2xl p-6 border border-neutral-200/50 dark:border-neutral-700/50 bg-white/95 dark:bg-neutral-900/95 hover:border-neutral-300/70 dark:hover:border-neutral-600/70 transition-all duration-300 cursor-pointer overflow-hidden"
+                className="group relative rounded-2xl p-6 bg-background transition-all duration-300 cursor-pointer overflow-hidden shadow-[0_1px_2px_rgba(0,0,0,0.04),0_4px_16px_rgba(0,0,0,0.08)]"
+                style={{
+                  outline: '1px solid rgba(0, 0, 0, 0.06)',
+                  outlineOffset: '-1px',
+                }}
                 initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: isMobile ? 0 : 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}

@@ -40,7 +40,7 @@ const footerSections = [
 
 export function Footer() {
   return (
-    <footer className="relative border-t border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950">
+    <footer className="relative bg-background">
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-10 lg:py-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 lg:gap-10">
           {footerSections.map((section, index) => (
@@ -76,7 +76,7 @@ export function Footer() {
 
         {/* ボトムセクション */}
         <motion.div
-          className="mt-8 md:mt-10 pt-6 md:pt-8 border-t border-neutral-200 dark:border-neutral-800"
+          className="mt-8 md:mt-10 pt-6 md:pt-8"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}

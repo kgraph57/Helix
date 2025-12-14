@@ -28,9 +28,9 @@ const categoryConfig: Record<PromptCategory, {
     borderColor: 'border-emerald-200 dark:border-emerald-800'
   },
   'documentation': { 
-    color: 'text-purple-600 dark:text-purple-400', 
-    bgColor: 'bg-purple-50 dark:bg-purple-950/20',
-    borderColor: 'border-purple-200 dark:border-purple-800'
+    color: 'text-indigo-600 dark:text-indigo-400', 
+    bgColor: 'bg-indigo-50 dark:bg-indigo-950/20',
+    borderColor: 'border-indigo-200 dark:border-indigo-800'
   },
   'medication': { 
     color: 'text-orange-600 dark:text-orange-400', 

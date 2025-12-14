@@ -1,4 +1,4 @@
-import { ArrowRight, Search, Sparkles } from "lucide-react";
+import { ArrowRight, Search, Sparkles, ChevronDown } from "lucide-react";
 import { useLocation } from "wouter";
 import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState, useMemo } from "react";
@@ -72,7 +72,7 @@ function MouseFollowEffect({ x, y }: { x: any; y: any }) {
   const background = useTransform(
     [x, y],
     ([latestX, latestY]) => 
-      `radial-gradient(800px circle at ${latestX}px ${latestY}px, rgba(59, 130, 246, 0.02), transparent 50%)`
+      `radial-gradient(800px circle at ${latestX}px ${latestY}px, rgba(0, 0, 0, 0.01), transparent 50%)`
   );
   
   return (
@@ -132,37 +132,24 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
     return (e: React.MouseEvent<HTMLElement>) => {
       if (rafId) return;
       rafId = requestAnimationFrame(() => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        mouseX.set(x);
-        mouseY.set(y);
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    mouseX.set(x);
+    mouseY.set(y);
         rafId = null;
       });
-    };
+  };
   }, [mouseX, mouseY]);
 
   return (
-      <section 
+    <section 
       ref={sectionRef}
-      className="relative py-12 md:py-16 lg:py-20 xl:py-24 overflow-hidden min-h-[85vh] flex items-center bg-white dark:bg-neutral-950"
+      className="relative py-12 md:py-16 lg:py-20 xl:py-24 overflow-hidden min-h-[85vh] flex items-center bg-background"
       onMouseMove={!isMobile ? handleMouseMove : undefined}
     >
-      {/* Linear風: 控えめな背景装飾（グラデーション + アニメーション） */}
+      {/* Linear風: 控えめな背景装飾（グリッドパターンのみ） */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* メイングラデーション（軽量化、モバイルではアニメーション無効化） */}
-        <motion.div 
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1400px] h-[1400px] bg-gradient-to-br from-blue-500/4 via-cyan-500/3 to-blue-500/2 rounded-full blur-3xl"
-          animate={prefersReducedMotion || isMobile ? {} : {
-            scale: [1, 1.1, 1],
-            opacity: [0.3, 0.4, 0.3],
-          }}
-          transition={prefersReducedMotion || isMobile ? {} : {
-            duration: 15,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
         {/* 微細なグリッドパターン */}
         <div className="absolute inset-0 opacity-[0.015] dark:opacity-[0.025]">
           <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
@@ -210,24 +197,24 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
                   variants={titleVariants}
                 >
                   {/* Linear.app風：シンプルなタイトルアニメーション（パフォーマンス最適化、モバイルでは簡略化） */}
-                  <span className="block">
-                    <motion.span 
+                        <span className="block">
+                              <motion.span
                       className="block leading-none"
                       initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: isMobile ? 0 : 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={prefersReducedMotion ? {} : { duration: isMobile ? 0.3 : 0.8, delay: isMobile ? 0 : 0.2, ease: [0.16, 1, 0.3, 1] }}
-                    >
+                              >
                       Helix is a purpose-built tool
                     </motion.span>
-                    <motion.span 
+                                    <motion.span
                       className="block leading-none"
                       initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: isMobile ? 0 : 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={prefersReducedMotion ? {} : { duration: isMobile ? 0.3 : 0.8, delay: isMobile ? 0 : 0.4, ease: [0.16, 1, 0.3, 1] }}
                     >
                       for medical AI excellence
-                    </motion.span>
-                  </span>
+                              </motion.span>
+                      </span>
                 </motion.h1>
                 
                 {/* 説明文（Linear.app風：2つの文章を別々の行に） */}
@@ -278,7 +265,7 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
                     <motion.div
                       className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                       style={{
-                        background: "radial-gradient(circle at center, rgba(255, 255, 255, 0.2), transparent 70%)",
+                        background: "radial-gradient(circle at center, rgba(0, 0, 0, 0.02), transparent 70%)",
                       }}
                     />
                     <span className="relative z-10">Get Started</span>
@@ -286,13 +273,14 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
                   
                   <motion.a
                     href="/changelog"
-                    className="group inline-flex items-center gap-2 px-0 py-3.5 text-[15px] font-medium text-neutral-900 dark:text-neutral-50 hover:text-neutral-700 dark:hover:text-neutral-300 transition-all duration-300"
+                    className="group inline-flex items-center gap-2 px-0 py-3.5 text-[15px] font-medium transition-all duration-300"
                     whileHover={{ scale: 1.02, x: 2 }}
                     whileTap={{ scale: 0.98 }}
                     style={{ fontFamily: 'Inter, system-ui, sans-serif', fontWeight: 500 }}
                   >
-                    <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 dark:from-blue-400 dark:via-blue-300 dark:to-cyan-400 bg-clip-text text-transparent">
-                      New: Medical AI 2025
+                    <span>
+                      <span className="text-blue-500">New: Medical </span>
+                      <span className="text-cyan-500">AI 2025</span>
                     </span>
                     <ArrowRight className="w-4 h-4 text-neutral-900 dark:text-neutral-50 transition-transform group-hover:translate-x-1.5" />
                   </motion.a>
@@ -314,24 +302,24 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
               <motion.div 
                 className="absolute -inset-1 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                 style={{
-                  background: "linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(147, 51, 234, 0.2), transparent 70%)",
+                  background: "linear-gradient(135deg, rgba(0, 0, 0, 0.05), transparent 70%)",
                 }}
               />
               
               <motion.div 
-                className="relative bg-white/95 dark:bg-neutral-900/95 rounded-2xl shadow-[0_4px_16px_rgba(0,0,0,0.08),0_8px_32px_rgba(0,0,0,0.06)] border border-neutral-200/60 dark:border-neutral-800/60 overflow-hidden"
+                className="relative bg-background rounded-2xl shadow-[0_1px_2px_rgba(0,0,0,0.04),0_4px_16px_rgba(0,0,0,0.08)] overflow-hidden"
+                style={{
+                  outline: `1px solid ${isSearchFocused ? 'rgba(0, 0, 0, 0.12)' : 'rgba(0, 0, 0, 0.06)'}`,
+                  outlineOffset: '-1px',
+                }}
                 whileHover={{ 
-                  boxShadow: "0_8px_24px_rgba(0,0,0,0.12),0_12px_48px_rgba(0,0,0,0.08)",
-                  borderColor: "rgba(59, 130, 246, 0.4)",
+                  boxShadow: "0_2px_4px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.12)",
                   scale: 1.005,
                 }}
                 animate={{
-                  borderColor: isSearchFocused 
-                    ? "rgba(59, 130, 246, 0.6)" 
-                    : "rgba(0, 0, 0, 0.1)",
                   boxShadow: isSearchFocused
-                    ? "0_8px_24px_rgba(59,130,246,0.15),0_12px_48px_rgba(59,130,246,0.2)"
-                    : "0_4px_16px_rgba(0,0,0,0.08),0_8px_32px_rgba(0,0,0,0.06)",
+                    ? "0_2px_4px_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.12)"
+                    : "0_1px_2px_rgba(0,0,0,0.04),0_4px_16px_rgba(0,0,0,0.08)",
                 }}
                 transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
               >
@@ -365,6 +353,41 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
             </div>
           </motion.div>
         )}
+      </motion.div>
+
+      {/* スクロールインジケーター（Linear風） */}
+      <motion.div
+        className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 z-10"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.2, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <motion.button
+          onClick={() => {
+            const nextSection = document.getElementById('prompts') || document.querySelector('section:nth-of-type(2)');
+            if (nextSection) {
+              nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+              window.scrollTo({ top: window.innerHeight * 0.9, behavior: 'smooth' });
+            }
+          }}
+          className="flex flex-col items-center gap-2 text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300 transition-colors group"
+          aria-label="下にスクロール"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <span className="text-xs font-medium tracking-wider uppercase">Scroll</span>
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ 
+              duration: 2, 
+              repeat: Infinity, 
+              ease: "easeInOut" 
+            }}
+          >
+            <ChevronDown className="w-5 h-5" strokeWidth={2} />
+          </motion.div>
+        </motion.button>
       </motion.div>
     </section>
   );

@@ -114,7 +114,7 @@ export function StatsBannerSection({ prompts }: StatsBannerSectionProps) {
 
   return (
     <section 
-      className="relative py-8 md:py-12 lg:py-16 bg-white dark:bg-neutral-950"
+      className="relative py-8 md:py-12 lg:py-16 bg-background"
     >
 
       <motion.div 

@@ -95,7 +95,7 @@ export default function Guides() {
       title: "【初心者向け】医療統計解析:データの準備から結果の解釈まで",
       description: "「p値って何?」からスタート。データの整理、適切な検定の選び方、Python/Rコードの生成までをサポートします。",
       category: "Research",
-      icon: <Microscope className="h-6 w-6 text-purple-500" />,
+      icon: <Microscope className="h-6 w-6 text-blue-500" />,
       readTime: "20 min read",
       tags: ["Statistics", "Data Analysis", "Beginner"]
     },
@@ -249,7 +249,7 @@ export default function Guides() {
       title: "論文検索・読解サポート",
       description: "AIを活用した効率的な文献検索と読解",
       category: "Research",
-      icon: <Search className="h-6 w-6 text-purple-500" />,
+      icon: <Search className="h-6 w-6 text-blue-500" />,
       readTime: "40 min read",
       tags: ["文献検索", "論文読解", "エビデンス"]
     },
@@ -375,7 +375,7 @@ export default function Guides() {
       title: "医療統計・データ分析相談",
       description: "AIを活用した医療統計の理解と分析",
       category: "Research",
-      icon: <Microscope className="h-6 w-6 text-purple-600" />,
+      icon: <Microscope className="h-6 w-6 text-blue-600" />,
       readTime: "45 min read",
       tags: ["統計", "データ分析"]
     },
@@ -429,7 +429,7 @@ export default function Guides() {
       title: "緩和ケア計画立案支援",
       description: "患者中心の緩和ケア計画の立案",
       category: "Clinical",
-      icon: <Stethoscope className="h-6 w-6 text-purple-700" />,
+      icon: <Stethoscope className="h-6 w-6 text-blue-700" />,
       readTime: "45 min read",
       tags: ["緩和ケア", "ケア計画"]
     }
