@@ -126,16 +126,16 @@ export function InteractivePromptPreview({ prompts, className = "" }: Interactiv
         <motion.div
           className="relative group"
           style={{
-            rotateX: useTransform(y, [-20, 20], [5, -5]),
-            rotateY: useTransform(x, [-20, 20], [-5, 5]),
+            rotateX: useTransform(y, [-20, 20], [3, -3]),
+            rotateY: useTransform(x, [-20, 20], [-3, 3]),
             transformStyle: "preserve-3d",
             willChange: "transform",
           }}
           animate={{
-            y: [0, -8, 0],
+            y: [0, -6, 0],
           }}
           transition={{
-            duration: 3,
+            duration: 4,
             repeat: Infinity,
             ease: "easeInOut",
           }}
@@ -278,10 +278,10 @@ export function InteractivePromptPreview({ prompts, className = "" }: Interactiv
               y: [8, 6, 8],
             }}
             transition={{
-              duration: 4,
+              duration: 5,
               repeat: Infinity,
               ease: "easeInOut",
-              delay: 0.5,
+              delay: 0.8,
             }}
           />
           <motion.div
@@ -296,10 +296,10 @@ export function InteractivePromptPreview({ prompts, className = "" }: Interactiv
               y: [16, 14, 16],
             }}
             transition={{
-              duration: 5,
+              duration: 6,
               repeat: Infinity,
               ease: "easeInOut",
-              delay: 1,
+              delay: 1.5,
             }}
           />
         </motion.div>

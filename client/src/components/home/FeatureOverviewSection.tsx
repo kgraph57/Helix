@@ -130,6 +130,9 @@ export function FeatureOverviewSection() {
                         y: -4,
                         boxShadow: "0 20px 40px rgba(0, 0, 0, 0.1)"
                       }}
+                      style={{
+                        willChange: "transform, box-shadow"
+                      }}
                     >
                       {/* ホバー時のグラデーション背景 */}
                       <motion.div
