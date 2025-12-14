@@ -76,8 +76,8 @@ const plugins = [
   // PWA設定（本番環境でも有効化、ただし慎重に）
   ...(process.env.NODE_ENV === 'production' ? [VitePWA({
     registerType: "autoUpdate",
-    base: process.env.VITE_BASE_PATH || "/medicalprompthub/",
-    scope: process.env.VITE_BASE_PATH || "/medicalprompthub/",
+    base: process.env.VITE_BASE_PATH || "/Helix/",
+    scope: process.env.VITE_BASE_PATH || "/Helix/",
     includeAssets: ["favicon.ico", "apple-touch-icon.png", "mask-icon.svg"],
     workbox: {
       globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
@@ -110,13 +110,13 @@ const plugins = [
       ],
     },
     manifest: {
-      name: "Medical Prompt Hub",
-      short_name: "MedPrompt",
-      description: "AI Prompt Library for Healthcare Professionals",
+      name: "Helix",
+      short_name: "Helix",
+      description: "AI-powered platform to augment healthcare professionals",
       theme_color: "#ffffff",
       background_color: "#ffffff",
       display: "standalone",
-      start_url: (process.env.VITE_BASE_PATH || "/medicalprompthub/") + "index.html",
+      start_url: (process.env.VITE_BASE_PATH || "/Helix/") + "index.html",
       icons: [
         {
           src: "pwa-192x192.png",
@@ -140,10 +140,10 @@ const plugins = [
 ];
 
 export default defineConfig({
-  // GitHub Pages用のベースパス（環境変数から取得、デフォルトは/medicalprompthub/）
+  // GitHub Pages用のベースパス（環境変数から取得、デフォルトは/Helix/）
   // 開発環境では base を / に設定して動的インポートの問題を回避
   base: process.env.NODE_ENV === 'production' 
-    ? (process.env.VITE_BASE_PATH || '/medicalprompthub/')
+    ? (process.env.VITE_BASE_PATH || '/Helix/')
     : '/',
   plugins,
   resolve: {

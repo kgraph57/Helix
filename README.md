@@ -3,7 +3,7 @@
 医療従事者のためのAIプロンプトライブラリ - AI Prompt Library for Healthcare Professionals
 
 ## 🌐 Live Demo
-**[https://kgraph57.github.io/medicalprompthub/](https://kgraph57.github.io/medicalprompthub/)**
+**[https://kgraph57.github.io/Helix/](https://kgraph57.github.io/Helix/)**
 
 ## 📖 About
 
