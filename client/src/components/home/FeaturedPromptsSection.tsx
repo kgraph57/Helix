@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Star, ArrowRight } from "lucide-react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
 import type { Prompt } from "@/lib/prompts";
 import { categories } from "@/lib/prompts";
 
@@ -39,13 +39,23 @@ const getCategoryStyle = (categoryId: string) => {
 
 export function FeaturedPromptsSection({ prompts }: FeaturedPromptsSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"]
   });
 
-  // パララックス効果
-  const y = useTransform(scrollYProgress, [0, 1], [50, -50]);
+  // パララックス効果（モバイルでは無効化）
+  const y = isMobile || prefersReducedMotion ? useTransform(scrollYProgress, [0, 1], [0, 0]) : useTransform(scrollYProgress, [0, 1], [50, -50]);
   const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
 
   // フィーチャードプロンプトを取得
@@ -62,22 +72,22 @@ export function FeaturedPromptsSection({ prompts }: FeaturedPromptsSectionProps)
       ref={sectionRef} 
       className="relative py-8 md:py-12 bg-gradient-to-b from-neutral-50 to-white dark:from-neutral-950 dark:to-neutral-900 overflow-hidden"
     >
-      {/* 背景装飾 */}
+      {/* 背景装飾（モバイルではblur削減） */}
       <motion.div
         className="absolute inset-0 opacity-30 dark:opacity-20"
         style={{ y, opacity }}
       >
-        <div className="absolute top-1/4 right-1/4 w-[600px] h-[600px] bg-blue-500/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 left-1/4 w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-3xl"></div>
+        <div className={`absolute top-1/4 right-1/4 w-[600px] h-[600px] bg-blue-500/20 rounded-full ${isMobile ? 'blur-xl' : 'blur-3xl'}`}></div>
+        <div className={`absolute bottom-1/4 left-1/4 w-[600px] h-[600px] bg-blue-500/10 rounded-full ${isMobile ? 'blur-xl' : 'blur-3xl'}`}></div>
       </motion.div>
       <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
         {/* セクションヘッダー */}
         <motion.div
           className="mb-10"
-          initial={{ opacity: 0, y: 30 }}
+          initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: isMobile ? 0 : 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          transition={prefersReducedMotion ? {} : { duration: isMobile ? 0.3 : 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
@@ -107,12 +117,12 @@ export function FeaturedPromptsSection({ prompts }: FeaturedPromptsSectionProps)
             return (
               <motion.div
                 key={prompt.id}
-                initial={{ opacity: 0, y: 30 }}
+                initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: isMobile ? 0 : 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
-                transition={{ 
-                  duration: 0.6, 
-                  delay: index * 0.1,
+                transition={prefersReducedMotion ? {} : { 
+                  duration: isMobile ? 0.2 : 0.6, 
+                  delay: isMobile ? 0 : index * 0.1,
                   ease: [0.16, 1, 0.3, 1] 
                 }}
               >

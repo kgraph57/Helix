@@ -1,7 +1,7 @@
 import { ArrowRight, BookOpen, Lightbulb, GitBranch, FileText } from "lucide-react";
 import { useLocation } from "wouter";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
 
 const contentTypes = [
   {
@@ -69,13 +69,23 @@ const contentTypes = [
 export function ContentShowcaseSection() {
   const [, setLocation] = useLocation();
   const sectionRef = useRef<HTMLElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"]
   });
 
-  // パララックス効果
-  const y = useTransform(scrollYProgress, [0, 1], [30, -30]);
+  // パララックス効果（モバイルでは無効化）
+  const y = isMobile || prefersReducedMotion ? useTransform(scrollYProgress, [0, 1], [0, 0]) : useTransform(scrollYProgress, [0, 1], [30, -30]);
   const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
 
   const handleNavigation = (link: string) => {
@@ -94,22 +104,22 @@ export function ContentShowcaseSection() {
       ref={sectionRef} 
       className="relative py-8 md:py-12 lg:py-16 bg-white dark:bg-neutral-950 overflow-hidden"
     >
-      {/* 背景装飾 */}
+      {/* 背景装飾（モバイルではblur削減） */}
       <motion.div
         className="absolute inset-0 opacity-20 dark:opacity-10"
         style={{ y, opacity }}
       >
-        <div className="absolute top-1/3 left-1/3 w-[500px] h-[500px] bg-blue-500/30 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/3 right-1/3 w-[500px] h-[500px] bg-blue-500/15 rounded-full blur-3xl"></div>
+        <div className={`absolute top-1/3 left-1/3 w-[500px] h-[500px] bg-blue-500/30 rounded-full ${isMobile ? 'blur-xl' : 'blur-3xl'}`}></div>
+        <div className={`absolute bottom-1/3 right-1/3 w-[500px] h-[500px] bg-blue-500/15 rounded-full ${isMobile ? 'blur-xl' : 'blur-3xl'}`}></div>
       </motion.div>
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 relative z-10">
         {/* Linear.app風：カテゴリ + パンチライン + 説明文 */}
         <motion.div
           className="mb-8"
-          initial={{ opacity: 0, y: 30 }}
+          initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: isMobile ? 0 : 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          transition={prefersReducedMotion ? {} : { duration: isMobile ? 0.3 : 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
           {/* カテゴリ/ラベル */}
           <div className="flex items-center gap-2 mb-3">
@@ -138,15 +148,15 @@ export function ContentShowcaseSection() {
               <motion.div
                 key={content.title}
                 className="group relative rounded-2xl p-6 border border-neutral-200/50 dark:border-neutral-700/50 bg-white/95 dark:bg-neutral-900/95 hover:border-neutral-300/70 dark:hover:border-neutral-600/70 transition-all duration-300 cursor-pointer overflow-hidden"
-                initial={{ opacity: 0, y: 20 }}
+                initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: isMobile ? 0 : 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
-                transition={{ 
-                  duration: 0.6, 
-                  delay: index * 0.1,
+                transition={prefersReducedMotion ? {} : { 
+                  duration: isMobile ? 0.2 : 0.6, 
+                  delay: isMobile ? 0 : index * 0.1,
                   ease: [0.16, 1, 0.3, 1] 
                 }}
-                whileHover={{ 
+                whileHover={isMobile || prefersReducedMotion ? {} : { 
                   scale: 1.02,
                   y: -4,
                   boxShadow: "0 20px 40px rgba(0, 0, 0, 0.1)"

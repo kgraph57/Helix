@@ -1,6 +1,6 @@
 import { ArrowRight, Search, Sparkles } from "lucide-react";
 import { useLocation } from "wouter";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState, useMemo } from "react";
 
 interface HeroSectionProps {
@@ -88,8 +88,17 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+  const [isMobile, setIsMobile] = useState(false);
   
-  // マウス追従エフェクト（軽量化）
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  
+  // マウス追従エフェクト（軽量化、モバイルでは無効化）
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const springConfig = { damping: 40, stiffness: 200 }; // より軽量な設定
@@ -134,21 +143,21 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
   }, [mouseX, mouseY]);
 
   return (
-    <section 
+      <section 
       ref={sectionRef}
       className="relative py-12 md:py-16 lg:py-20 xl:py-24 overflow-hidden min-h-[85vh] flex items-center bg-white dark:bg-neutral-950"
-      onMouseMove={handleMouseMove}
+      onMouseMove={!isMobile ? handleMouseMove : undefined}
     >
       {/* Linear風: 控えめな背景装飾（グラデーション + アニメーション） */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* メイングラデーション（軽量化） */}
+        {/* メイングラデーション（軽量化、モバイルではアニメーション無効化） */}
         <motion.div 
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1400px] h-[1400px] bg-gradient-to-br from-blue-500/4 via-cyan-500/3 to-blue-500/2 rounded-full blur-3xl"
-          animate={{
+          animate={prefersReducedMotion || isMobile ? {} : {
             scale: [1, 1.1, 1],
             opacity: [0.3, 0.4, 0.3],
           }}
-          transition={{
+          transition={prefersReducedMotion || isMobile ? {} : {
             duration: 15,
             repeat: Infinity,
             ease: "easeInOut",
@@ -167,8 +176,8 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
         </div>
       </div>
       
-      {/* マウス追従エフェクト（Linear風：より控えめに） */}
-      <MouseFollowEffect x={x} y={y} />
+      {/* マウス追従エフェクト（Linear風：より控えめに、モバイルでは無効化） */}
+      {!isMobile && !prefersReducedMotion && <MouseFollowEffect x={x} y={y} />}
       
       <motion.div 
         className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 relative z-10 w-full"
@@ -200,21 +209,21 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
                   }}
                   variants={titleVariants}
                 >
-                  {/* Linear.app風：シンプルなタイトルアニメーション（パフォーマンス最適化） */}
+                  {/* Linear.app風：シンプルなタイトルアニメーション（パフォーマンス最適化、モバイルでは簡略化） */}
                   <span className="block">
                     <motion.span 
                       className="block leading-none"
-                      initial={{ opacity: 0, y: 20 }}
+                      initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: isMobile ? 0 : 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                      transition={prefersReducedMotion ? {} : { duration: isMobile ? 0.3 : 0.8, delay: isMobile ? 0 : 0.2, ease: [0.16, 1, 0.3, 1] }}
                     >
                       Helix is a purpose-built tool
                     </motion.span>
                     <motion.span 
                       className="block leading-none"
-                      initial={{ opacity: 0, y: 20 }}
+                      initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: isMobile ? 0 : 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                      transition={prefersReducedMotion ? {} : { duration: isMobile ? 0.3 : 0.8, delay: isMobile ? 0 : 0.4, ease: [0.16, 1, 0.3, 1] }}
                     >
                       for medical AI excellence
                     </motion.span>
@@ -229,11 +238,11 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
                 >
                   <motion.p
                     className="mb-0"
-                    initial={{ opacity: 0, y: 15 }}
+                    initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: isMobile ? 0 : 15 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ 
-                      duration: 0.7, 
-                      delay: 0.5,
+                    transition={prefersReducedMotion ? {} : { 
+                      duration: isMobile ? 0.3 : 0.7, 
+                      delay: isMobile ? 0 : 0.5,
                       ease: [0.16, 1, 0.3, 1] as [number, number, number, number] 
                     }}
                   >

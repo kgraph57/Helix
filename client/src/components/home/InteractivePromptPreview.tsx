@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState, useMemo } from "react";
 import { ArrowRight, Copy, Check } from "lucide-react";
 import type { Prompt } from "@/lib/prompts";
@@ -12,6 +12,15 @@ export function InteractivePromptPreview({ prompts, className = "" }: Interactiv
   const [currentIndex, setCurrentIndex] = useState(0);
   const [copied, setCopied] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // マウス追従エフェクト（軽量化）
   const mouseX = useMotionValue(0);
@@ -73,9 +82,9 @@ export function InteractivePromptPreview({ prompts, className = "" }: Interactiv
     <div
       ref={containerRef}
       className={`relative ${className}`}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ willChange: "transform" }}
+      onMouseMove={!isMobile ? handleMouseMove : undefined}
+      onMouseLeave={!isMobile ? handleMouseLeave : undefined}
+      style={{ willChange: (isMobile || prefersReducedMotion) ? "auto" : "transform" }}
     >
       {/* 背景グラデーション（軽量化） - デスクトップのみ */}
       <motion.div
@@ -92,15 +101,15 @@ export function InteractivePromptPreview({ prompts, className = "" }: Interactiv
         <motion.div
           className="relative group"
           style={{
-            rotateX: useTransform(y, [-20, 20], [5, -5]),
-            rotateY: useTransform(x, [-20, 20], [-5, 5]),
+            rotateX: (isMobile || prefersReducedMotion) ? 0 : useTransform(y, [-20, 20], [5, -5]),
+            rotateY: (isMobile || prefersReducedMotion) ? 0 : useTransform(x, [-20, 20], [-5, 5]),
             transformStyle: "preserve-3d",
-            willChange: "transform",
+            willChange: (isMobile || prefersReducedMotion) ? "auto" : "transform",
           }}
-          animate={{
+          animate={(isMobile || prefersReducedMotion) ? {} : {
             y: [0, -4, 0],
           }}
-          transition={{
+          transition={(isMobile || prefersReducedMotion) ? {} : {
             duration: 4,
             repeat: Infinity,
             ease: "easeInOut",
