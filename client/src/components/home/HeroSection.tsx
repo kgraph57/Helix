@@ -2,7 +2,6 @@ import { ArrowRight, Search, Sparkles } from "lucide-react";
 import { useLocation } from "wouter";
 import { motion, useMotionValue, useSpring, useTransform, useScroll, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { InteractivePromptPreview } from "./InteractivePromptPreview";
 import { loadPrompts } from "@/lib/prompts-loader";
 import { getRecommendedPrompts } from "@/lib/recommendedPrompts";
 import type { Prompt } from "@/lib/prompts";
@@ -91,7 +90,6 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
   const [, setLocation] = useLocation();
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
-  const [recommendedPrompts, setRecommendedPrompts] = useState<Prompt[]>([]);
   const sectionRef = useRef<HTMLElement>(null);
   
   // スクロール連動アニメーション
@@ -112,13 +110,6 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
   const x = useSpring(mouseX, springConfig);
   const y = useSpring(mouseY, springConfig);
 
-  // プロンプトデータの読み込み
-  useEffect(() => {
-    loadPrompts().then((prompts) => {
-      const recommended = getRecommendedPrompts(prompts);
-      setRecommendedPrompts(recommended.slice(0, 6)); // 最大6個
-    });
-  }, []);
 
   
   // キーボードショートカット（⌘K）
@@ -197,10 +188,10 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
           opacity,
         }}
       >
-        {/* Linear.app風：2カラムレイアウト（テキスト + インタラクティブプレビュー） */}
+        {/* Linear.app風：左寄せレイアウト */}
         <div className="w-full px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            {/* 左カラム：テキストコンテンツ */}
+          <div className="max-w-4xl">
+            {/* テキストコンテンツ */}
             <div className="lg:pt-8">
               {/* パンチライン + 説明文（Linear.app風：左寄せ） */}
               <motion.div 
@@ -221,7 +212,7 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
                   variants={titleVariants}
                 >
                   {(() => {
-                    // Linear.app風：適切な改行位置で分割（2行、"for"の前で改行）
+                    // Linear.app風：適切な改行位置で分割（2行、"tool"の後で改行）
                     const line1 = "Helix is a purpose-built tool";
                     const line2 = "for medical AI excellence";
                     
@@ -376,22 +367,6 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
               </motion.div>
             </div>
 
-            {/* 右カラム：インタラクティブなプロンプトプレビュー */}
-            <div className="hidden lg:block relative h-full min-h-[500px]">
-              {recommendedPrompts.length > 0 ? (
-                <InteractivePromptPreview 
-                  prompts={recommendedPrompts}
-                  className="w-full h-full"
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center rounded-2xl border border-neutral-800/50 bg-neutral-900/70 backdrop-blur-xl">
-                  <div className="text-center text-neutral-500">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto mb-4"></div>
-                    <p className="text-sm">読み込み中...</p>
-                  </div>
-                </div>
-              )}
-            </div>
           </div>
         </div>
         
