@@ -1,4 +1,5 @@
 import { Layout } from "@/components/Layout";
+import { PageHeader } from "@/components/PageHeader";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -487,21 +488,13 @@ export default function Guides() {
 
   return (
     <Layout>
-      <div className="space-y-6 pb-8 max-w-7xl mx-auto">
-        {/* Hero Section - コンパクト */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="space-y-1 pt-4"
-        >
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground leading-tight max-w-3xl">
-            Guides & Workflows
-          </h1>
-          <p className="text-sm md:text-base text-muted-foreground max-w-2xl leading-snug">
-            実際の臨床・研究プロセスでAIプロンプトをどう組み合わせるか、実践的なワークフローを解説します。
-          </p>
-        </motion.div>
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12 lg:py-16">
+        {/* Linear.app風：ページヘッダー */}
+        <PageHeader
+          category="Guides"
+          title="Guides & Workflows"
+          description="実際の臨床・研究プロセスでAIプロンプトをどう組み合わせるか、実践的なワークフローを解説します。"
+        />
 
         {/* 検索・フィルタ・ソート - Apple Style */}
         <motion.div

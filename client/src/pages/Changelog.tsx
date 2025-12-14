@@ -4,13 +4,12 @@
  */
 
 import { Layout } from "@/components/Layout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { PageHeader } from "@/components/PageHeader";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { Calendar, Sparkles, Bug, Plus, Settings, FileText } from "lucide-react";
+import { Calendar, Sparkles, Bug, Settings, FileText, ArrowRight } from "lucide-react";
 import { useEffect } from "react";
 import { updateSEO, addStructuredData, BASE_URL } from "@/lib/seo";
-import { Link } from "wouter";
+import { motion } from "framer-motion";
 
 interface ChangelogEntry {
   version: string;
@@ -109,90 +108,91 @@ export default function Changelog() {
 
   return (
     <Layout>
-      <div className="max-w-4xl mx-auto space-y-4 pb-12">
-        {/* Hero Section */}
-        <div className="text-center space-y-2 py-2 lg:py-2.5">
-          <div className="inline-flex items-center gap-1.5 px-4 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold">
-            <Calendar className="w-3.5 h-3.5" />
-            <span>Changelog</span>
-          </div>
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
-            更新履歴
-          </h1>
-          <p className="text-base text-muted-foreground max-w-2xl mx-auto">
-            サービスの更新内容とリリースノート
-          </p>
-        </div>
+      <div className="max-w-4xl mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12 lg:py-16">
+        {/* Linear.app風：ページヘッダー */}
+        <PageHeader
+          category="Changelog"
+          title="Changelog"
+          description="サービスの更新内容とリリースノート"
+        />
 
         {/* Changelog Entries */}
-        <div className="space-y-3">
+        <div className="space-y-8">
           {changelogEntries.map((entry, index) => {
             const Icon = typeIcons[entry.type];
             const label = typeLabels[entry.type];
-            const color = typeColors[entry.type];
 
             return (
-              <Card key={entry.version} className="relative">
-                <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary rounded-l-lg" />
-                <CardHeader className="p-4">
-                  <div className="flex items-center justify-between flex-wrap gap-3">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
-                        <Icon className="w-4 h-4 text-primary" />
-                      </div>
-                      <div>
-                        <CardTitle className="text-lg">v{entry.version}</CardTitle>
-                        <CardDescription className="flex items-center gap-1.5 mt-0.5 text-xs">
-                          <Calendar className="w-3 h-3" />
-                          {entry.date}
-                        </CardDescription>
+              <motion.div
+                key={entry.version}
+                className="bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200/50 dark:border-neutral-700/50 p-6 md:p-8 relative"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-600 rounded-l-lg" />
+                <div className="flex items-start justify-between flex-wrap gap-4 mb-6">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-blue-50 dark:bg-blue-950/20 rounded-lg flex items-center justify-center">
+                      <Icon className="w-5 h-5 text-blue-600" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-black text-neutral-900 dark:text-neutral-50 tracking-[-0.02em]" style={{ fontFamily: 'Inter Display, Inter, system-ui, sans-serif' }}>
+                        v{entry.version}
+                      </h3>
+                      <div className="flex items-center gap-1.5 mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+                        <Calendar className="w-4 h-4" />
+                        {entry.date}
                       </div>
                     </div>
-                    <Badge variant={color} className="text-[10px]">
-                      {label}
-                    </Badge>
                   </div>
-                </CardHeader>
-                <CardContent className="p-4 pt-0">
-                  <ul className="space-y-1">
-                    {entry.changes.map((change, changeIndex) => (
-                      <li key={changeIndex} className="flex items-start gap-1.5 text-xs">
-                        <Plus className="w-3.5 h-3.5 text-primary mt-0.5 flex-shrink-0" />
-                        <span className="text-muted-foreground">{change}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-                {index < changelogEntries.length - 1 && (
-                  <Separator className="my-4" />
-                )}
-              </Card>
+                  <Badge className="text-xs bg-blue-100 text-blue-700 dark:bg-blue-950/30 dark:text-blue-400 border-blue-200 dark:border-blue-800">
+                    {label}
+                  </Badge>
+                </div>
+                <ul className="space-y-2">
+                  {entry.changes.map((change, changeIndex) => (
+                    <li key={changeIndex} className="flex items-start gap-2 text-sm text-neutral-600 dark:text-neutral-400">
+                      <span className="text-blue-600 mt-1">•</span>
+                      <span>{change}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
             );
           })}
         </div>
 
         {/* Future Updates */}
-        <Card className="border-dashed">
-          <CardHeader className="p-4">
-            <CardTitle className="flex items-center gap-2 text-base">
-              <Sparkles className="w-4 h-4 text-primary" />
-              今後の予定
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-4 pt-0 space-y-1.5 text-xs text-muted-foreground">
+        <motion.section
+          className="mt-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className="flex items-center gap-2 mb-6">
+            <Sparkles className="w-4 h-4 text-blue-600" strokeWidth={2} />
+            <span className="text-sm font-medium text-neutral-500 dark:text-neutral-400 tracking-[-0.01em]">
+              Roadmap
+            </span>
+          </div>
+          <h2 className="text-2xl md:text-3xl font-black mb-6 text-neutral-900 dark:text-neutral-50 tracking-[-0.02em] leading-[1.1]" style={{ fontFamily: 'Inter Display, Inter, system-ui, sans-serif' }}>
+            Upcoming features
+          </h2>
+          <div className="space-y-4 text-base text-neutral-600 dark:text-neutral-400">
             <p>以下の機能を順次実装予定です：</p>
-            <ul className="list-disc pl-4 space-y-0.5">
+            <ul className="list-disc pl-6 space-y-2">
               <li>プロンプトの評価・フィードバック機能</li>
               <li>ユーザー投稿機能（コミュニティプロンプト）</li>
               <li>プロンプトのバージョン管理</li>
               <li>多言語対応（英語版）</li>
               <li>API提供</li>
             </ul>
-            <p className="mt-4">
-              ご要望やフィードバックは<Link href="/contact" className="text-primary hover:underline">お問い合わせフォーム</Link>からお願いいたします。
+            <p className="mt-6">
+              ご要望やフィードバックは<Link href="/contact" className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 underline">お問い合わせフォーム</Link>からお願いいたします。
             </p>
-          </CardContent>
-        </Card>
+          </div>
+        </motion.section>
       </div>
     </Layout>
   );

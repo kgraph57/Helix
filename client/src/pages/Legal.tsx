@@ -1,9 +1,10 @@
 import { Layout } from "@/components/Layout";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+import { PageHeader } from "@/components/PageHeader";
 import { CookieSettingsButton } from "@/components/CookieSettingsButton";
+import { FileText, Shield, AlertCircle, ArrowRight } from "lucide-react";
 import { useEffect } from "react";
 import { updateSEO } from "@/lib/seo";
+import { motion } from "framer-motion";
 
 export default function Legal() {
   useEffect(() => {
@@ -17,23 +18,31 @@ export default function Legal() {
 
   return (
     <Layout>
-      <div className="space-y-8 pb-12">
-        <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight">法的表記</h1>
-          <p className="text-muted-foreground">
-            利用規約、プライバシーポリシー、および免責事項
-          </p>
-        </div>
+      <div className="max-w-4xl mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12 lg:py-16">
+        {/* Linear.app風：ページヘッダー */}
+        <PageHeader
+          category="Legal"
+          title="Terms and Privacy"
+          description="利用規約、プライバシーポリシー、および免責事項"
+        />
 
-        <div className="grid gap-8">
+        <div className="space-y-12">
           {/* 免責事項 */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-destructive">
-                ⚠️ 免責事項 (Disclaimer)
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4 text-sm leading-relaxed">
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="flex items-center gap-2 mb-6">
+              <AlertCircle className="w-4 h-4 text-red-600" strokeWidth={2} />
+              <span className="text-sm font-medium text-red-600 tracking-[-0.01em]">
+                Disclaimer
+              </span>
+            </div>
+            <h2 className="text-2xl md:text-3xl font-black mb-6 text-neutral-900 dark:text-neutral-50 tracking-[-0.02em] leading-[1.1]" style={{ fontFamily: 'Inter Display, Inter, system-ui, sans-serif' }}>
+              免責事項
+            </h2>
+            <div className="space-y-4 text-base text-neutral-600 dark:text-neutral-400 leading-relaxed">
               <p className="font-semibold">
                 本サービス「Medical Prompt Hub」は、医療従事者の業務効率化を支援するためのAIプロンプト集を提供するものであり、医療アドバイスを提供するものではありません。
               </p>
@@ -66,15 +75,26 @@ export default function Legal() {
                   </ul>
                 </li>
               </ul>
-            </CardContent>
-          </Card>
+            </div>
+          </motion.section>
 
           {/* 想定されるエラーシナリオ */}
-          <Card className="border-red-200 bg-red-50">
-            <CardHeader>
-              <CardTitle className="text-red-900">⚠️ 想定されるエラーシナリオと防止策</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4 text-sm leading-relaxed">
+          <motion.section
+            className="bg-red-50 dark:bg-red-950/20 rounded-2xl border border-red-200/50 dark:border-red-900/50 p-6 md:p-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="flex items-center gap-2 mb-6">
+              <AlertCircle className="w-4 h-4 text-red-600" strokeWidth={2} />
+              <span className="text-sm font-medium text-red-600 tracking-[-0.01em]">
+                Error Scenarios
+              </span>
+            </div>
+            <h2 className="text-2xl md:text-3xl font-black mb-6 text-red-900 dark:text-red-400 tracking-[-0.02em] leading-[1.1]" style={{ fontFamily: 'Inter Display, Inter, system-ui, sans-serif' }}>
+              想定されるエラーシナリオと防止策
+            </h2>
+            <div className="space-y-4 text-base text-red-800 dark:text-red-300 leading-relaxed">
               <p className="font-semibold text-red-900">
                 以下は、AIプロンプトを医療現場で使用する際に起こりうる具体的なエラーシナリオです。必ず読んで、同様のエラーを防いでください。
               </p>
@@ -125,68 +145,73 @@ export default function Legal() {
               <CardTitle>利用規約 (Terms of Service)</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 text-sm leading-relaxed">
-              <section>
-                <h3 className="font-semibold mb-2">1. サービスの利用について</h3>
+              <div>
+                <h3 className="font-semibold mb-3 text-lg text-neutral-900 dark:text-neutral-50">1. サービスの利用について</h3>
                 <p>
                   本サービスは、医療従事者および医療関係者を主な対象としていますが、利用資格を限定するものではありません。ユーザーは、自己の責任において本サービスを利用するものとします。
                 </p>
-              </section>
-              <Separator />
-              <section>
-                <h3 className="font-semibold mb-2">2. 禁止事項</h3>
-                <p>以下の行為を禁止します：</p>
-                <ul className="list-disc pl-5 space-y-1">
+              </div>
+              <div className="pt-6 border-t border-neutral-200 dark:border-neutral-700">
+                <h3 className="font-semibold mb-3 text-lg text-neutral-900 dark:text-neutral-50">2. 禁止事項</h3>
+                <p className="mb-3">以下の行為を禁止します：</p>
+                <ul className="list-disc pl-6 space-y-2">
                   <li>法令または公序良俗に違反する行為</li>
                   <li>本サービスの運営を妨害する行為</li>
                   <li>他のユーザーや第三者に不利益を与える行為</li>
                   <li>個人情報（患者情報など）を匿名化せずにAIに入力する行為</li>
                 </ul>
-              </section>
-              <Separator />
-              <section>
-                <h3 className="font-semibold mb-2">3. 知的財産権</h3>
-                <p>
+              </div>
+              <div className="pt-6 border-t border-neutral-200 dark:border-neutral-700">
+                <h3 className="font-semibold mb-3 text-lg text-neutral-900 dark:text-neutral-50">3. 知的財産権</h3>
+                <p className="mb-3">
                   本サービスに含まれるすべてのコンテンツ（プロンプト、テキスト、画像、デザイン等）の著作権およびその他の知的財産権は、運営者または正当な権利者に帰属します。ユーザーは、本サービスの利用目的の範囲内でのみ、これらのコンテンツを使用することができます。
                 </p>
-                <p className="mt-2">
+                <p>
                   プロンプトはMITライセンスの下で公開されており、自由に使用・改変・配布できますが、医療情報の正確性には十分注意してください。
                 </p>
-              </section>
-              <Separator />
-              <section>
-                <h3 className="font-semibold mb-2">4. 利用者の責任</h3>
-                <p>ユーザーは、以下の責任を負います：</p>
-                <ul className="list-disc pl-5 space-y-1">
+              </div>
+              <div className="pt-6 border-t border-neutral-200 dark:border-neutral-700">
+                <h3 className="font-semibold mb-3 text-lg text-neutral-900 dark:text-neutral-50">4. 利用者の責任</h3>
+                <p className="mb-3">ユーザーは、以下の責任を負います：</p>
+                <ul className="list-disc pl-6 space-y-2">
                   <li>本サービスの利用に伴うすべての行為についての責任</li>
                   <li>AIの出力内容の事実確認（ファクトチェック）の責任</li>
                   <li>医療情報の正確性の確認の責任</li>
                   <li>患者情報の匿名化の責任</li>
                   <li>法令遵守の責任</li>
                 </ul>
-              </section>
-              <Separator />
-              <section>
-                <h3 className="font-semibold mb-2">5. サービスの変更・停止</h3>
+              </div>
+              <div className="pt-6 border-t border-neutral-200 dark:border-neutral-700">
+                <h3 className="font-semibold mb-3 text-lg text-neutral-900 dark:text-neutral-50">5. サービスの変更・停止</h3>
                 <p>
                   運営者は、ユーザーへの事前の通知なく、本サービスの内容を変更、または提供を停止することができるものとします。ただし、重要な変更や停止については、可能な限り事前に通知いたします。
                 </p>
-              </section>
-              <Separator />
-              <section>
-                <h3 className="font-semibold mb-2">6. 準拠法・管轄裁判所</h3>
+              </div>
+              <div className="pt-6 border-t border-neutral-200 dark:border-neutral-700">
+                <h3 className="font-semibold mb-3 text-lg text-neutral-900 dark:text-neutral-50">6. 準拠法・管轄裁判所</h3>
                 <p>
                   本利用規約は、日本法に準拠して解釈されるものとします。本サービスに関する紛争については、運営者の所在地を管轄する裁判所を第一審の専属的合意管轄裁判所とします。
                 </p>
-              </section>
-            </CardContent>
-          </Card>
+              </div>
+            </div>
+          </motion.section>
 
           {/* プライバシーポリシー */}
-          <Card>
-            <CardHeader>
-              <CardTitle>プライバシーポリシー (Privacy Policy)</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4 text-sm leading-relaxed">
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="flex items-center gap-2 mb-6">
+              <Shield className="w-4 h-4 text-blue-600" strokeWidth={2} />
+              <span className="text-sm font-medium text-neutral-500 dark:text-neutral-400 tracking-[-0.01em]">
+                Privacy Policy
+              </span>
+            </div>
+            <h2 className="text-2xl md:text-3xl font-black mb-6 text-neutral-900 dark:text-neutral-50 tracking-[-0.02em] leading-[1.1]" style={{ fontFamily: 'Inter Display, Inter, system-ui, sans-serif' }}>
+              プライバシーポリシー
+            </h2>
+            <div className="space-y-6 text-base text-neutral-600 dark:text-neutral-400 leading-relaxed">
               <section>
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="font-semibold">1. 個人情報の収集</h3>
@@ -295,24 +320,23 @@ export default function Legal() {
               <section>
                 <h3 className="font-semibold mb-2">8. お問い合わせ先</h3>
                 <p>
-                  プライバシーに関するお問い合わせ、データ主体の権利の行使、苦情等については、<a href="/contact" className="text-primary underline">お問い合わせフォーム</a>からご連絡ください。
+                  プライバシーに関するお問い合わせ、データ主体の権利の行使、苦情等については、<a href="/contact" className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 underline">お問い合わせフォーム</a>からご連絡ください。
                 </p>
-                <p className="mt-2 text-sm text-muted-foreground">
+                <p className="mt-3 text-sm text-neutral-500 dark:text-neutral-400">
                   お問い合わせへの返信は、通常24時間以内に行います。重要な問題については、できるだけ早く対応いたします。
                 </p>
-              </section>
-              <Separator />
-              <section>
-                <h3 className="font-semibold mb-2">9. プライバシーポリシーの変更</h3>
-                <p>
+              </div>
+              <div className="pt-6 border-t border-neutral-200 dark:border-neutral-700">
+                <h3 className="font-semibold mb-3 text-lg text-neutral-900 dark:text-neutral-50">9. プライバシーポリシーの変更</h3>
+                <p className="mb-3">
                   本プライバシーポリシーは、法令の変更やサービスの改善に伴い、予告なく変更される場合があります。重要な変更については、本ページで通知いたします。
                 </p>
-                <p className="mt-2 text-sm text-muted-foreground">
+                <p className="text-sm text-neutral-500 dark:text-neutral-400">
                   最終更新日: 2025年1月
                 </p>
-              </section>
-            </CardContent>
-          </Card>
+              </div>
+            </div>
+          </motion.section>
         </div>
       </div>
     </Layout>

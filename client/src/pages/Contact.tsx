@@ -1,15 +1,16 @@
 import { Layout } from "@/components/Layout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { PageHeader } from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Mail, Send, AlertCircle } from "lucide-react";
+import { Mail, Send, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useEffect } from "react";
 import { updateSEO } from "@/lib/seo";
+import { motion } from "framer-motion";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -83,153 +84,156 @@ export default function Contact() {
 
   return (
     <Layout>
-      <div className="space-y-4 pb-12 max-w-3xl mx-auto">
-        <div className="space-y-1">
-          <h1 className="text-2xl font-bold tracking-tight">お問い合わせ</h1>
-          <p className="text-sm text-muted-foreground">
-            ご質問、機能提案、バグ報告など、お気軽にお問い合わせください
-          </p>
-        </div>
+      <div className="max-w-3xl mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12 lg:py-16">
+        {/* Linear.app風：ページヘッダー */}
+        <PageHeader
+          category="Contact"
+          title="Contact us"
+          description="ご質問、機能提案、バグ報告など、お気軽にお問い合わせください"
+        />
 
-        <Card>
-          <CardHeader className="p-4">
-            <CardTitle className="flex items-center gap-2 text-base">
-              <Mail className="w-4 h-4" />
-              お問い合わせフォーム
-            </CardTitle>
-            <CardDescription className="text-xs">
+        <motion.div
+          className="bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200/50 dark:border-neutral-700/50 p-6 md:p-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className="flex items-center gap-2 mb-6">
+            <Mail className="w-4 h-4 text-blue-600" strokeWidth={2} />
+            <span className="text-sm font-medium text-neutral-500 dark:text-neutral-400 tracking-[-0.01em]">
+              Contact Form
+            </span>
+          </div>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-6">
               お問い合わせ内容に応じて、できるだけ早くご返信いたします
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="p-4 pt-0">
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-1.5">
-                  <Label htmlFor="name" className="text-xs">
-                    お名前 <span className="text-destructive">*</span>
-                  </Label>
-                  <Input
-                    id="name"
-                    placeholder="山田 太郎"
-                    value={formData.name}
-                    onChange={(e) => handleChange("name", e.target.value)}
-                    required
-                    className="h-9 text-sm"
-                  />
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="email" className="text-xs">
-                    メールアドレス <span className="text-destructive">*</span>
-                  </Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="example@email.com"
-                    value={formData.email}
-                    onChange={(e) => handleChange("email", e.target.value)}
-                    required
-                    className="h-9 text-sm"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-1.5">
-                <Label htmlFor="category" className="text-xs">お問い合わせ種別</Label>
-                <Select
-                  value={formData.category}
-                  onValueChange={(value) => handleChange("category", value)}
-                >
-                  <SelectTrigger id="category">
-                    <SelectValue placeholder="選択してください" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="question">質問・お問い合わせ</SelectItem>
-                    <SelectItem value="bug">バグ報告</SelectItem>
-                    <SelectItem value="feature">機能提案</SelectItem>
-                    <SelectItem value="prompt">プロンプトの追加・改善</SelectItem>
-                    <SelectItem value="other">その他</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-1.5">
-                <Label htmlFor="subject" className="text-xs">件名</Label>
-                <Input
-                  id="subject"
-                  placeholder="お問い合わせの件名"
-                  value={formData.subject}
-                  onChange={(e) => handleChange("subject", e.target.value)}
-                  className="h-9 text-sm"
-                />
-              </div>
-
-              <div className="space-y-1.5">
-                <Label htmlFor="message" className="text-xs">
-                  お問い合わせ内容 <span className="text-destructive">*</span>
+            お問い合わせ内容に応じて、できるだけ早くご返信いたします
+          </p>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <Label htmlFor="name" className="text-sm font-medium text-neutral-900 dark:text-neutral-50">
+                  お名前 <span className="text-red-600">*</span>
                 </Label>
-                <Textarea
-                  id="message"
-                  placeholder="お問い合わせ内容を詳しくご記入ください"
-                  className="min-h-[160px] text-sm"
-                  value={formData.message}
-                  onChange={(e) => handleChange("message", e.target.value)}
+                <Input
+                  id="name"
+                  placeholder="山田 太郎"
+                  value={formData.name}
+                  onChange={(e) => handleChange("name", e.target.value)}
                   required
+                  className="h-10 text-base"
                 />
               </div>
-
-              <div className="flex items-start gap-2 p-3 bg-muted/50 rounded-lg">
-                <AlertCircle className="w-4 h-4 text-muted-foreground mt-0.5 flex-shrink-0" />
-                <div className="text-xs text-muted-foreground space-y-0.5">
-                  <p className="font-semibold text-foreground text-sm">ご注意</p>
-                  <ul className="list-disc pl-4 space-y-0.5">
-                    <li>お問い合わせへの返信には数日かかる場合があります</li>
-                    <li>緊急の場合は、GitHubのIssuesからもご連絡いただけます</li>
-                    <li>プライバシーやセキュリティに関する重要な問題の場合は、できるだけ早く対応いたします</li>
-                  </ul>
-                </div>
+              <div className="space-y-2">
+                <Label htmlFor="email" className="text-sm font-medium text-neutral-900 dark:text-neutral-50">
+                  メールアドレス <span className="text-red-600">*</span>
+                </Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="example@email.com"
+                  value={formData.email}
+                  onChange={(e) => handleChange("email", e.target.value)}
+                  required
+                  className="h-10 text-base"
+                />
               </div>
+            </div>
 
-              <Button
-                type="submit"
-                size="default"
-                className="w-full h-9 text-sm"
-                disabled={isSubmitting}
+            <div className="space-y-2">
+              <Label htmlFor="category" className="text-sm font-medium text-neutral-900 dark:text-neutral-50">お問い合わせ種別</Label>
+              <Select
+                value={formData.category}
+                onValueChange={(value) => handleChange("category", value)}
               >
-                {isSubmitting ? (
-                  <>
-                    <div className="animate-spin rounded-full h-3.5 w-3.5 border-b-2 border-white mr-2"></div>
-                    送信中...
-                  </>
-                ) : (
-                  <>
-                    <Send className="mr-2 h-3.5 w-3.5" />
-                    送信する
-                  </>
-                )}
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
+                <SelectTrigger id="category" className="h-10">
+                  <SelectValue placeholder="選択してください" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="question">質問・お問い合わせ</SelectItem>
+                  <SelectItem value="bug">バグ報告</SelectItem>
+                  <SelectItem value="feature">機能提案</SelectItem>
+                  <SelectItem value="prompt">プロンプトの追加・改善</SelectItem>
+                  <SelectItem value="other">その他</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
 
-        <Card className="border-muted">
-          <CardHeader className="p-4">
-            <CardTitle className="text-base">その他のお問い合わせ方法</CardTitle>
-          </CardHeader>
-          <CardContent className="p-4 pt-0 space-y-3 text-xs">
+            <div className="space-y-2">
+              <Label htmlFor="subject" className="text-sm font-medium text-neutral-900 dark:text-neutral-50">件名</Label>
+              <Input
+                id="subject"
+                placeholder="お問い合わせの件名"
+                value={formData.subject}
+                onChange={(e) => handleChange("subject", e.target.value)}
+                className="h-10 text-base"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="message" className="text-sm font-medium text-neutral-900 dark:text-neutral-50">
+                お問い合わせ内容 <span className="text-red-600">*</span>
+              </Label>
+              <Textarea
+                id="message"
+                placeholder="お問い合わせ内容を詳しくご記入ください"
+                className="min-h-[160px] text-base"
+                value={formData.message}
+                onChange={(e) => handleChange("message", e.target.value)}
+                required
+              />
+            </div>
+
+            <Button
+              type="submit"
+              size="default"
+              className="w-full h-11 text-base bg-neutral-900 text-white hover:bg-neutral-800 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-200"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                  送信中...
+                </>
+              ) : (
+                <>
+                  <Send className="mr-2 h-4 w-4" />
+                  送信する
+                </>
+              )}
+            </Button>
+          </form>
+        </motion.div>
+
+        <motion.section
+          className="mt-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className="flex items-center gap-2 mb-6">
+            <Mail className="w-4 h-4 text-blue-600" strokeWidth={2} />
+            <span className="text-sm font-medium text-neutral-500 dark:text-neutral-400 tracking-[-0.01em]">
+              Other Methods
+            </span>
+          </div>
+          <h2 className="text-2xl md:text-3xl font-black mb-6 text-neutral-900 dark:text-neutral-50 tracking-[-0.02em] leading-[1.1]" style={{ fontFamily: 'Inter Display, Inter, system-ui, sans-serif' }}>
+            Other contact methods
+          </h2>
+          <div className="space-y-6 text-base text-neutral-600 dark:text-neutral-400">
             <div>
-              <h3 className="font-semibold mb-1 text-sm">GitHub Issues</h3>
-              <p className="text-muted-foreground">
+              <h3 className="font-semibold mb-2 text-lg text-neutral-900 dark:text-neutral-50">GitHub Issues</h3>
+              <p>
                 バグ報告や機能提案は、GitHubのIssuesからも受け付けています。技術的な問題や改善提案に最適です。
               </p>
             </div>
             <div>
-              <h3 className="font-semibold mb-1 text-sm">プルリクエスト</h3>
-              <p className="text-muted-foreground">
+              <h3 className="font-semibold mb-2 text-lg text-neutral-900 dark:text-neutral-50">プルリクエスト</h3>
+              <p>
                 プロンプトの追加や改善は、GitHubのプルリクエストから提案してください。医療従事者の皆様の実践的な知見を共有していただけると、サービス全体の品質向上につながります。
               </p>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </motion.section>
       </div>
     </Layout>
   );

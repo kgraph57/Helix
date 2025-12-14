@@ -4,14 +4,13 @@
  */
 
 import { Layout } from "@/components/Layout";
+import { PageHeader } from "@/components/PageHeader";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
 import { GamificationStats } from "@/components/GamificationStats";
 import { LearningPath } from "@/components/LearningPath";
 import { useGamification } from "@/hooks/useGamification";
-import { BookOpen, Award, Star, CheckCircle2, Lock, GraduationCap } from "lucide-react";
+import { BookOpen, GraduationCap, ArrowRight } from "lucide-react";
 import { useLocation } from "wouter";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
@@ -636,15 +635,13 @@ export default function Courses() {
 
   return (
     <Layout>
-      <div className="space-y-1.5 pb-6">
-        {/* ヘッダー - コンパクト */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center py-0.5"
-        >
-          <h1 className="text-xl font-bold tracking-tight">Learning Courses</h1>
-        </motion.section>
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12 lg:py-16">
+        {/* Linear.app風：ページヘッダー */}
+        <PageHeader
+          category="Courses"
+          title="Learning courses"
+          description="医療従事者向けのAI学習コース。AI基礎から上級テクニックまで、段階的にAI活用スキルを向上させます。"
+        />
 
         {/* コース一覧 */}
         <motion.section
@@ -677,46 +674,42 @@ export default function Courses() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 * categoryOrder.indexOf(category) }}
                 >
-                  <Card 
-                    className="group hover:shadow-xl hover:scale-[1.01] transition-all duration-300 cursor-pointer border-2 hover:border-primary/30 min-h-[140px] flex flex-col bg-gradient-to-br from-background to-accent/5 hover:from-accent/10 hover:to-accent/20"
+                  <motion.div
+                    className="group bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200/50 dark:border-neutral-700/50 hover:border-neutral-300/70 dark:hover:border-neutral-600/70 transition-all duration-300 cursor-pointer p-6 flex flex-col"
                     onClick={() => setLocation(`/courses/category/${categoryIdMap[category]}`)}
+                    whileHover={{ scale: 1.02 }}
                   >
-                    <CardHeader className="flex-1 pb-2 p-4">
-                      <div className="flex items-start justify-between mb-0.5">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-1">
-                            <div className="w-1 h-6 bg-gradient-to-b from-primary to-primary/50 rounded-full"></div>
-                            <CardTitle className="text-base font-bold group-hover:text-primary transition-colors">
-                              {categoryLabels[category] || category}
-                            </CardTitle>
-                          </div>
-                          <CardDescription className="text-xs leading-relaxed line-clamp-2">
-                            {category === "基礎理論" && "AIの基礎理論と概念を体系的に学びます。初心者向けの内容から始まり、AIの全体像を把握できます。"}
-                            {category === "ツール" && "ChatGPT、Claude、GeminiなどのAIツールの実践的な使い方を学びます。医療現場で即座に活用できるスキルを習得します。"}
-                            {category === "技術" && "AIの技術的な仕組みを深く理解します。機械学習、深層学習、API、プログラミングなど、技術的な側面を学びます。"}
-                            {category === "医療応用" && "実際の医療現場でのAI活用方法を学びます。診断支援、論文執筆、症例報告など、医療業務での実践的な活用を習得します。"}
-                            {category === "法律倫理" && "医療AI利用における法的要件と倫理的配慮を学びます。個人情報保護法、医療法、著作権、研究倫理などを理解します。"}
-                            {category === "研究" && "AI研究の方法論、論文の読み書き、データ分析を学びます。研究を効率的に進めるためのスキルを習得します。"}
-                            {category === "専門" && "高度なAI技術と専門的な応用を学びます。システム構築、組織的な導入、最新のアーキテクチャなど、エキスパート向けの内容です。"}
-                          </CardDescription>
-                        </div>
+                    <div className="flex items-center gap-2 mb-4">
+                      <GraduationCap className="w-4 h-4 text-blue-600" strokeWidth={2} />
+                      <span className="text-sm font-medium text-neutral-500 dark:text-neutral-400 tracking-[-0.01em]">
+                        Category
+                      </span>
+                    </div>
+                    <h3 className="text-xl md:text-2xl font-black mb-3 text-neutral-900 dark:text-neutral-50 tracking-[-0.02em] leading-[1.1] group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" style={{ fontFamily: 'Inter Display, Inter, system-ui, sans-serif' }}>
+                      {categoryLabels[category] || category}
+                    </h3>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-4 line-clamp-2">
+                      {category === "基礎理論" && "AIの基礎理論と概念を体系的に学びます。初心者向けの内容から始まり、AIの全体像を把握できます。"}
+                      {category === "ツール" && "ChatGPT、Claude、GeminiなどのAIツールの実践的な使い方を学びます。医療現場で即座に活用できるスキルを習得します。"}
+                      {category === "技術" && "AIの技術的な仕組みを深く理解します。機械学習、深層学習、API、プログラミングなど、技術的な側面を学びます。"}
+                      {category === "医療応用" && "実際の医療現場でのAI活用方法を学びます。診断支援、論文執筆、症例報告など、医療業務での実践的な活用を習得します。"}
+                      {category === "法律倫理" && "医療AI利用における法的要件と倫理的配慮を学びます。個人情報保護法、医療法、著作権、研究倫理などを理解します。"}
+                      {category === "研究" && "AI研究の方法論、論文の読み書き、データ分析を学びます。研究を効率的に進めるためのスキルを習得します。"}
+                      {category === "専門" && "高度なAI技術と専門的な応用を学びます。システム構築、組織的な導入、最新のアーキテクチャなど、エキスパート向けの内容です。"}
+                    </p>
+                    <div className="flex items-center gap-4 text-sm text-neutral-600 dark:text-neutral-400 mt-auto">
+                      <span className="font-medium">{allCategoryCourses.length} courses</span>
+                      <span>•</span>
+                      <div className="flex items-center gap-1.5">
+                        <BookOpen className="w-4 h-4" />
+                        <span>{totalLessons} lessons</span>
                       </div>
-                    </CardHeader>
-                    <CardContent className="space-y-2 pt-0 p-4">
-                      <div className="flex items-center gap-3 text-xs">
-                        <Badge variant="secondary" className="text-[10px] px-2 py-0.5">
-                          {allCategoryCourses.length} コース
-                        </Badge>
-                        <div className="flex items-center gap-1.5 text-muted-foreground">
-                          <BookOpen className="w-3.5 h-3.5" />
-                          <span className="font-medium">{totalLessons} レッスン</span>
-                        </div>
-
-                      </div>
-                      
-
-                    </CardContent>
-                  </Card>
+                    </div>
+                    <div className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-blue-600 dark:text-blue-400 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors">
+                      Learn more
+                      <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    </div>
+                  </motion.div>
                 </motion.div>
               );
             })}

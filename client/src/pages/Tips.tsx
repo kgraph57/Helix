@@ -1,8 +1,9 @@
 import { Layout } from "@/components/Layout";
+import { PageHeader } from "@/components/PageHeader";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { loadTips } from "@/lib/tips-loader";
 import type { PromptTip } from "@/lib/tips";
-import { Search, ArrowRight } from "lucide-react";
+import { Search, ArrowRight, Lightbulb } from "lucide-react";
 import { useState, useMemo, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -93,32 +94,13 @@ export default function Tips() {
 
   return (
     <Layout>
-      <div className="space-y-6 pb-8">
-        {/* Hero Section - コンパクト */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center space-y-1 py-1.5 lg:py-2"
-        >
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.5 }}
-            className="text-xl md:text-2xl font-bold tracking-tight"
-          >
-            Tips & Techniques
-          </motion.h1>
-          
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="text-xs md:text-sm text-muted-foreground max-w-2xl mx-auto"
-          >
-            AIプロンプトの効果を最大化するための実践的なテクニック集
-          </motion.p>
-        </motion.section>
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-8 md:py-12 lg:py-16">
+        {/* Linear.app風：ページヘッダー */}
+        <PageHeader
+          category="Tips"
+          title="Tips & Techniques"
+          description="AIプロンプトの効果を最大化するための実践的なテクニック集"
+        />
 
         {/* 基礎コンテンツカード（固定配置） */}
         <div className="max-w-5xl mx-auto">
