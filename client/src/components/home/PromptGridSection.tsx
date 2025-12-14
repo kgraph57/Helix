@@ -1,5 +1,6 @@
 import { Search, ChevronRight } from "lucide-react";
 import { memo, useState, useMemo, useRef, useEffect } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { PromptCard } from "./PromptCard";
 import { categories, type PromptCategory } from "@/lib/prompts";
 import type { Prompt } from "@/lib/prompts";
@@ -87,8 +88,17 @@ export const PromptGridSection = memo(function PromptGridSection({
     (selectedCategory as PromptCategory) || 'all'
   );
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const [showLeftGradient, setShowLeftGradient] = useState(false);
   const [showRightGradient, setShowRightGradient] = useState(true);
+  
+  // スクロール連動アニメーション
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+  
+  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
 
   // カテゴリごとにプロンプトをグループ化
   const promptsByCategory = useMemo(() => {
@@ -230,7 +240,11 @@ export const PromptGridSection = memo(function PromptGridSection({
   
   if (isFiltered) {
     return (
-      <section className="py-6 md:py-8">
+      <motion.section 
+        ref={sectionRef}
+        className="relative py-6 md:py-8 overflow-hidden"
+        style={{ opacity }}
+      >
         <div className="max-w-7xl mx-auto px-4 md:px-6">
           <div className="flex items-center justify-between mb-6">
             <div>
@@ -276,12 +290,16 @@ export const PromptGridSection = memo(function PromptGridSection({
             </div>
           )}
         </div>
-      </section>
+      </motion.section>
     );
   }
 
   return (
-    <section className="py-8 md:py-12">
+    <motion.section 
+      ref={sectionRef}
+      className="relative py-8 md:py-12 overflow-hidden"
+      style={{ opacity }}
+    >
       <div className="max-w-7xl mx-auto px-4 md:px-6">
         {/* セクションヘッダー */}
         <div className="mb-8 md:mb-12">
@@ -308,7 +326,7 @@ export const PromptGridSection = memo(function PromptGridSection({
               ref={scrollContainerRef}
               className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide"
             >
-              <button
+              <motion.button
                 onClick={() => {
                   setActiveTab('all');
                   onClearFilters();
@@ -320,16 +338,18 @@ export const PromptGridSection = memo(function PromptGridSection({
                     : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
                   }
                 `}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 すべて
-              </button>
+              </motion.button>
               {categories.map((category) => {
                 const config = categoryConfig[category.id];
                 const categoryPrompts = promptsByCategory[category.id] || [];
                 const isActive = activeTab === category.id;
                 
                 return (
-                  <button
+                  <motion.button
                     key={category.id}
                     onClick={() => setActiveTab(category.id)}
                     disabled={categoryPrompts.length === 0}
@@ -341,10 +361,12 @@ export const PromptGridSection = memo(function PromptGridSection({
                         : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-200 dark:hover:bg-neutral-700'
                       }
                     `}
+                    whileHover={{ scale: categoryPrompts.length > 0 ? 1.05 : 1 }}
+                    whileTap={{ scale: categoryPrompts.length > 0 ? 0.95 : 1 }}
                   >
                     {category.label}
                     <span className="ml-1.5 text-xs opacity-60">({categoryPrompts.length})</span>
-                  </button>
+                  </motion.button>
                 );
               })}
             </div>
@@ -462,6 +484,6 @@ export const PromptGridSection = memo(function PromptGridSection({
           )
         )}
       </div>
-    </section>
+    </motion.section>
   );
 });

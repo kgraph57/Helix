@@ -28,13 +28,31 @@ export function InteractivePromptPreview({ prompts, className = "" }: Interactiv
   const yParallax = useTransform(scrollYProgress, [0, 1], [0, -50]);
   const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
 
-  // 自動ローテーション（4秒ごと）
+  // 自動ローテーション（4秒ごと）- パフォーマンス最適化
   useEffect(() => {
     if (prompts.length === 0) return;
-    const interval = setInterval(() => {
+    // ページが非表示の時はローテーションを停止
+    let interval: NodeJS.Timeout;
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        if (interval) clearInterval(interval);
+      } else {
+        interval = setInterval(() => {
+          setCurrentIndex((prev) => (prev + 1) % prompts.length);
+        }, 4000);
+      }
+    };
+    
+    interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % prompts.length);
     }, 4000);
-    return () => clearInterval(interval);
+    
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    
+    return () => {
+      if (interval) clearInterval(interval);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
   }, [prompts.length]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -73,7 +91,10 @@ export function InteractivePromptPreview({ prompts, className = "" }: Interactiv
       className={`relative ${className}`}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={{ willChange: "transform" }}
+      style={{ 
+        willChange: "transform",
+        contain: "layout style paint"
+      }}
     >
       {/* 背景グラデーション（強化版） - デスクトップのみ */}
       <motion.div
@@ -174,7 +195,8 @@ export function InteractivePromptPreview({ prompts, className = "" }: Interactiv
                 </div>
                 <button
                   onClick={handleCopy}
-                  className="p-2 rounded-lg bg-neutral-800/50 hover:bg-neutral-700/50 border border-neutral-700/50 transition-colors"
+                  className="p-2 rounded-lg bg-neutral-800/50 hover:bg-neutral-700/50 border border-neutral-700/50 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-neutral-900"
+                  aria-label={copied ? "コピー完了" : "プロンプトをコピー"}
                 >
                   {copied ? (
                     <Check className="w-4 h-4 text-emerald-400" />
@@ -195,14 +217,14 @@ export function InteractivePromptPreview({ prompts, className = "" }: Interactiv
               </p>
 
               {/* プロンプトプレビュー */}
-              <div className="relative mt-4 p-4 rounded-lg bg-neutral-950/50 border border-neutral-800/50 backdrop-blur-sm">
+              <div className="relative mt-4 p-4 rounded-lg bg-neutral-950/50 border border-neutral-800/50 backdrop-blur-sm" role="region" aria-label="プロンプトプレビュー">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-xs font-medium text-neutral-500">プロンプトプレビュー</span>
-                  <span className="text-xs text-neutral-600">
+                  <span className="text-xs text-neutral-600" aria-live="polite" aria-atomic="true">
                     {currentIndex + 1} / {prompts.length}
                   </span>
                 </div>
-                <pre className="text-xs text-neutral-300 font-mono whitespace-pre-wrap line-clamp-4 overflow-hidden">
+                <pre className="text-xs text-neutral-300 font-mono whitespace-pre-wrap line-clamp-4 overflow-hidden" aria-label={`プロンプト: ${currentPrompt.title}`}>
                   {currentPrompt.template.substring(0, 200)}
                   {currentPrompt.template.length > 200 && "..."}
                 </pre>

@@ -105,19 +105,31 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
   const contentY = useTransform(scrollYProgress, [0, 1], [0, 50]);
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1, 0]);
   
-  // マウス追従エフェクト
+  // マウス追従エフェクト（パフォーマンス最適化）
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const springConfig = { damping: 30, stiffness: 180 };
   const x = useSpring(mouseX, springConfig);
   const y = useSpring(mouseY, springConfig);
+  
+  // マウス移動のスロットリング（パフォーマンス最適化）
+  const handleMouseMoveThrottled = useRef<NodeJS.Timeout | null>(null);
 
-  // プロンプトデータの読み込み
+  // プロンプトデータの読み込み（パフォーマンス最適化：遅延ロード）
   useEffect(() => {
-    loadPrompts().then((prompts) => {
-      const recommended = getRecommendedPrompts(prompts);
-      setRecommendedPrompts(recommended.slice(0, 6)); // 最大6個
-    });
+    // requestIdleCallbackでアイドル時に読み込む
+    const loadData = () => {
+      loadPrompts().then((prompts) => {
+        const recommended = getRecommendedPrompts(prompts);
+        setRecommendedPrompts(recommended.slice(0, 6)); // 最大6個
+      });
+    };
+    
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadData, { timeout: 2000 });
+    } else {
+      setTimeout(loadData, 100);
+    }
   }, []);
 
   
@@ -141,6 +153,12 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
   }, [onSearchChange]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    // スロットリングでパフォーマンス最適化
+    if (handleMouseMoveThrottled.current) return;
+    handleMouseMoveThrottled.current = setTimeout(() => {
+      handleMouseMoveThrottled.current = null;
+    }, 16); // ~60fps
+    
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -183,8 +201,10 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
         </div>
       </div>
       
-      {/* マウス追従エフェクト（Linear風：より控えめに） */}
-      <MouseFollowEffect x={x} y={y} />
+      {/* マウス追従エフェクト（Linear風：より控えめに）- デスクトップのみ */}
+      <div className="hidden lg:block">
+        <MouseFollowEffect x={x} y={y} />
+      </div>
       
       <motion.div 
         className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 relative z-10 w-full"
@@ -345,10 +365,11 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
                 >
                   <motion.button
                     onClick={() => setLocation('/guides')}
-                    className="group relative inline-flex items-center justify-center px-7 py-3.5 text-[15px] font-medium text-white bg-neutral-900 dark:bg-neutral-100 dark:text-neutral-900 hover:bg-neutral-800 dark:hover:bg-neutral-200 rounded-xl transition-all duration-300 overflow-hidden"
+                    className="group relative inline-flex items-center justify-center px-7 py-3.5 text-[15px] font-medium text-white bg-neutral-900 dark:bg-neutral-100 dark:text-neutral-900 hover:bg-neutral-800 dark:hover:bg-neutral-200 rounded-xl transition-all duration-300 overflow-hidden focus:outline-none focus:ring-2 focus:ring-neutral-400 dark:focus:ring-neutral-600 focus:ring-offset-2"
                     whileHover={{ scale: 1.02, y: -1 }}
                     whileTap={{ scale: 0.98 }}
                     style={{ fontFamily: 'Inter, system-ui, sans-serif', fontWeight: 500 }}
+                    aria-label="Get Started - ガイドページへ移動"
                   >
                     {/* ホバー時のグロー効果 */}
                     <motion.div
