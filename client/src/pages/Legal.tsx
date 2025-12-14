@@ -137,7 +137,8 @@ export default function Legal() {
                   </p>
                 </div>
               </div>
-            </motion.section>
+            </div>
+          </motion.section>
 
           {/* 利用規約 */}
           <motion.section
