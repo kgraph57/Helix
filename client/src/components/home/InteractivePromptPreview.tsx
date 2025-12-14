@@ -148,8 +148,8 @@ export function InteractivePromptPreview({ prompts, className = "" }: Interactiv
               willChange: "transform, box-shadow",
             }}
             whileHover={{
-              scale: 1.02,
-              boxShadow: "0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(59, 130, 246, 0.2)",
+              scale: 1.01,
+              boxShadow: "0 20px 60px rgba(0, 0, 0, 0.4), 0 0 30px rgba(59, 130, 246, 0.15)",
             }}
             transition={{
               duration: 0.3,
