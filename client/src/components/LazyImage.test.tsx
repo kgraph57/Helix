@@ -35,10 +35,10 @@ describe('LazyImage', () => {
   });
 
   it('should render with placeholder initially', () => {
-    render(<LazyImage src="/test.jpg" alt="Test image" />);
+    render(<LazyImage src="/test.jpg" alt="Test image" placeholder="data:image/svg+xml" />);
     const img = screen.getByAltText('Test image');
     expect(img).toBeInTheDocument();
-    expect(img).toHaveAttribute('src', expect.stringContaining('data:image/svg+xml'));
+    expect(img).toHaveAttribute('src', 'data:image/svg+xml');
   });
 
   it('should load image when intersecting', async () => {

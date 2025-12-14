@@ -118,7 +118,7 @@ export function LazyImage({
       {/* 実際の画像 */}
       <img
         ref={imgRef}
-        src={imageSrc || placeholder}
+        src={imageSrc || placeholder || fallback}
         alt={alt}
         loading={priority ? "eager" : "lazy"}
         decoding="async"

@@ -30,7 +30,7 @@ const itemVariants = {
     y: 0,
     transition: {
       duration: 0.7,
-      ease: [0.16, 1, 0.3, 1],
+      ease: [0.16, 1, 0.3, 1] as [number, number, number, number] as [number, number, number, number],
     },
   },
 };
@@ -45,7 +45,7 @@ const titleVariants = {
     y: 0,
     transition: {
       duration: 0.9,
-      ease: [0.16, 1, 0.3, 1],
+      ease: [0.16, 1, 0.3, 1] as [number, number, number, number] as [number, number, number, number],
     },
   },
 };
@@ -62,7 +62,7 @@ const searchVariants = {
     scale: 1,
     transition: {
       duration: 0.8,
-      ease: [0.16, 1, 0.3, 1],
+      ease: [0.16, 1, 0.3, 1] as [number, number, number, number] as [number, number, number, number],
     },
   },
 };
@@ -207,7 +207,7 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
                                 transition={{
                                   duration: 0.5,
                                   delay: baseDelay + currentCharIndex * 0.02,
-                                  ease: [0.16, 1, 0.3, 1]
+                                  ease: [0.16, 1, 0.3, 1] as [number, number, number, number] as [number, number, number, number]
                                 }}
                               >
                                 {isSpace ? (
@@ -238,7 +238,7 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
                                       transition={{ 
                                         duration: 0.6,
                                         delay: baseDelay + currentCharIndex * 0.02,
-                                        ease: [0.25, 0.46, 0.45, 0.94]
+                                        ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] as [number, number, number, number]
                                       }}
                                     >
                                       {char}
@@ -274,7 +274,7 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
                     transition={{ 
                       duration: 0.7, 
                       delay: 0.5,
-                      ease: [0.16, 1, 0.3, 1] 
+                      ease: [0.16, 1, 0.3, 1] as [number, number, number, number] 
                     }}
                   >
                     Meet the system for modern medical practice.
@@ -286,7 +286,7 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
                     transition={{ 
                       duration: 0.7, 
                       delay: 0.6,
-                      ease: [0.16, 1, 0.3, 1] 
+                      ease: [0.16, 1, 0.3, 1] as [number, number, number, number] 
                     }}
                   >
                     Streamline diagnosis, research, and patient care with expert AI prompts.
@@ -356,13 +356,13 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
                     ? "0_16px_40px_rgba(59,130,246,0.25),0_24px_80px_rgba(59,130,246,0.3)"
                     : "0_10px_32px_rgba(0,0,0,0.12),0_20px_64px_rgba(0,0,0,0.1)",
                 }}
-                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
               >
                 <div className="flex items-center h-[72px] sm:h-[88px] md:h-[104px] lg:h-[120px]">
                   <div className="pl-6 sm:pl-9 md:pl-11 pr-4 sm:pr-5 md:pr-7 flex-shrink-0">
                     <motion.div
                       whileHover={{ scale: 1.15, rotate: 8 }}
-                      transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                      transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
                     >
                       <Search className="w-6 h-6 sm:w-8 sm:h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 text-primary-500" strokeWidth={2.5} />
                     </motion.div>
