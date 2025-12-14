@@ -207,14 +207,26 @@ export function InteractivePromptPreview({ prompts, className = "" }: Interactiv
               </div>
 
               {/* タイトル */}
-              <h3 className="text-xl font-semibold text-neutral-100 leading-tight tracking-[-0.01em]">
+              <motion.h3 
+                key={`title-${currentIndex}`}
+                className="text-xl font-semibold text-neutral-100 leading-tight tracking-[-0.01em]"
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              >
                 {currentPrompt.title}
-              </h3>
+              </motion.h3>
 
               {/* 説明 */}
-              <p className="text-sm text-neutral-400 leading-relaxed line-clamp-2 tracking-[-0.005em]">
+              <motion.p 
+                key={`description-${currentIndex}`}
+                className="text-sm text-neutral-400 leading-relaxed line-clamp-2 tracking-[-0.005em]"
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+              >
                 {currentPrompt.description}
-              </p>
+              </motion.p>
 
               {/* プロンプトプレビュー */}
               <div className="relative mt-4 p-4 rounded-lg bg-neutral-950/50 border border-neutral-800/50 backdrop-blur-sm" role="region" aria-label="プロンプトプレビュー">

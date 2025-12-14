@@ -130,9 +130,11 @@ export function StatsBannerSection({ prompts }: StatsBannerSectionProps) {
             return (
               <motion.div
                 key={item.label}
-                className="text-center flex flex-col items-center justify-center min-w-0"
+                className="text-center flex flex-col items-center justify-center min-w-0 group"
                 variants={itemVariants}
                 custom={index}
+                whileHover={{ scale: 1.05, y: -2 }}
+                transition={{ duration: 0.2 }}
               >
                 {/* 数値（Linear風：カウントアップアニメーション） */}
                 <div className="mb-3">

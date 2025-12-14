@@ -76,13 +76,16 @@ function MouseFollowEffect({ x, y }: { x: any; y: any }) {
   const background = useTransform(
     [x, y],
     ([latestX, latestY]) => 
-      `radial-gradient(800px circle at ${latestX}px ${latestY}px, rgba(59, 130, 246, 0.02), transparent 50%)`
+      `radial-gradient(800px circle at ${latestX}px ${latestY}px, rgba(59, 130, 246, 0.015), transparent 50%)`
   );
   
   return (
     <motion.div
       className="absolute inset-0 pointer-events-none"
-      style={{ background }}
+      style={{ 
+        background,
+        willChange: "background"
+      }}
     />
   );
 }
