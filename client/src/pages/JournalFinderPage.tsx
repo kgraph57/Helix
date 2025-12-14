@@ -6,7 +6,7 @@ import { updateSEO } from "@/lib/seo";
 export default function JournalFinderPage() {
   useEffect(() => {
     updateSEO({
-      title: "ジャーナル検索 | Medical Prompt Hub",
+      title: "ジャーナル検索 | Helix",
       description: "医学雑誌を検索・比較。インパクトファクター、レビュー速度、投稿要件などを確認して、最適なジャーナルを選べます。",
       path: "/journal-finder",
       keywords: "ジャーナル検索,医学雑誌,インパクトファクター,論文投稿,ジャーナル比較"

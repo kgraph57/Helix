@@ -10,7 +10,7 @@ export default function FAQ() {
   useEffect(() => {
     updateSEO({
       title: "よくある質問（FAQ）",
-      description: "Medical Prompt Hubのよくある質問とトラブルシューティングガイド。プロンプトの使い方、トラブル解決、プライバシー・セキュリティに関する情報を提供します。",
+      description: "Helixのよくある質問とトラブルシューティングガイド。プロンプトの使い方、トラブル解決、プライバシー・セキュリティに関する情報を提供します。",
       path: "/faq",
       keywords: "FAQ,よくある質問,トラブルシューティング,ヘルプ,サポート"
     });
@@ -18,8 +18,8 @@ export default function FAQ() {
     // FAQ構造化データを追加（主要なFAQを追加）
     addFAQStructuredData([
       {
-        question: "Medical Prompt Hubとは何ですか？",
-        answer: "Medical Prompt Hubは、医療従事者がAI（ChatGPT、Claude、Geminiなど）を臨床、研究、教育に効果的に活用するための実践的なプロンプト集です。100以上の専門プロンプト、ワークフローガイド、AI活用Tipsを提供しています。"
+        question: "Helixとは何ですか？",
+        answer: "Helixは、医療従事者がAI（ChatGPT、Claude、Geminiなど）を臨床、研究、教育に効果的に活用するための実践的なプロンプト集です。100以上の専門プロンプト、ワークフローガイド、AI活用Tipsを提供しています。"
       },
       {
         question: "誰が利用できますか？",
@@ -27,7 +27,7 @@ export default function FAQ() {
       },
       {
         question: "無料で利用できますか？",
-        answer: "はい、Medical Prompt Hubは無料で利用できます。ただし、プロンプトを使用する際に必要なAIサービス（ChatGPT、Claude等）の利用には、それぞれのサービスの利用規約と料金が適用されます。"
+        answer: "はい、Helixは無料で利用できます。ただし、プロンプトを使用する際に必要なAIサービス（ChatGPT、Claude等）の利用には、それぞれのサービスの利用規約と料金が適用されます。"
       },
       {
         question: "患者情報を入力しても大丈夫ですか？",
@@ -61,10 +61,10 @@ export default function FAQ() {
             <CardContent className="p-4 pt-0">
               <Accordion type="single" collapsible className="w-full">
                 <AccordionItem value="what-is-this">
-                  <AccordionTrigger className="text-sm">Medical Prompt Hubとは何ですか？</AccordionTrigger>
+                  <AccordionTrigger className="text-sm">Helixとは何ですか？</AccordionTrigger>
                   <AccordionContent>
                     <p className="text-xs leading-relaxed">
-                      Medical Prompt Hubは、医療従事者がAI（ChatGPT、Claude、Geminiなど）を臨床、研究、教育に効果的に活用するための実践的なプロンプト集です。100以上の専門プロンプト、ワークフローガイド、AI活用Tipsを提供しています。
+                      Helixは、医療従事者がAI（ChatGPT、Claude、Geminiなど）を臨床、研究、教育に効果的に活用するための実践的なプロンプト集です。100以上の専門プロンプト、ワークフローガイド、AI活用Tipsを提供しています。
                     </p>
                   </AccordionContent>
                 </AccordionItem>
@@ -82,7 +82,7 @@ export default function FAQ() {
                   <AccordionTrigger>無料で利用できますか？</AccordionTrigger>
                   <AccordionContent>
                     <p className="text-sm leading-relaxed">
-                      はい、Medical Prompt Hubは無料で利用できます。ただし、プロンプトを使用する際に必要なAIサービス（ChatGPT、Claude等）の利用には、それぞれのサービスの利用規約と料金が適用されます。
+                      はい、Helixは無料で利用できます。ただし、プロンプトを使用する際に必要なAIサービス（ChatGPT、Claude等）の利用には、それぞれのサービスの利用規約と料金が適用されます。
                     </p>
                   </AccordionContent>
                 </AccordionItem>
@@ -100,7 +100,7 @@ export default function FAQ() {
                   <AccordionTrigger className="text-sm">モバイルデバイスで使用できますか？</AccordionTrigger>
                   <AccordionContent>
                     <p className="text-xs leading-relaxed">
-                      はい、Medical Prompt Hubはモバイルデバイス（スマートフォン、タブレット）でも使用できます。レスポンシブデザインに対応しており、どのデバイスからでも快適にご利用いただけます。
+                      はい、Helixはモバイルデバイス（スマートフォン、タブレット）でも使用できます。レスポンシブデザインに対応しており、どのデバイスからでも快適にご利用いただけます。
                     </p>
                   </AccordionContent>
                 </AccordionItem>
@@ -109,7 +109,7 @@ export default function FAQ() {
                   <AccordionTrigger className="text-sm">オフラインで使用できますか？</AccordionTrigger>
                   <AccordionContent>
                     <p className="text-xs leading-relaxed">
-                      いいえ、Medical Prompt Hubはインターネット接続が必要です。ただし、プロンプトをコピーして保存しておけば、オフラインでもAIサービス（ChatGPT等）で使用できます。
+                      いいえ、Helixはインターネット接続が必要です。ただし、プロンプトをコピーして保存しておけば、オフラインでもAIサービス（ChatGPT等）で使用できます。
                     </p>
                   </AccordionContent>
                 </AccordionItem>
@@ -136,7 +136,7 @@ export default function FAQ() {
                   <AccordionTrigger className="text-sm">アカウント登録は必要ですか？</AccordionTrigger>
                   <AccordionContent>
                     <p className="text-xs leading-relaxed">
-                      いいえ、アカウント登録は不要です。Medical Prompt Hubは誰でも無料で利用できます。お気に入り機能はブラウザのローカルストレージを使用するため、アカウント登録は必要ありません。
+                      いいえ、アカウント登録は不要です。Helixは誰でも無料で利用できます。お気に入り機能はブラウザのローカルストレージを使用するため、アカウント登録は必要ありません。
                     </p>
                   </AccordionContent>
                 </AccordionItem>
@@ -731,7 +731,7 @@ export default function FAQ() {
                   <AccordionTrigger className="text-sm">ライセンスについて教えてください</AccordionTrigger>
                   <AccordionContent>
                     <p className="text-xs leading-relaxed">
-                      Medical Prompt HubはMITライセンスの下で公開されています。プロンプトは自由に使用・改変・配布できますが、医療情報の正確性には十分注意してください。詳細はGitHubリポジトリのLICENSEファイルをご確認ください。
+                      HelixはMITライセンスの下で公開されています。プロンプトは自由に使用・改変・配布できますが、医療情報の正確性には十分注意してください。詳細はGitHubリポジトリのLICENSEファイルをご確認ください。
                     </p>
                   </AccordionContent>
                 </AccordionItem>
@@ -740,7 +740,7 @@ export default function FAQ() {
                   <AccordionTrigger className="text-sm">プロンプトを使用する際のクレジット表記は必要ですか？</AccordionTrigger>
                   <AccordionContent>
                     <p className="text-xs leading-relaxed">
-                      クレジット表記は必須ではありませんが、可能であれば「Medical Prompt Hub」への言及をいただけると幸いです。ただし、医療情報の正確性には十分注意し、必ずファクトチェックを行ってください。
+                      クレジット表記は必須ではありませんが、可能であれば「Helix」への言及をいただけると幸いです。ただし、医療情報の正確性には十分注意し、必ずファクトチェックを行ってください。
                     </p>
                   </AccordionContent>
                 </AccordionItem>

@@ -300,7 +300,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <Menu className="h-4 w-4" />
             </Button>
             <Link href="/">
-              <h1 className="text-lg font-bold text-primary">Medical Prompt Hub</h1>
+              <h1 className="text-lg font-bold text-primary">Helix</h1>
             </Link>
             <div className="w-10" />
           </div>

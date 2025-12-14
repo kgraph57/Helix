@@ -14,10 +14,10 @@ import { Link } from "wouter";
 export default function About() {
   useEffect(() => {
     updateSEO({
-      title: "About - Medical Prompt Hubについて",
-      description: "Medical Prompt Hubの開発背景、開発者情報、クレジット、ライセンス情報を掲載しています。",
+      title: "About - Helixについて",
+      description: "Helixの開発背景、開発者情報、クレジット、ライセンス情報を掲載しています。",
       path: "/about",
-      keywords: "About,開発者,クレジット,ライセンス,Medical Prompt Hub"
+      keywords: "About,開発者,クレジット,ライセンス,Helix"
     });
   }, []);
 
@@ -28,10 +28,10 @@ export default function About() {
         <div className="text-center space-y-2 py-2 lg:py-2.5">
           <div className="inline-flex items-center gap-1.5 px-4 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>About Medical Prompt Hub</span>
+            <span>About Helix</span>
           </div>
           <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
-            Medical Prompt Hubについて
+            Helixについて
           </h1>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto">
             医療従事者のためのAIプロンプトライブラリ
@@ -51,7 +51,7 @@ export default function About() {
               AIは医療を効率化するだけではなく、医師が患者と向き合う時間を増やすためのツールです。
             </p>
             <p>
-              Medical Prompt Hubは、医療従事者がAI（ChatGPT, Claude, Geminiなど）を臨床業務、研究、教育に効果的に活用できるよう、実践的で高品質なプロンプトを提供することを目的としています。
+              Helixは、医療従事者がAI（ChatGPT, Claude, Geminiなど）を臨床業務、研究、教育に効果的に活用できるよう、実践的で高品質なプロンプトを提供することを目的としています。
             </p>
             <p>
               私たちは、AI技術が医療現場の効率化と質の向上に貢献できると信じており、医療従事者の皆様が安全かつ効果的にAIを活用できるよう、専門的なプロンプト集とガイドを提供しています。
@@ -142,14 +142,14 @@ export default function About() {
           <CardHeader className="p-4">
             <CardTitle className="text-base">開発者情報</CardTitle>
             <CardDescription className="text-xs">
-              Medical Prompt Hubの開発・運営について
+              Helixの開発・運営について
             </CardDescription>
           </CardHeader>
           <CardContent className="p-4 pt-0 space-y-3 text-xs leading-relaxed">
             <div>
               <h3 className="font-semibold mb-1 text-sm">開発・運営</h3>
               <p className="text-muted-foreground">
-                Medical Prompt Hubは、医療従事者とAI技術の専門家によって開発・運営されています。
+                Helixは、医療従事者とAI技術の専門家によって開発・運営されています。
               </p>
             </div>
             <div>
