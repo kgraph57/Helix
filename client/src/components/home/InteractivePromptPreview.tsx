@@ -24,9 +24,9 @@ export function InteractivePromptPreview({ prompts, className = "" }: Interactiv
   const x = useSpring(mouseX, springConfig);
   const y = useSpring(mouseY, springConfig);
 
-  // スクロール連動のパララックス
-  const yParallax = useTransform(scrollYProgress, [0, 1], [0, -50]);
-  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
+  // スクロール連動のパララックス（より控えめに）
+  const yParallax = useTransform(scrollYProgress, [0, 1], [0, -30]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   // 自動ローテーション（4秒ごと）- パフォーマンス最適化
   useEffect(() => {

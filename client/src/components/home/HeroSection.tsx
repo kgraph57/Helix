@@ -103,10 +103,10 @@ export function HeroSection({ searchQuery = "", onSearchChange }: HeroSectionPro
     offset: ["start start", "end start"]
   });
 
-  // パララックス効果
-  const backgroundY = useTransform(scrollYProgress, [0, 1], [0, 100]);
-  const contentY = useTransform(scrollYProgress, [0, 1], [0, 50]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1, 0]);
+  // パララックス効果（より控えめに）
+  const backgroundY = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, 40]);
+  const opacity = useTransform(scrollYProgress, [0, 0.6, 1], [1, 1, 0]);
   
   // マウス追従エフェクト（パフォーマンス最適化）
   const mouseX = useMotionValue(0);
