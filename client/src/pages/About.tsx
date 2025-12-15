@@ -65,21 +65,37 @@ export default function About() {
             About Us
           </motion.h1>
 
-          {/* Hero Image Placeholder */}
+          {/* Hero Image */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="w-full rounded-2xl md:rounded-3xl overflow-hidden bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-neutral-800 dark:via-neutral-800 dark:to-neutral-900 aspect-[16/9] md:aspect-[16/8] mb-16 md:mb-20 flex items-center justify-center"
+            className="w-full rounded-2xl md:rounded-3xl overflow-hidden aspect-[16/9] md:aspect-[16/8] mb-16 md:mb-20"
           >
-            <div className="text-center px-8">
-              <p className="text-lg md:text-xl text-neutral-600 dark:text-neutral-400 italic">
-                AIと医療従事者の協働を象徴するイメージ
-              </p>
-              <p className="text-sm text-neutral-500 dark:text-neutral-500 mt-2">
-                (画像プレースホルダー)
-              </p>
-            </div>
+            <img
+              src="/images/about-hero.png"
+              alt="AIと医療従事者の協働を象徴するイメージ"
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                // 画像が読み込めない場合のフォールバック
+                const target = e.target as HTMLImageElement;
+                target.style.display = 'none';
+                const parent = target.parentElement;
+                if (parent) {
+                  parent.className = parent.className + ' bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-neutral-800 dark:via-neutral-800 dark:to-neutral-900 flex items-center justify-center';
+                  parent.innerHTML = `
+                    <div class="text-center px-8">
+                      <p class="text-lg md:text-xl text-neutral-600 dark:text-neutral-400 italic">
+                        AIと医療従事者の協働を象徴するイメージ
+                      </p>
+                      <p class="text-sm text-neutral-500 dark:text-neutral-500 mt-2">
+                        (画像を配置してください: /images/about-hero.png)
+                      </p>
+                    </div>
+                  `;
+                }
+              }}
+            />
           </motion.div>
         </motion.div>
 
@@ -149,52 +165,39 @@ export default function About() {
                 className="space-y-4 md:space-y-5 text-base md:text-lg lg:text-xl text-neutral-900 dark:text-neutral-50 leading-relaxed"
                 style={{ fontFamily: '"Crimson Pro", "Lora", serif', lineHeight: '1.75' }}
               >
-                <div className="space-y-2">
-                  <p>
-                    We don't want overachieving AI, we want overachieving healthcare professionals.
+                {/* English paragraphs */}
+                <p>
+                  In the beginning, there were two strands. Life itself, encoded in the double helix. This fundamental structure has guided every living thing since the dawn of time. It is the blueprint of existence, the code that writes itself into every cell, every organism, every heartbeat.
+                </p>
+                <p>
+                  Medicine began with two hands. The healer and the patient. Human touch, human care. For millennia, this has been the foundation of healing—one person reaching out to another, sharing knowledge, offering comfort, making decisions together. The art of medicine is as ancient as humanity itself, built on trust, empathy, and the irreplaceable bond between caregiver and patient.
+                </p>
+                <p>
+                  Now, we stand at a threshold. Technology has given us tools that previous generations could only imagine. Artificial intelligence can process vast amounts of information, recognize patterns, and assist in ways that augment human capabilities. Yet we face a choice: do we let technology replace the human element, or do we weave it into the fabric of care in a way that amplifies what makes us human?
+                </p>
+                <p>
+                  We choose amplification. We add a third strand to the helix—not to replace the two that came before, but to strengthen them. The helix evolves into something new. Human expertise meets AI intelligence. They weave together, creating a new blueprint for care. The physician's clinical judgment, honed through years of experience and countless patient interactions, combines with AI's ability to process and analyze. The nurse's compassionate touch is supported by intelligent systems that handle routine tasks, freeing time for the moments that matter most.
+                </p>
+                <p>
+                  This is not the end of human medicine. This is its next evolution. Just as the double helix enabled life to adapt and thrive, this new structure enables medicine to reach further, to care deeper, to heal better. We are not replacing the human in healthcare. We are extending human reach, amplifying human care, and preserving what has always been at the heart of medicine: the connection between one human being and another.
+                </p>
+
+                {/* Japanese paragraphs */}
+                <div className="mt-8 md:mt-10 pt-6 md:pt-8 border-t border-neutral-200 dark:border-neutral-700 space-y-4 md:space-y-5">
+                  <p className="text-sm md:text-base lg:text-lg text-neutral-700 dark:text-neutral-300">
+                    はじめに、二本の鎖がありました。生命そのものが、二重らせんに刻まれていました。この根源的な構造は、時のはじまりから、あらゆる生命を導いてきました。それは存在の設計図であり、すべての細胞に、すべての生命に、すべての鼓動に書き込まれた、永遠のコードです。
                   </p>
                   <p className="text-sm md:text-base lg:text-lg text-neutral-700 dark:text-neutral-300">
-                    私たちは、優秀すぎるAIではなく、優秀な医療従事者を求めています。
-                  </p>
-                </div>
-                <div className="space-y-2">
-                  <p>
-                    We need to put the full power of AI to work by unlocking the code, not just for engineers but for everyone in healthcare.
+                    医学は二つの手から始まりました。治療する者と、治療を受ける者との間で。人間の触れ合いがあり、人間のケアがありました。何千年もの間、これが癒しの礎となってきました。一人の人間がもう一人に手を差し伸べ、知識を分かち合い、慰めを与え、共に決断を下してきました。医学という営みは、人類の歴史と同じだけ古く、信頼と共感、そして治療者と患者の間に築かれる、かけがえのない絆の上に成り立ってきました。
                   </p>
                   <p className="text-sm md:text-base lg:text-lg text-neutral-700 dark:text-neutral-300">
-                    AIの力を最大限に活用するため、エンジニアだけでなく、医療に携わるすべての人にコードを解き放つ必要があります。
-                  </p>
-                </div>
-                <div className="space-y-2">
-                  <p>
-                    Others have built the brain for AI to think, Helix is building the hands for AI to do—specifically for medical practice.
+                    そして今、私たちは新たな岐路に立っています。テクノロジーは、かつての世代が夢にも見なかった力を私たちに与えてくれました。人工知能は膨大な情報を瞬時に処理し、複雑なパターンを読み取り、人間の能力を補完します。しかし、私たちには選択が迫られています。テクノロジーに人間の本質を置き換えさせるのか、それとも、人間をより人間らしくするために、テクノロジーをケアという織物に織り込むのか。
                   </p>
                   <p className="text-sm md:text-base lg:text-lg text-neutral-700 dark:text-neutral-300">
-                    他の人々がAIの「脳」を構築してきましたが、HelixはAIの「手」を構築しています—特に医療実践のために。
-                  </p>
-                </div>
-                <div className="space-y-2">
-                  <p>
-                    By using AI to give every healthcare professional the tools to leverage their expertise, Helix is extending human reach in medicine.
+                    私たちは拡張を選びます。らせんに第三の鎖を加えます。それは、先にある二本を置き換えるためではなく、それらをより強く、より美しくするためです。らせんは新たな姿へと進化します。人間の専門性とAIの知性が出会い、織り合わされ、ケアのための新しい設計図が生まれます。医師の臨床判断は、長年の経験と数えきれない患者との対話によって磨かれたものです。それが、AIの処理能力と分析力と結びつきます。看護師の温かな触れ合いは、日常的な業務を担うインテリジェントなシステムに支えられ、最も大切な瞬間に集中できる時間を生み出します。
                   </p>
                   <p className="text-sm md:text-base lg:text-lg text-neutral-700 dark:text-neutral-300">
-                    AIを使ってすべての医療従事者に専門知識を活用するツールを提供することで、Helixは医学における人間の可能性を拡張しています。
-                  </p>
-                </div>
-                <div className="space-y-2">
-                  <p>
-                    Named after the double helix structure of DNA, Helix represents the fundamental building block of life and medicine. By adding AI as a third strand to the double helix, Helix evolves into a new DNA structure. The expertise of healthcare professionals and the intelligence of AI intertwine, creating a new blueprint for life that enables more powerful and refined medical care.
-                  </p>
-                  <p className="text-sm md:text-base lg:text-lg text-neutral-700 dark:text-neutral-300">
-                    DNAの二重らせん構造から名付けられたHelixは、生命と医学の基本構造を表しています。二重らせんにAIという第三の線を加えることで、Helixは新たなDNA構造へと進化します。医療従事者の専門性とAIの知性が絡み合い、より強力で洗練された医療ケアを実現するための新しい生命の設計図を描いています。
-                  </p>
-                </div>
-                <div className="space-y-2">
-                  <p>
-                    We believe that AI technology should not replace healthcare professionals, but complement them. Clinical judgment, empathy, and decision-making abilities are essential to healthcare professionals, and Helix supports and enhances these strengths by handling routine, time-consuming tasks.
-                  </p>
-                  <p className="text-sm md:text-base lg:text-lg text-neutral-700 dark:text-neutral-300">
-                    私たちは、AI技術が医療従事者を置き換えるのではなく、補完するべきだと信じています。臨床判断、共感、意思決定能力は医療従事者に不可欠であり、Helixは日常的な時間のかかるタスクを処理することで、これらの強みをサポートし強化します。
+                    これは人間の医学の終わりではありません。これは、その次の進化です。二重らせんが生命に適応と繁栄をもたらしたように、この新しい構造は医学をより遠くへ、より深くへ、より良く癒す方向へと導きます。私たちは医療における人間を置き換えようとしているのではありません。人間の可能性を広げ、人間のケアを拡張し、医学の中心に常にあったもの、すなわち一人の人間ともう一人の人間の間の、かけがえのないつながりを守り続けています。
                   </p>
                 </div>
                 
