@@ -16,6 +16,8 @@
 
 ### 📝 詳細手順
 
+![批判的吟味](./critical_appraisal.png)
+
 論文という「事件現場」を調査するポイントは、大きく3つです。
 
 ![批判的吟味](https://files.manuscdn.com/user_upload_by_module/session_file/90346460/eOqXuIvaERMcHHrg.png)
