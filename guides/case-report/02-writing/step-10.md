@@ -4,6 +4,8 @@
 
 論文の核心部分である症例提示（Case Presentation / Case Report）を執筆します。ここでは、客観的な事実のみを、時間経過に沿って正確かつ簡潔に記述することが求められます。読者がまるでその患者を追体験しているかのように、臨床経過を分かりやすく提示する技術を学びます。
 
+![症例提示の執筆](https://files.manuscdn.com/user_upload_by_module/session_file/90346460/tKBqDfbAmxUWdICY.png)
+
 ### ⏱️ 所要時間
 
 **2〜4時間**
