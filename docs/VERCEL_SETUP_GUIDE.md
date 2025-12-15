@@ -6,11 +6,13 @@
 
 このガイドでは、その魔法を手に入れるためのステップを、一つひとつ丁寧に解説していきます。
 
-![Vercel設定ガイド](https://files.manuscdn.com/user_upload_by_module/session_file/90346460/kGNtlTcmTyfsbzNU.png)
+
 
 ---
 
 ## 1. Vercelの世界へようこそ！ (アカウント作成)
+
+![Vercel設定ガイド](https://files.manuscdn.com/user_upload_by_module/session_file/90346460/kGNtlTcmTyfsbzNU.png)
 
 まずは、Vercelの世界への扉を開きましょう。冒険の始まりは、アカウント作成からです。
 

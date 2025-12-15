@@ -4,11 +4,13 @@
 
 AIって何？という初心者から、AIを使いこなすヒーローになりたい上級者まで。あなたのレベルに合わせて、一歩ずつAIの世界を探検できる「学びの旅」へようこそ！
 
-![AI講座 コース設計](https://files.manuscdn.com/user_upload_by_module/session_file/90346460/JNjpBdmRNBkqqvRs.png)
+
 
 ---
 
 ## 📚 学びの地図（コース一覧）
+
+![AI講座 コース設計](https://files.manuscdn.com/user_upload_by_module/session_file/90346460/JNjpBdmRNBkqqvRs.png)
 
 ### レベル1: 冒険の始まり（AI基礎編）
 

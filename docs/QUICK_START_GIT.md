@@ -4,9 +4,11 @@
 
 プログラミング初心者の方が、GitHubを使ったチーム開発の「お作法」を、楽しく、そして迷わずに始められるように、具体的なコマンドと流れを一枚の冒険地図にしました。
 
-![Git/GitHub冒険地図](https://files.manuscdn.com/user_upload_by_module/session_file/90346460/lBfdxgpjdnCsgWSD.png)
+
 
 ### 🚀 冒険の始め方：7つのステップ
+
+![Git/GitHub冒険地図](https://files.manuscdn.com/user_upload_by_module/session_file/90346460/lBfdxgpjdnCsgWSD.png)
 
 #### 1. クローン (Clone): 冒険の地図を手に入れる
 

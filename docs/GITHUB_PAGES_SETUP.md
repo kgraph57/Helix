@@ -6,11 +6,13 @@
 
 このガイドでは、その魔法をかけるための呪文（設定）を、一つひとつ丁寧に解説していきます。
 
-![GitHub Pages設定ガイド](https://files.manuscdn.com/user_upload_by_module/session_file/90346460/JDtUEirAXjtOTUzX.png)
+
 
 ---
 
 ## 1. 最初の呪文：Viteの設定
+
+![GitHub Pages設定ガイド](https://files.manuscdn.com/user_upload_by_module/session_file/90346460/JDtUEirAXjtOTUzX.png)
 
 まず、プロジェクトの「住所」を決めます。GitHub Pagesでは、`https://<ユーザー名>.github.io/<リポジトリ名>/`という住所になるので、その設定をします。
 

@@ -6,11 +6,13 @@
 
 そこで登場するのが**「ブランチ」**という、あなただけの**「安全な作業島」**です。この島では、何をしてもOK。失敗を恐れずに、自由に試行錯誤できます。このガイドは、そんな安全な冒険の進め方を記した、あなたのための「冒険の書」です。
 
-![ブランチ開発ガイド](https://files.manuscdn.com/user_upload_by_module/session_file/90346460/JlwnQmpsxsKsKwju.png)
+
 
 ---
 
 ## 🗺️ 冒険のステップ：6つのステップで安全に開発を進めよう
+
+![ブランチ開発ガイド](https://files.manuscdn.com/user_upload_by_module/session_file/90346460/JlwnQmpsxsKsKwju.png)
 
 ### ステップ1：ブランチ作成（安全な作業島へ）
 

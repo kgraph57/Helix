@@ -19,9 +19,11 @@ Step 2で自験例の「新規性」の仮説を立てた後、このステッ�
 
 効率的なレビューのため、以下の3ステップで文献を収集します。
 
-![文献レビュープロセス](https://files.manuscdn.com/user_upload_by_module/session_file/90346460/UtEVMGhlcIkuiRea.png)
+
 
 #### 手順1: 文献の階層的収集
+
+![文献レビュープロセス](https://files.manuscdn.com/user_upload_by_module/session_file/90346460/UtEVMGhlcIkuiRea.png)
 
 1.  **総説論文 (Review Articles) & ガイドライン**: まず、疾患の全体像、標準的な診断・治療法を理解するため、直近5年以内の質の高い総説論文や主要学会のガイドラインを2〜3本読み込みます。これらはPerplexityやConsensusで効率的に見つけられます。
 2.  **類似症例報告 (Similar Case Reports)**: Step 2で収集した類似症例報告を5〜15本程度、精読します。
