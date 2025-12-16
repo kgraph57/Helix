@@ -45,6 +45,17 @@ export const guidesRegistry: GuideMetadata[] = [
     tags: ['論文読解', '文献レビュー'],
     icon: '📚'
   },
+  {
+    id: 'tone-manner-guidelines',
+    title: 'トーンマナー修正ガイドライン',
+    titleEn: 'Tone & Manner Guidelines',
+    description: '読みやすく、親しみやすいドキュメントを作成するための指示書',
+    category: '文書作成',
+    difficulty: 'beginner',
+    estimatedTime: '60分',
+    tags: ['トーンマナー', 'ドキュメント作成', 'ライティング'],
+    icon: '✍️'
+  },
   
   // 優先度の高い新規ガイド
   {
