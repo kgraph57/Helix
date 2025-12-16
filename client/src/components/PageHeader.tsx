@@ -1,4 +1,3 @@
-import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 interface PageHeaderProps {
@@ -16,15 +15,6 @@ export function PageHeader({ category, title, description }: PageHeaderProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
     >
-      {category && (
-        <div className="flex items-center gap-2 mb-6">
-          <span className="text-xs font-medium text-muted-foreground tracking-wide uppercase">
-            {category}
-          </span>
-          <ArrowRight className="w-3.5 h-3.5 text-muted-foreground/60" />
-        </div>
-      )}
-      
       <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-foreground tracking-tight leading-[1.1]" style={{ fontFamily: 'Inter Display, Inter, system-ui, sans-serif' }}>
         {title}
       </h1>
