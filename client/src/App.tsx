@@ -167,6 +167,10 @@ function Router() {
           <Route path="/guides/infection-control-manual" component={MarkdownGuide} />
           <Route path="/guides/polypharmacy-support" component={MarkdownGuide} />
           <Route path="/guides/palliative-care-planning" component={MarkdownGuide} />
+          <Route path="/guides/case-report/:stepId?" component={MarkdownGuide} />
+          <Route path="/guides/ai-paper-writing/:stepId?" component={MarkdownGuide} />
+          <Route path="/guides/paper-reading/:stepId?" component={MarkdownGuide} />
+          <Route path="/guides/tone-manner-guidelines/:stepId?" component={MarkdownGuide} />
           <Route path="/guides/:id" component={GuideDetail} />
           <Route path="/tips" component={Tips} />
           <Route path="/tips/:id" component={TipDetail} />
