@@ -173,7 +173,9 @@ export default defineConfig({
     // Source maps disabled in production for performance
     sourcemap: false,
     // Disable module preload to avoid CSP nonce issues
-    modulePreload: false,
+    modulePreload: false,    // Target modern browsers to avoid eval usage
+    target: 'es2015',
+
     // Minify with terser for better compression
     minify: 'terser',
     terserOptions: {
@@ -181,7 +183,12 @@ export default defineConfig({
         drop_console: false,
         drop_debugger: false,
         // pure_funcs: ['console.log', 'console.info', 'console.debug'],
+      },      format: {
+        comments: false,
       },
+      // Avoid eval usage
+      ecma: 2015,
+
     },
     rollupOptions: {
       output: {
