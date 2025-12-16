@@ -497,14 +497,14 @@ export default function CourseDetail() {
         >
           <div className="flex items-start gap-1.5">
             <div className="text-xl">{course.badge}</div>
-            <div className="flex-1 space-y-1">
+            <div className="flex-1 space-y-2.5">
               <div className="flex items-center gap-1.5">
                 <h1 className="text-lg font-bold">{course.title}</h1>
                 <Badge variant="secondary" className="text-xs">Level {course.level}</Badge>
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed">{course.description}</p>
               
-              <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+              <div className="flex items-center gap-1.5 text-xs text-muted-foreground pt-1">
                 <div className="flex items-center gap-0.5">
                   <BookOpen className="w-3 h-3" />
                   <span>{totalLessons} lessons</span>
@@ -516,7 +516,7 @@ export default function CourseDetail() {
 
               </div>
 
-              <div className="space-y-0.5 pt-0.5">
+              <div className="space-y-1 pt-1">
                 <div className="flex justify-between text-xs text-muted-foreground">
                   <span>Course Progress</span>
                   <span>{completedLessons} / {totalLessons} completed</span>
