@@ -176,13 +176,20 @@ export default function CaseReportGuide() {
   };
 
   const goToNext = () => {
-    // 同時にスクロール位置をトップにリセット
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    
     if (hasNext) {
       const nextStepId = allSteps[currentIndex + 1];
       setCurrentStepId(nextStepId);
       navigate(`/guides/case-report-complete/${nextStepId}`);
+      // ページ遷移後にヘッダーにスクロール
+      setTimeout(() => {
+        const header = document.getElementById('page-header');
+        if (header) {
+          const headerTop = header.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo({ top: headerTop - 20, behavior: 'smooth' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }, 100);
     }
   };
 

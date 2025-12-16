@@ -495,14 +495,6 @@ export default function CourseDetail() {
           animate={{ opacity: 1, y: 0 }}
           className="max-w-6xl mx-auto px-4"
         >
-          <Button
-            variant="ghost"
-            onClick={() => setLocation("/courses")}
-            className="mb-2 h-7 text-xs"
-          >
-            <ArrowLeft className="mr-2 h-3.5 w-3.5" /> Back to Courses
-          </Button>
-
           <div className="flex items-start gap-1.5">
             <div className="text-xl">{course.badge}</div>
             <div className="flex-1 space-y-1">

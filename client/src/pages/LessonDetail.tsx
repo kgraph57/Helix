@@ -1001,14 +1001,6 @@ export default function LessonDetail() {
     return (
       <Layout>
         <div className="max-w-7xl mx-auto pt-4 pb-8 px-4">
-          <Button
-            variant="ghost"
-            onClick={() => setLocation(`/courses/${courseId}`)}
-            className="mb-4"
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" /> コースに戻る
-          </Button>
-          
           <div className="text-center py-16">
             <BookOpen className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
             <h1 className="text-3xl font-bold mb-4">{currentLesson?.title || "レッスン"}</h1>
@@ -1038,21 +1030,9 @@ export default function LessonDetail() {
             {/* メインコンテンツ - Zenn風 */}
             <main className="flex-1 min-w-0">
               <article className="zenn-article">
-                {/* 戻るボタン */}
-                <div className="mb-6">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setLocation(`/courses/${courseId}`)}
-                    className="mb-4"
-                  >
-                    <ArrowLeft className="w-4 h-4 mr-2" />
-                    コースに戻る
-                  </Button>
-                  
-                  {/* レッスンタイトル */}
-                  {currentLesson && (
-                    <div className="mb-8">
+                {/* レッスンタイトル */}
+                {currentLesson && (
+                  <div className="mb-8">
                       <h1 className="text-3xl md:text-4xl font-bold mb-4 text-foreground tracking-tight">
                         {currentLesson.title}
                       </h1>
@@ -1079,7 +1059,6 @@ export default function LessonDetail() {
                       )}
                     </div>
                   )}
-                </div>
                 
                 {/* コンテンツ */}
                 <div className="prose prose-slate dark:prose-invert max-w-none">

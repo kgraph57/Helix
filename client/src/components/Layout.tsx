@@ -349,12 +349,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
               </div>
             </header>
 
-            {/* ナビゲーションバー - レッスン、ワークフロー、ガイドページで表示 */}
+            {/* ナビゲーションバー - レッスン、コース詳細、ワークフロー、ガイドページで表示 */}
             {(() => {
               // ページタイプを判定
               const isLessonPage = /^\/courses\/[^/]+\/lessons\/[^/]+/.test(location);
+              const isCourseDetailPage = /^\/courses\/[^/]+$/.test(location);
               const isGuidePage = location.startsWith("/guides/");
-              const shouldShowHeader = isLessonPage || isGuidePage;
+              const shouldShowHeader = isLessonPage || isCourseDetailPage || isGuidePage;
               
               if (!shouldShowHeader) return null;
 
@@ -369,6 +370,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
                   backLink = `/courses/${match[1]}`;
                   backLabel = "コースに戻る";
                 }
+              } else if (isCourseDetailPage) {
+                // コース詳細ページの場合、コース一覧に戻る
+                backLink = "/courses";
+                backLabel = "コース一覧に戻る";
               } else if (isGuidePage) {
                 // ガイドページの場合、ガイド一覧に戻る
                 backLink = "/guides";
@@ -377,9 +382,22 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
               return (
                 <>
-                  {/* 1番目のヘッダー: 目次ボタンのみ */}
-                  <div className="sticky top-14 z-20 bg-background/80 backdrop-blur-xl relative">
-                    <div className="flex items-center justify-end px-4 h-[58px]">
+                  {/* 統合ヘッダー: 一覧に戻るボタンと目次ボタン */}
+                  <div id="page-header" className="sticky top-14 z-20 bg-background/80 backdrop-blur-xl relative border-b border-border/40">
+                    <div className="flex items-center justify-between px-4 h-[58px]">
+                      {/* 左側: 一覧に戻るボタン */}
+                      <Link href={backLink}>
+                        <button
+                          className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors cursor-pointer"
+                          aria-label={backLabel}
+                          type="button"
+                        >
+                          <ArrowLeft className="h-4 w-4" />
+                          <span>{backLabel}</span>
+                        </button>
+                      </Link>
+                      
+                      {/* 右側: 目次ボタン */}
                       <button
                         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
                         className={cn(
@@ -395,22 +413,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
                     </div>
                   </div>
 
-                  {/* 2番目のヘッダー: 一覧に戻るボタン */}
-                  <div className="sticky top-[calc(3.5rem+58px)] lg:top-[calc(3.5rem+58px)] z-20 bg-background/80 backdrop-blur-xl relative border-b border-border/40">
-                    <div className="flex items-center justify-start px-4 h-[58px]">
-                      <Link href={backLink}>
-                        <button
-                          className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors cursor-pointer"
-                          aria-label={backLabel}
-                          type="button"
-                        >
-                          <ArrowLeft className="h-4 w-4" />
-                          <span>{backLabel}</span>
-                        </button>
-                      </Link>
-                    </div>
-                  </div>
-
                   {/* モバイル用目次コンテナ - Zennスタイル */}
                   {isSidebarOpen && isMobile && (
                     <>
@@ -419,7 +421,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                         onClick={() => setIsSidebarOpen(false)}
                       />
                       <div 
-                        className="fixed top-[calc(3.5rem+58px+58px)] right-4 z-[100] lg:hidden w-[350px] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-8rem)] bg-white dark:bg-gray-900 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden"
+                        className="fixed top-[calc(3.5rem+58px)] right-4 z-[100] lg:hidden w-[350px] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-8rem)] bg-white dark:bg-gray-900 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden"
                         onClick={(e) => e.stopPropagation()}
                       >
                         <div className="overflow-y-auto max-h-[calc(100vh-5rem)] p-4">

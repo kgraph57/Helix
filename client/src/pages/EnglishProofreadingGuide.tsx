@@ -197,17 +197,34 @@ export default function EnglishProofreadingGuide() {
   };
 
   const goToNext = () => {
-    // 同時にスクロール位置をトップにリセット
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    
     if (isLastStep) {
       // 最後のステップに到達したら、次のガイドに遷移
       navigate(nextGuidePath);
+      // 次のページに遷移するので、少し遅延してからスクロール
+      setTimeout(() => {
+        const header = document.getElementById('page-header');
+        if (header) {
+          const headerTop = header.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo({ top: headerTop - 20, behavior: 'smooth' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }, 100);
     } else {
       // 次のステップに遷移
       const nextStepId = allSteps[currentIndex + 1];
       setCurrentStepId(nextStepId);
       navigate(`/guides/english-proofreading-guide/${nextStepId}`);
+      // ページ遷移後にヘッダーにスクロール
+      setTimeout(() => {
+        const header = document.getElementById('page-header');
+        if (header) {
+          const headerTop = header.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo({ top: headerTop - 20, behavior: 'smooth' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }, 100);
     }
   };
 
