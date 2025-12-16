@@ -2,7 +2,7 @@
 
 ## 参考文献の重要性
 
-カンファレンス発表では、**エビデンスに基づいた議論**が求められます。適切な参考文献を引用することで、発表の信頼性が高まります。
+カンファレンス発表では、エビデンスに基づいた議論が求められます。適切な参考文献を引用することで、発表の信頼性が高まります。
 
 しかし、文献検索は時間がかかる作業です。AIを活用することで、この作業を効率化できます。
 
@@ -12,37 +12,37 @@
 
 ### 1. Perplexity（推奨）
 
-**特徴**:
+特徴:
 - 最新の文献を自動検索
 - 出典を明示
 - 日本語でも検索可能
 
-**料金**: 無料 / $20/月（Pro版）
+料金: 無料 / $20/月（Pro版）
 
-**URL**: [https://www.perplexity.ai](https://www.perplexity.ai)
+URL: [https://www.perplexity.ai](https://www.perplexity.ai)
 
 ---
 
 ### 2. ChatGPT（文献検索機能付き）
 
-**特徴**:
+特徴:
 - ChatGPT Plus（有料版）は文献検索可能
 - 無料版は2021年までの知識のみ
 
-**料金**: $20/月（Plus版）
+料金: $20/月（Plus版）
 
 ---
 
 ### 3. Consensus
 
-**特徴**:
+特徴:
 - 学術論文に特化したAI検索
 - PubMedなどから自動検索
 - 英語のみ
 
-**料金**: 無料 / $8.99/月（Pro版）
+料金: 無料 / $8.99/月（Pro版）
 
-**URL**: [https://consensus.app](https://consensus.app)
+URL: [https://consensus.app](https://consensus.app)
 
 ---
 
@@ -204,9 +204,9 @@ pulmonary embolism diagnosis guideline
 
 #### 検索結果の絞り込み
 
-- **Publication date**: 最近5年以内
-- **Article type**: Review, Guideline
-- **Language**: English, Japanese
+- Publication date: 最近5年以内
+- Article type: Review, Guideline
+- Language: English, Japanese
 
 ---
 
@@ -328,11 +328,11 @@ Wells score
 
 ### 医中誌Web
 
-日本語の医学文献を検索するには、**医中誌Web**を使用します。
+日本語の医学文献を検索するには、医中誌Webを使用します。
 
-**URL**: [https://www.jamas.or.jp](https://www.jamas.or.jp)
+URL: [https://www.jamas.or.jp](https://www.jamas.or.jp)
 
-**注意**: 有料（多くの医療機関で契約あり）
+注意: 有料（多くの医療機関で契約あり）
 
 #### 検索例
 
@@ -346,7 +346,7 @@ Wells score
 
 日本の学会誌を無料で検索できます。
 
-**URL**: [https://www.jstage.jst.go.jp](https://www.jstage.jst.go.jp)
+URL: [https://www.jstage.jst.go.jp](https://www.jstage.jst.go.jp)
 
 #### 検索例
 
@@ -358,17 +358,17 @@ Wells score
 
 ## 文献管理ツール
 
-複数の文献を管理するには、**文献管理ツール**を使用します。
+複数の文献を管理するには、文献管理ツールを使用します。
 
 ### Zotero（無料）
 
-- **特徴**: 無料、ブラウザ拡張機能で簡単に文献を保存
-- **URL**: [https://www.zotero.org](https://www.zotero.org)
+- 特徴: 無料、ブラウザ拡張機能で簡単に文献を保存
+- URL: [https://www.zotero.org](https://www.zotero.org)
 
 ### Mendeley（無料）
 
-- **特徴**: 無料、PDFの注釈機能あり
-- **URL**: [https://www.mendeley.com](https://www.mendeley.com)
+- 特徴: 無料、PDFの注釈機能あり
+- URL: [https://www.mendeley.com](https://www.mendeley.com)
 
 ---
 
@@ -387,5 +387,5 @@ Wells score
 
 ---
 
-**所要時間**: 10分  
-**次のステップ**: 発表シナリオの作成
+所要時間: 10分  
+次のステップ: 発表シナリオの作成
