@@ -1,5 +1,5 @@
 import { useRoute, useLocation } from "wouter";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -506,6 +506,162 @@ const guideMetadata: Record<string, {
       { id: "step-04", title: "ステップ4: 修正の手順を実践する", file: "step-04.md" },
       { id: "step-05", title: "ステップ5: 図解を挿入する", file: "step-05.md" }
     ]
+  },
+  "systematic-review-meta-analysis": {
+    title: "【上級者向け】システマティックレビュー・メタアナリシス作成ガイド",
+    description: "PRISMAガイドラインに準拠したシステマティックレビューとメタアナリシスの作成方法。文献検索から統計的統合、論文投稿まで完全サポート。",
+    readTime: "35 min",
+    category: "Research",
+    basePath: "/assets/guides/systematic-review-meta-analysis",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-preparation-step-01", title: "ステップ1: 研究課題の明確化（PICO形式）", file: "01-preparation/step-01.md" },
+      { id: "02-search-step-02", title: "ステップ2: 文献検索戦略の設計", file: "02-search/step-02.md" },
+      { id: "03-screening-step-03", title: "ステップ3: 文献スクリーニング", file: "03-screening/step-03.md" },
+      { id: "04-data-extraction-step-04", title: "ステップ4: データ抽出", file: "04-data-extraction/step-04.md" },
+      { id: "05-quality-assessment-step-05", title: "ステップ5: 研究の質の評価", file: "05-quality-assessment/step-05.md" },
+      { id: "06-meta-analysis-step-06", title: "ステップ6: メタアナリシス（統計的統合）", file: "06-meta-analysis/step-06.md" },
+      { id: "07-reporting-step-07", title: "ステップ7: 結果の報告（PRISMAガイドライン準拠）", file: "07-reporting/step-07.md" },
+      { id: "08-submission-step-08", title: "ステップ8: 論文の投稿準備", file: "08-submission/step-08.md" }
+    ]
+  },
+  "data-visualization-figures": {
+    title: "【初心者向け】データ可視化・図表作成ガイド（論文用）",
+    description: "論文に掲載する高品質な図表の作成方法。適切なグラフの選択、統計的表現、Figure Legendの書き方、表の作成まで完全サポート。",
+    readTime: "18 min",
+    category: "Research",
+    basePath: "/assets/guides/data-visualization-figures",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "ステップ1: データの種類と適切なグラフの選択", file: "01-basics/step-01.md" },
+      { id: "02-basics-step-02", title: "ステップ2: 統計的表現の方法", file: "02-basics/step-02.md" },
+      { id: "03-practice-step-03", title: "ステップ3: Figure Legendの書き方", file: "03-practice/step-03.md" },
+      { id: "04-practice-step-04", title: "ステップ4: 表の作成方法", file: "04-practice/step-04.md" },
+      { id: "05-reference-step-05", title: "ステップ5: 実践的なワークフロー", file: "05-reference/step-05.md" }
+    ]
+  },
+  "grant-application": {
+    title: "【中級者向け】グラント申請書作成ガイド（科研費・厚労科研）",
+    description: "科研費や厚労科研などのグラント申請書の作成方法。研究計画書、予算計画、研究体制、期待される成果まで完全サポート。",
+    readTime: "28 min",
+    category: "Research",
+    basePath: "/assets/guides/grant-application",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-preparation-step-01", title: "ステップ1: 申請書の構成と要件の確認", file: "01-preparation/step-01.md" },
+      { id: "02-planning-step-02", title: "ステップ2: 研究計画書の作成", file: "02-planning/step-02.md" },
+      { id: "03-budget-step-03", title: "ステップ3: 予算計画の作成", file: "03-budget/step-03.md" },
+      { id: "04-team-step-04", title: "ステップ4: 研究体制の構築", file: "04-team/step-04.md" },
+      { id: "05-outcomes-step-05", title: "ステップ5: 期待される成果の明確化", file: "05-outcomes/step-05.md" },
+      { id: "06-finalization-step-06", title: "ステップ6: 申請書の最終確認と提出", file: "06-finalization/step-06.md" }
+    ]
+  },
+  "observational-study-design": {
+    title: "【中級者向け】観察研究デザインガイド",
+    description: "コホート研究・ケースコントロール研究の設計方法。研究デザインの選択、サンプルサイズ計算、バイアス対策、倫理審査申請まで完全サポート。",
+    readTime: "22 min",
+    category: "Research",
+    basePath: "/assets/guides/observational-study-design",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "ステップ1: 研究デザインの選択", file: "01-basics/step-01.md" },
+      { id: "02-basics-step-02", title: "ステップ2: サンプルサイズ計算", file: "02-basics/step-02.md" },
+      { id: "03-practice-step-03", title: "ステップ3: バイアス対策", file: "03-practice/step-03.md" },
+      { id: "04-practice-step-04", title: "ステップ4: データ収集方法の設計", file: "04-practice/step-04.md" },
+      { id: "05-reference-step-05", title: "ステップ5: 倫理審査申請", file: "05-reference/step-05.md" }
+    ]
+  },
+  "poster-presentation": {
+    title: "【初心者向け】ポスター発表作成ガイド",
+    description: "学会でのポスター発表の作成方法。レイアウト設計、視認性の向上、情報の整理、質疑応答対策まで完全サポート。",
+    readTime: "18 min",
+    category: "Presentation",
+    basePath: "/assets/guides/poster-presentation",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "ステップ1: レイアウト設計", file: "01-basics/step-01.md" },
+      { id: "02-basics-step-02", title: "ステップ2: 情報の優先順位付け", file: "02-basics/step-02.md" },
+      { id: "03-practice-step-03", title: "ステップ3: 視認性の向上", file: "03-practice/step-03.md" },
+      { id: "04-practice-step-04", title: "ステップ4: 質疑応答対策", file: "04-practice/step-04.md" }
+    ]
+  },
+  "clinical-reasoning": {
+    title: "【中級者向け】臨床推論プロセス（Clinical Reasoning）ガイド",
+    description: "体系的で効率的な臨床推論の方法。仮説生成、情報収集の優先順位、診断の絞り込み、見逃し防止まで完全サポート。",
+    readTime: "20 min",
+    category: "Clinical",
+    basePath: "/assets/guides/clinical-reasoning",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "ステップ1: 初期情報の整理と仮説生成", file: "01-basics/step-01.md" },
+      { id: "02-basics-step-02", title: "ステップ2: 情報収集の優先順位", file: "02-basics/step-02.md" },
+      { id: "03-practice-step-03", title: "ステップ3: 診断の絞り込み", file: "03-practice/step-03.md" },
+      { id: "04-practice-step-04", title: "ステップ4: 見逃し防止のチェック", file: "04-practice/step-04.md" },
+      { id: "05-reference-step-05", title: "ステップ5: 臨床推論の実践的ワークフロー", file: "05-reference/step-05.md" }
+    ]
+  },
+  "research-data-management": {
+    title: "【中級者向け】研究データ管理ガイド",
+    description: "研究データを効率的かつ安全に管理する方法。データ管理計画、収集と記録、保存とバックアップ、整理、共有と公開まで完全サポート。",
+    readTime: "23 min",
+    category: "Research",
+    basePath: "/assets/guides/research-data-management",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-preparation-step-01", title: "ステップ1: データ管理計画の策定", file: "01-preparation/step-01.md" },
+      { id: "02-collection-step-02", title: "ステップ2: データの収集と記録", file: "02-collection/step-02.md" },
+      { id: "03-storage-step-03", title: "ステップ3: データの保存とバックアップ", file: "03-storage/step-03.md" },
+      { id: "04-organization-step-04", title: "ステップ4: データの整理と整理", file: "04-organization/step-04.md" },
+      { id: "05-sharing-step-05", title: "ステップ5: データの共有と公開", file: "05-sharing/step-05.md" }
+    ]
+  },
+  "conference-to-paper": {
+    title: "【実践】学会発表から論文投稿へのワークフロー",
+    description: "学会発表の内容を効率的に論文に発展させる方法。発表内容の評価、論文への展開計画、追加データの収集、論文構成の設計、執筆の効率化、ジャーナル選定まで完全サポート。",
+    readTime: "27 min",
+    category: "Research",
+    basePath: "/assets/guides/conference-to-paper",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-preparation-step-01", title: "ステップ1: 発表内容の評価と論文への展開可能性", file: "01-preparation/step-01.md" },
+      { id: "02-planning-step-02", title: "ステップ2: 論文への展開計画の立案", file: "02-planning/step-02.md" },
+      { id: "03-data-step-03", title: "ステップ3: 追加データの収集と解析", file: "03-data/step-03.md" },
+      { id: "04-structure-step-04", title: "ステップ4: 論文構成の設計", file: "04-structure/step-04.md" },
+      { id: "05-writing-step-05", title: "ステップ5: 論文執筆の効率化", file: "05-writing/step-05.md" },
+      { id: "06-journal-step-06", title: "ステップ6: ジャーナル選定と投稿準備", file: "06-journal/step-06.md" }
+    ]
+  },
+  "diagram-creation-guide": {
+    title: "【ツール別】医学図解作成ガイド:Nanobanana活用",
+    description: "NotebookLMのNanobananaを使って、病態生理、診断フロー、治療アルゴリズムなどを視覚的に説明する図解を作成します。",
+    readTime: "12 min",
+    category: "Presentation",
+    basePath: "/assets/guides/diagram-creation-guide",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
+  },
+  "pubmed-search-guide": {
+    title: "【完全版】PubMed検索ガイド:効率的な文献検索",
+    description: "PICOに基づいた検索式の作成、MeSH termsの活用、検索結果の絞り込みまで。効率的に文献を見つけるための完全ガイド。",
+    readTime: "12 min",
+    category: "Research",
+    basePath: "/assets/guides/pubmed-search-guide",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-basics-step-01", title: "基本編 - ステップ1", file: "01-basics/step-01.md" },
+      { id: "01-basics-step-02", title: "基本編 - ステップ2", file: "01-basics/step-02.md" },
+      { id: "02-practice-step-01", title: "実践編 - ステップ1", file: "02-practice/step-01.md" },
+      { id: "02-practice-step-02", title: "実践編 - ステップ2", file: "02-practice/step-02.md" },
+      { id: "03-reference-step-01", title: "応用編 - ステップ1", file: "03-reference/step-01.md" },
+      { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
+    ]
   }
 };
 
@@ -522,6 +678,7 @@ export default function MarkdownGuide() {
   const [completedSteps, setCompletedSteps] = useState<Set<number>>(new Set());
   const { isSidebarOpen, setIsSidebarOpen } = useSidebar(); // Layoutコンポーネントから状態を取得
   const { setTocItems } = useToc(); // 目次データを設定
+  const isInReferencesSection = useRef(false); // 参考文献セクション内かどうかの状態
 
   const metadata = guideMetadata[guideId];
 
@@ -588,16 +745,33 @@ export default function MarkdownGuide() {
 
       try {
         const step = metadata.steps[currentStep];
-        // GitHub Pagesのベースパスを考慮
-        const basePath = import.meta.env.VITE_BASE_PATH || '/Helix/';
+        // 開発環境と本番環境でパスを調整
+        const isProduction = import.meta.env.PROD;
+        const basePath = isProduction 
+          ? (import.meta.env.VITE_BASE_PATH || '/Helix/')
+          : '';
         const filePath = `${basePath.replace(/\/$/, '')}${metadata.basePath}/${step.file}`;
+        
+        console.log('Loading file from:', filePath); // デバッグ用
         
         const response = await fetch(filePath);
         if (!response.ok) {
-          throw new Error(`Failed to load: ${response.status}`);
+          console.error('Failed to load file:', filePath, 'Status:', response.status);
+          throw new Error(`Failed to load: ${response.status} - ${filePath}`);
         }
         
         const text = await response.text();
+        
+        // 空のレスポンスやHTMLが返ってきた場合のチェック
+        if (!text || text.trim().length === 0) {
+          throw new Error('Empty response');
+        }
+        
+        // HTMLが返ってきた場合（404ページなど）のチェック
+        if (text.includes('<!DOCTYPE') || text.includes('<html') || text.includes('vite/client')) {
+          console.error('HTML response received instead of markdown:', filePath);
+          throw new Error('HTML response received instead of markdown');
+        }
         
         // 読み込んだマークダウンファイルにHTMLコードが含まれている場合はフィルタリング
         // HTMLコードブロックを検出して削除
@@ -629,9 +803,11 @@ export default function MarkdownGuide() {
         }
         
         setContent(filteredText);
+        isInReferencesSection.current = false; // マークダウン変更時に状態をリセット
       } catch (err) {
         console.error("Error loading markdown:", err);
-        setError("コンテンツの読み込みに失敗しました");
+        const errorMessage = err instanceof Error ? err.message : String(err);
+        setError(`コンテンツの読み込みに失敗しました: ${errorMessage}`);
       } finally {
         setLoading(false);
       }
@@ -805,6 +981,13 @@ export default function MarkdownGuide() {
                     },
                     h2: ({ node, ...props }: any) => {
                       const title = typeof props.children === 'string' ? removeEmojis(props.children) : props.children?.toString() || '';
+                      const isReferences = title === '参考文献';
+                      // 参考文献セクションの開始/終了を管理
+                      if (isReferences) {
+                        isInReferencesSection.current = true;
+                      } else {
+                        isInReferencesSection.current = false;
+                      }
                       const id = typeof title === 'string' 
                         ? title.toLowerCase().replace(/\s+/g, '-')
                         : undefined;
@@ -817,7 +1000,7 @@ export default function MarkdownGuide() {
                       return (
                         <h2
                           id={id}
-                          className="text-2xl md:text-3xl font-bold mt-16 mb-8 text-foreground scroll-mt-20 tracking-tight"
+                          className={`text-2xl md:text-3xl font-bold mt-16 mb-8 text-foreground scroll-mt-20 tracking-tight ${isReferences ? 'text-sm md:text-base' : ''}`}
                           {...props}
                         >
                           {children}
@@ -851,16 +1034,16 @@ export default function MarkdownGuide() {
                       );
                     },
                     p: ({ node, ...props }) => (
-                      <p className="mb-6 text-lg md:text-xl text-foreground leading-[1.85]" {...props} />
+                      <p className={`mb-6 text-foreground leading-[1.85] ${isInReferencesSection.current ? 'text-xs md:text-sm' : 'text-lg md:text-xl'}`} {...props} />
                     ),
                     ul: ({ node, ...props }) => (
-                      <ul className="list-disc pl-8 mb-6 space-y-3" {...props} />
+                      <ul className={`list-disc pl-8 mb-6 space-y-3 ${isInReferencesSection.current ? 'text-xs md:text-sm' : ''}`} {...props} />
                     ),
                     ol: ({ node, ...props }) => (
-                      <ol className="list-decimal pl-8 mb-6 space-y-3" {...props} />
+                      <ol className={`list-decimal pl-8 mb-6 space-y-3 ${isInReferencesSection.current ? 'text-xs md:text-sm' : ''}`} {...props} />
                     ),
                     li: ({ node, ...props }) => (
-                      <li className="text-lg md:text-xl text-foreground leading-[1.85] pl-2" {...props} />
+                      <li className={`text-foreground leading-[1.85] pl-2 ${isInReferencesSection.current ? 'text-xs md:text-sm' : 'text-lg md:text-xl'}`} {...props} />
                     ),
                     strong: ({ node, ...props }) => (
                       <strong className="font-semibold text-foreground" {...props} />

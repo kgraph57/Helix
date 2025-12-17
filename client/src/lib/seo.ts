@@ -180,6 +180,7 @@ export function addArticleStructuredData(data: {
   datePublished?: string;
   dateModified?: string;
   image?: string;
+  path?: string;
 }): void {
   addStructuredData({
     "@context": "https://schema.org",

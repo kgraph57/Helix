@@ -80,7 +80,7 @@ export default function PromptDetail() {
         description: prompt.description || `${prompt.title}のプロンプト。医療従事者がAIを効果的に活用するための実践的なプロンプトです。`,
         path: `/prompts/${prompt.id}`,
         keywords: `${prompt.title},${prompt.category},医療,AI,プロンプト,${prompt.tags?.join(',') || ''}`,
-        ogImage: prompt.image ? `${BASE_URL}${prompt.image}` : undefined
+        ogImage: undefined
       });
 
       // 構造化データ（Article）を追加
@@ -101,8 +101,8 @@ export default function PromptDetail() {
             "url": `${BASE_URL}/og-image-new.png`
           }
         },
-        "datePublished": prompt.createdAt || new Date().toISOString(),
-        "dateModified": prompt.updatedAt || new Date().toISOString(),
+        "datePublished": new Date().toISOString(),
+        "dateModified": new Date().toISOString(),
         "mainEntityOfPage": {
           "@type": "WebPage",
           "@id": `${BASE_URL}/prompts/${prompt.id}`

@@ -138,6 +138,9 @@ import litReviewLesson4Md from "@/data/courses/literature-review-support/lesson-
 // advanced-prompt-techniquesコース
 import advancedPromptLesson1Md from "@/data/courses/advanced-prompt-techniques/lesson-1.md?raw";
 import advancedPromptLesson2Md from "@/data/courses/advanced-prompt-techniques/lesson-2.md?raw";
+import advancedPromptLesson3Md from "@/data/courses/advanced-prompt-techniques/lesson-3.md?raw";
+import advancedPromptLesson4Md from "@/data/courses/advanced-prompt-techniques/lesson-4.md?raw";
+import advancedPromptLesson5Md from "@/data/courses/advanced-prompt-techniques/lesson-5.md?raw";
 
 // machine-learning-fundamentalsコース
 import mlFundamentalsLesson1Md from "@/data/courses/machine-learning-fundamentals/lesson-1.md?raw";
@@ -248,6 +251,14 @@ import dataScienceLesson5Md from "@/data/courses/data-science-fundamentals/lesso
 import dataScienceLesson6Md from "@/data/courses/data-science-fundamentals/lesson-6.md?raw";
 import dataScienceLesson7Md from "@/data/courses/data-science-fundamentals/lesson-7.md?raw";
 
+// medical-ai-ethicsコース
+import medicalAiEthicsLesson1Md from "@/data/courses/medical-ai-ethics/lesson-1.md?raw";
+import medicalAiEthicsLesson2Md from "@/data/courses/medical-ai-ethics/lesson-2.md?raw";
+import medicalAiEthicsLesson3Md from "@/data/courses/medical-ai-ethics/lesson-3.md?raw";
+import medicalAiEthicsLesson4Md from "@/data/courses/medical-ai-ethics/lesson-4.md?raw";
+import medicalAiEthicsLesson5Md from "@/data/courses/medical-ai-ethics/lesson-5.md?raw";
+import medicalAiEthicsLesson6Md from "@/data/courses/medical-ai-ethics/lesson-6.md?raw";
+
 const lessonContent: Record<string, string> = {
   // ai-basicsコース
   "ai-basics-1": aiBasicsLesson1Md,
@@ -351,6 +362,9 @@ const lessonContent: Record<string, string> = {
   // advanced-prompt-techniquesコース
   "advanced-prompt-1": advancedPromptLesson1Md,
   "advanced-prompt-2": advancedPromptLesson2Md,
+  "advanced-prompt-3": advancedPromptLesson3Md,
+  "advanced-prompt-4": advancedPromptLesson4Md,
+  "advanced-prompt-5": advancedPromptLesson5Md,
   // machine-learning-fundamentalsコース
   "ml-fundamentals-1": mlFundamentalsLesson1Md,
   "ml-fundamentals-2": mlFundamentalsLesson2Md,
@@ -447,6 +461,13 @@ const lessonContent: Record<string, string> = {
   "data-science-5": dataScienceLesson5Md,
   "data-science-6": dataScienceLesson6Md,
   "data-science-7": dataScienceLesson7Md,
+  // medical-ai-ethicsコース
+  "ethics-med-1": medicalAiEthicsLesson1Md,
+  "ethics-med-2": medicalAiEthicsLesson2Md,
+  "ethics-med-3": medicalAiEthicsLesson3Md,
+  "ethics-med-4": medicalAiEthicsLesson4Md,
+  "ethics-med-5": medicalAiEthicsLesson5Md,
+  "ethics-med-6": medicalAiEthicsLesson6Md,
 };
 
 // レッスンコンテンツが存在するかチェックする関数

@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowRight, BookOpen, FileText, Microscope, ClipboardList, Mail, Image, Presentation, Search, Stethoscope, Pill, X, Lock } from "lucide-react";
+import { ArrowRight, BookOpen, FileText, Microscope, ClipboardList, Mail, Image, Presentation, Search, Stethoscope, Pill, X, Lock, BarChart3 } from "lucide-react";
 import { Link } from "wouter";
 import { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -43,7 +43,18 @@ const IMPLEMENTED_GUIDES = [
   "medical-safety-manual",
   "infection-control-manual",
   "polypharmacy-support",
-  "palliative-care-planning"
+  "palliative-care-planning",
+  "systematic-review-meta-analysis",
+  "data-visualization-figures",
+  "grant-application",
+  "observational-study-design",
+  "conference-to-paper",
+  "poster-presentation",
+  "clinical-reasoning",
+  "research-data-management",
+  // 新規公開ガイド
+  "diagram-creation-guide",
+  "pubmed-search-guide"
 ];
 
 // Updated: 2025-12-07
@@ -68,7 +79,7 @@ export default function Guides() {
     setTocItems([]);
   }, [setTocItems]);
 
-  const guides = [
+  const guides = useMemo(() => [
     {
       id: "marw-complete",
       title: "【最新版】AI論文執筆ワークフロー:MARW完全ガイド",
@@ -438,8 +449,182 @@ export default function Guides() {
       icon: <Stethoscope className="h-6 w-6 text-blue-700" />,
       readTime: "45 min read",
       tags: ["緩和ケア", "ケア計画"]
+    },
+    {
+      id: "systematic-review-meta-analysis",
+      title: "【上級者向け】システマティックレビュー・メタアナリシス作成ガイド",
+      description: "PRISMAガイドラインに準拠したシステマティックレビューとメタアナリシスの作成方法。文献検索から統計的統合、論文投稿まで完全サポート。AIツールを活用した効率的な実施方法を解説。",
+      category: "Research",
+      icon: <FileText className="h-6 w-6 text-purple-600" />,
+      readTime: "35 min read",
+      tags: ["Systematic Review", "Meta-analysis", "PRISMA", "Advanced", "EBM"]
+    },
+    {
+      id: "data-visualization-figures",
+      title: "【初心者向け】データ可視化・図表作成ガイド（論文用）",
+      description: "論文に掲載する高品質な図表の作成方法。適切なグラフの選択、統計的表現、Figure Legendの書き方、表の作成まで完全サポート。AIツールを活用した効率的な作成方法を解説。",
+      category: "Research",
+      icon: <BarChart3 className="h-6 w-6 text-cyan-600" />,
+      readTime: "18 min read",
+      tags: ["Data Visualization", "Figures", "Tables", "Publication", "Beginner"]
+    },
+    {
+      id: "grant-application",
+      title: "【中級者向け】グラント申請書作成ガイド（科研費・厚労科研）",
+      description: "科研費や厚労科研などのグラント申請書の作成方法。研究計画書、予算計画、研究体制、期待される成果まで完全サポート。AIツールを活用した効率的な作成方法を解説。",
+      category: "Research",
+      icon: <FileText className="h-6 w-6 text-amber-600" />,
+      readTime: "28 min read",
+      tags: ["Grant Application", "Funding", "Research Plan", "Intermediate"]
+    },
+    {
+      id: "poster-presentation",
+      title: "【初心者向け】ポスター発表作成ガイド",
+      description: "学会でのポスター発表の作成方法。レイアウト設計、視認性の向上、情報の整理、質疑応答対策まで完全サポート。AIツールを活用した効率的な作成方法を解説。",
+      category: "Presentation",
+      icon: <Presentation className="h-6 w-6 text-rose-600" />,
+      readTime: "18 min read",
+      tags: ["Poster Presentation", "Visual Design", "Conference", "Beginner"]
+    },
+    {
+      id: "observational-study-design",
+      title: "【中級者向け】観察研究デザインガイド",
+      description: "コホート研究・ケースコントロール研究の設計方法。研究デザインの選択、サンプルサイズ計算、バイアス対策、倫理審査申請まで完全サポート。AIツールを活用した効率的な設計方法を解説。",
+      category: "Research",
+      icon: <Microscope className="h-6 w-6 text-emerald-600" />,
+      readTime: "22 min read",
+      tags: ["Observational Study", "Study Design", "Epidemiology", "Intermediate"]
+    },
+    {
+      id: "clinical-reasoning",
+      title: "【中級者向け】臨床推論プロセス（Clinical Reasoning）ガイド",
+      description: "体系的で効率的な臨床推論の方法。仮説生成、情報収集の優先順位、診断の絞り込み、見逃し防止まで完全サポート。AIツールを活用した診断推論の質向上を解説。",
+      category: "Clinical",
+      icon: <Stethoscope className="h-6 w-6 text-emerald-600" />,
+      readTime: "20 min read",
+      tags: ["Clinical Reasoning", "Diagnosis", "Differential Diagnosis", "Intermediate"]
+    },
+    {
+      id: "research-data-management",
+      title: "【中級者向け】研究データ管理ガイド",
+      description: "研究データを効率的かつ安全に管理する方法。データ管理計画、収集と記録、保存とバックアップ、整理、共有と公開まで完全サポート。AIツールを活用した実践的な管理方法を解説。",
+      category: "Research",
+      icon: <FileText className="h-6 w-6 text-slate-600" />,
+      readTime: "23 min read",
+      tags: ["Data Management", "Research", "Data Storage", "Intermediate"]
+    },
+    {
+      id: "conference-to-paper",
+      title: "【実践】学会発表から論文投稿へのワークフロー",
+      description: "学会発表の内容を効率的に論文に発展させる方法。発表内容の評価、論文への展開計画、追加データの収集、論文構成の設計、執筆の効率化、ジャーナル選定まで完全サポート。",
+      category: "Research",
+      icon: <FileText className="h-6 w-6 text-indigo-600" />,
+      readTime: "27 min read",
+      tags: ["Conference to Paper", "Paper Writing", "Workflow", "Research"]
     }
-  ];
+  ], []);
+
+  // 未公開ガイドの完成通知機能
+  useEffect(() => {
+    const STORAGE_KEY = "helix_watched_guides";
+    const NOTIFICATION_PERMISSION_KEY = "helix_notification_permission_asked";
+
+    // 現在の未公開ガイドのIDを取得
+    const getUnpublishedGuideIds = (): string[] => {
+      return guides
+        .filter(guide => !IMPLEMENTED_GUIDES.includes(guide.id))
+        .map(guide => guide.id);
+    };
+
+    // ブラウザ通知を表示
+    const showNotification = (guideTitle: string, guideId: string) => {
+      if (!("Notification" in window)) {
+        return;
+      }
+
+      if (Notification.permission === "granted") {
+        const notification = new Notification("新しいガイドが公開されました！", {
+          body: `${guideTitle}が利用可能になりました。`,
+          icon: "/favicon.ico",
+          tag: `guide-${guideId}`,
+          requireInteraction: false,
+        });
+
+        notification.onclick = () => {
+          window.focus();
+          window.location.href = `/guides/${guideId}`;
+          notification.close();
+        };
+
+        // 5秒後に自動的に閉じる
+        setTimeout(() => {
+          notification.close();
+        }, 5000);
+      }
+    };
+
+    // 通知許可をリクエスト
+    const requestNotificationPermission = async () => {
+      if (!("Notification" in window)) {
+        return;
+      }
+
+      const permissionAsked = localStorage.getItem(NOTIFICATION_PERMISSION_KEY);
+      
+      if (Notification.permission === "default" && !permissionAsked) {
+        try {
+          const permission = await Notification.requestPermission();
+          localStorage.setItem(NOTIFICATION_PERMISSION_KEY, "true");
+          
+          if (permission === "granted") {
+            // 許可された場合、現在の未公開ガイドを保存
+            const currentUnpublished = getUnpublishedGuideIds();
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(currentUnpublished));
+          }
+        } catch (error) {
+          console.error("通知許可のリクエストに失敗しました:", error);
+        }
+      }
+    };
+
+    // 未公開ガイドの変更をチェック
+    const checkForNewGuides = () => {
+      const currentUnpublished = getUnpublishedGuideIds();
+      const storedUnpublished = JSON.parse(
+        localStorage.getItem(STORAGE_KEY) || "[]"
+      ) as string[];
+
+      // 以前は未公開だったが、今は公開されているガイドを探す
+      const newlyPublished = storedUnpublished.filter(
+        id => !currentUnpublished.includes(id)
+      );
+
+      if (newlyPublished.length > 0) {
+        newlyPublished.forEach(guideId => {
+          const guide = guides.find(g => g.id === guideId);
+          if (guide) {
+            showNotification(guide.title, guideId);
+          }
+        });
+      }
+
+      // 現在の未公開ガイドのリストを更新
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(currentUnpublished));
+    };
+
+    // 初回訪問時は通知許可をリクエスト
+    requestNotificationPermission();
+
+    // 未公開ガイドの変更をチェック
+    checkForNewGuides();
+
+    // 定期的にチェック（5分ごと）
+    const intervalId = setInterval(checkForNewGuides, 5 * 60 * 1000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [guides]);
 
   // フィルタリングとソート
   const filteredAndSortedGuides = useMemo(() => {

@@ -51,14 +51,14 @@ export function CodeBlock({ children, className }: CodeBlockProps) {
 
   return (
     <div className="relative group">
-      <pre className={className}>
+      <pre className={`${className || ''} pr-12`}>
         <code>{children}</code>
       </pre>
       <Button
         variant="ghost"
         size="sm"
         onClick={handleCopy}
-        className="absolute top-2 right-2 h-6 px-2 text-xs opacity-70 hover:opacity-100 transition-opacity"
+        className="absolute top-0.5 right-0.5 h-5 w-5 p-0 opacity-70 hover:opacity-100 transition-opacity z-10"
       >
         {copied ? (
           <Check className="h-3 w-3" />

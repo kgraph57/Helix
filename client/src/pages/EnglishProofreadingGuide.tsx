@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useParams, useLocation } from 'wouter';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
@@ -47,6 +47,7 @@ export default function EnglishProofreadingGuide() {
   const [markdown, setMarkdown] = useState<string>('');
   const { isSidebarOpen, setIsSidebarOpen } = useSidebar(); // Layoutコンポーネントから状態を取得
   const { setTocItems } = useToc(); // 目次データを設定
+  const isInReferencesSection = useRef(false); // 参考文献セクション内かどうかの状態
 
   // SEO設定
   useEffect(() => {
@@ -91,6 +92,7 @@ export default function EnglishProofreadingGuide() {
   useEffect(() => {
     const content = markdownContent[currentStepId] || '';
     setMarkdown(content);
+    isInReferencesSection.current = false; // マークダウン変更時に状態をリセット
   }, [currentStepId]);
 
   // currentStepIdが変更されたらスクロール位置をトップにリセット
@@ -332,6 +334,13 @@ export default function EnglishProofreadingGuide() {
                   },
                   h2: ({ node, ...props }: any) => {
                     const title = typeof props.children === 'string' ? removeEmojis(props.children) : props.children?.toString() || '';
+                    const isReferences = title === '参考文献';
+                    // 参考文献セクションの開始/終了を管理
+                    if (isReferences) {
+                      isInReferencesSection.current = true;
+                    } else {
+                      isInReferencesSection.current = false;
+                    }
                     const id = typeof title === 'string' 
                       ? title.toLowerCase().replace(/\s+/g, '-')
                       : undefined;
@@ -344,7 +353,7 @@ export default function EnglishProofreadingGuide() {
                     return (
                       <h2
                         id={id}
-                        className="text-2xl md:text-3xl font-bold mt-16 mb-8 text-foreground scroll-mt-20 tracking-tight"
+                        className={`text-2xl md:text-3xl font-bold mt-16 mb-8 text-foreground scroll-mt-20 tracking-tight ${isReferences ? 'text-sm md:text-base' : ''}`}
                         {...props}
                       >
                         {children}
@@ -378,16 +387,16 @@ export default function EnglishProofreadingGuide() {
                     );
                   },
                   p: ({ node, ...props }) => (
-                    <p className="mb-6 text-lg md:text-xl text-foreground leading-[1.85]" {...props} />
+                    <p className={`mb-6 text-foreground leading-[1.85] ${isInReferencesSection.current ? 'text-xs md:text-sm' : 'text-lg md:text-xl'}`} {...props} />
                   ),
                   ul: ({ node, ...props }) => (
-                    <ul className="list-disc pl-8 mb-6 space-y-3" {...props} />
+                    <ul className={`list-disc pl-8 mb-6 space-y-3 ${isInReferencesSection.current ? 'text-xs md:text-sm' : ''}`} {...props} />
                   ),
                   ol: ({ node, ...props }) => (
-                    <ol className="list-decimal pl-8 mb-6 space-y-3" {...props} />
+                    <ol className={`list-decimal pl-8 mb-6 space-y-3 ${isInReferencesSection.current ? 'text-xs md:text-sm' : ''}`} {...props} />
                   ),
                   li: ({ node, ...props }) => (
-                    <li className="text-lg md:text-xl text-foreground leading-[1.85] pl-2" {...props} />
+                    <li className={`text-foreground leading-[1.85] pl-2 ${isInReferencesSection.current ? 'text-xs md:text-sm' : 'text-lg md:text-xl'}`} {...props} />
                   ),
                   strong: ({ node, ...props }) => (
                     <strong className="font-semibold text-foreground" {...props} />

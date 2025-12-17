@@ -36,7 +36,7 @@ export default function About() {
       y: 0,
       transition: {
         duration: 0.6,
-        ease: [0.16, 1, 0.3, 1],
+        ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
       },
     },
   };
@@ -70,12 +70,12 @@ export default function About() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="w-full rounded-2xl md:rounded-3xl overflow-hidden aspect-[16/9] md:aspect-[16/8] mb-16 md:mb-20"
+            className="max-w-sm mx-auto rounded-2xl md:rounded-3xl overflow-hidden aspect-square mb-8 md:mb-12"
           >
             <img
               src="/images/about-hero.png"
               alt="AIと医療従事者の協働を象徴するイメージ"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain"
               onError={(e) => {
                 // 画像が読み込めない場合のフォールバック
                 const target = e.target as HTMLImageElement;
@@ -104,10 +104,10 @@ export default function About() {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-20 lg:pb-24"
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 md:pt-6 pb-16 md:pb-20 lg:pb-24"
         >
           {/* Our Mission */}
-          <motion.section variants={itemVariants} className="mb-12 md:mb-16 lg:mb-20">
+          <motion.section variants={itemVariants} className="mb-8 md:mb-12 lg:mb-16">
             <div className="grid grid-cols-1 lg:grid-cols-[150px_1fr] gap-4 md:gap-6 lg:gap-8">
               <h2 
                 className="text-lg md:text-xl font-semibold text-neutral-900 dark:text-neutral-50 tracking-tight"
@@ -130,7 +130,7 @@ export default function About() {
           </motion.section>
 
           {/* Our Product */}
-          <motion.section variants={itemVariants} className="mb-12 md:mb-16 lg:mb-20">
+          <motion.section variants={itemVariants} className="mb-8 md:mb-12 lg:mb-16">
             <div className="grid grid-cols-1 lg:grid-cols-[150px_1fr] gap-4 md:gap-6 lg:gap-8">
               <h2 
                 className="text-lg md:text-xl font-semibold text-neutral-900 dark:text-neutral-50 tracking-tight"
@@ -153,7 +153,7 @@ export default function About() {
           </motion.section>
 
           {/* Our Story */}
-          <motion.section variants={itemVariants} className="mb-12 md:mb-16 lg:mb-20">
+          <motion.section variants={itemVariants} className="mb-8 md:mb-12 lg:mb-16">
             <div className="grid grid-cols-1 lg:grid-cols-[150px_1fr] gap-4 md:gap-6 lg:gap-8">
               <h2 
                 className="text-lg md:text-xl font-semibold text-neutral-900 dark:text-neutral-50 tracking-tight"

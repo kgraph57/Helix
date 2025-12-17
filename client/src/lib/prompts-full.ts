@@ -4,7 +4,7 @@ export const fullPrompts: Prompt[] = [
   // 診断支援
   {    id: "diagnosis-differential",
     title: "Differential Diagnosis Generator",
-    description: "主訴と現病歴から鑑別診断リストを作成し、見落しを防ぎます。",
+    description: "主訴と現病歴から鑑別診断リストを作成し、見落としを防ぎます。",
     category: "diagnosis",
     riskLevel: "high",
     warningMessage: "⚠️ 重要：このプロンプトは診断の補助ツールです。AIの出力は参考情報であり、最終的な診断は必ず医師の臨床判断に基づいて行ってください。入力情報の不足や誤りがあると、重要な疾患を見落とす可能性があります。",
@@ -78,7 +78,7 @@ export const fullPrompts: Prompt[] = [
     description: "最新のガイドラインに基づいた治療計画のオプションを提示します。",
     category: "treatment",
     riskLevel: "high",
-    warningMessage: "⚠️ 重要：AIが提案する治療計画は、最新のガイドラインと照合して検証してください。薬剤投与量、相互作用、患者背景（腐機能、アレルギーなど）を必ず再確認し、最終判断は医師が行ってください。",
+    warningMessage: "⚠️ 重要：AIが提案する治療計画は、最新のガイドラインと照合して検証してください。薬剤投与量、相互作用、患者背景（腎機能、アレルギーなど）を必ず再確認し、最終判断は医師が行ってください。",
     template: `以下の診断に対する標準的な治療計画を、最新のガイドライン（UpToDateや学会ガイドライン）に基づいて提示してください。
 
 # 診断名
@@ -152,7 +152,7 @@ export const fullPrompts: Prompt[] = [
   {
     id: "med-renal-dosing",
     title: "Renal Dosing Adjustment",
-    description: "腔機能（eGFR/CCr）に応じた薬剤の投与量調節を提案します。",
+    description: "腎機能（eGFR/CCr）に応じた薬剤の投与量調節を提案します。",
     category: "medication",
     riskLevel: "high",
     warningMessage: "⚠️ 重要：薬剤投与量の決定は患者の生命に直結します。AIの提案は参考情報であり、必ず最新の添付文書、医薬品インタビュー、または信頼できるデータベースで確認してください。",
@@ -1490,7 +1490,7 @@ PICO形式で整理し、検索戦略も提案してください。
 注意：最新の添付文書や相互作用データベースも必ず確認してください。`,
     inputs: [
       { key: 'medications', label: '処方薬剤', placeholder: '例：ワーファリン、ロキソプロフェン、アジスロマイシン', type: 'textarea' },
-      { key: 'patient_background', label: '患者背景', placeholder: '例：75歳、腹機能低下（eGFR 35）', type: 'text' }
+      { key: 'patient_background', label: '患者背景', placeholder: '例：75歳、腎機能低下（eGFR 35）', type: 'text' }
     ]
   },
   {
@@ -1550,7 +1550,7 @@ PICO形式で整理し、検索戦略も提案してください。
 注意：必ず最新のガイドラインを確認してください。`,
     inputs: [
       { key: 'condition', label: '疾患・病態', placeholder: '例：2型糖尿病（HbA1c 8.5%）', type: 'text' },
-      { key: 'patient_info', label: '患者背景', placeholder: '例：60歳男性、肥満（BMI 32）、腹機能正常', type: 'textarea' }
+      { key: 'patient_info', label: '患者背景', placeholder: '例：60歳男性、肥満（BMI 32）、腎機能正常', type: 'textarea' }
     ]
   },
   {
@@ -1585,9 +1585,9 @@ PICO形式で整理し、検索戦略も提案してください。
   {
     id: "clinical-medication-dosing",
     title: "Medication Dosing Calculator",
-    description: "腹機能や体重に応じた薬剤用量調整を提案します。",
+    description: "腎機能や体重に応じた薬剤用量調整を提案します。",
     category: "medication",
-    template: `以下の患者に対する薬剤投与量を、腹機能や体重を考慮して提案してください。
+    template: `以下の患者に対する薬剤投与量を、腎機能や体重を考慮して提案してください。
 
 # 薬剤
 {{medication}}
@@ -1595,11 +1595,11 @@ PICO形式で整理し、検索戦略も提案してください。
 # 患者情報
 - 年齢・性別：{{age_sex}}
 - 体重：{{weight}} kg
-- 腹機能：eGFR {{egfr}} mL/min/1.73m²
+- 腎機能：eGFR {{egfr}} mL/min/1.73m²
 - その他：{{other_factors}}
 
 # 出力形式
-1. 標準用量（腹機能正常時）
+1. 標準用量（腎機能正常時）
 2. この患者での推奨用量
 3. 用量調整の根拠
 4. 投与時の注意点

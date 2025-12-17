@@ -334,21 +334,26 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <SidebarContext.Provider value={{ isSidebarOpen, setIsSidebarOpen }}>
         <TocContext.Provider value={{ tocItems, setTocItems }}>
           <main id="main-content" className="flex-1 overflow-y-auto" role="main" aria-label="メインコンテンツ">
-            {/* モバイルヘッダー */}
+            {/* ヘッダー - 全ページで表示 */}
             <header
-              className="lg:hidden sticky top-0 z-30 bg-background/80 backdrop-blur-xl border-b border-border"
+              className="sticky top-0 z-30 bg-background/80 backdrop-blur-xl border-b border-border"
             >
               <div className="flex items-center px-4 h-14 relative">
+                {/* モバイル: メニューボタン */}
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={() => setIsMobileOpen(true)}
                   aria-label="メニューを開く"
-                  className="h-7 w-7 absolute left-4"
+                  className="lg:hidden h-7 w-7 absolute left-4"
                 >
                   <Menu className="h-4 w-4" />
                 </Button>
-                <Link href="/" className="absolute left-1/2 -translate-x-1/2">
+                {/* ロゴ - 中央配置（モバイル）または左配置（デスクトップ） */}
+                <Link href="/" className={cn(
+                  "absolute lg:static lg:translate-x-0",
+                  isMobile ? "left-1/2 -translate-x-1/2" : "left-4"
+                )}>
                   <h1 className="text-lg font-bold text-primary">Helix</h1>
                 </Link>
               </div>

@@ -27,7 +27,7 @@ const itemVariants = {
     y: 0,
     transition: {
       duration: 0.7,
-      ease: [0.16, 1, 0.3, 1],
+      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
     },
   },
 };
@@ -42,7 +42,7 @@ const titleVariants = {
     y: 0,
     transition: {
       duration: 0.9,
-      ease: [0.16, 1, 0.3, 1],
+      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
     },
   },
 };
@@ -352,10 +352,10 @@ export default function AILiteracy() {
                 <div className="bg-orange-50 dark:bg-orange-950/20 border border-orange-200 dark:border-orange-900/50 rounded-lg p-4 md:p-5">
                   <h4 className="font-semibold text-orange-900 dark:text-orange-400 mb-2">失敗例 3: 薬剤投与量が誤っていた</h4>
                   <p className="text-orange-800 dark:text-orange-300 mb-2">
-                    <strong>状況：</strong>AIに「腐機能低下患者への抗菌薬投与量を教えてください」と問い合わせたところ、一般的な投与量が提示されたが、患者のCCr（クレアチニン・クリアランス）に応じた減量が考慮されていなかった。
+                    <strong>状況：</strong>AIに「腎機能低下患者への抗菌薬投与量を教えてください」と問い合わせたところ、一般的な投与量が提示されたが、患者のCCr（クレアチニン・クリアランス）に応じた減量が考慮されていなかった。
                   </p>
                   <p className="text-orange-800 dark:text-orange-300">
-                    <strong>対策：</strong>薬剤投与量はAIの出力を参考にするだけで、必ず添付文書、医薬品インタビューフォーム、または薬剤師に確認する。特に腐機能低下、肝機能障害、小児、高齢者など、特殊な患者集団では注意が必要。
+                    <strong>対策：</strong>薬剤投与量はAIの出力を参考にするだけで、必ず添付文書、医薬品インタビューフォーム、または薬剤師に確認する。特に腎機能低下、肝機能障害、小児、高齢者など、特殊な患者集団では注意が必要。
                   </p>
                 </div>
 

@@ -28,7 +28,7 @@ export const courses = [
     lessons: 8,
     xpReward: 80,
     badge: "🎓",
-    category: "基礎理論",
+    category: "AI基礎",
     locked: false,
   },
   {
@@ -39,7 +39,7 @@ export const courses = [
     lessons: 9,
     xpReward: 90,
     badge: "🤖",
-    category: "基礎理論",
+    category: "生成AI基礎",
     locked: false,
   },
   {
@@ -50,7 +50,7 @@ export const courses = [
     lessons: 7,
     xpReward: 70,
     badge: "💬",
-    category: "基礎理論",
+    category: "生成AI基礎",
     locked: false,
   },
   // レベル1: 技術基礎編（初心者向け）
@@ -62,7 +62,7 @@ export const courses = [
     lessons: 8,
     xpReward: 80,
     badge: "🧠",
-    category: "技術",
+    category: "機械学習",
     locked: false,
   },
   {
@@ -73,7 +73,7 @@ export const courses = [
     lessons: 7,
     xpReward: 70,
     badge: "🏥",
-    category: "医療応用",
+    category: "診断支援",
     locked: false,
   },
   {
@@ -84,7 +84,7 @@ export const courses = [
     lessons: 5,
     xpReward: 50,
     badge: "🛠️",
-    category: "ツール",
+    category: "AIチャットツール",
     locked: false,
   },
   {
@@ -95,7 +95,7 @@ export const courses = [
     lessons: 6,
     xpReward: 60,
     badge: "📖",
-    category: "基礎理論",
+    category: "AI基礎",
     locked: false,
   },
   {
@@ -106,7 +106,7 @@ export const courses = [
     lessons: 5,
     xpReward: 50,
     badge: "🏥",
-    category: "医療応用",
+    category: "診断支援",
     locked: false,
   },
   // レベル1.5: ツール別実践編（初心者向け・実践重視）
@@ -118,7 +118,7 @@ export const courses = [
     lessons: 8,
     xpReward: 80,
     badge: "💬",
-    category: "ツール",
+    category: "AIチャットツール",
     locked: false,
   },
   {
@@ -129,7 +129,7 @@ export const courses = [
     lessons: 7,
     xpReward: 70,
     badge: "🧠",
-    category: "ツール",
+    category: "AIチャットツール",
     locked: false,
   },
   {
@@ -140,7 +140,7 @@ export const courses = [
     lessons: 7,
     xpReward: 70,
     badge: "🔍",
-    category: "ツール",
+    category: "AIチャットツール",
     locked: false,
   },
   {
@@ -151,7 +151,7 @@ export const courses = [
     lessons: 6,
     xpReward: 60,
     badge: "🏥",
-    category: "ツール",
+    category: "医療特化ツール",
     locked: false,
   },
   // レベル2: 技術理解編（中級者向け）
@@ -163,7 +163,7 @@ export const courses = [
     lessons: 4,
     xpReward: 50,
     badge: "🔌",
-    category: "技術",
+    category: "API・MCP",
     locked: false,
   },
   {
@@ -174,7 +174,7 @@ export const courses = [
     lessons: 4,
     xpReward: 50,
     badge: "🔗",
-    category: "技術",
+    category: "API・MCP",
     locked: false,
   },
   {
@@ -185,7 +185,7 @@ export const courses = [
     lessons: 5,
     xpReward: 60,
     badge: "✍️",
-    category: "技術",
+    category: "生成AI基礎",
     locked: false,
   },
   {
@@ -196,7 +196,7 @@ export const courses = [
     lessons: 4,
     xpReward: 50,
     badge: "📊",
-    category: "技術",
+    category: "データサイエンス",
     locked: false,
   },
   {
@@ -207,7 +207,7 @@ export const courses = [
     lessons: 10,
     xpReward: 100,
     badge: "🤖",
-    category: "医療応用",
+    category: "診断支援",
     locked: false,
   },
   {
@@ -218,7 +218,7 @@ export const courses = [
     lessons: 8,
     xpReward: 80,
     badge: "🚀",
-    category: "医療応用",
+    category: "診断支援",
     locked: false,
   },
   {
@@ -229,7 +229,7 @@ export const courses = [
     lessons: 10,
     xpReward: 100,
     badge: "⚖️",
-    category: "法律倫理",
+    category: "倫理",
     locked: false,
   },
   {
@@ -240,7 +240,7 @@ export const courses = [
     lessons: 7,
     xpReward: 70,
     badge: "📜",
-    category: "法律倫理",
+    category: "法律",
     locked: false,
   },
   {
@@ -251,7 +251,7 @@ export const courses = [
     lessons: 5,
     xpReward: 50,
     badge: "©️",
-    category: "法律倫理",
+    category: "著作権",
     locked: false,
   },
   {
@@ -262,7 +262,7 @@ export const courses = [
     lessons: 6,
     xpReward: 60,
     badge: "📚",
-    category: "技術",
+    category: "高度な技術",
     locked: false,
   },
   {
@@ -273,7 +273,7 @@ export const courses = [
     lessons: 5,
     xpReward: 50,
     badge: "📊",
-    category: "技術",
+    category: "データサイエンス",
     locked: false,
   },
   {
@@ -284,7 +284,7 @@ export const courses = [
     lessons: 7,
     xpReward: 70,
     badge: "🐍",
-    category: "技術",
+    category: "プログラミング",
     locked: false,
   },
   {
@@ -295,7 +295,7 @@ export const courses = [
     lessons: 8,
     xpReward: 80,
     badge: "⚡",
-    category: "ツール",
+    category: "深層学習",
     locked: false,
   },
   {
@@ -306,7 +306,7 @@ export const courses = [
     lessons: 6,
     xpReward: 70,
     badge: "🔬",
-    category: "ツール",
+    category: "研究手法",
     locked: false,
   },
   {
@@ -317,7 +317,7 @@ export const courses = [
     lessons: 7,
     xpReward: 75,
     badge: "📄",
-    category: "ツール",
+    category: "研究手法",
     locked: false,
   },
   {
@@ -328,7 +328,7 @@ export const courses = [
     lessons: 5,
     xpReward: 60,
     badge: "🌍",
-    category: "ツール",
+    category: "研究手法",
     locked: false,
   },
   // レベル3: 実践編（上級者向け）
@@ -340,7 +340,7 @@ export const courses = [
     lessons: 8,
     xpReward: 80,
     badge: "🔗",
-    category: "ツール",
+    category: "深層学習",
     locked: false,
   },
   {
@@ -351,7 +351,7 @@ export const courses = [
     lessons: 6,
     xpReward: 60,
     badge: "🩺",
-    category: "ツール",
+    category: "診断支援",
     locked: false,
   },
   {
@@ -362,7 +362,7 @@ export const courses = [
     lessons: 5,
     xpReward: 70,
     badge: "📝",
-    category: "医療応用",
+    category: "論文執筆",
     locked: false,
   },
   {
@@ -373,7 +373,7 @@ export const courses = [
     lessons: 4,
     xpReward: 65,
     badge: "📋",
-    category: "医療応用",
+    category: "論文執筆",
     locked: false,
   },
   {
@@ -384,7 +384,7 @@ export const courses = [
     lessons: 4,
     xpReward: 65,
     badge: "🔬",
-    category: "医療応用",
+    category: "診断支援",
     locked: false,
   },
   {
@@ -395,7 +395,7 @@ export const courses = [
     lessons: 4,
     xpReward: 55,
     badge: "🌐",
-    category: "医療応用",
+    category: "論文執筆",
     locked: false,
   },
   {
@@ -406,7 +406,7 @@ export const courses = [
     lessons: 4,
     xpReward: 60,
     badge: "📚",
-    category: "研究",
+    category: "研究手法",
     locked: false,
   },
   // レベル4: 専門編（エキスパート向け）
@@ -418,7 +418,7 @@ export const courses = [
     lessons: 5,
     xpReward: 80,
     badge: "🚀",
-    category: "専門",
+    category: "高度な技術",
     locked: false,
   },
   {
@@ -429,7 +429,7 @@ export const courses = [
     lessons: 5,
     xpReward: 85,
     badge: "⚙️",
-    category: "専門",
+    category: "システム構築",
     locked: false,
   },
   {
@@ -440,7 +440,7 @@ export const courses = [
     lessons: 4,
     xpReward: 75,
     badge: "📈",
-    category: "研究",
+    category: "データ分析",
     locked: false,
   },
   {
@@ -451,7 +451,7 @@ export const courses = [
     lessons: 5,
     xpReward: 85,
     badge: "🎯",
-    category: "医療応用",
+    category: "診断支援",
     locked: false,
   },
   {
@@ -462,7 +462,7 @@ export const courses = [
     lessons: 6,
     xpReward: 90,
     badge: "🏗️",
-    category: "専門",
+    category: "高度な技術",
     locked: false,
   },
   {
@@ -473,7 +473,7 @@ export const courses = [
     lessons: 10,
     xpReward: 100,
     badge: "🎓",
-    category: "専門",
+    category: "研究手法",
     locked: false,
   },
   {
@@ -484,7 +484,7 @@ export const courses = [
     lessons: 8,
     xpReward: 90,
     badge: "🔄",
-    category: "専門",
+    category: "組織導入",
     locked: false,
   },
   {
@@ -495,7 +495,7 @@ export const courses = [
     lessons: 7,
     xpReward: 85,
     badge: "💡",
-    category: "専門",
+    category: "組織導入",
     locked: false,
   },
   {
@@ -506,7 +506,7 @@ export const courses = [
     lessons: 6,
     xpReward: 70,
     badge: "🧪",
-    category: "ツール",
+    category: "組織導入",
     locked: false,
   },
   {
@@ -517,7 +517,7 @@ export const courses = [
     lessons: 7,
     xpReward: 75,
     badge: "🌱",
-    category: "ツール",
+    category: "組織導入",
     locked: false,
   },
   {
@@ -528,7 +528,7 @@ export const courses = [
     lessons: 6,
     xpReward: 80,
     badge: "👨‍⚕️",
-    category: "専門",
+    category: "組織導入",
     locked: false,
   },
   // 追加コース: 基礎理論編
@@ -540,7 +540,7 @@ export const courses = [
     lessons: 6,
     xpReward: 60,
     badge: "📜",
-    category: "基礎理論",
+    category: "AI基礎",
     locked: false,
   },
   {
@@ -551,7 +551,7 @@ export const courses = [
     lessons: 7,
     xpReward: 70,
     badge: "📊",
-    category: "基礎理論",
+    category: "AI基礎",
     locked: false,
   },
   {
@@ -562,7 +562,7 @@ export const courses = [
     lessons: 8,
     xpReward: 80,
     badge: "📈",
-    category: "基礎理論",
+    category: "AI基礎",
     locked: false,
   },
   {
@@ -573,7 +573,7 @@ export const courses = [
     lessons: 6,
     xpReward: 60,
     badge: "🧠",
-    category: "基礎理論",
+    category: "AI基礎",
     locked: false,
   },
   // 追加コース: ツール編
@@ -585,7 +585,7 @@ export const courses = [
     lessons: 5,
     xpReward: 50,
     badge: "🔍",
-    category: "ツール",
+    category: "AIチャットツール",
     locked: false,
   },
   {
@@ -596,7 +596,7 @@ export const courses = [
     lessons: 6,
     xpReward: 60,
     badge: "💻",
-    category: "ツール",
+    category: "開発ツール",
     locked: false,
   },
   {
@@ -607,7 +607,7 @@ export const courses = [
     lessons: 6,
     xpReward: 60,
     badge: "⌨️",
-    category: "ツール",
+    category: "開発ツール",
     locked: false,
   },
   {
@@ -618,7 +618,7 @@ export const courses = [
     lessons: 5,
     xpReward: 50,
     badge: "📝",
-    category: "ツール",
+    category: "開発ツール",
     locked: false,
   },
   {
@@ -629,7 +629,7 @@ export const courses = [
     lessons: 5,
     xpReward: 55,
     badge: "🎨",
-    category: "ツール",
+    category: "開発ツール",
     locked: false,
   },
   // 追加コース: 技術編
@@ -641,7 +641,7 @@ export const courses = [
     lessons: 6,
     xpReward: 65,
     badge: "🧹",
-    category: "技術",
+    category: "データ分析",
     locked: false,
   },
   {
@@ -652,7 +652,7 @@ export const courses = [
     lessons: 7,
     xpReward: 70,
     badge: "✅",
-    category: "技術",
+    category: "データ分析",
     locked: false,
   },
   {
@@ -663,7 +663,7 @@ export const courses = [
     lessons: 6,
     xpReward: 70,
     badge: "☁️",
-    category: "技術",
+    category: "データ分析",
     locked: false,
   },
   {
@@ -674,7 +674,7 @@ export const courses = [
     lessons: 7,
     xpReward: 75,
     badge: "🔎",
-    category: "技術",
+    category: "高度な技術",
     locked: false,
   },
   {
@@ -685,7 +685,7 @@ export const courses = [
     lessons: 6,
     xpReward: 70,
     badge: "⚙️",
-    category: "技術",
+    category: "高度な技術",
     locked: false,
   },
   // 追加コース: 医療応用編
@@ -697,7 +697,7 @@ export const courses = [
     lessons: 7,
     xpReward: 75,
     badge: "🖼️",
-    category: "医療応用",
+    category: "画像解析",
     locked: false,
   },
   {
@@ -708,7 +708,7 @@ export const courses = [
     lessons: 6,
     xpReward: 70,
     badge: "💊",
-    category: "医療応用",
+    category: "診断支援",
     locked: false,
   },
   {
@@ -719,7 +719,7 @@ export const courses = [
     lessons: 5,
     xpReward: 60,
     badge: "💬",
-    category: "医療応用",
+    category: "患者コミュニケーション",
     locked: false,
   },
   {
@@ -730,7 +730,7 @@ export const courses = [
     lessons: 6,
     xpReward: 65,
     badge: "📋",
-    category: "医療応用",
+    category: "診断支援",
     locked: false,
   },
   {
@@ -741,7 +741,7 @@ export const courses = [
     lessons: 6,
     xpReward: 70,
     badge: "🛤️",
-    category: "医療応用",
+    category: "診断支援",
     locked: false,
   },
   {
@@ -752,7 +752,7 @@ export const courses = [
     lessons: 5,
     xpReward: 60,
     badge: "📱",
-    category: "医療応用",
+    category: "診断支援",
     locked: false,
   },
   // 追加コース: 法律倫理編
@@ -764,7 +764,7 @@ export const courses = [
     lessons: 6,
     xpReward: 65,
     badge: "⚖️",
-    category: "法律倫理",
+    category: "倫理",
     locked: false,
   },
   {
@@ -775,7 +775,7 @@ export const courses = [
     lessons: 6,
     xpReward: 70,
     badge: "🔍",
-    category: "法律倫理",
+    category: "倫理",
     locked: false,
   },
   {
@@ -786,7 +786,7 @@ export const courses = [
     lessons: 7,
     xpReward: 75,
     badge: "📜",
-    category: "法律倫理",
+    category: "法律",
     locked: false,
   },
   // 追加コース: 研究編
@@ -798,7 +798,7 @@ export const courses = [
     lessons: 6,
     xpReward: 70,
     badge: "🔬",
-    category: "研究",
+    category: "データ分析",
     locked: false,
   },
   {
@@ -809,7 +809,7 @@ export const courses = [
     lessons: 6,
     xpReward: 70,
     badge: "📚",
-    category: "研究",
+    category: "データ分析",
     locked: false,
   },
   {
@@ -820,7 +820,7 @@ export const courses = [
     lessons: 5,
     xpReward: 60,
     badge: "📋",
-    category: "研究",
+    category: "研究手法",
     locked: false,
   },
   {
@@ -831,7 +831,7 @@ export const courses = [
     lessons: 5,
     xpReward: 60,
     badge: "💰",
-    category: "研究",
+    category: "研究手法",
     locked: false,
   },
   {
@@ -842,7 +842,7 @@ export const courses = [
     lessons: 5,
     xpReward: 60,
     badge: "📊",
-    category: "研究",
+    category: "データ分析",
     locked: false,
   },
   // 追加コース: 専門編
@@ -854,7 +854,7 @@ export const courses = [
     lessons: 7,
     xpReward: 85,
     badge: "🎭",
-    category: "専門",
+    category: "高度な技術",
     locked: false,
   },
   {
@@ -865,7 +865,7 @@ export const courses = [
     lessons: 6,
     xpReward: 80,
     badge: "📱",
-    category: "専門",
+    category: "高度な技術",
     locked: false,
   },
   {
@@ -876,7 +876,7 @@ export const courses = [
     lessons: 7,
     xpReward: 85,
     badge: "🚀",
-    category: "専門",
+    category: "システム構築",
     locked: false,
   },
   {
@@ -887,7 +887,7 @@ export const courses = [
     lessons: 6,
     xpReward: 80,
     badge: "🔐",
-    category: "専門",
+    category: "高度な技術",
     locked: false,
   },
   {
@@ -898,7 +898,7 @@ export const courses = [
     lessons: 6,
     xpReward: 80,
     badge: "🤖",
-    category: "専門",
+    category: "高度な技術",
     locked: false,
   },
   {
@@ -909,7 +909,7 @@ export const courses = [
     lessons: 6,
     xpReward: 80,
     badge: "💊",
-    category: "専門",
+    category: "高度な技術",
     locked: false,
   },
   {
@@ -920,7 +920,7 @@ export const courses = [
     lessons: 7,
     xpReward: 85,
     badge: "🧬",
-    category: "専門",
+    category: "高度な技術",
     locked: false,
   },
   {
@@ -931,7 +931,7 @@ export const courses = [
     lessons: 7,
     xpReward: 85,
     badge: "📊",
-    category: "専門",
+    category: "高度な技術",
     locked: false,
   },
 ];
@@ -1006,27 +1006,80 @@ export default function Courses() {
   
   // カテゴリIDと表示名のマッピング
   const categoryIdMap: Record<string, string> = {
-    "基礎理論": "basics",
-    "ツール": "tools",
-    "技術": "tech",
-    "医療応用": "medical",
-    "法律倫理": "legal",
-    "研究": "research",
-    "専門": "advanced",
+    "AI基礎": "ai-basics",
+    "生成AI基礎": "generative-ai-basics",
+    "データサイエンス": "data-science",
+    "AIチャットツール": "ai-chat-tools",
+    "医療特化ツール": "medical-tools",
+    "開発ツール": "dev-tools",
+    "機械学習": "machine-learning",
+    "深層学習": "deep-learning",
+    "API・MCP": "api-mcp",
+    "プログラミング": "programming",
+    "診断支援": "diagnostic-support",
+    "論文執筆": "paper-writing",
+    "画像解析": "medical-imaging",
+    "患者コミュニケーション": "patient-communication",
+    "法律": "legal",
+    "倫理": "ethics",
+    "著作権": "copyright",
+    "研究手法": "research-methods",
+    "データ分析": "data-analysis",
+    "システム構築": "system-building",
+    "高度な技術": "advanced-tech",
+    "組織導入": "organizational-adoption",
   };
   
   // ジャンルの表示名と順序（適度な粒度）
   const categoryLabels: Record<string, string> = {
-    "基礎理論": "基礎理論編",
-    "ツール": "ツール編",
-    "技術": "技術編",
-    "医療応用": "医療応用編",
-    "法律倫理": "法律・倫理編",
-    "研究": "研究編",
-    "専門": "専門編",
+    "AI基礎": "AI基礎",
+    "生成AI基礎": "生成AI基礎",
+    "データサイエンス": "データサイエンス",
+    "AIチャットツール": "AIチャットツール",
+    "医療特化ツール": "医療特化ツール",
+    "開発ツール": "開発ツール",
+    "機械学習": "機械学習",
+    "深層学習": "深層学習",
+    "API・MCP": "API・MCP",
+    "プログラミング": "プログラミング",
+    "診断支援": "診断支援",
+    "論文執筆": "論文執筆",
+    "画像解析": "画像解析",
+    "患者コミュニケーション": "患者コミュニケーション",
+    "法律": "法律",
+    "倫理": "倫理",
+    "著作権": "著作権",
+    "研究手法": "研究手法",
+    "データ分析": "データ分析",
+    "システム構築": "システム構築",
+    "高度な技術": "高度な技術",
+    "組織導入": "組織導入",
   };
   
-  const categoryOrder = ["基礎理論", "ツール", "技術", "医療応用", "法律倫理", "研究", "専門"];
+  const categoryOrder = [
+    "AI基礎",
+    "生成AI基礎",
+    "データサイエンス",
+    "AIチャットツール",
+    "医療特化ツール",
+    "開発ツール",
+    "機械学習",
+    "深層学習",
+    "API・MCP",
+    "プログラミング",
+    "診断支援",
+    "論文執筆",
+    "画像解析",
+    "患者コミュニケーション",
+    "法律",
+    "倫理",
+    "著作権",
+    "研究手法",
+    "データ分析",
+    "システム構築",
+    "高度な技術",
+    "組織導入",
+  ];
   
   // レベル名
   const levelLabels: Record<number, string> = {
@@ -1092,13 +1145,28 @@ export default function Courses() {
                       {categoryLabels[category] || category}
                     </h3>
                     <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-4 line-clamp-2">
-                      {category === "基礎理論" && "AIの基礎理論と概念を体系的に学びます。初心者向けの内容から始まり、AIの全体像を把握できます。"}
-                      {category === "ツール" && "ChatGPT、Claude、GeminiなどのAIツールの実践的な使い方を学びます。医療現場で即座に活用できるスキルを習得します。"}
-                      {category === "技術" && "AIの技術的な仕組みを深く理解します。機械学習、深層学習、API、プログラミングなど、技術的な側面を学びます。"}
-                      {category === "医療応用" && "実際の医療現場でのAI活用方法を学びます。診断支援、論文執筆、症例報告など、医療業務での実践的な活用を習得します。"}
-                      {category === "法律倫理" && "医療AI利用における法的要件と倫理的配慮を学びます。個人情報保護法、医療法、著作権、研究倫理などを理解します。"}
-                      {category === "研究" && "AI研究の方法論、論文の読み書き、データ分析を学びます。研究を効率的に進めるためのスキルを習得します。"}
-                      {category === "専門" && "高度なAI技術と専門的な応用を学びます。システム構築、組織的な導入、最新のアーキテクチャなど、エキスパート向けの内容です。"}
+                      {category === "AI基礎" && "AIの基本概念、歴史、専門用語を体系的に学びます。初心者向けの内容から始まり、AIの全体像を把握できます。"}
+                      {category === "生成AI基礎" && "大規模言語モデル（LLM）とTransformerアーキテクチャの基礎、生成AIの実践的な使い方を学びます。"}
+                      {category === "データサイエンス" && "データサイエンスの基本概念、統計学の基礎、医療データ分析の準備を学びます。"}
+                      {category === "AIチャットツール" && "ChatGPT、Claude、GeminiなどのAIチャットツールの実践的な使い方を学びます。医療現場で即座に活用できるスキルを習得します。"}
+                      {category === "医療特化ツール" && "医療分野に特化したAIツールの使い方と活用法を実践的に学びます。"}
+                      {category === "開発ツール" && "GitHub Copilot、Cursor IDE、Notion AI、Perplexity、画像生成AIなどの開発・業務支援ツールを学びます。"}
+                      {category === "機械学習" && "機械学習の基礎、教師あり・教師なし・強化学習の仕組みを理解します。"}
+                      {category === "深層学習" && "深層学習の基礎、ニューラルネットワーク、PyTorch/TensorFlowなどのフレームワークを学びます。"}
+                      {category === "API・MCP" && "APIの基本概念、AI APIの仕組み、MCP（Model Context Protocol）の活用方法を学びます。"}
+                      {category === "プログラミング" && "AI研究に必要なPythonプログラミングの基礎、データ処理、AIライブラリの使い方を実践的に学びます。"}
+                      {category === "診断支援" && "AIを活用した診断支援システムの理解と臨床判断への統合方法を学びます。"}
+                      {category === "論文執筆" && "AIを活用した論文執筆、ケースレポート作成、医療英語校正の効率化と品質向上を学びます。"}
+                      {category === "画像解析" && "医療画像AIの基礎、X線・CT・MRI解析、画像診断支援システムを学びます。"}
+                      {category === "患者コミュニケーション" && "AIを活用した患者説明の支援、多言語対応、インフォームドコンセント支援を学びます。"}
+                      {category === "法律" && "医療情報の法的取り扱い、個人情報保護法、医療法、医師法における医療情報の取り扱いを学びます。"}
+                      {category === "倫理" && "医療AIの倫理原則、バイアスと公平性、説明可能性、患者の同意とインフォームドコンセントを学びます。"}
+                      {category === "著作権" && "AI生成コンテンツの著作権、画像生成AIの著作権問題、医療分野での利用における著作権問題を学びます。"}
+                      {category === "研究手法" && "AI研究の方法論、論文の読み書き、研究倫理とオープンサイエンス、研究プロトコル作成を学びます。"}
+                      {category === "データ分析" && "研究データ分析、データ前処理、モデル評価、臨床試験データ分析、メタアナリシス支援を学びます。"}
+                      {category === "システム構築" && "医療AIシステムの設計と実装、AIモデルのデプロイメント、本番環境への展開を学びます。"}
+                      {category === "高度な技術" && "高度なモデルアーキテクチャ、Fine-tuning、RAG、マルチモーダルAI、エッジAIなど、最新のAI技術を学びます。"}
+                      {category === "組織導入" && "AIオンボーディング、ワークフローへの統合、PoC実践、AI時代の働き方とマインドセットを学びます。"}
                     </p>
                     <div className="flex items-center gap-4 text-sm text-neutral-600 dark:text-neutral-400 mt-auto">
                       <span className="font-medium">{allCategoryCourses.length} courses</span>

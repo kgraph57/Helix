@@ -44,7 +44,7 @@ const itemVariants = {
     y: 0,
     transition: {
       duration: 0.7,
-      ease: [0.16, 1, 0.3, 1],
+      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
     },
   },
 };
@@ -59,7 +59,7 @@ const titleVariants = {
     y: 0,
     transition: {
       duration: 0.9,
-      ease: [0.16, 1, 0.3, 1],
+      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
     },
   },
 };
@@ -177,7 +177,7 @@ export function OnboardingModal() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
                 >
                   <DialogTitle 
                     className="text-3xl md:text-4xl font-black mb-4 leading-none tracking-[-0.02em] text-neutral-900 dark:text-neutral-50"
@@ -219,12 +219,12 @@ export function OnboardingModal() {
                 initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
                 exit={{ opacity: 0, scale: 0.8, rotate: 10 }}
-                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
               >
                 <motion.div 
                   className="w-24 h-24 md:w-28 md:h-28 bg-gradient-to-br from-blue-500/10 via-blue-600/10 to-cyan-500/10 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-blue-500/20"
                   whileHover={{ scale: 1.05, rotate: 2 }}
-                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
                 >
                   {step.icon}
                 </motion.div>
@@ -245,7 +245,7 @@ export function OnboardingModal() {
                   className="absolute inset-y-0 left-0 bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 rounded-full"
                   initial={{ width: 0 }}
                   animate={{ width: `${progress}%` }}
-                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
                 />
               </div>
             </motion.div>
@@ -270,7 +270,7 @@ export function OnboardingModal() {
                     scale: index === currentStep ? 1.2 : 1,
                     opacity: index === currentStep ? 1 : index < currentStep ? 0.7 : 0.4
                   }}
-                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
                 />
               ))}
             </motion.div>

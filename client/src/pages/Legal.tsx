@@ -112,7 +112,7 @@ export default function Legal() {
                 <div className="border-l-4 border-red-500 pl-3">
                   <h4 className="font-semibold text-red-900">シナリオ2：薬剤投与量の誤り</h4>
                   <p className="mt-1">
-                    <strong>例：</strong>腔機能低下患者に対する薬剤投与量調節プロンプトを使用したが、AIが提案した投与量が添付文書の推奨量と異なり、そのまま処方してしまった。
+                    <strong>例：</strong>腎機能低下患者に対する薬剤投与量調節プロンプトを使用したが、AIが提案した投与量が添付文書の推奨量と異なり、そのまま処方してしまった。
                   </p>
                   <p className="mt-1 text-red-800">
                     <strong>防止策：</strong>薬剤投与量はAIの出力をそのまま使用せず、必ず最新の添付文書、医薬品インタビューフォーム、または信頼できるデータベース（Sanford Guide、UpToDate等）で確認する。
