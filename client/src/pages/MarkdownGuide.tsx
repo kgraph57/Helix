@@ -1078,6 +1078,9 @@ export default function MarkdownGuide() {
                     blockquote: ({ node, ...props }) => (
                       <blockquote className="pl-6 italic my-8 text-lg md:text-xl text-muted-foreground leading-[1.85] bg-accent/30 py-4 pr-4 rounded-r-lg" {...props} />
                     ),
+                    img: ({ node, ...props }: any) => (
+                      <img className="w-full h-auto rounded-lg shadow-md my-8" {...props} />
+                    ),
                   }}
                 >
                   {content}
