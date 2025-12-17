@@ -19,7 +19,7 @@
 
 ### 📝 詳細手順
 
-![論文の構造理解](/assets/guides/paper-reading/images/paper_structure.png)
+![論文の構造理解](/Helix/assets/guides/paper-reading/images/paper_structure.png)
 
 #### 手順1: 論文の「間取り」を知る
 
