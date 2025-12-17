@@ -54,6 +54,7 @@ const IMPLEMENTED_GUIDES = [
   "research-data-management",
   // 新規公開ガイド
   "diagram-creation-guide",
+  "advanced-medical-illustration-guide",
   "pubmed-search-guide"
 ];
 
@@ -187,6 +188,15 @@ export default function Guides() {
       icon: <Image className="h-6 w-6 text-amber-500" />,
       readTime: "12 min read",
       tags: ["Diagram", "Visualization", "Nanobanana", "Tools"]
+    },
+    {
+      id: "advanced-medical-illustration-guide",
+      title: "【応用編】高度な医学図解作成ガイド",
+      description: "BioRender風の高品質な医学図解やVisual Abstractを作成。世界標準のデザイン原則とプロンプトエンジニアリング技術を解説",
+      category: "Presentation",
+      icon: <Image className="h-6 w-6 text-purple-500" />,
+      readTime: "20 min read",
+      tags: ["BioRender", "Visual Abstract", "Nanobanana", "Advanced"]
     },
     {
       id: "poster-presentation-guide",
