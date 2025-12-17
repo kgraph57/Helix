@@ -655,7 +655,9 @@ const guideMetadata: Record<string, {
     basePath: "/assets/guides/advanced-medical-illustration-guide",
     steps: [
       { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
-      { id: "01-prompt-engineering", title: "プロンプトエンジニアリング", file: "01-prompt-engineering.md" }
+      { id: "01-biorender-style-step-01", title: "BioRender風図解の基本原則", file: "01-biorender-style/step-01.md" },
+      { id: "02-visual-abstract-step-01", title: "Visual Abstractの作成", file: "02-visual-abstract/step-01.md" },
+      { id: "03-advanced-techniques-step-01", title: "高度なプロンプトエンジニアリング", file: "03-advanced-techniques/step-01.md" }
     ]
   },
   "pubmed-search-guide": {
