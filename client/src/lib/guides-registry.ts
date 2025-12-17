@@ -323,6 +323,28 @@ export const guidesRegistry: GuideMetadata[] = [
     estimatedTime: '45分',
     tags: ['緩和ケア', 'ケア計画'],
     icon: '🕊️'
+  },
+  {
+    id: 'diagram-creation-guide',
+    title: '【ツール別】医学図解作成ガイド:Nanobanana活用',
+    titleEn: 'Medical Illustration Guide: Nanobanana',
+    description: 'Nanobananaを使って、病態生理、診断フロー、治療アルゴリズムなどを視覚的に説明する図解を作成',
+    category: '発表',
+    difficulty: 'beginner',
+    estimatedTime: '12分',
+    tags: ['Diagram', 'Visualization', 'Nanobanana', 'Tools'],
+    icon: '🎨'
+  },
+  {
+    id: 'advanced-medical-illustration-guide',
+    title: '【応用編】高度な医学図解作成ガイド',
+    titleEn: 'Advanced Medical Illustration Guide',
+    description: 'BioRender風の高品質な医学図解やVisual Abstractを作成。世界標準のデザイン原則とプロンプトエンジニアリング技術を解説',
+    category: '発表',
+    difficulty: 'intermediate',
+    estimatedTime: '20分',
+    tags: ['BioRender', 'Visual Abstract', 'Nanobanana', 'Advanced'],
+    icon: '🎉'
   }
 ];
 

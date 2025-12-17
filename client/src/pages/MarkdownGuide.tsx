@@ -647,6 +647,17 @@ const guideMetadata: Record<string, {
       { id: "03-reference-step-02", title: "応用編 - ステップ2", file: "03-reference/step-02.md" }
     ]
   },
+  "advanced-medical-illustration-guide": {
+    title: "【応用編】高度な医学図解作成ガイド:BioRender風・Visual Abstract",
+    description: "Nanobananaを使って、BioRender風の高品質な医学図解やVisual Abstractを作成する方法。世界標準のデザイン原則とプロンプトエンジニアリング技術を解説。",
+    readTime: "20 min",
+    category: "Presentation",
+    basePath: "/assets/guides/advanced-medical-illustration-guide",
+    steps: [
+      { id: "00-introduction", title: "イントロダクション", file: "00-introduction.md" },
+      { id: "01-prompt-engineering", title: "プロンプトエンジニアリング", file: "01-prompt-engineering.md" }
+    ]
+  },
   "pubmed-search-guide": {
     title: "【完全版】PubMed検索ガイド:効率的な文献検索",
     description: "PICOに基づいた検索式の作成、MeSH termsの活用、検索結果の絞り込みまで。効率的に文献を見つけるための完全ガイド。",
