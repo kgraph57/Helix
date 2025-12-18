@@ -11,7 +11,7 @@
 
 AIを活用した新薬情報収集のワークフローを視覚的に理解しましょう。
 
-![新薬情報収集フロー](/Helix/assets/guides/new-drug-information/images/new_drug_information_workflow.png)
+![新薬情報収集フロー](/assets/guides/new-drug-information/workflow.png)
 
 ---
 
@@ -23,6 +23,8 @@ AIを活用した新薬情報収集のワークフローを視覚的に理解し
 ---
 
 ## 基本編：迅速な情報把握と構造化（2ステップ）
+
+![信頼できる情報源](/assets/guides/new-drug-information/sources.png)
 
 ### ステップ1: 目的の明確化と基本情報の収集
 
@@ -97,6 +99,8 @@ AIに定型フォーマットを与えることで、情報の抜け漏れを防
 ---
 
 ## 実践編：詳細な分析と応用（3ステップ）
+
+![新薬評価フレームワーク](/assets/guides/new-drug-information/evaluation.png)
 
 ### ステップ3: 競合薬との比較分析
 

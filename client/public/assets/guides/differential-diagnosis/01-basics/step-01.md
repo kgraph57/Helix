@@ -53,6 +53,8 @@
 
 致死的または緊急治療が必要な疾患を優先的に考える
 
+![見逃してはいけない疾患](/assets/guides/differential-diagnosis/dont_miss.png)
+
 #### 主訴別のDon't miss diagnosis
 
 | 主訴 | Don't miss diagnosis |
