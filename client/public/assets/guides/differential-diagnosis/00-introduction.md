@@ -34,6 +34,14 @@ AIを活用することで、以下のメリットがあります：
 
 ---
 
+## 鑑別診断プロセスの全体像
+
+AIを活用した鑑別診断のワークフローを視覚的に理解しましょう。
+
+![鑑別診断プロセス](/Helix/assets/guides/differential-diagnosis/images/differential_diagnosis_workflow.png)
+
+---
+
 ## このガイドで学べること
 
 1. 主訴別の鑑別診断を網羅的にリストアップする方法

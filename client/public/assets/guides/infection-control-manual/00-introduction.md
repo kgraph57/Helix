@@ -16,6 +16,14 @@
 
 ---
 
+## 感染対策マニュアル作成の全体フロー
+
+AIを活用した感染対策マニュアル作成のワークフローを視覚的に理解しましょう。
+
+![感染対策マニュアル作成フロー](/Helix/assets/guides/infection-control-manual/images/infection_control_manual_workflow.png)
+
+---
+
 ## 基本編：マニュアル改訂の方向性を定める（2ステップ）
 
 基本編では、AIを用いて現行マニュアルの現状を分析し、改訂の基礎となる論理的な構成案を確立します。
