@@ -39,6 +39,8 @@ PICOは、臨床疑問を構造化するためのフレームワークです：
 - **C**: "metformin", "conventional therapy", "standard care"
 - **O**: "cardiovascular events", "cardiovascular outcomes", "MACE"
 
+![Boolean Operators](/Helix/assets/guides/pubmed-search-guide/boolean_operators.png)
+
 ### ステップ2: ブール演算子で結合
 
 各PICO要素内のキーワードはORで結合し、PICO要素間はANDで結合します。

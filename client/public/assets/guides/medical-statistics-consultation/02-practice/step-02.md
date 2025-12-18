@@ -10,6 +10,8 @@ AIは、SAPで決定した解析手法に基づき、RやPythonなどの統計�
 2.  変数名の指定: データセット内の正確な列名（変数名）をAIに伝えます。
 3.  ソフトウェアとライブラリの指定: RまたはPython、使用するライブラリ（例：`tidyverse`, `statsmodels`, `survival`）を指定します。
 
+![統計結果の解釈](/Helix/assets/guides/medical-statistics-consultation/interpretation.png)
+
 ### 2. 実用的なプロンプト例：コード生成と結果の解釈
 
 プロンプト例 1: Cox比例ハザードモデルのコード生成

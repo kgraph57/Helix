@@ -9,6 +9,8 @@ EBM（Evidence-Based Medicine）の実践は、日々の臨床現場で生まれ
 
 ---
 
+![PICOフレームワーク](/Helix/assets/guides/literature-search/pico_framework.png)
+
 ## PICOとは？
 
 PICOは、臨床上の疑問を4つの要素に分解し、構造化するためのツールです。

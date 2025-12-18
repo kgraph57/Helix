@@ -10,6 +10,8 @@
 
 ### 実用的なプロンプト例
 
+![サンプルサイズ計算](/Helix/assets/guides/research-protocol/sample_size.png)
+
 #### プロンプト：サンプルサイズ計算の根拠となる文章のドラフト作成
 
 ```

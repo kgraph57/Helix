@@ -1,5 +1,7 @@
 # 03-reference/step-01.md: ClinicalTrials.govの高度な検索フィールドとAIによる検索戦略の最適化
 
+![臨床試験データベース比較](/Helix/assets/guides/clinical-trial-search/databases.png)
+
 ## ClinicalTrials.govの高度な検索フィールドの活用
 
 ClinicalTrials.govの基本的な検索はキーワードで行いますが、より特異的で質の高い結果を得るためには、高度な検索フィールドを理解し、活用することが不可欠です。AIは、これらのフィールドを考慮に入れた複雑な検索戦略の策定を支援します。
