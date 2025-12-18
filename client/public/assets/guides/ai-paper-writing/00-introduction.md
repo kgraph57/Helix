@@ -8,6 +8,14 @@
 
 各段階では、ChatGPT、Perplexity、Elicit、Consensus といった最新のAIツールを戦略的に活用するための具体的なプロンプト例（24個）と実践的なガイダンスを提供します。コピペで使えるプロンプトばかりなので、すぐに実践できますよ。
 
+## Medical AI Research Workflow (MARW)の全体フロー
+
+AIを活用した論文執筆の7ステップワークフローを視覚的に理解しましょう。
+
+![MARW全体フロー](/Helix/assets/guides/ai-paper-writing/images/ai_paper_writing_workflow.png)
+
+---
+
 ## MARWの特徴
 
 ### 1. 世界標準に準拠

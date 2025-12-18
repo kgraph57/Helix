@@ -6,6 +6,14 @@
 
 このガイドでは、LLM時代の最新トレンドを反映した英語校正の実践方法を紹介します。AIツール（Grammarly、DeepL Write、ChatGPT）の組み合わせで、多くのケースでプロ校正と同等以上の品質を達成できるようになりました。特に、非英語圏の研究者にとって、AIツールは「ゲームチェンジャー」となっています。
 
+## 英文校正の全体フロー
+
+AIツールを活用した英文校正のワークフローを視覚的に理解しましょう。
+
+![英文校正フロー](/Helix/assets/guides/english-proofreading/images/english_proofreading_workflow.png)
+
+---
+
 ## なぜ今、この変革が必要なのか？
 
 ### パラダイムシフト

@@ -7,6 +7,14 @@ PubMedは、医学文献を検索するための最も重要なデータベー�
 
 このガイドでは、PICOに基づいた検索式の作成、MeSH termsの活用、検索結果の絞り込みなど、効率的に文献を見つけるための完全な方法を紹介します。
 AIを活用することで、従来の検索方法よりもはるかに効率的に、関連性の高い文献を見つけることができるようになります。
+## PubMed検索の全体フロー
+
+AIを活用したPubMed検索のワークフローを視覚的に理解しましょう。
+
+![PubMed検索フロー](/Helix/assets/guides/pubmed-search-guide/images/pubmed_search_workflow.png)
+
+---
+
 
 ---
 

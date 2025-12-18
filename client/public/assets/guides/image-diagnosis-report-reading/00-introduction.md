@@ -7,6 +7,14 @@
 ---
 
 ## イントロダクション
+## 画像診断レポート読解の全体フロー
+
+AIを活用した画像診断レポート読解のワークフローを視覚的に理解しましょう。
+
+![画像診断レポート読解フロー](/Helix/assets/guides/image-diagnosis-report-reading/images/image_diagnosis_report_reading_workflow.png)
+
+---
+
 
 ### 目的と対象読者
 
