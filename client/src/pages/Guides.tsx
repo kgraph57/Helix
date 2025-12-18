@@ -185,8 +185,9 @@ export default function Guides() {
     },
     {
       id: "diagram-creation-guide",
-      title: "【ツール別】医学図解作成ガイド:Nanobanana活用",
-      description: "Nanobanana（AI画像生成ツール）を使って、病態生理、診断フロー、治療アルゴリズムなどを視覚的に説明する図解を作成します。",
+      hasIllustrations: true,
+      title: "【初心者向け】Nanobanana活用ガイド:実践プロンプト集",
+      description: "Nanobananaの基本的な使い方と、医学図解向けの実践的なプロンプト例を紹介。コミュニティのベストプラクティスも参照できます。",
       category: "Presentation",
       icon: <Image className="h-6 w-6 text-amber-500" />,
       readTime: "12 min read",
