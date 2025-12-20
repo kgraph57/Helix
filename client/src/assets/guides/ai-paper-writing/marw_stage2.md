@@ -1,5 +1,7 @@
 > このドキュメントは、[Medical AI Research Workflow (MARW)](./marw_workflow.md)の一部です。
 
+![系統的文献レビューフロー](/Helix/assets/guides/ai-paper-writing/images/step02_systematic_review_flow.png)
+
 # ステップ2：巨人たちの肩に乗る（文献レビュー）
 
 ## このステップでやること

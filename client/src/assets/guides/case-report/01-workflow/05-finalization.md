@@ -1,5 +1,7 @@
 # ステップ5: 最終化と投稿準備
 
+![最終チェックリスト](/Helix/assets/guides/case-report/images/step05_final_checklist.png)
+
 ## このステップの目的
 
 AIが生成したドラフトを基に、図表、参考文献リスト、抄録（Abstract）を完成させ、ターゲットジャーナルへの投稿準備を整えます。

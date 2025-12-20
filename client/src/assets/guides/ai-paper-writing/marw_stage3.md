@@ -1,5 +1,7 @@
 > このドキュメントは、[Medical AI Research Workflow (MARW)](./marw_workflow.md)の一部です。
 
+![研究デザインの選択](/Helix/assets/guides/ai-paper-writing/images/step03_study_design_selection.png)
+
 # ステップ3：研究の「設計図」を描こう（研究計画とアウトライン作成）
 
 ## このステップでやること

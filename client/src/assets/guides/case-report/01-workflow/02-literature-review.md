@@ -1,5 +1,7 @@
 # ステップ2: 文献検索と背景調査
 
+![文献レビュープロセス](/Helix/assets/guides/case-report/images/step02_literature_review_process.png)
+
 ## このステップの目的
 
 症例の新規性と臨床的意義を客観的に証明するため、最新のAIツールを駆使して網羅的な文献検索を行い、関連研究の背景を深く理解します。

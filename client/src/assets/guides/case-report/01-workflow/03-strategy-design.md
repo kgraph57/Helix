@@ -1,5 +1,7 @@
 # ステップ3: 執筆戦略の立案とプロンプト設計
 
+![執筆戦略フレームワーク](/Helix/assets/guides/case-report/images/step03_writing_strategy_framework.png)
+
 ## このステップの目的
 
 論文の骨子となる詳細なアウトラインを設計し、各セクションをAIに高品質で執筆させるための一連の「マスタープロンプト」を構築します。

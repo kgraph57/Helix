@@ -1,5 +1,7 @@
 > このドキュメントは、[Medical AI Research Workflow (MARW)](./marw_workflow.md)の一部です。
 
+![統計解析フローチャート](/Helix/assets/guides/ai-paper-writing/images/step05_statistical_analysis_flowchart.png)
+
 # ステップ5：物語を紡ぐ（論文執筆）
 
 ## このステップでやること

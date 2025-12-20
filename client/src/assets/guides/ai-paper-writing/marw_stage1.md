@@ -1,5 +1,7 @@
 > このドキュメントは、[Medical AI Research Workflow (MARW)](./marw_workflow.md)の一部です。
 
+![PICOフレームワーク](/Helix/assets/guides/ai-paper-writing/images/step01_research_question_framework.png)
+
 # ステップ1：面白い「問い」を見つけよう（研究テーマ探しと文献リサーチ）
 
 ## このステップでやること
