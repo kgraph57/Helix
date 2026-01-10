@@ -10,6 +10,7 @@ import { StatsBannerSection } from "@/components/home/StatsBannerSection";
 import { FeaturedPromptsSection } from "@/components/home/FeaturedPromptsSection";
 import { ContentShowcaseSection } from "@/components/home/ContentShowcaseSection";
 import { UseCaseSection } from "@/components/home/UseCaseSection";
+import { CoursesLevelSection } from "@/components/home/CoursesLevelSection";
 import type { Prompt } from "@/lib/prompts";
 
 import { toast } from "sonner";
@@ -130,6 +131,9 @@ export default function Home() {
 
         {/* コンテンツ紹介セクション */}
         <ContentShowcaseSection />
+
+        {/* レベル別コースセクション */}
+        <CoursesLevelSection />
 
         {/* ユースケースセクション */}
         <UseCaseSection />
